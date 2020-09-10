@@ -1,0 +1,27 @@
+﻿<Window x:Class="OrderManagementTool.Indent"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OrderManagementTool"
+        mc:Ignorable="d"
+        Title="Indent" Height="450" Width="800">
+    <Grid>
+        <DataGrid Margin="62,125,39,124" SelectionChanged="DataGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Sl No" Binding="{Binding CompanyName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Item Name" Binding="{Binding FirstName}">
+
+                </DataGridTextColumn>
+
+                
+                <DataGridTextColumn Header="Item Code" Binding="{Binding LastName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Decription" Binding="{Binding LastName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Technical Specifications" Binding="{Binding LastName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Quantity" Binding="{Binding LastName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Units" Binding="{Binding LastName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Remarks" Binding="{Binding LastName}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
