@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using System.Configuration;
 
 namespace OrderManagementTool.Models
 {
@@ -8,7 +9,10 @@ namespace OrderManagementTool.Models
     {
         public OrderManagementContext()
         {
+            
         }
+
+
 
         public OrderManagementContext(DbContextOptions<OrderManagementContext> options)
             : base(options)
@@ -35,7 +39,8 @@ namespace OrderManagementTool.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-6KUR6AP\\MSSQLSERVER01;Database=OrderManagement;Trusted_Connection=True;");
+                 optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString);
+                //optionsBuilder.UseSqlServer("Data Source=SGZ-IN01142\\SQLEXPRESS;Initial Catalog=OrderManagement;Integrated Security=True;");
             }
         }
 

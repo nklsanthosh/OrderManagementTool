@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Linq;
 using Caliburn.Micro;
+using OrderManagementTool.Models.Indent;
 
 namespace OrderManagementTool
 {
@@ -30,7 +31,7 @@ namespace OrderManagementTool
         private string selectedItemName;
         private int quantityEntered;
         OrderManagementContext orderManagementContext = new OrderManagementContext();
-
+        private List<GridIndent> gridIndents = new List<GridIndent>();
         public BindableCollection<string> ItemName { get; set; }
         public Indent()
         {
@@ -126,6 +127,20 @@ namespace OrderManagementTool
             if (cbx_itemname.SelectedItem != null && cbx_itemcode.SelectedItem != null && txt_quantity.Text != "" 
                && quantityEntered != 0 && cbx_units.SelectedItem != null)
             {
+                
+                GridIndent gridIndent = new GridIndent();
+                gridIndent.SlNo = gridIndents.Count+1;
+                gridIndent.ItemCode = cbx_itemcode.SelectedItem.ToString();
+                gridIndent.ItemName = cbx_itemname.SelectedItem.ToString();
+                gridIndent.Quantity = quantityEntered;
+                gridIndent.Technical_Specifications = txt_technical_description.Text.Trim();
+                gridIndent.Units = cbx_units.SelectedItem.ToString();
+                gridIndent.Remarks = Txt_remarks.Text.Trim();
+                gridIndents.Add(gridIndent);
+                grid_indentdata.ItemsSource = null;
+                grid_indentdata.ItemsSource = gridIndents;
+                
+                
 
             }
             else if (cbx_itemname.SelectedItem == null)
