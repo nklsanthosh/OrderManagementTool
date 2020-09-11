@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OrderManagementTool.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,10 +46,17 @@ namespace OrderManagementTool
                 string username = txt_username.Text;
                 string password = txt_password.Password.ToString();
 
-                if (true)
+                OrderManagementContext orderManagementContext = new OrderManagementContext();
+                var userFound = orderManagementContext.UserMaster.Where(s => s.Email == username & s.Password == password).FirstOrDefault();
+
+                if (userFound !=null)
                 {
                     Menu menu = new Menu();
                     menu.Show();
+                }
+                else
+                {
+                    MessageBox.Show(" Enter Valid UserCredentials");
                 }
             }
         }
