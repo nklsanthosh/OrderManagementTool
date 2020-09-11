@@ -22,6 +22,13 @@ namespace OrderManagementTool
     {
 
         // private readonly List<string> itemName;
+
+        private List<string> itemName;
+        private List<string> itemCode;
+        private string selectedItemCode;
+        private List<string> units;
+        private string selectedItemName;
+        private int quantityEntered;
         OrderManagementContext orderManagementContext = new OrderManagementContext();
 
         public BindableCollection<string> ItemName { get; set; }
@@ -37,8 +44,8 @@ namespace OrderManagementTool
 
         private void cbx_itemname_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var itemName = (from i in orderManagementContext.ItemCategory
-                            select i.ItemCategoryName).Distinct().ToList();
+            itemName = (from i in orderManagementContext.ItemCategory
+                        select i.ItemCategoryName).Distinct().ToList();
             foreach (var i in itemName)
             {
                 cbx_itemname.Items.Add(i.Trim());
@@ -54,21 +61,18 @@ namespace OrderManagementTool
             {
                 cbx_itemname.Items.Add(i.Trim());
             }
-
-            //cbx_itemname.DisplayMemberPath = "Text";
         }
 
         private void cbx_itemcode_DropDownOpened(object sender, EventArgs e)
         {
-            var itemName = cbx_itemname.SelectedItem.ToString();
-
-            if (itemName != null)
+            if (cbx_itemname.SelectedItem != null)
             {
+                selectedItemName = cbx_itemname.SelectedItem.ToString();
                 cbx_itemcode.Items.Clear();
-                var itemCode = (from i in orderManagementContext.ItemMaster
-                                from ic in orderManagementContext.ItemCategory
-                                where i.ItemCategoryId == ic.ItemCategoryId && ic.ItemCategoryName == itemName
-                                select i.ItemName).Distinct().ToList();
+                itemCode = (from i in orderManagementContext.ItemMaster
+                            from ic in orderManagementContext.ItemCategory
+                            where i.ItemCategoryId == ic.ItemCategoryId && ic.ItemCategoryName == selectedItemName
+                            select i.ItemCode).Distinct().ToList();
                 foreach (var i in itemCode)
                 {
                     cbx_itemcode.Items.Add(i);
@@ -80,32 +84,69 @@ namespace OrderManagementTool
             }
         }
 
-        private void txt_quantity_changed(object sender, SelectionChangedEventArgs e)
+        private void cbx_units_DropDownOpened(object sender, EventArgs e)
+        {
+            cbx_units.Items.Clear();
+            units = (from u in orderManagementContext.UnitMaster
+                     select u.Unit).Distinct().ToList();
+            foreach (var u in units)
+            {
+                cbx_units.Items.Add(u.Trim());
+            }
+        }
+
+        private void txt_quantity_lostfocus(object sender, RoutedEventArgs e)
         {
             if (Int32.TryParse(txt_quantity.Text, out int value))
             {
-                var i = 0;
-                // Here comes the code if numeric
+                quantityEntered = Convert.ToInt32(txt_quantity.Text);
             }
             else
             {
                 MessageBox.Show("Please enter Valid Number");
             }
-            // var quantity = txt_quantity.Text;
-        }
-        private void cbx_itemcode_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
         }
 
-        private void cbx_units_DropDownOpened(object sender, EventArgs e)
+        private void cbx_itemcode_DropDownClosed(object sender, EventArgs e)
         {
-            cbx_units.Items.Clear();
-
-            var units = (from u in orderManagementContext.UnitMaster
-                         select u.Unit).Distinct().ToList();
-            foreach (var u in units)
+            selectedItemCode = cbx_itemcode.SelectionBoxItem.ToString();
+            var itemDetails = (from i in orderManagementContext.ItemMaster
+                               from ic in orderManagementContext.ItemCategory
+                               where i.ItemCategoryId == ic.ItemCategoryId && ic.ItemCategoryName == selectedItemName && i.ItemCode == selectedItemCode
+                               select i).FirstOrDefault();
+            if (itemDetails != null)
             {
-                cbx_units.Items.Add(u.Trim());
+                txt_description.Text = itemDetails.Description;
+                txt_technical_description.Text = itemDetails.TechnicalSpecification;
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (cbx_itemname.SelectedItem != null && cbx_itemcode.SelectedItem != null && txt_quantity.Text != "" 
+               && quantityEntered != 0 && cbx_units.SelectedItem != null)
+            {
+
+            }
+            else if (cbx_itemname.SelectedItem == null)
+            {
+                MessageBox.Show("Please Select ItemName");
+            }
+            else if (cbx_itemcode.SelectedItem == null)
+            {
+                MessageBox.Show("Please Select ItemCode");
+            }
+            else if (txt_quantity.Text == "")
+            {
+                MessageBox.Show("Please Enter Quantity");
+            }
+            else if (quantityEntered == 0)
+            {
+                MessageBox.Show("Please Enter Valid Quantity");
+            }
+            else if (cbx_units.SelectedItem == null)
+            {
+                MessageBox.Show("Please Select Units");
             }
         }
     }
