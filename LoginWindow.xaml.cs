@@ -31,6 +31,7 @@ namespace OrderManagementTool
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+
             if (txt_username.Text.Length == 0)
             {
                 MessageBox.Show("Please Enter Valid UserName");

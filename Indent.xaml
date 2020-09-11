@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="Indent" Height="450" Width="800">
     <Grid>
-        <DataGrid x:Name="grid_indentdata" Margin="62,125,39,124" SelectionChanged="DataGrid_SelectionChanged" AutoGenerateColumns ="True" CanUserAddRows="True">
+        <DataGrid x:Name="grid_indentdata" Margin="62,196,39,124" SelectionChanged="DataGrid_SelectionChanged" AutoGenerateColumns ="True" CanUserAddRows="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Sl No" Binding="{Binding CompanyName}"></DataGridTextColumn>
                 <DataGridTemplateColumn Header="Item Name">
@@ -20,5 +20,19 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <Label x:Name="lbl_itemname" Content="Item Name" HorizontalAlignment="Left" Margin="62,67,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.04"/>
+        <Label x:Name="lbl_itemcode" Content="Item Code" HorizontalAlignment="Left" Margin="144,67,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbl_description" Content="Decription" HorizontalAlignment="Left" Margin="247,67,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbl_technical_specifications" Content="Technical Specifications" HorizontalAlignment="Left" Margin="366,67,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.079,1.581"/>
+        <Label x:Name="lbl_quantity" Content="Quantity" HorizontalAlignment="Left" Margin="525,67,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbl_unit" Content="Units" HorizontalAlignment="Left" Margin="604,67,0,0" VerticalAlignment="Top"/>
+        <Label Content="Remarks" HorizontalAlignment="Left" Margin="664,67,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cbx_itemname" Grid.Row="0" HorizontalAlignment="Left" Margin="62,109,0,0" VerticalAlignment="Top" Width="69"  DropDownOpened="cbx_itemname_DropDownOpened"  SelectionChanged="cbx_itemname_SelectionChanged"/>
+        <ComboBox x:Name="cbx_itemcode" HorizontalAlignment="Left" Margin="144,109,0,0" VerticalAlignment="Top" Width="69" SelectionChanged="cbx_itemcode_SelectionChanged" DropDownOpened="cbx_itemcode_DropDownOpened" />
+        <TextBox x:Name="txt_description" HorizontalAlignment="Left" Margin="247,109,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="87" Height="22"/>
+        <TextBox x:Name="txt_technical_description" HorizontalAlignment="Left" Margin="373,109,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="22"/>
+        <ComboBox x:Name="cbx_units" HorizontalAlignment="Left" Margin="610,109,0,0" VerticalAlignment="Top" Width="42" DropDownOpened="cbx_units_DropDownOpened" />
+        <TextBox x:Name="Txt_remarks" HorizontalAlignment="Left" Margin="664,109,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" Height="22"/>
+        <TextBox x:Name="txt_quantity" HorizontalAlignment="Left" Margin="531,109,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="61" Height="22"/>
     </Grid>
 </Window>
