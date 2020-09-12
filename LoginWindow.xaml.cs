@@ -1,4 +1,5 @@
 ﻿using OrderManagementTool.Models;
+using OrderManagementTool.Models.LogIn;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
-
 
 namespace OrderManagementTool
 {
@@ -48,11 +47,17 @@ namespace OrderManagementTool
                 string password = txt_password.Password.ToString();
 
                 OrderManagementContext orderManagementContext = new OrderManagementContext();
-                var userFound = orderManagementContext.UserMaster.Where(s => s.Email == username & s.Password == password).FirstOrDefault();
+                //var userFound = orderManagementContext.UserMaster.Where(s => s.Email == username & s.Password == password).FirstOrDefault();
+                var userFound = (from i in orderManagementContext.UserMaster
+                                 where i.Email == username && i.Password == password
+                                 select i).FirstOrDefault();
 
                 if (userFound !=null)
                 {
-                    Menu menu = new Menu();
+                    Login login = new Login();
+                    login.UserEmail = username;
+                    login.EmployeeID = userFound.EmployeeId;
+                    Menu menu = new Menu(login);
                     menu.Show();
                 }
                 else

@@ -5,13 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OrderManagementTool"
         mc:Ignorable="d"
-        Title="Menu" Height="450" Width="800">
+        Title="Menu" Height="450" Width="800" WindowState="Maximized" ResizeMode="NoResize">
     <Grid RenderTransformOrigin="0.495,0.77">
         <Label x:Name="lbl_indent" Content="Indent :" HorizontalAlignment="Left" Margin="170,109,0,0" VerticalAlignment="Top" Width="87" Height="30"/>
         <Button x:Name="btn_create_Indent" Content="Create Indent" HorizontalAlignment="Left" Margin="238,112,0,0" VerticalAlignment="Top" Width="100" Click="btn_create_Indent_Click"/>
         <TextBox HorizontalAlignment="Left" Margin="441,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66" Height="20" RenderTransformOrigin="1.545,5.634"/>
         <Label Content="Indent No :" HorizontalAlignment="Left" Margin="362,109,0,0" VerticalAlignment="Top" Width="79"/>
         <Button Content="View" HorizontalAlignment="Left" Margin="524,114,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.533,6.064" Width="38"/>
+        <Label x:Name="lbl_item" Content="Item: " HorizontalAlignment="Left" Margin="174,162,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btn_add_item" Content="Add Item " HorizontalAlignment="Left" Margin="238,168,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.875,2.023" Width="100" Click="btn_add_item_Click"/>
 
     </Grid>
 </Window>

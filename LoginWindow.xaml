@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OrderManagementTool"
         mc:Ignorable="d"
-        Title="Login Window" Height="450" Width="800">
+        Title="Login Window" Height="450" Width="800" WindowState="Maximized" ResizeMode="NoResize">
     <Grid RenderTransformOrigin="0.718,0.539">
         <Label Content="UserName :" HorizontalAlignment="Left" Margin="230,146,0,0" VerticalAlignment="Top" Width="87"/>
         <Label Content="Password :" HorizontalAlignment="Left" Margin="236,191,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.067,0.31" Width="75"/>

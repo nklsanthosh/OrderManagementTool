@@ -6,30 +6,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OrderManagementTool"
         mc:Ignorable="d"
-        Title="Indent" WindowState="Maximized" Height="406" Width="1118">
-    <Grid Margin="0,0,35,23" >
+        Title="Indent" WindowState="Maximized" Height="625" Width="1118"
+         ResizeMode="NoResize">
+    <Grid x:Name="datepicker_date" Margin="0,0,10,18" RenderTransformOrigin="0.946,0.898" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10*"/>
             <ColumnDefinition Width="18*"/>
             <ColumnDefinition Width="897*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="grid_indentdata" Margin="34,196,39,124" SelectionChanged="DataGrid_SelectionChanged" AutoGenerateColumns ="True" CanUserAddRows="True" ColumnWidth="Auto" Grid.Column="2"/>
-        <Label x:Name="lbl_itemname" Content="Item Name" HorizontalAlignment="Left" Margin="34,67,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.04" Grid.Column="2"/>
-        <Label x:Name="lbl_itemcode" Content="Item Code" HorizontalAlignment="Left" Margin="116,67,0,0" VerticalAlignment="Top" Grid.Column="2"/>
-        <Label x:Name="lbl_description" Content="Decription" HorizontalAlignment="Left" Margin="219,67,0,0" VerticalAlignment="Top" Grid.Column="2"/>
-        <Label x:Name="lbl_technical_specifications" Content="Technical Specifications" HorizontalAlignment="Left" Margin="338,67,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.079,1.581" Grid.Column="2"/>
-        <Label x:Name="lbl_quantity" Content="Quantity" HorizontalAlignment="Left" Margin="497,67,0,0" VerticalAlignment="Top" Grid.Column="2"/>
-        <Label x:Name="lbl_unit" Content="Units" HorizontalAlignment="Left" Margin="576,67,0,0" VerticalAlignment="Top" Grid.Column="2"/>
-        <Label Content="Remarks" HorizontalAlignment="Left" Margin="636,67,0,0" VerticalAlignment="Top" Grid.Column="2"/>
-        <ComboBox x:Name="cbx_itemname" Grid.Row="0" HorizontalAlignment="Left" Margin="34,109,0,0" VerticalAlignment="Top" Width="69"  DropDownOpened="cbx_itemname_DropDownOpened" Grid.Column="2"  />
-        <ComboBox x:Name="cbx_itemcode" HorizontalAlignment="Left" Margin="116,109,0,0" VerticalAlignment="Top" Width="69"  DropDownOpened="cbx_itemcode_DropDownOpened" DropDownClosed="cbx_itemcode_DropDownClosed" Grid.Column="2" />
-        <TextBox x:Name="txt_description" HorizontalAlignment="Left" Margin="219,109,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="87" Height="22" Grid.Column="2"/>
-        <TextBox x:Name="txt_technical_description" HorizontalAlignment="Left" Margin="345,109,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="22" Grid.Column="2"/>
-        <ComboBox x:Name="cbx_units" HorizontalAlignment="Left" Margin="582,109,0,0" VerticalAlignment="Top" Width="42" DropDownOpened="cbx_units_DropDownOpened" Grid.Column="2" />
-        <TextBox x:Name="txt_remarks" HorizontalAlignment="Left" Margin="636,109,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Height="22" Grid.Column="2"/>
-        <TextBox x:Name="txt_quantity" HorizontalAlignment="Left"  Margin="503,109,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="61" Height="22" LostFocus="txt_quantity_lostfocus" Grid.Column="2" />
-        <Button Content="Add Indent" HorizontalAlignment="Left" Margin="636,154,0,0" VerticalAlignment="Top" Width="76" Height="23" Click="Button_Click" Grid.Column="2"/>
-        <Button x:Name="btn_clear_fields" Content="Clear Fields" HorizontalAlignment="Left" Margin="515,157,0,0" VerticalAlignment="Top" Width="80" Click="btn_clear_fields_Click" Grid.Column="2"/>
-        <Button x:Name="btn_update_field" Content="Update Field" Grid.Column="2" HorizontalAlignment="Left" Margin="405,157,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.561,1.154" Width="91" Click="Button_Click_1"/>
+        <DataGrid x:Name="grid_indentdata" Margin="91,243,10,239" SelectionChanged="DataGrid_SelectionChanged" AutoGenerateColumns ="True" CanUserAddRows="True" ColumnWidth="Auto" Grid.Column="2"/>
+        <Label x:Name="lbl_itemname" Content="Item Name" HorizontalAlignment="Left" Margin="136,92,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.04" Grid.Column="2" Width="80" Height="30"/>
+        <Label x:Name="lbl_itemcode" Content="Item Code" HorizontalAlignment="Left" Margin="236,92,0,0" VerticalAlignment="Top" Grid.Column="2" Width="77" Height="30"/>
+        <Label x:Name="lbl_description" Content="Decription" HorizontalAlignment="Left" Margin="352,92,0,0" VerticalAlignment="Top" Grid.Column="2" Width="77" Height="30" RenderTransformOrigin="0.86,2.601"/>
+        <Label x:Name="lbl_technical_specifications" Content="Technical Specifications" HorizontalAlignment="Left" Margin="470,94,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.079,1.581" Grid.Column="2" Width="130" Height="30"/>
+        <Label x:Name="lbl_quantity" Content="Quantity" HorizontalAlignment="Left" Margin="647,92,0,0" VerticalAlignment="Top" Grid.Column="2" Width="65" Height="30"/>
+        <Label x:Name="lbl_unit" Content="Units" HorizontalAlignment="Left" Margin="759,94,0,0" VerticalAlignment="Top" Grid.Column="2" Width="44" Height="30"/>
+        <Label Content="Remarks" HorizontalAlignment="Left" Margin="863,94,0,0" VerticalAlignment="Top" Grid.Column="2" Width="64" Height="30" RenderTransformOrigin="2.832,3.301"/>
+        <ComboBox x:Name="cbx_itemname" Grid.Row="0" HorizontalAlignment="Left" Margin="136,142,0,0" VerticalAlignment="Top" Width="80"  DropDownOpened="cbx_itemname_DropDownOpened" Grid.Column="2" Height="24"  />
+        <ComboBox x:Name="cbx_itemcode" HorizontalAlignment="Left" Margin="232,142,0,0" VerticalAlignment="Top" Width="81"  DropDownOpened="cbx_itemcode_DropDownOpened" DropDownClosed="cbx_itemcode_DropDownClosed" Grid.Column="2" Height="24" />
+        <TextBox x:Name="txt_description" HorizontalAlignment="Left" Margin="340,142,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="101" Height="24" Grid.Column="2"/>
+        <TextBox x:Name="txt_technical_description" HorizontalAlignment="Left" Margin="465,142,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" Height="24" Grid.Column="2"/>
+        <ComboBox x:Name="cbx_units" HorizontalAlignment="Left" Margin="759,138,0,0" VerticalAlignment="Top" Width="50" DropDownOpened="cbx_units_DropDownOpened" Grid.Column="2" Height="26" RenderTransformOrigin="3.829,2.901" />
+        <TextBox x:Name="txt_remarks" HorizontalAlignment="Left" Margin="849,138,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Height="26" Grid.Column="2"/>
+        <TextBox x:Name="txt_quantity" HorizontalAlignment="Left"  Margin="640,142,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="72" Height="24" LostFocus="txt_quantity_lostfocus" Grid.Column="2" TextChanged="txt_quantity_TextChanged" />
+        <Button Content="Add Indent" HorizontalAlignment="Left" Margin="581,198,0,0" VerticalAlignment="Top" Width="90" Height="28" Click="Button_Click" Grid.Column="2"/>
+        <Button x:Name="btn_clear_fields" Content="Clear Fields" HorizontalAlignment="Left" Margin="469,202,0,0" VerticalAlignment="Top" Width="93" Click="btn_clear_fields_Click" Grid.Column="2" Height="24"/>
+        <Button x:Name="btn_update_field" Content="Update Field" Grid.Column="2" HorizontalAlignment="Left" Margin="340,202,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.561,1.154" Width="106" Click="Button_Click_1" Height="24"/>
+        <Label x:Name="lbl_raised_by" Content="Raised By : " Grid.Column="2" HorizontalAlignment="Left" Margin="55,32,0,0" VerticalAlignment="Top" Height="26"/>
+        <TextBox x:Name="txt_raised_by" Grid.Column="2" HorizontalAlignment="Left" Margin="130,32,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="26"/>
+        <Label x:Name="lbl_approval_to" Content="Approval To : " Grid.Column="2" HorizontalAlignment="Left" Margin="741,31,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbl_date" Content="Date : " Grid.Column="2" HorizontalAlignment="Left" Margin="318,32,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.199,3.096"/>
+        <DatePicker x:Name="datepicker_date1" Grid.Column="2" HorizontalAlignment="Left" Margin="370,32,0,0" VerticalAlignment="Top"/>
+        <Label Content="Location : " Grid.Column="2" HorizontalAlignment="Left" Margin="516,32,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txt_location" Grid.Column="2" HorizontalAlignment="Left" Margin="580,32,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="26"/>
+        <ComboBox x:Name="cbx_approval_id" Grid.Column="2" HorizontalAlignment="Left" Margin="840,34,0,0" VerticalAlignment="Top" Width="120" DropDownOpened="cbx_approval_id_DropDownOpened"/>
+        <Button x:Name="btn_create_indent" Content="Create Indent" Grid.Column="2" HorizontalAlignment="Left" Margin="520,510,0,0" VerticalAlignment="Top" Width="544" Height="48" Click="btn_create_indent_Click"/>
+        <Button x:Name="btn_generate_report" Content="Generate Report" Grid.Column="2" HorizontalAlignment="Left" Margin="28,510,0,0" VerticalAlignment="Top" Height="48" Width="381" Click="btn_generate_report_Click"/>
     </Grid>
 </Window>

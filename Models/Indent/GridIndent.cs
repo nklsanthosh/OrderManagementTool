@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OrderManagementTool.Models.Indent
 {
-    class GridIndent
+    public class GridIndent
     {
         public int SlNo { get; set; }
         public string ItemName { get; set; }

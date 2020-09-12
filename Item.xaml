@@ -1,0 +1,33 @@
+﻿<Window x:Class="OrderManagementTool.Item"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OrderManagementTool"
+        mc:Ignorable="d"
+        Title="Item" Height="450" Width="800" WindowState="Maximized" ResizeMode="NoResize">
+    <Grid RenderTransformOrigin="0.98,0.894">
+        <Label x:Name="lbl_item_name" Content="Item Name: " HorizontalAlignment="Left" Margin="301,136,0,0" VerticalAlignment="Top" Width="72"  Height="26"/>
+        <TextBox x:Name="txt_item_name" HorizontalAlignment="Left" Margin="393,136,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="26" LostFocus="txt_label_name_LostFocus"/>
+        <Label x:Name="lbl_item_code" Content="Item Code: " HorizontalAlignment="Left" Margin="307,177,0,0" VerticalAlignment="Top" Width="67" Height="26"/>
+        <TextBox x:Name="txt_item_code" HorizontalAlignment="Left" Margin="393,177,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="26" LostFocus="txt_item_code_LostFocus"/>
+        <Label x:Name="lbl_item_description" Content="Item Description: " HorizontalAlignment="Left" Margin="278,228,0,0" VerticalAlignment="Top" Width="104"/>
+        <TextBox x:Name="txt_item_description" HorizontalAlignment="Left" Margin="393,228,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="26"/>
+        <Label x:Name="lbl_technical_specification" Content="Item Technical Spec :" HorizontalAlignment="Left" Margin="264,275,0,0" VerticalAlignment="Top" Width="124" RenderTransformOrigin="1.2,3.545"/>
+        <TextBox x:Name="txt_item_technical_specification" HorizontalAlignment="Left" Margin="394,275,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="26"/>
+        <Button x:Name="btn_add_item" Content="Add item" HorizontalAlignment="Left" Margin="400,339,0,0" VerticalAlignment="Top" Width="113" Click="btn_add_item_Click"/>
+        <Label x:Name="lbl_unit" Content="Unit : " HorizontalAlignment="Left" Margin="588,90,0,0" VerticalAlignment="Top" Width="38" RenderTransformOrigin="1.357,2.005"/>
+        <TextBox x:Name="txt_unit" HorizontalAlignment="Left" Margin="654,90,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="109" Height="26" TextChanged="TextBox_TextChanged" LostFocus="txt_unit_LostFocus"/>
+        <Button x:Name="btn_add_unit" Content="Add Unit" HorizontalAlignment="Left" Margin="660,190,0,0" VerticalAlignment="Top" Width="108" Click="btn_add_unit_Click"/>
+        <Label x:Name="lbl_unit_description" Content="Unit Description : " HorizontalAlignment="Left" Margin="544,136,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txt_unit_description" HorizontalAlignment="Left" Margin="654,136,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="26"/>
+        <Label Content="ItemCategory :" HorizontalAlignment="Left" Margin="292,90,0,0" VerticalAlignment="Top" Width="88"/>
+        <ComboBox x:Name="cbx_category_name" HorizontalAlignment="Left" Margin="393,92,0,0" VerticalAlignment="Top" Width="120" DropDownOpened="cbx_category_name_DropDownOpened" DropDownClosed="cbx_category_name_DropDownClosed"/>
+        <Label x:Name="lbl_category_name" Content="Category Name : " HorizontalAlignment="Left" Margin="32,90,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.407,0.464"/>
+        <TextBox x:Name="txt_category_name" HorizontalAlignment="Left" Margin="137,90,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="26" LostFocus="txt_category_name_LostFocus"/>
+        <Button x:Name="btn_add_category" Content="Add Category" HorizontalAlignment="Left" Margin="137,200,0,0" VerticalAlignment="Top" Height="26" Width="96" Click="btn_add_category_Click"/>
+        <Label x:Name="lbl_category_desc" Content="Category Desc: " HorizontalAlignment="Left" Margin="32,144,0,0" VerticalAlignment="Top" Width="90"/>
+        <TextBox x:Name="txt_category_description" HorizontalAlignment="Left" Margin="137,149,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="26"/>
+
+    </Grid>
+</Window>
