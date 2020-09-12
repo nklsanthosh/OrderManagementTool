@@ -6,23 +6,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OrderManagementTool"
         mc:Ignorable="d"
-        Title="Indent" d:DesignWidth="925.294" d:DesignHeight="402.644" WindowState="Maximized">
-    <Grid >
-        <DataGrid x:Name="grid_indentdata" Margin="62,196,39,124" SelectionChanged="DataGrid_SelectionChanged" AutoGenerateColumns ="True" CanUserAddRows="True" ColumnWidth="Auto"/>
-        <Label x:Name="lbl_itemname" Content="Item Name" HorizontalAlignment="Left" Margin="62,67,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.04"/>
-        <Label x:Name="lbl_itemcode" Content="Item Code" HorizontalAlignment="Left" Margin="144,67,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbl_description" Content="Decription" HorizontalAlignment="Left" Margin="247,67,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbl_technical_specifications" Content="Technical Specifications" HorizontalAlignment="Left" Margin="366,67,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.079,1.581"/>
-        <Label x:Name="lbl_quantity" Content="Quantity" HorizontalAlignment="Left" Margin="525,67,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbl_unit" Content="Units" HorizontalAlignment="Left" Margin="604,67,0,0" VerticalAlignment="Top"/>
-        <Label Content="Remarks" HorizontalAlignment="Left" Margin="664,67,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbx_itemname" Grid.Row="0" HorizontalAlignment="Left" Margin="62,109,0,0" VerticalAlignment="Top" Width="69"  DropDownOpened="cbx_itemname_DropDownOpened"  SelectionChanged="cbx_itemname_SelectionChanged"/>
-        <ComboBox x:Name="cbx_itemcode" HorizontalAlignment="Left" Margin="144,109,0,0" VerticalAlignment="Top" Width="69"  DropDownOpened="cbx_itemcode_DropDownOpened" DropDownClosed="cbx_itemcode_DropDownClosed" />
-        <TextBox x:Name="txt_description" HorizontalAlignment="Left" Margin="247,109,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="87" Height="22"/>
-        <TextBox x:Name="txt_technical_description" HorizontalAlignment="Left" Margin="373,109,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="22"/>
-        <ComboBox x:Name="cbx_units" HorizontalAlignment="Left" Margin="610,109,0,0" VerticalAlignment="Top" Width="42" DropDownOpened="cbx_units_DropDownOpened" />
-        <TextBox x:Name="Txt_remarks" HorizontalAlignment="Left" Margin="664,109,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Height="22"/>
-        <TextBox x:Name="txt_quantity" HorizontalAlignment="Left"  Margin="531,109,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="61" Height="22" LostFocus="txt_quantity_lostfocus" />
-        <Button Content="Add Indent" HorizontalAlignment="Left" Margin="664,154,0,0" VerticalAlignment="Top" Width="76" Height="23" Click="Button_Click"/>
+        Title="Indent" WindowState="Maximized" Height="406" Width="1118">
+    <Grid Margin="0,0,35,23" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="18*"/>
+            <ColumnDefinition Width="897*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="grid_indentdata" Margin="34,196,39,124" SelectionChanged="DataGrid_SelectionChanged" AutoGenerateColumns ="True" CanUserAddRows="True" ColumnWidth="Auto" Grid.Column="2"/>
+        <Label x:Name="lbl_itemname" Content="Item Name" HorizontalAlignment="Left" Margin="34,67,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.04" Grid.Column="2"/>
+        <Label x:Name="lbl_itemcode" Content="Item Code" HorizontalAlignment="Left" Margin="116,67,0,0" VerticalAlignment="Top" Grid.Column="2"/>
+        <Label x:Name="lbl_description" Content="Decription" HorizontalAlignment="Left" Margin="219,67,0,0" VerticalAlignment="Top" Grid.Column="2"/>
+        <Label x:Name="lbl_technical_specifications" Content="Technical Specifications" HorizontalAlignment="Left" Margin="338,67,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.079,1.581" Grid.Column="2"/>
+        <Label x:Name="lbl_quantity" Content="Quantity" HorizontalAlignment="Left" Margin="497,67,0,0" VerticalAlignment="Top" Grid.Column="2"/>
+        <Label x:Name="lbl_unit" Content="Units" HorizontalAlignment="Left" Margin="576,67,0,0" VerticalAlignment="Top" Grid.Column="2"/>
+        <Label Content="Remarks" HorizontalAlignment="Left" Margin="636,67,0,0" VerticalAlignment="Top" Grid.Column="2"/>
+        <ComboBox x:Name="cbx_itemname" Grid.Row="0" HorizontalAlignment="Left" Margin="34,109,0,0" VerticalAlignment="Top" Width="69"  DropDownOpened="cbx_itemname_DropDownOpened" Grid.Column="2"  />
+        <ComboBox x:Name="cbx_itemcode" HorizontalAlignment="Left" Margin="116,109,0,0" VerticalAlignment="Top" Width="69"  DropDownOpened="cbx_itemcode_DropDownOpened" DropDownClosed="cbx_itemcode_DropDownClosed" Grid.Column="2" />
+        <TextBox x:Name="txt_description" HorizontalAlignment="Left" Margin="219,109,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="87" Height="22" Grid.Column="2"/>
+        <TextBox x:Name="txt_technical_description" HorizontalAlignment="Left" Margin="345,109,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="22" Grid.Column="2"/>
+        <ComboBox x:Name="cbx_units" HorizontalAlignment="Left" Margin="582,109,0,0" VerticalAlignment="Top" Width="42" DropDownOpened="cbx_units_DropDownOpened" Grid.Column="2" />
+        <TextBox x:Name="txt_remarks" HorizontalAlignment="Left" Margin="636,109,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Height="22" Grid.Column="2"/>
+        <TextBox x:Name="txt_quantity" HorizontalAlignment="Left"  Margin="503,109,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="61" Height="22" LostFocus="txt_quantity_lostfocus" Grid.Column="2" />
+        <Button Content="Add Indent" HorizontalAlignment="Left" Margin="636,154,0,0" VerticalAlignment="Top" Width="76" Height="23" Click="Button_Click" Grid.Column="2"/>
+        <Button x:Name="btn_clear_fields" Content="Clear Fields" HorizontalAlignment="Left" Margin="515,157,0,0" VerticalAlignment="Top" Width="80" Click="btn_clear_fields_Click" Grid.Column="2"/>
+        <Button x:Name="btn_update_field" Content="Update Field" Grid.Column="2" HorizontalAlignment="Left" Margin="405,157,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.561,1.154" Width="91" Click="Button_Click_1"/>
     </Grid>
 </Window>
