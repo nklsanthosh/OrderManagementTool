@@ -84,9 +84,11 @@ namespace OrderManagementTool
                 }
                 else
                 {
-                    txt_item_code.Text = "";
+
                     txt_item_code.IsEnabled = true;
                     btn_add_item.IsEnabled = true;
+                    txt_item_description.IsEnabled = true;
+                    txt_item_technical_specification.IsEnabled = true;
                 }
             }
         }
@@ -105,11 +107,13 @@ namespace OrderManagementTool
                              select u.UnitMasterId).FirstOrDefault();
             if (isPresent != 0)
             {
-                txt_unit_description.IsEnabled = true;
+                txt_unit_description.IsEnabled = false;
+                btn_add_unit.IsEnabled = false;
             }
             else
             {
-                txt_unit_description.IsEnabled = false;
+                txt_unit_description.IsEnabled = true;
+                btn_add_unit.IsEnabled = true;
             }
         }
 
@@ -150,6 +154,8 @@ namespace OrderManagementTool
                 }
                 );
             orderManagementContext.SaveChanges();
+            txt_category_name.Text = "";
+            txt_category_description.Text = "";
             MessageBox.Show("Item Category " + categoryName + " is added successfully");
         }
 
