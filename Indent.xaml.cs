@@ -70,7 +70,7 @@ namespace OrderManagementTool
                 cbx_itemname.SelectedItem = rowview.ItemName;
                 LoadItemCode();
                 cbx_itemcode.SelectedItem = rowview.ItemCode;
-                LoadDesctiption();
+                LoadDescription();
                 LoadUnits();
                 cbx_units.SelectedItem = rowview.Units;
             }
@@ -105,7 +105,7 @@ namespace OrderManagementTool
 
         private void cbx_itemcode_DropDownClosed(object sender, EventArgs e)
         {
-            LoadDesctiption();
+            LoadDescription();
 
         }
 
@@ -160,19 +160,31 @@ namespace OrderManagementTool
             }
             else if (cbx_itemcode.SelectedItem == null)
             {
-                MessageBox.Show("Please select Item Code", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Please select Item Code",
+                                    "Order Management System", 
+                                        MessageBoxButton.OK,
+                                            MessageBoxImage.Error);
             }
             else if (txt_quantity.Text == "")
             {
-                MessageBox.Show("Please enter quantity", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Please enter quantity", 
+                                    "Order Management System", 
+                                        MessageBoxButton.OK,
+                                            MessageBoxImage.Error);
             }
             else if (quantityEntered == 0)
             {
-                MessageBox.Show("Please enter valid quantity", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Please enter valid quantity", 
+                                    "Order Management System",
+                                        MessageBoxButton.OK, 
+                                            MessageBoxImage.Error);
             }
             else if (cbx_units.SelectedItem == null)
             {
-                MessageBox.Show("Please select units", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Please select units", 
+                                    "Order Management System", 
+                                        MessageBoxButton.OK, 
+                                            MessageBoxImage.Error);
             }
         }
 
@@ -186,12 +198,14 @@ namespace OrderManagementTool
                 cbx_itemname.Items.Add(i.Trim());
             }
         }
-        private void LoadDesctiption()
+        private void LoadDescription()
         {
             selectedItemCode = cbx_itemcode.SelectionBoxItem.ToString();
             var itemDetails = (from i in orderManagementContext.ItemMaster
                                from ic in orderManagementContext.ItemCategory
-                               where i.ItemCategoryId == ic.ItemCategoryId && ic.ItemCategoryName == selectedItemName && i.ItemCode == selectedItemCode
+                               where i.ItemCategoryId == ic.ItemCategoryId && 
+                               ic.ItemCategoryName == selectedItemName && 
+                               i.ItemCode == selectedItemCode
                                select i).FirstOrDefault();
             if (itemDetails != null)
             {
@@ -583,7 +597,7 @@ namespace OrderManagementTool
                 worksheet.Cell("E" + j).Value = headersAndFooters["RejLine1"];
                 worksheet.Cell("E" + j).Style.Alignment.WrapText = true;
                 row = worksheet.Row(1);
-                row.Height = 40;
+                row.Height = 60;
                 j += 1;
                 var rangeMerged9 = worksheet.Range("A" + j + ":D" + j).Merge();
                 worksheet.Cell("A" + j).Value = headersAndFooters["SplLine2"];
@@ -592,7 +606,13 @@ namespace OrderManagementTool
                 worksheet.Cell("G" + j).Value = headersAndFooters["For"] + " " + headersAndFooters["CompanyHeader"];
                 j += 3;
                 worksheet.Cell("G" + j).Value = headersAndFooters["Sign"];
+                var rangeRows = worksheet.Range("A1" + ":G" + j);
 
+                rangeRows.Style.Border.BottomBorder = XLBorderStyleValues.Medium;
+                rangeRows.Style.Border.TopBorder = XLBorderStyleValues.Medium;
+                rangeRows.Style.Border.LeftBorder = XLBorderStyleValues.Medium;
+                rangeRows.Style.Border.RightBorder = XLBorderStyleValues.Medium;
+                
 
                 worksheet.Columns(1, 10).AdjustToContents();
                 //worksheet.Column(1).Width = 20;
