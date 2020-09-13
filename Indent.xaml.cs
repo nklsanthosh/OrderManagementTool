@@ -44,6 +44,17 @@ namespace OrderManagementTool
             InitializeComponent();
             LoadItemName();
             txt_raised_by.Text = _login.UserEmail;
+            //Image img = new Image();
+            //img.Source = new BitmapImage(new Uri(@"~/Images/create-icon.png"));
+
+            //StackPanel stackPnl = new StackPanel();
+            //stackPnl.Orientation = Orientation.Horizontal;
+            //stackPnl.Margin = new Thickness(10);
+            //stackPnl.Children.Add(img);
+
+            //Button btn = new Button();
+            //btn.Content = stackPnl;
+            //datepicker_date.Children.Add(btn);
         }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -88,7 +99,7 @@ namespace OrderManagementTool
             }
             else
             {
-                MessageBox.Show("Please enter Valid Number");
+                MessageBox.Show("Please enter valid number", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -115,7 +126,11 @@ namespace OrderManagementTool
 
                 foreach (var i in gridIndents)
                 {
-                    if (i.ItemName == gridIndent.ItemName && i.ItemCode == gridIndent.ItemCode && i.Description == gridIndent.Description && i.Technical_Specifications == gridIndent.Technical_Specifications && itemPresent == false)
+                    if (i.ItemName == gridIndent.ItemName && 
+                            i.ItemCode == gridIndent.ItemCode &&
+                                i.Description == gridIndent.Description && 
+                                    i.Technical_Specifications == gridIndent.Technical_Specifications && 
+                                        i.Units == gridIndent.Units && itemPresent == false )
                     {
                         itemPresent = true;
 
@@ -130,28 +145,34 @@ namespace OrderManagementTool
                 }
                 else
                 {
-                    MessageBox.Show("Item Already Present");
+                    MessageBox.Show("Item is already available!", 
+                        "Order Management System", 
+                            MessageBoxButton.OK, 
+                                MessageBoxImage.Error);
                 }
             }
             else if (cbx_itemname.SelectedItem == null)
             {
-                MessageBox.Show("Please Select ItemName");
+                MessageBox.Show("Please select Item Name", 
+                                    "Order Management System", 
+                                        MessageBoxButton.OK, 
+                                            MessageBoxImage.Error);
             }
             else if (cbx_itemcode.SelectedItem == null)
             {
-                MessageBox.Show("Please Select ItemCode");
+                MessageBox.Show("Please select Item Code", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else if (txt_quantity.Text == "")
             {
-                MessageBox.Show("Please Enter Quantity");
+                MessageBox.Show("Please enter quantity", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else if (quantityEntered == 0)
             {
-                MessageBox.Show("Please Enter Valid Quantity");
+                MessageBox.Show("Please enter valid quantity", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else if (cbx_units.SelectedItem == null)
             {
-                MessageBox.Show("Please Select Units");
+                MessageBox.Show("Please select units", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -205,7 +226,7 @@ namespace OrderManagementTool
             }
             else
             {
-                MessageBox.Show("Please Select ItemName");
+                MessageBox.Show("Please select item name", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void ClearFields()
@@ -364,7 +385,7 @@ namespace OrderManagementTool
                 }
                 catch(Exception ex)
                 {
-                    int i = 0;
+                    MessageBox.Show("An error occured during save. "+ex.Message, "Order Management System", MessageBoxButton.OK,MessageBoxImage.Error);
                 }
             }
         }

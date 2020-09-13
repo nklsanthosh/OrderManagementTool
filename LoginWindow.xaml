@@ -5,13 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OrderManagementTool"
         mc:Ignorable="d"
-        Title="Login Window" Height="450" Width="800" WindowState="Maximized" ResizeMode="NoResize">
+        Title="Login Window" Height="325" Width="631" WindowStartupLocation="CenterScreen"  ResizeMode="NoResize">
     <Grid RenderTransformOrigin="0.718,0.539">
-        <Label Content="UserName :" HorizontalAlignment="Left" Margin="230,146,0,0" VerticalAlignment="Top" Width="87"/>
-        <Label Content="Password :" HorizontalAlignment="Left" Margin="236,191,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.067,0.31" Width="75"/>
-        <TextBox x:Name="txt_username" HorizontalAlignment="Left" Margin="322,146,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Height="26" TextChanged="txt_username_TextChanged" />
-        <PasswordBox x:Name="txt_password" HorizontalAlignment="Left" Margin="322,191,0,0" VerticalAlignment="Top" Width="160" Height="26" />
-        <Button x:Name="btn_Login" Content="Log In" HorizontalAlignment="Left" Margin="370,256,0,0" VerticalAlignment="Top" Width="112" Click="Button_Click"/>
+        <Label Content="UserName :" HorizontalAlignment="Left" Margin="201,89,0,0" VerticalAlignment="Top" Width="86"/>
+        <Label Content="Password :" HorizontalAlignment="Left" Margin="207,134,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.067,0.31" Width="74"/>
+        <TextBox x:Name="txt_username" HorizontalAlignment="Left" Margin="293,89,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Height="24" TextChanged="txt_username_TextChanged" />
+        <PasswordBox x:Name="txt_password" HorizontalAlignment="Left" Margin="293,134,0,0" VerticalAlignment="Top" Width="160" Height="24" />
+        <Button x:Name="btn_Login" HorizontalAlignment="Left" Margin="341,179,0,0" VerticalAlignment="Top" Width="112" Click="Button_Click">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="Images/login.png" Width="20" Height="20"/>
+                <TextBlock Text="  Login" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+        <Border BorderThickness="1" BorderBrush="Black" Margin="168,69,111,66"/>
+
 
     </Grid>
 </Window>

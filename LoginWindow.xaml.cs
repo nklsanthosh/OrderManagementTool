@@ -33,12 +33,12 @@ namespace OrderManagementTool
 
             if (txt_username.Text.Length == 0)
             {
-                MessageBox.Show("Please Enter Valid UserName");
+                MessageBox.Show("Please Enter Valid UserName", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             else if (txt_password.Password.Length == 0)
             {
-                MessageBox.Show("Please Enter Valid Password");
+                MessageBox.Show("Please Enter Valid Password", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             else if (txt_username.Text.Length != 0 && txt_password.Password.Length != 0)
@@ -52,17 +52,18 @@ namespace OrderManagementTool
                                  where i.Email == username && i.Password == password
                                  select i).FirstOrDefault();
 
-                if (userFound !=null)
+                if (userFound != null)
                 {
                     Login login = new Login();
                     login.UserEmail = username;
                     login.EmployeeID = userFound.EmployeeId;
                     Menu menu = new Menu(login);
                     menu.Show();
+                    this.Close();
                 }
                 else
                 {
-                    MessageBox.Show(" Enter Valid UserCredentials");
+                    MessageBox.Show("Enter Valid UserCredentials", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
