@@ -13,6 +13,7 @@
     <None Remove="Images\create-icon.png" />
     <None Remove="Images\login.png" />
     <None Remove="Images\logo.png" />
+    <None Remove="Images\logout.png" />
     <None Remove="Images\search-icon.png" />
     <None Remove="Images\update-icon.png" />
   </ItemGroup>
@@ -47,6 +48,7 @@
     <Resource Include="Images\logo.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\logout.png" />
     <Resource Include="Images\search-icon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

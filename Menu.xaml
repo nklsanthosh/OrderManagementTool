@@ -29,6 +29,11 @@
                 <TextBlock Text=" Add Masters" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
-        <Button x:Name="btn_log_off" Content="Log Off" HorizontalAlignment="Left" Margin="609,25,0,0" VerticalAlignment="Top" Height="30" Width="130" Click="btn_log_off_Click"/>
+        <Button x:Name="btn_log_off" HorizontalAlignment="Left" Margin="609,25,0,0" VerticalAlignment="Top" Height="30" Width="130" Click="btn_log_off_Click">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="Images/logout.png" Width="20" Height="20"/>
+                <TextBlock Text="   Log Off" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
     </Grid>
 </Window>

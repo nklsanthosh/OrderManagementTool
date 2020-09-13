@@ -162,29 +162,29 @@ namespace OrderManagementTool
             else if (cbx_itemcode.SelectedItem == null)
             {
                 MessageBox.Show("Please select Item Code",
-                                    "Order Management System", 
+                                    "Order Management System",
                                         MessageBoxButton.OK,
                                             MessageBoxImage.Error);
             }
             else if (txt_quantity.Text == "")
             {
-                MessageBox.Show("Please enter quantity", 
-                                    "Order Management System", 
+                MessageBox.Show("Please enter quantity",
+                                    "Order Management System",
                                         MessageBoxButton.OK,
                                             MessageBoxImage.Error);
             }
             else if (quantityEntered == 0)
             {
-                MessageBox.Show("Please enter valid quantity", 
+                MessageBox.Show("Please enter valid quantity",
                                     "Order Management System",
-                                        MessageBoxButton.OK, 
+                                        MessageBoxButton.OK,
                                             MessageBoxImage.Error);
             }
             else if (cbx_units.SelectedItem == null)
             {
-                MessageBox.Show("Please select units", 
-                                    "Order Management System", 
-                                        MessageBoxButton.OK, 
+                MessageBox.Show("Please select units",
+                                    "Order Management System",
+                                        MessageBoxButton.OK,
                                             MessageBoxImage.Error);
             }
         }
@@ -204,8 +204,8 @@ namespace OrderManagementTool
             selectedItemCode = cbx_itemcode.SelectionBoxItem.ToString();
             var itemDetails = (from i in orderManagementContext.ItemMaster
                                from ic in orderManagementContext.ItemCategory
-                               where i.ItemCategoryId == ic.ItemCategoryId && 
-                               ic.ItemCategoryName == selectedItemName && 
+                               where i.ItemCategoryId == ic.ItemCategoryId &&
+                               ic.ItemCategoryName == selectedItemName &&
                                i.ItemCode == selectedItemCode
                                select i).FirstOrDefault();
             if (itemDetails != null)
@@ -320,6 +320,8 @@ namespace OrderManagementTool
 
         private void btn_create_indent_Click(object sender, RoutedEventArgs e)
         {
+            this.Cursor = Cursors.Wait;
+
             if (datepicker_date1.SelectedDate.ToString() == "")
             {
                 MessageBox.Show("Please enter Valid Date");
@@ -355,7 +357,6 @@ namespace OrderManagementTool
                 saveIndent.GridIndents = gridIndents;
                 try
                 {
-
                     using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
                     {
                         connection.Open();
@@ -397,18 +398,26 @@ namespace OrderManagementTool
                         testCMD2.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.RaisedBy });
                         testCMD2.ExecuteNonQuery();
                     }
+                    GenerateIndent();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("An error occured during save. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                finally
+                {
+                    this.Cursor = null;
                 }
             }
         }
 
         private void btn_generate_report_Click(object sender, RoutedEventArgs e)
         {
-            Dictionary<string, string> _headers = GetHeaders();
 
+        }
+        private void GenerateIndent()
+        {
+            Dictionary<string, string> _headers = GetHeaders();
 
             IndentHeader headerData = new IndentHeader();
             headerData.To = "M/S. GILIYAL INDUSTRIES";
@@ -613,7 +622,7 @@ namespace OrderManagementTool
                 rangeRows.Style.Border.TopBorder = XLBorderStyleValues.Medium;
                 rangeRows.Style.Border.LeftBorder = XLBorderStyleValues.Medium;
                 rangeRows.Style.Border.RightBorder = XLBorderStyleValues.Medium;
-                
+
 
                 worksheet.Columns(1, 10).AdjustToContents();
                 //worksheet.Column(1).Width = 20;
@@ -946,7 +955,7 @@ namespace OrderManagementTool
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            Menu menu = new Menu(_login );
+            Menu menu = new Menu(_login);
             menu.Show();
         }
     }

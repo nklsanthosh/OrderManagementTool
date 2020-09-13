@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OrderManagementTool"
         mc:Ignorable="d" Icon="/Images/logo.png"
-        Title="SLPPRE Order Management System Login" Height="325" Width="631" WindowStartupLocation="CenterScreen"  ResizeMode="NoResize">
+        Title="SLPPRE-New Order Management System Login" Height="325" Width="631" WindowStartupLocation="CenterScreen"  ResizeMode="NoResize">
     <Grid RenderTransformOrigin="0.718,0.539">
         <Label Content="UserName :" HorizontalAlignment="Left" Margin="201,89,0,0" VerticalAlignment="Top" Width="86"/>
         <Label Content="Password :" HorizontalAlignment="Left" Margin="207,134,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.067,0.31" Width="74"/>
