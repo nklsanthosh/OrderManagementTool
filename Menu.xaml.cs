@@ -35,12 +35,21 @@ namespace OrderManagementTool
         {
             Indent indent = new Indent(_login);
             indent.Show();
+            this.Close();
         }
 
         private void btn_add_item_Click(object sender, RoutedEventArgs e)
         {
             Item item = new Item(_login);
             item.Show();
+            this.Close();
+        }
+
+        private void btn_log_off_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Close();
         }
     }
 }

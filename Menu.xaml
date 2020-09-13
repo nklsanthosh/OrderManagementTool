@@ -4,30 +4,31 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OrderManagementTool"
-        mc:Ignorable="d"
-        Title="Menu" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        mc:Ignorable="d" Icon="/Images/logo.png"
+        Title="Order Management System - Menu" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid RenderTransformOrigin="0.495,0.77">
         <Label x:Name="lbl_indent" Content="Create or Search Indent" HorizontalAlignment="Left" Margin="80,109,0,0" VerticalAlignment="Top" Width="140" Height="30"/>
-        <Button x:Name="btn_create_Indent" HorizontalAlignment="Left" Margin="238,109,0,0" VerticalAlignment="Top" Width="110" Click="btn_create_Indent_Click">
+        <Button x:Name="btn_create_Indent" HorizontalAlignment="Left" Margin="238,109,0,0" VerticalAlignment="Top" Width="130" Height="30" Click="btn_create_Indent_Click">
             <StackPanel Orientation="Horizontal">
                 <Image Source="Images/create-icon.png" Width="20" Height="20"/>
                 <TextBlock Text=" Create Indent" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
-            <TextBox HorizontalAlignment="Left" Margin="441,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66" Height="20" RenderTransformOrigin="1.545,5.634"/>
-        <Label Content="Indent No :" HorizontalAlignment="Left" Margin="362,109,0,0" VerticalAlignment="Top" Width="79"/>
-        <Button  HorizontalAlignment="Left" Margin="524,109,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.533,6.064" Width="120">
+        <TextBox HorizontalAlignment="Left" Margin="474,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66" Height="26" RenderTransformOrigin="1.545,5.634"/>
+        <Label Content="Indent No :" HorizontalAlignment="Left" Margin="395,110,0,0" VerticalAlignment="Top" Width="79"/>
+        <Button  HorizontalAlignment="Left" Margin="557,110,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.533,6.064" Width="130" Height="30">
             <StackPanel Orientation="Horizontal">
                 <Image Source="Images/search-icon.png" Width="20" Height="20"/>
                 <TextBlock Text=" Search Indent" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
         <Label x:Name="lbl_item" Content="Masters" HorizontalAlignment="Left" Margin="164,168,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btn_add_item" HorizontalAlignment="Left" Margin="238,168,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.875,2.023" Width="110" Click="btn_add_item_Click">
-        <StackPanel Orientation="Horizontal">
-            <Image Source="Images/add-icon.png" Width="20" Height="20"/>
-            <TextBlock Text=" Add Masters" VerticalAlignment="Center"/>
-        </StackPanel>
+        <Button x:Name="btn_add_item" HorizontalAlignment="Left" Margin="238,168,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.875,2.023" Width="130" Height="30" Click="btn_add_item_Click">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="Images/add-icon.png" Width="20" Height="20"/>
+                <TextBlock Text=" Add Masters" VerticalAlignment="Center"/>
+            </StackPanel>
         </Button>
+        <Button x:Name="btn_log_off" Content="Log Off" HorizontalAlignment="Left" Margin="609,25,0,0" VerticalAlignment="Top" Height="30" Width="130" Click="btn_log_off_Click"/>
     </Grid>
 </Window>

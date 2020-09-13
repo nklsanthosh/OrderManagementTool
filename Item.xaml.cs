@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Linq;
 using OrderManagementTool.Models.LogIn;
+using System.ComponentModel;
 
 namespace OrderManagementTool
 {
@@ -229,6 +230,12 @@ namespace OrderManagementTool
                     CreatedDate = DateTime.Now
                 });
             orderManagementContext.SaveChanges();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            Menu menu = new Menu(_login);
+            menu.Show();
         }
     }
 }

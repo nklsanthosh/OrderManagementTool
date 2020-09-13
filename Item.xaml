@@ -4,30 +4,77 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OrderManagementTool"
-        mc:Ignorable="d"
-        Title="Item" Height="450" Width="800" WindowState="Maximized" ResizeMode="NoResize">
+        mc:Ignorable="d" Icon="/Images/logo.png"
+        Title="Order Management System - Masters" Height="423" Width="718" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid RenderTransformOrigin="0.98,0.894">
-        <Label x:Name="lbl_item_name" Content="Item Name: " HorizontalAlignment="Left" Margin="301,136,0,0" VerticalAlignment="Top" Width="72"  Height="26"/>
-        <TextBox x:Name="txt_item_name" HorizontalAlignment="Left" Margin="393,136,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="26" LostFocus="txt_label_name_LostFocus"/>
-        <Label x:Name="lbl_item_code" Content="Item Code: " HorizontalAlignment="Left" Margin="307,177,0,0" VerticalAlignment="Top" Width="67" Height="26"/>
-        <TextBox x:Name="txt_item_code" HorizontalAlignment="Left" Margin="393,177,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="26" LostFocus="txt_item_code_LostFocus"/>
-        <Label x:Name="lbl_item_description" Content="Item Description: " HorizontalAlignment="Left" Margin="278,228,0,0" VerticalAlignment="Top" Width="104"/>
-        <TextBox x:Name="txt_item_description" HorizontalAlignment="Left" Margin="393,228,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="26"/>
-        <Label x:Name="lbl_technical_specification" Content="Item Technical Spec :" HorizontalAlignment="Left" Margin="264,275,0,0" VerticalAlignment="Top" Width="124" RenderTransformOrigin="1.2,3.545"/>
-        <TextBox x:Name="txt_item_technical_specification" HorizontalAlignment="Left" Margin="394,275,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="26"/>
-        <Button x:Name="btn_add_item" Content="Add item" HorizontalAlignment="Left" Margin="400,339,0,0" VerticalAlignment="Top" Width="113" Click="btn_add_item_Click"/>
-        <Label x:Name="lbl_unit" Content="Unit : " HorizontalAlignment="Left" Margin="588,90,0,0" VerticalAlignment="Top" Width="38" RenderTransformOrigin="1.357,2.005"/>
-        <TextBox x:Name="txt_unit" HorizontalAlignment="Left" Margin="654,90,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="109" Height="26" TextChanged="TextBox_TextChanged" LostFocus="txt_unit_LostFocus"/>
-        <Button x:Name="btn_add_unit" Content="Add Unit" HorizontalAlignment="Left" Margin="660,190,0,0" VerticalAlignment="Top" Width="108" Click="btn_add_unit_Click"/>
-        <Label x:Name="lbl_unit_description" Content="Unit Description : " HorizontalAlignment="Left" Margin="544,136,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txt_unit_description" HorizontalAlignment="Left" Margin="654,136,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="26"/>
-        <Label Content="ItemCategory :" HorizontalAlignment="Left" Margin="292,90,0,0" VerticalAlignment="Top" Width="88"/>
-        <ComboBox x:Name="cbx_category_name" HorizontalAlignment="Left" Margin="393,92,0,0" VerticalAlignment="Top" Width="120" DropDownOpened="cbx_category_name_DropDownOpened" DropDownClosed="cbx_category_name_DropDownClosed"/>
-        <Label x:Name="lbl_category_name" Content="Category Name : " HorizontalAlignment="Left" Margin="32,90,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.407,0.464"/>
-        <TextBox x:Name="txt_category_name" HorizontalAlignment="Left" Margin="137,90,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="26" LostFocus="txt_category_name_LostFocus"/>
-        <Button x:Name="btn_add_category" Content="Add Category" HorizontalAlignment="Left" Margin="137,200,0,0" VerticalAlignment="Top" Height="26" Width="96" Click="btn_add_category_Click"/>
-        <Label x:Name="lbl_category_desc" Content="Category Desc: " HorizontalAlignment="Left" Margin="32,144,0,0" VerticalAlignment="Top" Width="90"/>
-        <TextBox x:Name="txt_category_description" HorizontalAlignment="Left" Margin="137,149,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="26"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TabControl Grid.ColumnSpan="2">
+            <TabItem Header="Add Category">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="189*"/>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="57*"/>
+                        <ColumnDefinition Width="26*"/>
+                        <ColumnDefinition Width="432*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="lbl_category_name" Content="Category Name : " HorizontalAlignment="Left" Margin="185,90,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.407,0.464" Grid.ColumnSpan="5"/>
+                    <TextBox x:Name="txt_category_name" HorizontalAlignment="Left" Margin="22,90,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="26" LostFocus="txt_category_name_LostFocus" Grid.Column="4"/>
+                    <Button x:Name="btn_add_category"  HorizontalAlignment="Left" Margin="92,180,0,0" VerticalAlignment="Top" Click="btn_add_category_Click" Width="130" Height="30" Grid.Column="4">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Images/add-icon.png" Width="20" Height="20"/>
+                            <TextBlock Text="Add Category" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Label x:Name="lbl_category_desc" Content="Category Desc: " HorizontalAlignment="Left" Margin="185,135,0,0" VerticalAlignment="Top" Width="90" Grid.ColumnSpan="4"></Label>
+                    <TextBox x:Name="txt_category_description" HorizontalAlignment="Left" Margin="22,135,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="26" Grid.Column="4"/>
+                    <Border BorderThickness="1" BorderBrush="Black" Margin="156,60,156,138" Grid.ColumnSpan="5"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Add Item">
+                <Grid >
+                    <Label Content="ItemCategory :" HorizontalAlignment="Left" Margin="190,55,0,0" VerticalAlignment="Top" Width="88"  Height="26"/>
+                    <ComboBox x:Name="cbx_category_name" HorizontalAlignment="Left" Margin="325,55,0,0" VerticalAlignment="Top" Width="200" DropDownOpened="cbx_category_name_DropDownOpened" DropDownClosed="cbx_category_name_DropDownClosed" Height="26"/>
+                    <Label x:Name="lbl_item_name" Content="Item Name: " HorizontalAlignment="Left" Margin="193,100,0,0" VerticalAlignment="Top" Width="72"  Height="25"/>
+                    <TextBox x:Name="txt_item_name" HorizontalAlignment="Left" Margin="325,100,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="26" LostFocus="txt_label_name_LostFocus"/>
+                    <Label x:Name="lbl_item_code"  Content="Item Code: " HorizontalAlignment="Left" Margin="193,145,0,0" VerticalAlignment="Top" Width="88" Height="26"/>
+                    <TextBox x:Name="txt_item_code" HorizontalAlignment="Left" Margin="325,145,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="26" LostFocus="txt_item_code_LostFocus"/>
+                    <Label x:Name="lbl_item_description"  Height="26" Content="Item Description: " HorizontalAlignment="Left" Margin="185,190,0,0" VerticalAlignment="Top" Width="99"/>
+                    <TextBox x:Name="txt_item_description" HorizontalAlignment="Left" Margin="325,190,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="26"/>
+                    <Label x:Name="lbl_technical_specification" Content="Item Technical Spec :" HorizontalAlignment="Left" Margin="185,235,0,0" VerticalAlignment="Top" Width="126" RenderTransformOrigin="1.2,3.545" Height="26"/>
+                    <TextBox x:Name="txt_item_technical_specification" HorizontalAlignment="Left" Margin="325,235,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="26"/>
+                    <Button x:Name="btn_add_item" HorizontalAlignment="Left" Margin="395,282,0,0" VerticalAlignment="Top" Click="btn_add_item_Click" Width="130" Height="30">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Images/add-icon.png" Width="20" Height="20"/>
+                            <TextBlock Text=" Add Item" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Border BorderThickness="1" BorderBrush="Black" Margin="156,32,156,40"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Add Unit">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="581*"/>
+                        <ColumnDefinition Width="131*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="lbl_unit" Content="Unit : " HorizontalAlignment="Center" Margin="0,90,0,0" VerticalAlignment="Top" Width="38" RenderTransformOrigin="1.357,2.005" Height="26"/>
+                    <TextBox x:Name="txt_unit" HorizontalAlignment="Left" Margin="325,90,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="26" TextChanged="TextBox_TextChanged" LostFocus="txt_unit_LostFocus"/>
+                    <Button x:Name="btn_add_unit" HorizontalAlignment="Left" Margin="395,180,0,0" VerticalAlignment="Top" Click="btn_add_unit_Click"  Width="130" Height="30">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Images/add-icon.png" Width="20" Height="20"/>
+                            <TextBlock Text=" Add Unit" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Label x:Name="lbl_unit_description" Content="Unit Description : " HorizontalAlignment="Left" Margin="215,135,0,0" VerticalAlignment="Top" Width="102" Height="26"/>
+                    <TextBox x:Name="txt_unit_description" HorizontalAlignment="Left" Margin="325,135,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="26"/>
+                    <Border BorderThickness="1" BorderBrush="Black" Margin="156,60,14,143"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
 
     </Grid>
 </Window>

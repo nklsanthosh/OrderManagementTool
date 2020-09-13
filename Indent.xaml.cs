@@ -19,6 +19,7 @@ using Microsoft.Data.SqlClient;
 using System.Configuration;
 using OrderManagementTool.Models.Excel;
 using ClosedXML.Excel;
+using System.ComponentModel;
 
 namespace OrderManagementTool
 {
@@ -126,11 +127,11 @@ namespace OrderManagementTool
 
                 foreach (var i in gridIndents)
                 {
-                    if (i.ItemName == gridIndent.ItemName && 
+                    if (i.ItemName == gridIndent.ItemName &&
                             i.ItemCode == gridIndent.ItemCode &&
-                                i.Description == gridIndent.Description && 
-                                    i.Technical_Specifications == gridIndent.Technical_Specifications && 
-                                        i.Units == gridIndent.Units && itemPresent == false )
+                                i.Description == gridIndent.Description &&
+                                    i.Technical_Specifications == gridIndent.Technical_Specifications &&
+                                        i.Units == gridIndent.Units && itemPresent == false)
                     {
                         itemPresent = true;
 
@@ -145,17 +146,17 @@ namespace OrderManagementTool
                 }
                 else
                 {
-                    MessageBox.Show("Item is already available!", 
-                        "Order Management System", 
-                            MessageBoxButton.OK, 
+                    MessageBox.Show("Item is already available!",
+                        "Order Management System",
+                            MessageBoxButton.OK,
                                 MessageBoxImage.Error);
                 }
             }
             else if (cbx_itemname.SelectedItem == null)
             {
-                MessageBox.Show("Please select Item Name", 
-                                    "Order Management System", 
-                                        MessageBoxButton.OK, 
+                MessageBox.Show("Please select Item Name",
+                                    "Order Management System",
+                                        MessageBoxButton.OK,
                                             MessageBoxImage.Error);
             }
             else if (cbx_itemcode.SelectedItem == null)
@@ -397,9 +398,9 @@ namespace OrderManagementTool
                         testCMD2.ExecuteNonQuery();
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("An error occured during save. "+ex.Message, "Order Management System", MessageBoxButton.OK,MessageBoxImage.Error);
+                    MessageBox.Show("An error occured during save. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -941,6 +942,12 @@ namespace OrderManagementTool
                 //log.Error("Error while generating for Bot Report");
                 //log.Error(ex.Message);
             }
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            Menu menu = new Menu(_login );
+            menu.Show();
         }
     }
 }

@@ -5,8 +5,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OrderManagementTool"
-        mc:Ignorable="d"
-        Title="Indent" WindowStartupLocation="CenterScreen" Height="625" Width="1118"
+        mc:Ignorable="d" Icon="/Images/logo.png"
+        Title="Order Management System - Indent" WindowStartupLocation="CenterScreen" Height="625" Width="1118"
          ResizeMode="NoResize">
     <Grid x:Name="datepicker_date" Margin="0,0,10,18" RenderTransformOrigin="0.946,0.898" >
         <Grid.ColumnDefinitions>
@@ -29,19 +29,19 @@
         <ComboBox x:Name="cbx_units" HorizontalAlignment="Left" Margin="719,142,0,0" VerticalAlignment="Top" Width="120" DropDownOpened="cbx_units_DropDownOpened" Grid.Column="2" Height="24" RenderTransformOrigin="3.829,2.901" />
         <TextBox x:Name="txt_remarks" HorizontalAlignment="Left" Margin="849,142,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Height="24" Grid.Column="2"/>
         <TextBox x:Name="txt_quantity" HorizontalAlignment="Left"  Margin="640,142,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="72" Height="24" LostFocus="txt_quantity_lostfocus" Grid.Column="2" TextChanged="txt_quantity_TextChanged" />
-        <Button  HorizontalAlignment="Left" Margin="914,198,0,0" VerticalAlignment="Top" Width="130" Height="30" Click="Button_Click" Grid.Column="2">
+        <Button  HorizontalAlignment="Left" Margin="911,197,0,0" VerticalAlignment="Top" Width="130" Height="30" Click="Button_Click" Grid.Column="2">
             <StackPanel Orientation="Horizontal">
                 <Image Source="Images/add-icon.png" Width="20" Height="20"/>
                 <TextBlock Text=" Add Indent" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
-        <Button x:Name="btn_clear_fields" HorizontalAlignment="Left" Margin="776,198,0,0" VerticalAlignment="Top" Width="130" Height="30"  Click="btn_clear_fields_Click" Grid.Column="2">
+        <Button x:Name="btn_clear_fields" HorizontalAlignment="Left" Margin="773,197,0,0" VerticalAlignment="Top" Width="130" Height="30"  Click="btn_clear_fields_Click" Grid.Column="2">
             <StackPanel Orientation="Horizontal">
                 <Image Source="Images/clear-icon.png" Width="20" Height="20"/>
                 <TextBlock Text="  Clear Fields" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
-        <Button x:Name="btn_update_field" Grid.Column="2" HorizontalAlignment="Left" Margin="638,198,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.561,1.154"  Width="130" Height="30"  Click="Button_Click_1">
+        <Button x:Name="btn_update_field" Grid.Column="2" HorizontalAlignment="Left" Margin="635,197,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.561,1.154"  Width="130" Height="30"  Click="Button_Click_1">
             <StackPanel Orientation="Horizontal">
                 <Image Source="Images/update-icon.png" Width="20" Height="20"/>
                 <TextBlock Text=" Update Field" VerticalAlignment="Center"/>
