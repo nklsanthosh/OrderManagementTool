@@ -61,35 +61,75 @@ namespace OrderManagementTool
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //DataRowView rowview = grid_indentdata.SelectedItem as DataRowView;
-            var rowview = grid_indentdata.SelectedItem as GridIndent;
-            gridSelectedIndex = grid_indentdata.SelectedIndex;
-
-            if (rowview != null)
+            try
             {
-                txt_quantity.Text = Convert.ToInt32(rowview.Quantity).ToString();
-                LoadItemName();
-                cbx_itemname.SelectedItem = rowview.ItemName;
-                LoadItemCode();
-                cbx_itemcode.SelectedItem = rowview.ItemCode;
-                LoadDescription();
-                LoadUnits();
-                cbx_units.SelectedItem = rowview.Units;
+                var rowview = grid_indentdata.SelectedItem as GridIndent;
+                gridSelectedIndex = grid_indentdata.SelectedIndex;
+
+                if (rowview != null)
+                {
+                    txt_quantity.Text = Convert.ToInt32(rowview.Quantity).ToString();
+                    LoadItemName();
+                    cbx_itemname.SelectedItem = rowview.ItemName;
+                    LoadItemCode();
+                    cbx_itemcode.SelectedItem = rowview.ItemCode;
+                    LoadDescription();
+                    LoadUnits();
+                    cbx_units.SelectedItem = rowview.Units;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred :" + ex.Message,
+                                   "Order Management System",
+                                       MessageBoxButton.OK,
+                                           MessageBoxImage.Error);
             }
         }
 
         private void cbx_itemname_DropDownOpened(object sender, EventArgs e)
         {
-            LoadItemName();
+            try
+            {
+                LoadItemName();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred :" + ex.Message,
+                                   "Order Management System",
+                                       MessageBoxButton.OK,
+                                           MessageBoxImage.Error);
+            }
         }
 
         private void cbx_itemcode_DropDownOpened(object sender, EventArgs e)
         {
-            LoadItemCode();
+            try
+            {
+                LoadItemCode();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred :" + ex.Message,
+                                   "Order Management System",
+                                       MessageBoxButton.OK,
+                                           MessageBoxImage.Error);
+            }
         }
 
         private void cbx_units_DropDownOpened(object sender, EventArgs e)
         {
-            LoadUnits();
+            try
+            {
+                LoadUnits();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred :" + ex.Message,
+                                   "Order Management System",
+                                       MessageBoxButton.OK,
+                                           MessageBoxImage.Error);
+            }
         }
 
         private void txt_quantity_lostfocus(object sender, RoutedEventArgs e)
@@ -100,92 +140,114 @@ namespace OrderManagementTool
             }
             else
             {
-                MessageBox.Show("Please enter valid number", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Please enter valid number",
+                                   "Order Management System",
+                                       MessageBoxButton.OK,
+                                           MessageBoxImage.Error);
             }
         }
 
         private void cbx_itemcode_DropDownClosed(object sender, EventArgs e)
         {
-            LoadDescription();
-
+            try
+            {
+                LoadDescription();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred :" + ex.Message,
+                                   "Order Management System",
+                                       MessageBoxButton.OK,
+                                           MessageBoxImage.Error);
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (cbx_itemname.SelectedItem != null && cbx_itemcode.SelectedItem != null && txt_quantity.Text != ""
-               && quantityEntered != 0 && cbx_units.SelectedItem != null)
+            try
             {
-                bool itemPresent = false;
-                GridIndent gridIndent = new GridIndent();
-                gridIndent.SlNo = gridIndents.Count + 1;
-                gridIndent.ItemCode = cbx_itemcode.SelectedItem.ToString();
-                gridIndent.ItemName = cbx_itemname.SelectedItem.ToString();
-                gridIndent.Quantity = quantityEntered;
-                gridIndent.Technical_Specifications = txt_technical_description.Text.Trim();
-                gridIndent.Units = cbx_units.SelectedItem.ToString();
-                gridIndent.Remarks = txt_remarks.Text.Trim();
-
-                foreach (var i in gridIndents)
+                if (cbx_itemname.SelectedItem != null && cbx_itemcode.SelectedItem != null && txt_quantity.Text != ""
+                   && quantityEntered != 0 && cbx_units.SelectedItem != null)
                 {
-                    if (i.ItemName == gridIndent.ItemName &&
-                            i.ItemCode == gridIndent.ItemCode &&
-                                i.Description == gridIndent.Description &&
-                                    i.Technical_Specifications == gridIndent.Technical_Specifications &&
-                                        i.Units == gridIndent.Units && itemPresent == false)
-                    {
-                        itemPresent = true;
+                    bool itemPresent = false;
+                    GridIndent gridIndent = new GridIndent();
+                    gridIndent.SlNo = gridIndents.Count + 1;
+                    gridIndent.ItemCode = cbx_itemcode.SelectedItem.ToString();
+                    gridIndent.ItemName = cbx_itemname.SelectedItem.ToString();
+                    gridIndent.Quantity = quantityEntered;
+                    gridIndent.Technical_Specifications = txt_technical_description.Text.Trim();
+                    gridIndent.Units = cbx_units.SelectedItem.ToString();
+                    gridIndent.Remarks = txt_remarks.Text.Trim();
 
+                    foreach (var i in gridIndents)
+                    {
+                        if (i.ItemName == gridIndent.ItemName &&
+                                i.ItemCode == gridIndent.ItemCode &&
+                                    i.Description == gridIndent.Description &&
+                                        i.Technical_Specifications == gridIndent.Technical_Specifications &&
+                                            i.Units == gridIndent.Units && itemPresent == false)
+                        {
+                            itemPresent = true;
+
+                        }
+                    }
+                    if (!itemPresent)
+                    {
+                        gridIndents.Add(gridIndent);
+                        grid_indentdata.ItemsSource = null;
+                        grid_indentdata.ItemsSource = gridIndents;
+                        ClearFields();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Item is already available!",
+                            "Order Management System",
+                                MessageBoxButton.OK,
+                                    MessageBoxImage.Error);
                     }
                 }
-                if (!itemPresent)
+                else if (cbx_itemname.SelectedItem == null)
                 {
-                    gridIndents.Add(gridIndent);
-                    grid_indentdata.ItemsSource = null;
-                    grid_indentdata.ItemsSource = gridIndents;
-                    ClearFields();
+                    MessageBox.Show("Please select Item Name",
+                                        "Order Management System",
+                                            MessageBoxButton.OK,
+                                                MessageBoxImage.Error);
                 }
-                else
+                else if (cbx_itemcode.SelectedItem == null)
                 {
-                    MessageBox.Show("Item is already available!",
-                        "Order Management System",
-                            MessageBoxButton.OK,
-                                MessageBoxImage.Error);
+                    MessageBox.Show("Please select Item Code",
+                                        "Order Management System",
+                                            MessageBoxButton.OK,
+                                                MessageBoxImage.Error);
+                }
+                else if (txt_quantity.Text == "")
+                {
+                    MessageBox.Show("Please enter quantity",
+                                        "Order Management System",
+                                            MessageBoxButton.OK,
+                                                MessageBoxImage.Error);
+                }
+                else if (quantityEntered == 0)
+                {
+                    MessageBox.Show("Please enter valid quantity",
+                                        "Order Management System",
+                                            MessageBoxButton.OK,
+                                                MessageBoxImage.Error);
+                }
+                else if (cbx_units.SelectedItem == null)
+                {
+                    MessageBox.Show("Please select units",
+                                        "Order Management System",
+                                            MessageBoxButton.OK,
+                                                MessageBoxImage.Error);
                 }
             }
-            else if (cbx_itemname.SelectedItem == null)
+            catch (Exception ex)
             {
-                MessageBox.Show("Please select Item Name",
-                                    "Order Management System",
-                                        MessageBoxButton.OK,
-                                            MessageBoxImage.Error);
-            }
-            else if (cbx_itemcode.SelectedItem == null)
-            {
-                MessageBox.Show("Please select Item Code",
-                                    "Order Management System",
-                                        MessageBoxButton.OK,
-                                            MessageBoxImage.Error);
-            }
-            else if (txt_quantity.Text == "")
-            {
-                MessageBox.Show("Please enter quantity",
-                                    "Order Management System",
-                                        MessageBoxButton.OK,
-                                            MessageBoxImage.Error);
-            }
-            else if (quantityEntered == 0)
-            {
-                MessageBox.Show("Please enter valid quantity",
-                                    "Order Management System",
-                                        MessageBoxButton.OK,
-                                            MessageBoxImage.Error);
-            }
-            else if (cbx_units.SelectedItem == null)
-            {
-                MessageBox.Show("Please select units",
-                                    "Order Management System",
-                                        MessageBoxButton.OK,
-                                            MessageBoxImage.Error);
+                MessageBox.Show("An error occurred :" + ex.Message,
+                                   "Order Management System",
+                                       MessageBoxButton.OK,
+                                           MessageBoxImage.Error);
             }
         }
 
@@ -263,7 +325,17 @@ namespace OrderManagementTool
 
         private void btn_clear_fields_Click(object sender, RoutedEventArgs e)
         {
-            ClearFields();
+            try
+            {
+                ClearFields();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred :" + ex.Message,
+                                   "Order Management System",
+                                       MessageBoxButton.OK,
+                                           MessageBoxImage.Error);
+            }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -315,7 +387,17 @@ namespace OrderManagementTool
 
         private void cbx_approval_id_DropDownOpened(object sender, EventArgs e)
         {
-            LoadApprovalId();
+            try
+            {
+                LoadApprovalId();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred :" + ex.Message,
+                                   "Order Management System",
+                                       MessageBoxButton.OK,
+                                           MessageBoxImage.Error);
+            }
         }
 
         private void btn_create_indent_Click(object sender, RoutedEventArgs e)

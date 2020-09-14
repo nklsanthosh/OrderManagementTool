@@ -45,25 +45,34 @@ namespace OrderManagementTool
             {
                 string username = txt_username.Text;
                 string password = txt_password.Password.ToString();
-
-                OrderManagementContext orderManagementContext = new OrderManagementContext();
-                //var userFound = orderManagementContext.UserMaster.Where(s => s.Email == username & s.Password == password).FirstOrDefault();
-                var userFound = (from i in orderManagementContext.UserMaster
-                                 where i.Email == username && i.Password == password
-                                 select i).FirstOrDefault();
-
-                if (userFound != null)
+                try
                 {
-                    Login login = new Login();
-                    login.UserEmail = username;
-                    login.EmployeeID = userFound.EmployeeId;
-                    Menu menu = new Menu(login);
-                    menu.Show();
-                    this.Close();
+                    OrderManagementContext orderManagementContext = new OrderManagementContext();
+                    //var userFound = orderManagementContext.UserMaster.Where(s => s.Email == username & s.Password == password).FirstOrDefault();
+                    var userFound = (from i in orderManagementContext.UserMaster
+                                     where i.Email == username && i.Password == password
+                                     select i).FirstOrDefault();
+
+                    if (userFound != null)
+                    {
+                        Login login = new Login();
+                        login.UserEmail = username;
+                        login.EmployeeID = userFound.EmployeeId;
+                        Menu menu = new Menu(login);
+                        menu.Show();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Enter Valid UserCredentials", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Enter Valid UserCredentials", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("An error occurred while logging in :" + ex.Message,
+                                       "Order Management System",
+                                           MessageBoxButton.OK,
+                                               MessageBoxImage.Error);
                 }
             }
         }
