@@ -58,6 +58,7 @@ namespace OrderManagementTool
                         Login login = new Login();
                         login.UserEmail = username;
                         login.EmployeeID = userFound.EmployeeId;
+                        
                         Menu menu = new Menu(login);
                         menu.Show();
                         this.Close();
