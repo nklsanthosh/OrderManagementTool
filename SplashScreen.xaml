@@ -1,0 +1,20 @@
+﻿<Window x:Class="OrderManagementTool.SplashScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Height="400"
+        Width="600">
+    <Grid>
+                <Image Source="Images/logo.png" Margin="0,-2,500,302" Height="100" Width="100"/>
+        <Label Content="Order Management System" FontSize="36" FontWeight="Bold" Margin="100,0,0,338"/>
+        <Label Content="Version 1.0" FontSize="15" FontWeight="Bold" Margin="500,62,0,303"/>
+        <Label Content="Powered by Devlup Solutions" FontSize="25" FontWeight="Bold" Margin="137,141,101,211"/>
+        <ProgressBar Height="20" Margin="0,380,0,0" IsIndeterminate="True" />
+        <TextBlock HorizontalAlignment="Center" Margin="0,380,0,0"
+                   VerticalAlignment="Center">Loading...</TextBlock>
+        <Label Content="Copyrights © 2020 Devlup Solutions" FontSize="15" FontWeight="Bold" Margin="0,303,238,49"/>
+        <Label Content="All rights reserved" FontSize="15"  Margin="0,332,460,25"/>
+    </Grid>
+</Window>
