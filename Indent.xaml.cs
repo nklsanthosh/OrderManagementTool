@@ -44,6 +44,7 @@ namespace OrderManagementTool
             _login = login;
             InitializeComponent();
             LoadItemName();
+            LoadApprovalStatus();
             txt_raised_by.Text = _login.UserEmail;
             //Image img = new Image();
             //img.Source = new BitmapImage(new Uri(@"~/Images/create-icon.png"));
@@ -248,6 +249,35 @@ namespace OrderManagementTool
                                    "Order Management System",
                                        MessageBoxButton.OK,
                                            MessageBoxImage.Error);
+            }
+        }
+
+        private void LoadApprovalStatus()
+        {
+            cbx_approval_id.Items.Clear();
+            var exceptionList = new List<string> { "Clerk", "Supervisor" };
+            var data = (from emp in orderManagementContext.Employee
+                            join des in orderManagementContext.Designation
+                            on emp.DesignationId equals des.DesignationId
+                            select
+                            new
+                            {
+                                emp.FirstName,
+                                emp.LastName,
+                                des.Designation1
+                            })
+                             .Distinct().ToList();
+            foreach(string s in exceptionList)
+            {
+                var remove = data.Select(e => e.Designation1 == s).ToList();
+                int index = remove.IndexOf(true);
+                if(index>=0)
+                    data.RemoveAt(index);
+            }
+
+            foreach (var i in data)
+            {
+                cbx_approval_id.Items.Add(i.FirstName.Trim() + " " + i.LastName.Trim());
             }
         }
 
@@ -578,7 +608,7 @@ namespace OrderManagementTool
                 rangeMerged2.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                 rangeMerged2.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
                 worksheet.Cell("A1").Value = worksheet.Cell("A1").Value + headersAndFooters["CompanyHeader"];
-                worksheet.Cell("A3").Value = headersAndFooters["Header"];
+                worksheet.Cell("A3").Value = headersAndFooters["IndentHeader"];
                 worksheet.Cell("A4").Value = headersAndFooters["To"];
                 worksheet.Cell("D4").Value = headersAndFooters["Info"];
 
