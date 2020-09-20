@@ -19,5 +19,7 @@ namespace OrderManagementTool.Models.Excel
         public string Attention { get; set; }
         public string GSTNo { get; set; }
         public string IECNo { get; set; }
+        public string Project { get; set; }
+        public string WBS { get; set; }
     }
 }

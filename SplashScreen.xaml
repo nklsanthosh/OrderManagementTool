@@ -1,20 +1,23 @@
 ﻿<Window x:Class="OrderManagementTool.SplashScreen"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:OrderManagementTool"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
-        Height="400"
+        Height="600"
         Width="600">
     <Grid>
-                <Image Source="Images/logo.png" Margin="0,-2,500,302" Height="100" Width="100"/>
-        <Label Content="Order Management System" FontSize="36" FontWeight="Bold" Margin="100,0,0,338"/>
-        <Label Content="Version 1.0" FontSize="15" FontWeight="Bold" Margin="500,62,0,303"/>
-        <Label Content="Powered by Devlup Solutions" FontSize="25" FontWeight="Bold" Margin="137,141,101,211"/>
-        <ProgressBar Height="20" Margin="0,380,0,0" IsIndeterminate="True" />
-        <TextBlock HorizontalAlignment="Center" Margin="0,380,0,0"
-                   VerticalAlignment="Center">Loading...</TextBlock>
-        <Label Content="Copyrights © 2020 Devlup Solutions" FontSize="15" FontWeight="Bold" Margin="0,303,238,49"/>
-        <Label Content="All rights reserved" FontSize="15"  Margin="0,332,460,25"/>
+
+        <Image Source="/Images/icons/logo_slpp_home.jpg" Height="100px" Width="100px" Margin="10,-290,-1,184"/>
+        <Label Content="ORDER MANANGEMENT SYSTEM" FontSize="22" Foreground="#000000" FontWeight="Bold" Height="50px" Margin="125,123,113,427"/>
+        <Label Content="Version 1.0" FontSize="11"  FontFamily="Verdana" Foreground="#6C6C6C"  Width="90px" Height="30px" Margin="268,158,242,412"/>
+        <controls:RadialProgressBar Margin="240,245,240,235"/>
+        <Label Content="Powered By" FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="269,407,239,163"/>
+        <Image Source="/Images/icons/logo_devlup.jpg" Height="80px" Width="100px"  Margin="253,428,247,92"/>
+        <Label Content="Copyrights © 2020 Devlup Solutions" FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="375,535,-11,35"/>
+        <Label Content="All rights reserved." FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="475,554,3,16"/>
+        <Border BorderThickness="1" BorderBrush="#FF0AA20A" HorizontalAlignment="Center" Height="577" Margin="0,13,0,0" VerticalAlignment="Top"  Width="580"/>
+
     </Grid>
 </Window>

@@ -36,10 +36,11 @@ namespace OrderManagementTool
                 {
                     //initialize the main window, set it as the application main window
                     //and close the splash screen
+                    splashScreen.Close();
                     var loginWindow = new MainWindow();
                     this.MainWindow = loginWindow;
                     loginWindow.Show();
-                    splashScreen.Close();
+                    
                 });
             });
             

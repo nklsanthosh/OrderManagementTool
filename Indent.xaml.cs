@@ -525,7 +525,7 @@ namespace OrderManagementTool
 
         private void btn_generate_report_Click(object sender, RoutedEventArgs e)
         {
-
+            GenerateIndent();
         }
         private void GenerateIndent()
         {
@@ -545,6 +545,10 @@ namespace OrderManagementTool
             headerData.RefDate = DateTime.Now;
             headerData.Remarks = "Remarks";
             headerData.Attention = "Attention";
+            headerData.IndentDate = datepicker_date1.SelectedDate.Value;
+            headerData.Project = "Project";
+            headerData.WBS = "WBS 1939";
+            
             GenerateIndent(_headers, headerData, gridIndents);
         }
         private static Dictionary<string, string> GetHeaders()
@@ -578,163 +582,238 @@ namespace OrderManagementTool
                 //var image = worksheet.AddPicture(imagePath)
                 //    .MoveTo(worksheet.Cell("A1"))
                 //    .Scale(.1).Placement = ClosedXML.Excel.Drawings.XLPicturePlacement.Move;
-                var rangeMerged = worksheet.Range("A1:G1").Merge();
-                rangeMerged.Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                rangeMerged.Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                rangeMerged.Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                rangeMerged.Style.Border.RightBorder = XLBorderStyleValues.Medium;
+                var rangeMerged = worksheet.Range("A1:I1").Merge();
+                rangeMerged.Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+                rangeMerged.Style.Border.TopBorder = XLBorderStyleValues.Thin;
+                rangeMerged.Style.Border.LeftBorder = XLBorderStyleValues.Thin;
+                rangeMerged.Style.Border.RightBorder = XLBorderStyleValues.Thin;
                 rangeMerged.Style.Font.Bold = true;
                 rangeMerged.Style.Font.FontSize = 16;
                 rangeMerged.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                 rangeMerged.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
                 var row = worksheet.Row(1);
+                rangeMerged.Style.Fill.BackgroundColor = XLColor.LightYellow;
+                rangeMerged.Style.Font.Italic = true;
                 row.Height = 40;
-                var rangeMerged1 = worksheet.Range("A2:G2").Merge();
-                rangeMerged1.Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                rangeMerged1.Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                rangeMerged1.Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                rangeMerged1.Style.Border.RightBorder = XLBorderStyleValues.Medium;
+                var rangeMerged1 = worksheet.Range("A2:I3").Merge();
+                rangeMerged1.Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+                rangeMerged1.Style.Border.TopBorder = XLBorderStyleValues.Thin;
+                rangeMerged1.Style.Border.LeftBorder = XLBorderStyleValues.Thin;
+                rangeMerged1.Style.Border.RightBorder = XLBorderStyleValues.Thin;
                 rangeMerged1.Style.Font.Bold = true;
+                rangeMerged1.Style.Font.Italic = true;
+                rangeMerged1.Style.Font.Underline = XLFontUnderlineValues.Single;
                 rangeMerged1.Style.Font.FontSize = 16;
                 rangeMerged1.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                 rangeMerged1.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
-                var rangeMerged2 = worksheet.Range("A3:G3").Merge();
-                rangeMerged2.Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                rangeMerged2.Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                rangeMerged2.Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                rangeMerged2.Style.Border.RightBorder = XLBorderStyleValues.Medium;
+                rangeMerged1.Style.Fill.BackgroundColor = XLColor.LightYellow1;
+                var rangeMerged2 = worksheet.Range("A4:G4").Merge();
+                rangeMerged2.Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+                rangeMerged2.Style.Border.TopBorder = XLBorderStyleValues.Thin;
+                rangeMerged2.Style.Border.LeftBorder = XLBorderStyleValues.Thin;
+                rangeMerged2.Style.Border.RightBorder = XLBorderStyleValues.Thin;
                 rangeMerged2.Style.Font.Bold = true;
-                rangeMerged2.Style.Font.FontSize = 16;
-                rangeMerged2.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                rangeMerged2.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                rangeMerged2.Style.Font.Italic = true;
+                rangeMerged2.Style.Font.FontSize = 12;
+                
+                var rangeMerged2a = worksheet.Range("A5:G5").Merge();
+                rangeMerged2a.Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+                rangeMerged2a.Style.Border.TopBorder = XLBorderStyleValues.Thin;
+                rangeMerged2a.Style.Border.LeftBorder = XLBorderStyleValues.Thin;
+                rangeMerged2a.Style.Border.RightBorder = XLBorderStyleValues.Thin;
+                rangeMerged2a.Style.Font.Bold = true;
+                rangeMerged2a.Style.Font.Italic = true;
+                rangeMerged2a.Style.Font.FontSize = 12;
+                             
                 worksheet.Cell("A1").Value = worksheet.Cell("A1").Value + headersAndFooters["CompanyHeader"];
-                worksheet.Cell("A3").Value = headersAndFooters["IndentHeader"];
-                worksheet.Cell("A4").Value = headersAndFooters["To"];
-                worksheet.Cell("D4").Value = headersAndFooters["Info"];
+                worksheet.Cell("A2").Value = headersAndFooters["IndentHeader"];
+                var rHeader = worksheet.Range("A6:I6");
+                rHeader.Style.Fill.BackgroundColor = XLColor.Aqua;
+                var rHeader1 = worksheet.Range("B6:I6");
+                worksheet.Cell("A4").Value = headersAndFooters["Project"] + " " +headerData.Project;
+                worksheet.Cell("A4").Style.Font.Bold = true;
+                worksheet.Cell("A4").Style.Font.Italic = true;
+                rHeader1.Style.Font.Bold = true;
+                rHeader1.Style.Font.Italic = true;
+                worksheet.Cell("H4").Value = headersAndFooters["IndentDate"];
+                worksheet.Cell("H4").Style.Font.Bold = true;
+                worksheet.Cell("H4").Style.Font.Italic = true;
+                worksheet.Cell("I4").Value = headerData.IndentDate;
+                worksheet.Cell("I4").Style.Font.Bold = true;
+                worksheet.Cell("I4").Style.Font.Italic = true;
 
-                worksheet.Cell("B5").Value = headerData.To;
-                worksheet.Cell("B6").Value = headerData.AddressLine1;
-                worksheet.Cell("B7").Value = headerData.AddressLine2;
-                worksheet.Cell("B8").Value = headerData.AddressLine3;
-                worksheet.Cell("B9").Value = headerData.Contact;
-                worksheet.Cell("F5").Value = headersAndFooters["IndentNo"];
-                worksheet.Cell("F6").Value = headersAndFooters["IDate"];
-                worksheet.Cell("F7").Value = headersAndFooters["RefNo"];
-                worksheet.Cell("F8").Value = headersAndFooters["RefDate"];
-                worksheet.Cell("F9").Value = headersAndFooters["Attn"];
-                worksheet.Cell("G5").Value = headerData.IndentNo;
-                worksheet.Cell("G6").Value = headerData.IndentDate;
-                worksheet.Cell("G7").Value = headerData.RefNo;
-                worksheet.Cell("G8").Value = headerData.RefDate;
-                worksheet.Cell("G9").Value = headerData.Attention;
+                worksheet.Cell("A5").Value = headersAndFooters["WBS"] + " " + headerData.WBS;
+                worksheet.Cell("A5").Style.Font.Bold = true;
+                worksheet.Cell("A5").Style.Font.Italic = true;
+                worksheet.Cell("H5").Value = headersAndFooters["IndentNo"];
+                worksheet.Cell("H5").Style.Font.Bold = true;
+                worksheet.Cell("H5").Style.Font.Italic = true;
+                worksheet.Cell("I5").Value = headerData.IndentNo;
+                worksheet.Cell("I5").Style.Font.Bold = true;
+                worksheet.Cell("I5").Style.Font.Italic = true;
 
-                var rangeMerged3 = worksheet.Range("A10:C10").Merge();
-                worksheet.Cell("A10").Value = headersAndFooters["Materials"];
-
-                worksheet.Cell("B11").Value = headersAndFooters["CompanyName"];
-                worksheet.Cell("B12").Value = headersAndFooters["CompanyAddressLine1"];
-                worksheet.Cell("B13").Value = headersAndFooters["CompanyAddressLine2"];
-                worksheet.Cell("B14").Value = headersAndFooters["CompanyContactNo"];
-                worksheet.Cell("F10").Value = headersAndFooters["Remarks"];
-                worksheet.Cell("F11").Value = headersAndFooters["GSTNo"];
-                worksheet.Cell("F12").Value = headersAndFooters["IECNo"];
-                worksheet.Cell("F13").Value = headersAndFooters["Page"];
-                // worksheet.Cell("F9").Value = headersAndFooters["Attn"];
-                worksheet.Cell("G10").Value = headerData.Remarks;
-                worksheet.Cell("G11").Value = headerData.GSTNo;
-                worksheet.Cell("G12").Value = headerData.IECNo;
-                worksheet.Cell("G13").Value = "1 Of 1";
-
-
-                worksheet.Cell("A16").Value = "S.No";
-                worksheet.Cell("B16").Value = "Item Code";
-                worksheet.Cell("C16").Value = "Item Name";
-                worksheet.Cell("D16").Value = "Description";
-                worksheet.Cell("E16").Value = "Units";
-                worksheet.Cell("F16").Value = "Quantity";
-                worksheet.Cell("G16").Value = "Remarks";
-                int j = 17;
+                worksheet.Cell("B6").Value = "Related Item No.";
+                worksheet.Cell("C6").Value = "Material Code";
+                worksheet.Cell("D6").Value = "Unit";
+                worksheet.Cell("E6").Value = "Total Planned";
+                worksheet.Cell("F6").Value = "Total Supplied";
+                worksheet.Cell("G6").Value = "Stock As On";
+                worksheet.Cell("H6").Value = "Quantity Intended";
+                worksheet.Cell("I6").Value = "Description / Specification";
+                
+                int j = 7;
                 int i = 1;
-                decimal total = 0;
-                foreach (GridIndent indent in gridIndents)
+                for (int k = 0; k < gridIndents.Count + 10; k++)
                 {
-                    worksheet.Cell("A" + j).Value = i;
-                    worksheet.Cell("B" + j).Value = indent.ItemCode;
-                    worksheet.Cell("C" + j).Value = indent.ItemName;
-                    worksheet.Cell("D" + j).Value = indent.Description;
-                    worksheet.Cell("E" + j).Value = indent.Units;
-                    worksheet.Cell("F" + j).Value = indent.Quantity;
-                    worksheet.Cell("G" + j).Value = indent.Remarks;
-                    //total += indent.TotalPrice;
-                    j++;
-                    i++;
+                    if (k <= gridIndents.Count-1)
+                    {
+                        worksheet.Cell("B" + j).Value = i;
+                        worksheet.Cell("C" + j).Value = gridIndents[k].ItemCode;
+                        worksheet.Cell("D" + j).Value = gridIndents[k].Units;
+                        worksheet.Cell("E" + j).Value = gridIndents[k].TotalPlanned;
+                        worksheet.Cell("F" + j).Value = gridIndents[k].TotalSupplied;
+                        worksheet.Cell("G" + j).Value = gridIndents[k].StockAsOn;
+                        worksheet.Cell("H" + j).Value = gridIndents[k].Quantity;
+                        worksheet.Cell("I" + j).Value = gridIndents[k].Description;
+                        j++;
+                        i++;
+                    }
+                    else
+                    {
+                        worksheet.Cell("B" + j).Value = "";
+                        worksheet.Cell("C" + j).Value = "";
+                        worksheet.Cell("D" + j).Value = "";
+                        worksheet.Cell("E" + j).Value = "";
+                        worksheet.Cell("F" + j).Value = "";
+                        worksheet.Cell("G" + j).Value = "";
+                        worksheet.Cell("H" + j).Value = "";
+                        worksheet.Cell("I" + j).Value = "";
+                        j++;
+                    }
                 }
+                var rFirstColumn = worksheet.Range("A6:A" + j).Merge();
+                var rQuantity = worksheet.Range("H6:H" + j);
+                worksheet.Cell("A6").Value= headersAndFooters["Materials"];
 
-                //worksheet.Cell("B" + j).Value = headersAndFooters["SubTotal"];
-                //worksheet.Cell("G" + j).Value = total;
-
-                //j += 1;
-                //decimal gst = Math.Round(total * Convert.ToDecimal(.18));
-                //decimal finalTotal = total + gst;
-                //worksheet.Cell("B" + j).Value = headersAndFooters["GST"];
-                //worksheet.Cell("G" + j).Value = Convert.ToString(gst);
-
-                //j += 1;
-                //worksheet.Cell("B" + j).Value = headersAndFooters["FinalTotal"];
-                //worksheet.Cell("G" + j).Value = Convert.ToString(finalTotal);
-
-                //j += 1;
-                //var rangeMerged4 = worksheet.Range("B" + j + ":G" + j).Merge();
-                //worksheet.Cell("B" + j).Value = headersAndFooters["Words"];
-
-                j += 2;
-                var rangeMerged101 = worksheet.Range("A" + j + ":G" + j).Merge();
-                worksheet.Cell("A" + j).Value = headersAndFooters["Terms"];
+                rFirstColumn.Style.Fill.BackgroundColor = XLColor.Aqua;
+                rFirstColumn.Style.Alignment.TextRotation = 180;
+                rFirstColumn.Style.Font.Bold = true;
+                rFirstColumn.Style.Font.Italic = true;
+                rFirstColumn.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                rFirstColumn.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                rQuantity.Style.Fill.BackgroundColor = XLColor.Aqua;
                 j += 1;
-                var rangeMerged102 = worksheet.Range("A" + j + ":G" + j).Merge();
-                worksheet.Cell("A" + j).Value = headersAndFooters["Terms1"];
+                var rangeMerged101 = worksheet.Range("A" + j + ":E" + j).Merge();
+                worksheet.Cell("A" + j).Value = headersAndFooters["Specs"];
+                rangeMerged101.Style.Fill.BackgroundColor = XLColor.LightYellow;
+                worksheet.Cell("A" + j).Style.Font.Bold = true;
+                worksheet.Cell("A" + j).Style.Font.Italic = true;
 
+                var rangeMerged102 = worksheet.Range("F" + j + ":I" + j).Merge();
+                worksheet.Cell("F" + j).Value = headersAndFooters["Suppliers"];
+                rangeMerged102.Style.Fill.BackgroundColor = XLColor.Aqua;
+                worksheet.Cell("F" + j).Style.Font.Bold = true;
+                worksheet.Cell("F" + j).Style.Font.Italic = true;
+                worksheet.Cell("F" + j).Style.Font.Bold = true;
+                worksheet.Cell("F" + j).Style.Font.Italic = true;
                 j += 1;
-                var rangeMerged103 = worksheet.Range("A" + j + ":G" + j).Merge();
-                worksheet.Cell("A" + j).Value = headersAndFooters["Terms2"];
+                i = 1;
+                worksheet.Cell("A" + j).Value = i;
+                worksheet.Cell("A" + j).Style.Fill.BackgroundColor = XLColor.LightYellow;
+                worksheet.Cell("F" + j).Value = i;
+                worksheet.Cell("F" + j).Style.Fill.BackgroundColor = XLColor.Aqua;
+                var rangeMerged103 = worksheet.Range("B" + j + ":D" + j).Merge();
+                var rangeMerged103a = worksheet.Range("G" + j + ":I" + j).Merge();
                 j += 1;
-                var rangeMerged104 = worksheet.Range("A" + j + ":G" + j).Merge();
-                worksheet.Cell("A" + j).Value = headersAndFooters["Terms3"];
+                i++;
+                worksheet.Cell("A" + j).Value = i;
+                worksheet.Cell("A" + j).Style.Fill.BackgroundColor = XLColor.LightYellow;
+                worksheet.Cell("F" + j).Value = i;
+                worksheet.Cell("F" + j).Style.Fill.BackgroundColor = XLColor.Aqua;
+                var rangeMerged103b = worksheet.Range("B" + j + ":D" + j).Merge();
+                var rangeMerged103c = worksheet.Range("G" + j + ":I" + j).Merge();
                 j += 1;
-                var rangeMerged105 = worksheet.Range("A" + j + ":G" + j).Merge();
-                worksheet.Cell("A" + j).Value = headersAndFooters["Terms4"];
+                i++;
+                worksheet.Cell("A" + j).Value = i;
+                worksheet.Cell("A" + j).Style.Fill.BackgroundColor = XLColor.LightYellow;
+                worksheet.Cell("F" + j).Value = i;
+                worksheet.Cell("F" + j).Style.Fill.BackgroundColor = XLColor.Aqua;
+                var rangeMerged103d = worksheet.Range("B" + j + ":D" + j).Merge();
+                var rangeMerged103e = worksheet.Range("G" + j + ":I" + j).Merge();
                 j += 1;
-                var rangeMerged106 = worksheet.Range("A" + j + ":G" + j).Merge();
-                worksheet.Cell("A" + j).Value = headersAndFooters["Terms5"];
-                j += 3;
-                var rangeMerged5 = worksheet.Range("A" + j + ":D" + j).Merge();
-                worksheet.Cell("A" + j).Value = headersAndFooters["SpecialInstructions"];
-                var rangeMerged6 = worksheet.Range("E" + j + ":G" + j).Merge();
-                worksheet.Cell("E" + j).Value = headersAndFooters["Rejections"];
+                var l = j;
+                l += 4;
+                var rangeMerged104 = worksheet.Range("A" + j + ":D" + j).Merge();
+                worksheet.Cell("A" + j).Value = headersAndFooters["Remarks"];
+                worksheet.Cell("A" + j).Style.Fill.BackgroundColor = XLColor.Aqua;
+                worksheet.Cell("A" + j).Style.Font.Bold = true;
+                worksheet.Cell("A" + j).Style.Font.Italic = true;
+                var rangeMerged104b = worksheet.Range("E" + j + ":E" + l).Merge();
+                var rangeMerged104c = worksheet.Range("F" + j + ":G" + l).Merge();
+                var rangeMerged104d = worksheet.Range("H" + j + ":H" + l).Merge();
+                var rangeMerged104e = worksheet.Range("I" + j + ":I" + l).Merge();
+                i = 0;
                 j += 1;
-                var rangeMerged7 = worksheet.Range("A" + j + ":D" + j).Merge();
-                worksheet.Cell("A" + j).Value = headersAndFooters["SplLine1"];
-                worksheet.Cell("A" + j).Style.Alignment.WrapText = true;
-                var rangeMerged8 = worksheet.Range("E" + j + ":G" + j).Merge();
-                worksheet.Cell("E" + j).Value = headersAndFooters["RejLine1"];
-                worksheet.Cell("E" + j).Style.Alignment.WrapText = true;
-                row = worksheet.Row(1);
-                row.Height = 60;
+                i++;
+                
+                worksheet.Cell("A" + j).Value = i;
+                worksheet.Cell("A" + j).Style.Fill.BackgroundColor = XLColor.Aqua;
+                var rangeMerged104a = worksheet.Range("B" + j + ":D" + j).Merge();
+                               
                 j += 1;
-                var rangeMerged9 = worksheet.Range("A" + j + ":D" + j).Merge();
-                worksheet.Cell("A" + j).Value = headersAndFooters["SplLine2"];
-                worksheet.Cell("A" + j).Style.Alignment.WrapText = true;
-                j += 3;
-                worksheet.Cell("G" + j).Value = headersAndFooters["For"] + " " + headersAndFooters["CompanyHeader"];
-                j += 3;
-                worksheet.Cell("G" + j).Value = headersAndFooters["Sign"];
-                var rangeRows = worksheet.Range("A1" + ":G" + j);
+                i++;
+                worksheet.Cell("A" + j).Value = i;
+                worksheet.Cell("A" + j).Style.Fill.BackgroundColor = XLColor.Aqua;
+                var rangeMerged104f = worksheet.Range("B" + j + ":D" + j).Merge();
+                j += 1;
+                i++;
+                worksheet.Cell("A" + j).Value = i;
+                worksheet.Cell("A" + j).Style.Fill.BackgroundColor = XLColor.Aqua;
+                var rangeMerged104g = worksheet.Range("B" + j + ":D" + j).Merge();
+                j += 1;
+                i++;
+                worksheet.Cell("A" + j).Value = i;
+                worksheet.Cell("A" + j).Style.Fill.BackgroundColor = XLColor.Aqua;
+                var rangeMerged104h = worksheet.Range("B" + j + ":D" + j).Merge();
+                j += 1;
+                i++;
+                worksheet.Cell("A" + j).Value = i;
+                worksheet.Cell("A" + j).Style.Fill.BackgroundColor = XLColor.Aqua;
+                var rangeMerged105 = worksheet.Range("B" + j + ":D" + j).Merge();
+                var rangeMerged105a = worksheet.Range("E" + j + ":E" + j).Merge();
+                var rangeMerged105b = worksheet.Range("F" + j + ":G" + j).Merge();
+                var rangeMerged105c = worksheet.Range("H" + j + ":H" + j).Merge();
+                var rangeMerged105d = worksheet.Range("I" + j + ":I" + j).Merge();
+                worksheet.Cell("E" + j).Value = headersAndFooters["Date"];
+                worksheet.Cell("E" + j).Style.Font.Bold = true;
+                worksheet.Cell("E" + j).Style.Font.Italic = true;
+                worksheet.Cell("E" + j).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                worksheet.Cell("E" + j).Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                worksheet.Cell("F" + j).Value = headersAndFooters["PM"];
+                worksheet.Cell("F" + j).Style.Font.Bold = true;
+                worksheet.Cell("F" + j).Style.Font.Italic = true;
+                worksheet.Cell("F" + j).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                worksheet.Cell("F" + j).Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                worksheet.Cell("H" + j).Value = headersAndFooters["Procurement"];
+                worksheet.Cell("H" + j).Style.Font.Bold = true;
+                worksheet.Cell("H" + j).Style.Font.Italic = true;
+                worksheet.Cell("H" + j).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                worksheet.Cell("H" + j).Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                worksheet.Cell("I" + j).Value = headersAndFooters["PM1"];
+                worksheet.Cell("I" + j).Style.Font.Bold = true;
+                worksheet.Cell("I" + j).Style.Font.Italic = true;
+                worksheet.Cell("I" + j).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                worksheet.Cell("I" + j).Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                j += 1;
+                var rangeLastRow = worksheet.Range("A" +j + ":I" + j).Merge();
+                rangeLastRow.Style.Fill.BackgroundColor = XLColor.LightYellow1;
+                var rangeRows = worksheet.Range("A1" + ":I" + j);
 
-                rangeRows.Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                rangeRows.Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                rangeRows.Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                rangeRows.Style.Border.RightBorder = XLBorderStyleValues.Medium;
-
+                rangeRows.Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+                rangeRows.Style.Border.TopBorder = XLBorderStyleValues.Thin;
+                rangeRows.Style.Border.LeftBorder = XLBorderStyleValues.Thin;
+                rangeRows.Style.Border.RightBorder = XLBorderStyleValues.Thin;
+                
 
                 worksheet.Columns(1, 10).AdjustToContents();
                 //worksheet.Column(1).Width = 20;

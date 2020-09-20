@@ -11,6 +11,26 @@
     <None Remove="Images\business-report-icon.png" />
     <None Remove="Images\clear-icon.png" />
     <None Remove="Images\create-icon.png" />
+    <None Remove="Images\icons\icon_add_category.png" />
+    <None Remove="Images\icons\icon_add_item_unit.png" />
+    <None Remove="Images\icons\icon_add_masters.png" />
+    <None Remove="Images\icons\icon_clear_field.png" />
+    <None Remove="Images\icons\icon_close_green.png" />
+    <None Remove="Images\icons\icon_close_grey.png" />
+    <None Remove="Images\icons\icon_create_indent.png" />
+    <None Remove="Images\icons\icon_date.png" />
+    <None Remove="Images\icons\icon_downarrow.png" />
+    <None Remove="Images\icons\icon_generate_reprot.png" />
+    <None Remove="Images\icons\icon_member.jpg" />
+    <None Remove="Images\icons\icon_password.png" />
+    <None Remove="Images\icons\icon_search_indent.png" />
+    <None Remove="Images\icons\icon_update_field.png" />
+    <None Remove="Images\icons\icon_username.png" />
+    <None Remove="Images\icons\img_loader.jpg" />
+    <None Remove="Images\icons\logo_devlup.jpg" />
+    <None Remove="Images\icons\logo_devlup_inner.jpg" />
+    <None Remove="Images\icons\logo_slpp_home.jpg" />
+    <None Remove="Images\icons\logo_slpp_inner.jpg" />
     <None Remove="Images\login.png" />
     <None Remove="Images\logo.png" />
     <None Remove="Images\logout.png" />
@@ -40,6 +60,66 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\create-icon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\icon_add_category.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\icon_add_item_unit.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\icon_add_masters.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\icon_clear_field.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\icon_close_green.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\icon_close_grey.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\icon_create_indent.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\icon_date.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\icon_downarrow.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\icon_generate_reprot.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\icon_member.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\icon_password.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\icon_search_indent.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\icon_update_field.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\icon_username.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\img_loader.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\logo_devlup.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\logo_devlup_inner.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\logo_slpp_home.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\logo_slpp_inner.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\login.png">
