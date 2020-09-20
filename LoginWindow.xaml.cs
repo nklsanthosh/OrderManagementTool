@@ -28,7 +28,10 @@ namespace OrderManagementTool
             btn_Login.IsEnabled = false;
 
         }
-
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 

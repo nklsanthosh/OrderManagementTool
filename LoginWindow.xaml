@@ -9,19 +9,26 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Height="600"
-        Width="752"
+        Width="600"
         Background="#E7F8F0" ResizeMode="NoResize">
 
     <Grid>
-        <Border BorderThickness="1" BorderBrush="#8ABC48" Background="#FFFFFF" Margin="168,19,181,32"/>
-        <Label Content="ORDER MANANGEMENT SYSTEM" FontSize="16" Visibility="Visible" FontFamily="Arial" FontWeight="Bold" Margin="284,124,193,446"/>
+        <Border BorderThickness="1" BorderBrush="#8ABC48" Background="#FFFFFF" Margin="104,19,94,32"/>
+        <Button x:Name="btn_Close"  HorizontalAlignment="Left" Margin="486,19,0,0" VerticalAlignment="Top" Background="#FFFFFF"  
+                Width="20" Height="20" Click="btnClose_Click" >
+            <StackPanel Orientation="Horizontal">
+                <Image Source="Images/icons/icon_close_green.png"/>
+            </StackPanel>
+            
+        </Button>
+        <Label Content="ORDER MANANGEMENT SYSTEM" FontSize="16" Visibility="Visible" FontFamily="Arial" FontWeight="Bold" Margin="220,124,105,446"/>
 
-        <Image Source="/Images/icons/logo_slpp_home.jpg" Height="70" Width="70" Margin="201,57,481,435"/>
-        <Image Source="/Images/icons/grey_icon.png" Height="70" Margin="271,57,460,435" RenderTransformOrigin="-0.854,0.5"/>
-        <Image Source="/Images/icons/horizontal_line_icon.png" Height="10" Width="370" Margin="186,134,196,418"/>
-        <Label Content="Welcome" HorizontalAlignment="Left" Margin="345,239,0,0" FontFamily="VErdana" FontSize="16" 
-               Foreground="#6C6C6C" VerticalAlignment="Top" Width="91"/>
-        <TextBox x:Name="txt_username" HorizontalAlignment="Left" Margin="277,271,0,0" Text="" TextWrapping="Wrap"
+        <Image Source="/Images/icons/logo_slpp_home.jpg" Height="70" Margin="131,77,396,453"/>
+        <Image Source="/Images/icons/grey_icon.png" Height="70" Margin="210,76,380,454" />
+        <Image Source="/Images/icons/horizontal_line_icon.png" Margin="135,153,107,445"/>
+        <Label Content="Welcome" HorizontalAlignment="Left" Margin="265,241,0,0" FontFamily="VErdana" FontSize="16" 
+               Foreground="#6C6C6C" VerticalAlignment="Top" Width="90"/>
+        <TextBox x:Name="txt_username" HorizontalAlignment="Left" Margin="193,273,0,0" Text="" TextWrapping="Wrap"
                  VerticalAlignment="Top" Width="231" Height="35" TextChanged="txt_username_TextChanged" 
                  BorderBrush="#FF8CBD4B" UseLayoutRounding="False" Tag="| Enter Username" TextBlock.TextAlignment="Center" 
                  TextBlock.LineStackingStrategy="BlockLineHeight"  VerticalContentAlignment="Center" >
@@ -92,8 +99,8 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <PasswordBox x:Name="txt_password" HorizontalAlignment="Left" Margin="277,319,0,0" VerticalAlignment="Top"
-                     Width="231" Height="35" BorderBrush="#FF8CBD4B"  Tag="| Enter Password" TextBlock.TextAlignment="Center" 
+        <PasswordBox x:Name="txt_password" HorizontalAlignment="Left" Margin="195,321,0,0" VerticalAlignment="Top"
+                     Width="230" Height="35" BorderBrush="#FF8CBD4B"  Tag="| Enter Password" TextBlock.TextAlignment="Center" 
                  TextBlock.LineStackingStrategy="BlockLineHeight" VerticalContentAlignment="Center">
             <PasswordBox.Style>
                 <Style TargetType="{x:Type PasswordBox}">
@@ -154,14 +161,14 @@
                 </Style>
             </PasswordBox.Style>
         </PasswordBox>
-        <Image Source="/Images/icons/horizontal_line_icon.png" Height="10" Width="370" Margin="188,394,194,158"/>
-        <Label Content="Powered By" FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="192,413,467,119" RenderTransformOrigin="1.494,1.533"/>
-        <Image Source="/Images/icons/logo_devlup.jpg" Height="80px"  Margin="183,445,469,37"/>
-        <Label Content="Copyrights © 2020 Devlup Solutions" FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="358,459,179,73"/>
-        <Label Content="All rights reserved." FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="458,478,184,54"/>
-        <Image Source="/Images/icons/icon_member.jpg" Height="70" Width="90" Margin="351,148,331,344"/>
-        <Button x:Name="btn_Login" Content="Login" HorizontalAlignment="Left" Margin="277,371,0,0" VerticalAlignment="Top" Background="#609f19"  
-                Width="231" Height="30" Click="Button_Click" Foreground="#FFFFFF" FontFamily="Verdana" FontWeight="Bold" FontSize="12" />
+        <Image Source="/Images/icons/horizontal_line_icon.png" Margin="125,413,107,178"/>
+        <Label Content="Powered By" FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Margin="125,433,400,145" RenderTransformOrigin="1.494,1.533"/>
+        <Image Source="/Images/icons/logo_devlup.jpg"  Margin="119,464,400,73"/>
+        <Label Content="Copyrights © 2020 Devlup Solutions" FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="294,476,94,94"/>
+        <Label Content="All rights reserved." FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="394,497,94,73"/>
+        <Image Source="/Images/icons/icon_member.jpg" Height="70" Margin="259,167,255,363"/>
+        <Button x:Name="btn_Login" Content="Login" HorizontalAlignment="Left" Margin="195,373,0,0" VerticalAlignment="Top" Background="#609f19"  
+                Width="230" Height="30" Click="Button_Click" Foreground="#FFFFFF" FontFamily="Verdana" FontWeight="Bold" FontSize="12" />
         <!--<Label Content="ORDER MANANGEMENT SYSTEM" FontSize="16" Foreground="#000000" FontWeight="Bold" Visibility="Visible" Margin="284,99,193,435" RenderTransformOrigin="0.773,0.708"/>-->
 
 
