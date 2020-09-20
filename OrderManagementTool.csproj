@@ -11,6 +11,8 @@
     <None Remove="Images\business-report-icon.png" />
     <None Remove="Images\clear-icon.png" />
     <None Remove="Images\create-icon.png" />
+    <None Remove="Images\icons\grey_icon.png" />
+    <None Remove="Images\icons\horizontal_line_icon.png" />
     <None Remove="Images\icons\icon_add_category.png" />
     <None Remove="Images\icons\icon_add_item_unit.png" />
     <None Remove="Images\icons\icon_add_masters.png" />
@@ -60,6 +62,12 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\create-icon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\grey_icon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\horizontal_line_icon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\icons\icon_add_category.png">

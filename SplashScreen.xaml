@@ -6,18 +6,20 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Height="600"
-        Width="600">
+        Width="752"
+        Background="#E7F8F0">
     <Grid>
 
-        <Image Source="/Images/icons/logo_slpp_home.jpg" Height="100px" Width="100px" Margin="10,-290,-1,184"/>
-        <Label Content="ORDER MANANGEMENT SYSTEM" FontSize="22" Foreground="#000000" FontWeight="Bold" Height="50px" Margin="125,123,113,427"/>
-        <Label Content="Version 1.0" FontSize="11"  FontFamily="Verdana" Foreground="#6C6C6C"  Width="90px" Height="30px" Margin="268,158,242,412"/>
-        <controls:RadialProgressBar Margin="240,245,240,235"/>
-        <Label Content="Powered By" FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="269,407,239,163"/>
-        <Image Source="/Images/icons/logo_devlup.jpg" Height="80px" Width="100px"  Margin="253,428,247,92"/>
-        <Label Content="Copyrights © 2020 Devlup Solutions" FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="375,535,-11,35"/>
-        <Label Content="All rights reserved." FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="475,554,3,16"/>
-        <Border BorderThickness="1" BorderBrush="#FF0AA20A" HorizontalAlignment="Center" Height="577" Margin="0,13,0,0" VerticalAlignment="Top"  Width="580"/>
+        <Border BorderThickness="1" BorderBrush="#8ABC48" Background="#FFFFFF" HorizontalAlignment="Center" Height="516" VerticalAlignment="Center"  Width="519"/>
+
+        <Image Source="/Images/icons/logo_slpp_home.jpg" Height="100px" Width="100px" Margin="356,75,288,425"/>
+        <Label Content="ORDER MANANGEMENT SYSTEM" FontSize="22" FontFamily="Arial" Foreground="#000000" FontWeight="Bold" Height="50px" Margin="232,183,148,367" RenderTransformOrigin="0.773,0.708"/>
+        <Label Content="Version 1.0" FontSize="11"  FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="370,225,264,345" RenderTransformOrigin="0.558,1.438"/>
+        <controls:RadialProgressBar Margin="340,158,295,92"/>
+        <Label Content="Powered By" FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="364,403,295,167" RenderTransformOrigin="1.494,1.533"/>
+        <Image Source="/Images/icons/logo_devlup.jpg" Height="80px"  Margin="357,428,295,92"/>
+        <Label Content="Copyrights © 2020 Devlup Solutions" FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="421,507,116,63"/>
+        <Label Content="All rights reserved." FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="521,526,121,44"/>
 
     </Grid>
 </Window>

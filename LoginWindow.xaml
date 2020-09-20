@@ -3,21 +3,166 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:OrderManagementTool"
+        xmlns:OrderManagementTool="clr-namespace:OrderManagementTool"
         mc:Ignorable="d" Icon="/Images/logo.png"
-        Title="SLPPRE-New Order Management System Login" Height="325" Width="631" WindowStartupLocation="CenterScreen"  ResizeMode="NoResize">
-    <Grid RenderTransformOrigin="0.718,0.539">
-        <Label Content="UserName :" HorizontalAlignment="Left" Margin="201,89,0,0" VerticalAlignment="Top" Width="86"/>
-        <Label Content="Password :" HorizontalAlignment="Left" Margin="207,134,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.067,0.31" Width="74"/>
-        <TextBox x:Name="txt_username" HorizontalAlignment="Left" Margin="293,89,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Height="24" TextChanged="txt_username_TextChanged" />
-        <PasswordBox x:Name="txt_password" HorizontalAlignment="Left" Margin="293,134,0,0" VerticalAlignment="Top" Width="160" Height="24" />
-        <Button x:Name="btn_Login" HorizontalAlignment="Left" Margin="341,179,0,0" VerticalAlignment="Top" Width="112" Click="Button_Click">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="Images/login.png" Width="20" Height="20"/>
-                <TextBlock Text="  Login" VerticalAlignment="Center"/>
-            </StackPanel>
-        </Button>
-        <Border BorderThickness="1" BorderBrush="Black" Margin="168,69,111,66"/>
+        Title="SLPPRE-New Order Management System Login"  WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Height="600"
+        Width="752"
+        Background="#E7F8F0" ResizeMode="NoResize">
+
+    <Grid>
+        <Border BorderThickness="1" BorderBrush="#8ABC48" Background="#FFFFFF" Margin="168,19,181,32"/>
+        <Label Content="ORDER MANANGEMENT SYSTEM" FontSize="16" Visibility="Visible" FontFamily="Arial" FontWeight="Bold" Margin="284,124,193,446"/>
+
+        <Image Source="/Images/icons/logo_slpp_home.jpg" Height="70" Width="70" Margin="201,57,481,435"/>
+        <Image Source="/Images/icons/grey_icon.png" Height="70" Margin="271,57,460,435" RenderTransformOrigin="-0.854,0.5"/>
+        <Image Source="/Images/icons/horizontal_line_icon.png" Height="10" Width="370" Margin="186,134,196,418"/>
+        <Label Content="Welcome" HorizontalAlignment="Left" Margin="345,239,0,0" FontFamily="VErdana" FontSize="16" 
+               Foreground="#6C6C6C" VerticalAlignment="Top" Width="91"/>
+        <TextBox x:Name="txt_username" HorizontalAlignment="Left" Margin="277,271,0,0" Text="" TextWrapping="Wrap"
+                 VerticalAlignment="Top" Width="231" Height="35" TextChanged="txt_username_TextChanged" 
+                 BorderBrush="#FF8CBD4B" UseLayoutRounding="False" Tag="| Enter Username" TextBlock.TextAlignment="Center" 
+                 TextBlock.LineStackingStrategy="BlockLineHeight"  VerticalContentAlignment="Center" >
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+                    <Setter Property="BorderBrush" Value="#8CBD48"/>
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    <Setter Property="AllowDrop" Value="true"/>
+                    <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+                    <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type TextBox}">
+                                <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                        <Image Margin="5,0,00,0"
+                                           Source="images\icons\icon_username.png" 
+                                           Width="20" 
+                                           Height="20" 
+                                           HorizontalAlignment="Left" Grid.Column="0" />
+                                        <TextBlock Grid.Column="1"  Padding="25,0,0,0" Margin="15,0,0,0" ForceCursor="True"/>
+                                        <Label Margin="25,0,0,0" x:Name="WaterMarkLabel" Content="{TemplateBinding Tag}" VerticalAlignment="Center"
+                                            Visibility="Collapsed" Foreground="Gray" FontFamily="Arial"/>
+                                    </Grid>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="true">
+                                        <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
+                                    </Trigger>
+                                    <MultiTrigger>
+                                        <MultiTrigger.Conditions>
+                                            <Condition Property="Text" Value=""/>
+                                        </MultiTrigger.Conditions>
+                                        <Setter Property="Visibility" TargetName="WaterMarkLabel" Value="Visible"/>
+                                    </MultiTrigger>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Foreground" Value="DimGray"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                                <Condition Property="IsSelectionActive" Value="false"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                        </MultiTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        <PasswordBox x:Name="txt_password" HorizontalAlignment="Left" Margin="277,319,0,0" VerticalAlignment="Top"
+                     Width="231" Height="35" BorderBrush="#FF8CBD4B"  Tag="| Enter Password" TextBlock.TextAlignment="Center" 
+                 TextBlock.LineStackingStrategy="BlockLineHeight" VerticalContentAlignment="Center">
+            <PasswordBox.Style>
+                <Style TargetType="{x:Type PasswordBox}">
+                    <Setter Property="OrderManagementTool:PasswordBoxMonitor.IsMonitoring" Value="True"/>
+                    <Setter Property="SnapsToDevicePixels" Value="true" />
+                    <Setter Property="OverridesDefaultStyle" Value="true" />
+                    <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                    <Setter Property="FontFamily" Value="Verdana" />
+                    <Setter Property="PasswordChar" Value="*" />
+                    <Setter Property="MinWidth" Value="120" />
+                    <Setter Property="MinHeight" Value="20" />
+                    <Setter Property="AllowDrop" Value="true" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type PasswordBox}">
+                                <Border x:Name="Border" CornerRadius="5" Padding="2" BorderThickness="1" BorderBrush="#8CBD48">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                        <Image Margin="2,0,0,0"
+                                           Source="images\icons\icon_password.png" 
+                                           Width="20" 
+                                           Height="20" 
+                                           HorizontalAlignment="Left" Grid.Column="0" />
+                                        <Label Margin="25,0,0,0" x:Name="WaterMarkLabelPassword" Content="{TemplateBinding Tag}" VerticalAlignment="Center"
+                                            Visibility="Collapsed" Foreground="Gray" FontFamily="Arial"/>
+                                    </Grid>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsEnabled"
+                                         Value="false">
+                                        <Setter TargetName="Border"
+                                            Property="Background"
+                                            Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                                        <Setter Property="Foreground"
+                                            Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                    </Trigger>
+                                    <Trigger Property="OrderManagementTool:PasswordBoxMonitor.PasswordLength" Value="0">
+                                        <Setter Property="Visibility" TargetName="WaterMarkLabelPassword" Value="Visible"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                                <Condition Property="IsSelectionActive" Value="false"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                        </MultiTrigger>
+                    </Style.Triggers>
+                </Style>
+            </PasswordBox.Style>
+        </PasswordBox>
+        <Image Source="/Images/icons/horizontal_line_icon.png" Height="10" Width="370" Margin="188,394,194,158"/>
+        <Label Content="Powered By" FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="192,413,467,119" RenderTransformOrigin="1.494,1.533"/>
+        <Image Source="/Images/icons/logo_devlup.jpg" Height="80px"  Margin="183,445,469,37"/>
+        <Label Content="Copyrights © 2020 Devlup Solutions" FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="358,459,179,73"/>
+        <Label Content="All rights reserved." FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="458,478,184,54"/>
+        <Image Source="/Images/icons/icon_member.jpg" Height="70" Width="90" Margin="351,148,331,344"/>
+        <Button x:Name="btn_Login" Content="Login" HorizontalAlignment="Left" Margin="277,371,0,0" VerticalAlignment="Top" Background="#609f19"  
+                Width="231" Height="30" Click="Button_Click" Foreground="#FFFFFF" FontFamily="Verdana" FontWeight="Bold" FontSize="12" />
+        <!--<Label Content="ORDER MANANGEMENT SYSTEM" FontSize="16" Foreground="#000000" FontWeight="Bold" Visibility="Visible" Margin="284,99,193,435" RenderTransformOrigin="0.773,0.708"/>-->
 
 
     </Grid>
