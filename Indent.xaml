@@ -29,19 +29,19 @@
         <ComboBox x:Name="cbx_units" HorizontalAlignment="Left" Margin="719,142,0,0" VerticalAlignment="Top" Width="120" DropDownOpened="cbx_units_DropDownOpened" Grid.Column="2" Height="24" RenderTransformOrigin="3.829,2.901" />
         <TextBox x:Name="txt_remarks" HorizontalAlignment="Left" Margin="849,142,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Height="24" Grid.Column="2"/>
         <TextBox x:Name="txt_quantity" HorizontalAlignment="Left"  Margin="640,142,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="72" Height="24" LostFocus="txt_quantity_lostfocus" Grid.Column="2" TextChanged="txt_quantity_TextChanged" />
-        <Button  HorizontalAlignment="Left" Margin="911,197,0,0" VerticalAlignment="Top" Width="130" Height="30" Click="Button_Click" Grid.Column="2">
+        <Button  HorizontalAlignment="Left" Margin="921,197,0,0" VerticalAlignment="Top" Width="130" Height="30" Click="Button_Click" Grid.Column="2">
             <StackPanel Orientation="Horizontal">
                 <Image Source="Images/add-icon.png" Width="20" Height="20"/>
                 <TextBlock Text=" Add Indent" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
-        <Button x:Name="btn_clear_fields" HorizontalAlignment="Left" Margin="773,197,0,0" VerticalAlignment="Top" Width="130" Height="30"  Click="btn_clear_fields_Click" Grid.Column="2">
+        <Button x:Name="btn_clear_fields" HorizontalAlignment="Left" Margin="486,197,0,0" VerticalAlignment="Top" Width="130" Height="30"  Click="btn_clear_fields_Click" Grid.Column="2">
             <StackPanel Orientation="Horizontal">
                 <Image Source="Images/clear-icon.png" Width="20" Height="20"/>
                 <TextBlock Text="  Clear Fields" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
-        <Button x:Name="btn_update_field" Grid.Column="2" HorizontalAlignment="Left" Margin="635,197,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.561,1.154"  Width="130" Height="30"  Click="Button_Click_1">
+        <Button x:Name="btn_update_field" Grid.Column="2" HorizontalAlignment="Left" Margin="631,197,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.561,1.154"  Width="130" Height="30"  Click="Button_Click_1">
             <StackPanel Orientation="Horizontal">
                 <Image Source="Images/update-icon.png" Width="20" Height="20"/>
                 <TextBlock Text=" Update Field" VerticalAlignment="Center"/>
@@ -65,6 +65,12 @@
             <StackPanel Orientation="Horizontal">
                 <Image Source="Images/business-report-icon.png" Width="20" Height="20"/>
                 <TextBlock Text="  Generate Report" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+        <Button x:Name="btn_remove_indent" Grid.Column="2" HorizontalAlignment="Left" Margin="776,197,0,0" VerticalAlignment="Top" Width="130" Height="30" Click="btn_remove_indent_Click">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="Images/clear-icon.png" Width="20" Height="20"/>
+                <TextBlock Text=" Remove Field" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
     </Grid>

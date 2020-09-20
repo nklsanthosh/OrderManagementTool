@@ -58,9 +58,9 @@ namespace OrderManagementTool
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occured while fetching user information. "+ ex.Message, 
-                                    "Order Management System", 
-                                        MessageBoxButton.OK, 
+                MessageBox.Show("An error occured while fetching user information. " + ex.Message,
+                                    "Order Management System",
+                                        MessageBoxButton.OK,
                                             MessageBoxImage.Error);
             }
         }
@@ -85,6 +85,48 @@ namespace OrderManagementTool
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             this.Close();
+        }
+
+        private void btn_search_indent_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (txt_indent_no.Text != null && txt_indent_no.Text != "")
+                {
+                    long indentNo = long.Parse(txt_indent_no.Text);
+
+                    var idFound = (from i in orderManagementContext.IndentApproval
+                                   where i.IndentId == indentNo
+                                   select i).FirstOrDefault();
+
+                    if (idFound != null)
+                    {
+                        Indent indent = new Indent(_login, indentNo);
+                        indent.Show();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please enter valid IndentID",
+                                  "Order Management System",
+                                      MessageBoxButton.OK,
+                                          MessageBoxImage.Error);
+                    }
+                }
+                else
+                {
+                    ViewIndents viewIndent = new ViewIndents(_login);
+                    viewIndent.Show();
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured while fetching user information. " + ex.Message,
+                                   "Order Management System",
+                                       MessageBoxButton.OK,
+                                           MessageBoxImage.Error);
+            }
         }
     }
 }

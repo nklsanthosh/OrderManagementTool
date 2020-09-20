@@ -4,10 +4,16 @@ using System.Text;
 
 namespace OrderManagementTool.Models.Indent
 {
-    public class GridIndent
+    public class ViewIndent
     {
-        public int SlNo { get; set; }
-        public string ItemName { get; set; }
+        public int Sl_No { get; set; }
+        public long IndentId { get; set; }
+        public string Email { get; set; }
+        public DateTime? Date { get; set; }
+        public string Location { get; set; }
+        public long ApproverName { get; set; }
+        public string IndentRemarks { get; set; }
+        public string CategoryName { get; set; }
         public string ItemCode { get; set; }
         public string Description { get; set; }
         public int TotalPlanned { get; set; }
@@ -17,7 +23,6 @@ namespace OrderManagementTool.Models.Indent
         public int StockAsOn { get; set; }
         public string Units { get; set; }
         public string Remarks { get; set; }
-        public string CategoryName { get; set; }
 
     }
 }

@@ -14,9 +14,9 @@
                 <TextBlock Text=" Create Indent" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
-        <TextBox HorizontalAlignment="Left" Margin="474,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66" Height="26" RenderTransformOrigin="1.545,5.634"/>
+        <TextBox x:Name="txt_indent_no" HorizontalAlignment="Left" Margin="474,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="66" Height="26" RenderTransformOrigin="1.545,5.634"/>
         <Label Content="Indent No :" HorizontalAlignment="Left" Margin="395,110,0,0" VerticalAlignment="Top" Width="79"/>
-        <Button  HorizontalAlignment="Left" Margin="557,110,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.533,6.064" Width="130" Height="30">
+        <Button x:Name="btn_search_indent"  HorizontalAlignment="Left" Margin="557,110,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.533,6.064" Width="130" Height="30" Click="btn_search_indent_Click">
             <StackPanel Orientation="Horizontal">
                 <Image Source="Images/search-icon.png" Width="20" Height="20"/>
                 <TextBlock Text=" Search Indent" VerticalAlignment="Center"/>
