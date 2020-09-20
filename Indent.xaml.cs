@@ -20,6 +20,7 @@ using System.Configuration;
 using OrderManagementTool.Models.Excel;
 using ClosedXML.Excel;
 using System.ComponentModel;
+using LinqToDB.Data;
 
 namespace OrderManagementTool
 {
@@ -57,6 +58,87 @@ namespace OrderManagementTool
             //Button btn = new Button();
             //btn.Content = stackPnl;
             //datepicker_date.Children.Add(btn);
+        }
+
+        public Indent(Login login, long indentNo)
+        {
+            _login = login;
+            InitializeComponent();
+            LoadItemName();
+            LoadApprovalStatus();
+            txt_raised_by.Text = _login.UserEmail;
+            GetIndent(indentNo);
+            //Image img = new Image();
+            //img.Source = new BitmapImage(new Uri(@"~/Images/create-icon.png"));
+
+            //StackPanel stackPnl = new StackPanel();
+            //stackPnl.Orientation = Orientation.Horizontal;
+            //stackPnl.Margin = new Thickness(10);
+            //stackPnl.Children.Add(img);
+
+            //Button btn = new Button();
+            //btn.Content = stackPnl;
+            //datepicker_date.Children.Add(btn);
+        }
+
+        private void GetIndent(long indentNo)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
+                {
+                    connection.Open();
+                    SqlCommand testCMD = new SqlCommand("GetIndent", connection);
+                    testCMD.CommandType = CommandType.StoredProcedure;
+
+                    testCMD.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.BigInt, 50) { Value = indentNo });
+
+                    // SqlDataReader dataReader = testCMD.ExecuteReader();
+                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(testCMD);
+
+                    DataSet dataSet = new DataSet();
+                    sqlDataAdapter.Fill(dataSet);
+
+                    SaveIndent saveIndent = new SaveIndent();
+
+                    int counter = 0;
+
+                    while (counter < dataSet.Tables[0].Rows.Count)
+                    {
+                        saveIndent.Date = Convert.ToDateTime(dataSet.Tables[0].Rows[counter]["Date"]);
+                        saveIndent.Location = Convert.ToString(dataSet.Tables[0].Rows[counter][1]);
+                        saveIndent.IndentRemarks = Convert.ToString(dataSet.Tables[0].Rows[counter][2]);
+
+                        GridIndent gridIndent = new GridIndent();
+                        gridIndent.SlNo = counter + 1;
+                        gridIndent.CategoryName = Convert.ToString(dataSet.Tables[0].Rows[counter]["ItemCategoryName"]);
+                        gridIndent.ItemName = Convert.ToString(dataSet.Tables[0].Rows[counter]["ItemName"]);
+                        gridIndent.ItemCode = Convert.ToString(dataSet.Tables[0].Rows[counter]["ItemCode"]);
+                        gridIndent.Units = Convert.ToString(dataSet.Tables[0].Rows[counter]["Unit"]);
+                        gridIndent.Description = Convert.ToString(dataSet.Tables[0].Rows[counter]["Description"]);
+                        gridIndent.Technical_Specifications = Convert.ToString(dataSet.Tables[0].Rows[counter]["TechnicalSpecification"]);
+                        gridIndent.Quantity = Convert.ToInt32(dataSet.Tables[0].Rows[counter]["Quantity"]);
+                        gridIndent.Remarks = Convert.ToString(dataSet.Tables[0].Rows[counter]["Item Remarks"]);
+                        gridIndents.Add(gridIndent);
+
+                        saveIndent.Email = Convert.ToString(dataSet.Tables[0].Rows[counter]["Email"]);
+                        counter++;
+                    }
+
+                    dataSet.Dispose();
+                    txt_raised_by.Text = saveIndent.Email;
+                    datepicker_date1.SelectedDate = saveIndent.Date;
+                    txt_location.Text = saveIndent.Location;
+
+                    grid_indentdata.ItemsSource = null;
+                    grid_indentdata.ItemsSource = gridIndents;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured during save. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -257,21 +339,21 @@ namespace OrderManagementTool
             cbx_approval_id.Items.Clear();
             var exceptionList = new List<string> { "Clerk", "Supervisor" };
             var data = (from emp in orderManagementContext.Employee
-                            join des in orderManagementContext.Designation
-                            on emp.DesignationId equals des.DesignationId
-                            select
-                            new
-                            {
-                                emp.FirstName,
-                                emp.LastName,
-                                des.Designation1
-                            })
+                        join des in orderManagementContext.Designation
+                        on emp.DesignationId equals des.DesignationId
+                        select
+                        new
+                        {
+                            emp.FirstName,
+                            emp.LastName,
+                            des.Designation1
+                        })
                              .Distinct().ToList();
-            foreach(string s in exceptionList)
+            foreach (string s in exceptionList)
             {
                 var remove = data.Select(e => e.Designation1 == s).ToList();
                 int index = remove.IndexOf(true);
-                if(index>=0)
+                if (index >= 0)
                     data.RemoveAt(index);
             }
 
@@ -548,7 +630,7 @@ namespace OrderManagementTool
             headerData.IndentDate = datepicker_date1.SelectedDate.Value;
             headerData.Project = "Project";
             headerData.WBS = "WBS 1939";
-            
+
             GenerateIndent(_headers, headerData, gridIndents);
         }
         private static Dictionary<string, string> GetHeaders()
@@ -615,7 +697,7 @@ namespace OrderManagementTool
                 rangeMerged2.Style.Font.Bold = true;
                 rangeMerged2.Style.Font.Italic = true;
                 rangeMerged2.Style.Font.FontSize = 12;
-                
+
                 var rangeMerged2a = worksheet.Range("A5:G5").Merge();
                 rangeMerged2a.Style.Border.BottomBorder = XLBorderStyleValues.Thin;
                 rangeMerged2a.Style.Border.TopBorder = XLBorderStyleValues.Thin;
@@ -624,13 +706,13 @@ namespace OrderManagementTool
                 rangeMerged2a.Style.Font.Bold = true;
                 rangeMerged2a.Style.Font.Italic = true;
                 rangeMerged2a.Style.Font.FontSize = 12;
-                             
+
                 worksheet.Cell("A1").Value = worksheet.Cell("A1").Value + headersAndFooters["CompanyHeader"];
                 worksheet.Cell("A2").Value = headersAndFooters["IndentHeader"];
                 var rHeader = worksheet.Range("A6:I6");
                 rHeader.Style.Fill.BackgroundColor = XLColor.Aqua;
                 var rHeader1 = worksheet.Range("B6:I6");
-                worksheet.Cell("A4").Value = headersAndFooters["Project"] + " " +headerData.Project;
+                worksheet.Cell("A4").Value = headersAndFooters["Project"] + " " + headerData.Project;
                 worksheet.Cell("A4").Style.Font.Bold = true;
                 worksheet.Cell("A4").Style.Font.Italic = true;
                 rHeader1.Style.Font.Bold = true;
@@ -660,12 +742,12 @@ namespace OrderManagementTool
                 worksheet.Cell("G6").Value = "Stock As On";
                 worksheet.Cell("H6").Value = "Quantity Intended";
                 worksheet.Cell("I6").Value = "Description / Specification";
-                
+
                 int j = 7;
                 int i = 1;
                 for (int k = 0; k < gridIndents.Count + 10; k++)
                 {
-                    if (k <= gridIndents.Count-1)
+                    if (k <= gridIndents.Count - 1)
                     {
                         worksheet.Cell("B" + j).Value = i;
                         worksheet.Cell("C" + j).Value = gridIndents[k].ItemCode;
@@ -693,7 +775,7 @@ namespace OrderManagementTool
                 }
                 var rFirstColumn = worksheet.Range("A6:A" + j).Merge();
                 var rQuantity = worksheet.Range("H6:H" + j);
-                worksheet.Cell("A6").Value= headersAndFooters["Materials"];
+                worksheet.Cell("A6").Value = headersAndFooters["Materials"];
 
                 rFirstColumn.Style.Fill.BackgroundColor = XLColor.Aqua;
                 rFirstColumn.Style.Alignment.TextRotation = 180;
@@ -755,11 +837,11 @@ namespace OrderManagementTool
                 i = 0;
                 j += 1;
                 i++;
-                
+
                 worksheet.Cell("A" + j).Value = i;
                 worksheet.Cell("A" + j).Style.Fill.BackgroundColor = XLColor.Aqua;
                 var rangeMerged104a = worksheet.Range("B" + j + ":D" + j).Merge();
-                               
+
                 j += 1;
                 i++;
                 worksheet.Cell("A" + j).Value = i;
@@ -805,7 +887,7 @@ namespace OrderManagementTool
                 worksheet.Cell("I" + j).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                 worksheet.Cell("I" + j).Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
                 j += 1;
-                var rangeLastRow = worksheet.Range("A" +j + ":I" + j).Merge();
+                var rangeLastRow = worksheet.Range("A" + j + ":I" + j).Merge();
                 rangeLastRow.Style.Fill.BackgroundColor = XLColor.LightYellow1;
                 var rangeRows = worksheet.Range("A1" + ":I" + j);
 
@@ -813,7 +895,7 @@ namespace OrderManagementTool
                 rangeRows.Style.Border.TopBorder = XLBorderStyleValues.Thin;
                 rangeRows.Style.Border.LeftBorder = XLBorderStyleValues.Thin;
                 rangeRows.Style.Border.RightBorder = XLBorderStyleValues.Thin;
-                
+
 
                 worksheet.Columns(1, 10).AdjustToContents();
                 //worksheet.Column(1).Width = 20;
@@ -1148,6 +1230,32 @@ namespace OrderManagementTool
         {
             Menu menu = new Menu(_login);
             menu.Show();
+        }
+
+        private void btn_remove_indent_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (gridSelectedIndex >= 0)
+                {
+                    gridIndents.RemoveAt(gridSelectedIndex);
+                    grid_indentdata.ItemsSource = null;
+                    grid_indentdata.ItemsSource = gridIndents;
+                    gridSelectedIndex = -1;
+                    ClearFields();
+                }
+                else
+                {
+                    MessageBox.Show("Please select a item");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred :" + ex.Message,
+                                 "Order Management System",
+                                     MessageBoxButton.OK,
+                                         MessageBoxImage.Error);
+            }
         }
     }
 }
