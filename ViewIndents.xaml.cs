@@ -68,6 +68,7 @@ namespace OrderManagementTool
                         ViewIndent viewIndent = new ViewIndent();
                         viewIndent.Sl_No = counter + 1;
                         viewIndent.IndentId = (long)Convert.ToInt64(dataSet.Tables[0].Rows[counter]["IndentID"]);
+                        viewIndent.ApproverName = Convert.ToString(dataSet.Tables[0].Rows[counter]["Approver"]);
                         viewIndent.Date = Convert.ToDateTime(dataSet.Tables[0].Rows[counter]["Date"]);
                         viewIndent.Location = Convert.ToString(dataSet.Tables[0].Rows[counter]["Location"]);
                         viewIndent.Remarks = Convert.ToString(dataSet.Tables[0].Rows[counter]["Remarks"]);

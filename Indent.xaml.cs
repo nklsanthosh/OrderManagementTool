@@ -32,19 +32,19 @@ namespace OrderManagementTool
         private List<string> itemCode;
         private string selectedItemCode;
         private List<string> units;
-        private string selectedItemName;
+        private string selectedItemCategoryName;
         private int quantityEntered;
         private int gridSelectedIndex;
         OrderManagementContext orderManagementContext = new OrderManagementContext();
         private List<GridIndent> gridIndents = new List<GridIndent>();
-        public BindableCollection<string> ItemName { get; set; }
+        // public BindableCollection<string> ItemName { get; set; }
         private readonly Login _login;
 
         public Indent(Login login)
         {
             _login = login;
             InitializeComponent();
-            LoadItemName();
+            LoadItemCategoryName();
             LoadApprovalStatus();
             txt_raised_by.Text = _login.UserEmail;
             //Image img = new Image();
@@ -64,7 +64,7 @@ namespace OrderManagementTool
         {
             _login = login;
             InitializeComponent();
-            LoadItemName();
+            LoadItemCategoryName();
             LoadApprovalStatus();
             txt_raised_by.Text = _login.UserEmail;
             GetIndent(indentNo);
@@ -106,12 +106,13 @@ namespace OrderManagementTool
                     while (counter < dataSet.Tables[0].Rows.Count)
                     {
                         saveIndent.Date = Convert.ToDateTime(dataSet.Tables[0].Rows[counter]["Date"]);
-                        saveIndent.Location = Convert.ToString(dataSet.Tables[0].Rows[counter][1]);
-                        saveIndent.IndentRemarks = Convert.ToString(dataSet.Tables[0].Rows[counter][2]);
+                        saveIndent.Location = Convert.ToString(dataSet.Tables[0].Rows[counter]["Location"]);
+                        saveIndent.IndentRemarks = Convert.ToString(dataSet.Tables[0].Rows[counter]["Remarks"]);
+                        saveIndent.ApproverName = Convert.ToString(dataSet.Tables[0].Rows[counter]["Approver"]);
 
                         GridIndent gridIndent = new GridIndent();
                         gridIndent.SlNo = counter + 1;
-                        gridIndent.CategoryName = Convert.ToString(dataSet.Tables[0].Rows[counter]["ItemCategoryName"]);
+                        gridIndent.ItemCategoryName = Convert.ToString(dataSet.Tables[0].Rows[counter]["ItemCategoryName"]);
                         gridIndent.ItemName = Convert.ToString(dataSet.Tables[0].Rows[counter]["ItemName"]);
                         gridIndent.ItemCode = Convert.ToString(dataSet.Tables[0].Rows[counter]["ItemCode"]);
                         gridIndent.Units = Convert.ToString(dataSet.Tables[0].Rows[counter]["Unit"]);
@@ -129,6 +130,7 @@ namespace OrderManagementTool
                     txt_raised_by.Text = saveIndent.Email;
                     datepicker_date1.SelectedDate = saveIndent.Date;
                     txt_location.Text = saveIndent.Location;
+                    cbx_approval_id.SelectedValue = saveIndent.ApproverName;
 
                     grid_indentdata.ItemsSource = null;
                     grid_indentdata.ItemsSource = gridIndents;
@@ -152,8 +154,8 @@ namespace OrderManagementTool
                 if (rowview != null)
                 {
                     txt_quantity.Text = Convert.ToInt32(rowview.Quantity).ToString();
-                    LoadItemName();
-                    cbx_itemname.SelectedItem = rowview.ItemName;
+                    LoadItemCategoryName();
+                    cbx_itemcategoryname.SelectedItem = rowview.ItemCategoryName;
                     LoadItemCode();
                     cbx_itemcode.SelectedItem = rowview.ItemCode;
                     LoadDescription();
@@ -170,11 +172,11 @@ namespace OrderManagementTool
             }
         }
 
-        private void cbx_itemname_DropDownOpened(object sender, EventArgs e)
+        private void cbx_itemcategoryname_DropDownOpened(object sender, EventArgs e)
         {
             try
             {
-                LoadItemName();
+                LoadItemCategoryName();
             }
             catch (Exception ex)
             {
@@ -249,14 +251,15 @@ namespace OrderManagementTool
         {
             try
             {
-                if (cbx_itemname.SelectedItem != null && cbx_itemcode.SelectedItem != null && txt_quantity.Text != ""
+                if (cbx_itemcategoryname.SelectedItem != null && cbx_itemcode.SelectedItem != null && txt_quantity.Text != ""
                    && quantityEntered != 0 && cbx_units.SelectedItem != null)
                 {
                     bool itemPresent = false;
                     GridIndent gridIndent = new GridIndent();
                     gridIndent.SlNo = gridIndents.Count + 1;
+                    gridIndent.ItemName = txt_item_name.Text;
                     gridIndent.ItemCode = cbx_itemcode.SelectedItem.ToString();
-                    gridIndent.ItemName = cbx_itemname.SelectedItem.ToString();
+                    gridIndent.ItemCategoryName = cbx_itemcategoryname.SelectedItem.ToString();
                     gridIndent.Quantity = quantityEntered;
                     gridIndent.Technical_Specifications = txt_technical_description.Text.Trim();
                     gridIndent.Units = cbx_units.SelectedItem.ToString();
@@ -264,7 +267,7 @@ namespace OrderManagementTool
 
                     foreach (var i in gridIndents)
                     {
-                        if (i.ItemName == gridIndent.ItemName &&
+                        if (i.ItemCategoryName == gridIndent.ItemCategoryName &&
                                 i.ItemCode == gridIndent.ItemCode &&
                                     i.Description == gridIndent.Description &&
                                         i.Technical_Specifications == gridIndent.Technical_Specifications &&
@@ -289,7 +292,7 @@ namespace OrderManagementTool
                                     MessageBoxImage.Error);
                     }
                 }
-                else if (cbx_itemname.SelectedItem == null)
+                else if (cbx_itemcategoryname.SelectedItem == null)
                 {
                     MessageBox.Show("Please select Item Name",
                                         "Order Management System",
@@ -363,14 +366,14 @@ namespace OrderManagementTool
             }
         }
 
-        private void LoadItemName()
+        private void LoadItemCategoryName()
         {
-            cbx_itemname.Items.Clear();
-            var itemName = (from i in orderManagementContext.ItemCategory
-                            select i.ItemCategoryName).Distinct().ToList();
-            foreach (var i in itemName)
+            cbx_itemcategoryname.Items.Clear();
+            var itemCategoryName = (from i in orderManagementContext.ItemCategory
+                                    select i.ItemCategoryName).Distinct().ToList();
+            foreach (var i in itemCategoryName)
             {
-                cbx_itemname.Items.Add(i.Trim());
+                cbx_itemcategoryname.Items.Add(i.Trim());
             }
         }
         private void LoadDescription()
@@ -379,13 +382,14 @@ namespace OrderManagementTool
             var itemDetails = (from i in orderManagementContext.ItemMaster
                                from ic in orderManagementContext.ItemCategory
                                where i.ItemCategoryId == ic.ItemCategoryId &&
-                               ic.ItemCategoryName == selectedItemName &&
+                               ic.ItemCategoryName == selectedItemCategoryName &&
                                i.ItemCode == selectedItemCode
                                select i).FirstOrDefault();
             if (itemDetails != null)
             {
                 txt_description.Text = itemDetails.Description;
                 txt_technical_description.Text = itemDetails.TechnicalSpecification;
+                txt_item_name.Text = itemDetails.ItemName;
             }
         }
         private void LoadUnits()
@@ -400,13 +404,13 @@ namespace OrderManagementTool
         }
         private void LoadItemCode()
         {
-            if (cbx_itemname.SelectedItem != null)
+            if (cbx_itemcategoryname.SelectedItem != null)
             {
-                selectedItemName = cbx_itemname.SelectedItem.ToString();
+                selectedItemCategoryName = cbx_itemcategoryname.SelectedItem.ToString();
                 cbx_itemcode.Items.Clear();
                 itemCode = (from i in orderManagementContext.ItemMaster
                             from ic in orderManagementContext.ItemCategory
-                            where i.ItemCategoryId == ic.ItemCategoryId && ic.ItemCategoryName == selectedItemName
+                            where i.ItemCategoryId == ic.ItemCategoryId && ic.ItemCategoryName == selectedItemCategoryName
                             select i.ItemCode).Distinct().ToList();
                 foreach (var i in itemCode)
                 {
@@ -420,7 +424,7 @@ namespace OrderManagementTool
         }
         private void ClearFields()
         {
-            cbx_itemname.SelectedValue = "";
+            cbx_itemcategoryname.SelectedValue = "";
             cbx_itemcode.SelectedValue = "";
             txt_description.Text = "";
             txt_quantity.Text = "";
@@ -428,6 +432,7 @@ namespace OrderManagementTool
             cbx_units.SelectedValue = "";
             txt_remarks.Text = "";
             txt_technical_description.Text = "";
+            txt_item_name.Text = "";
         }
 
         private void LoadApprovalId()
@@ -457,7 +462,8 @@ namespace OrderManagementTool
                 // bool itemPresent = false;
                 GridIndent value = new GridIndent();
                 value.ItemCode = cbx_itemcode.SelectedItem.ToString();
-                value.ItemName = cbx_itemname.SelectedItem.ToString();
+                value.ItemCategoryName = cbx_itemcategoryname.SelectedItem.ToString();
+                value.ItemName = txt_item_name.Text;
                 value.Quantity = quantityEntered;
                 value.Technical_Specifications = txt_technical_description.Text.Trim();
                 value.Units = cbx_units.SelectedItem.ToString();
@@ -474,8 +480,9 @@ namespace OrderManagementTool
                 //{
                 var gridIndent = gridIndents[gridSelectedIndex];
                 gridIndent.ItemCode = cbx_itemcode.SelectedItem.ToString();
-                gridIndent.ItemName = cbx_itemname.SelectedItem.ToString();
+                gridIndent.ItemCategoryName = cbx_itemcategoryname.SelectedItem.ToString();
                 gridIndent.Quantity = quantityEntered;
+                gridIndent.ItemName = txt_item_name.Text;
                 gridIndent.Technical_Specifications = txt_technical_description.Text.Trim();
                 gridIndent.Units = cbx_units.SelectedItem.ToString();
                 gridIndent.Remarks = txt_remarks.Text.Trim();
@@ -521,11 +528,11 @@ namespace OrderManagementTool
                 MessageBox.Show("Please enter Valid Date");
                 return;
             }
-            //if (cbx_approval_id.SelectedValue == null)
-            //{
-            //    MessageBox.Show("Please select Approver");
-            //    return;
-            //}
+            if (cbx_approval_id.SelectedValue == null)
+            {
+                MessageBox.Show("Please select Approver");
+                return;
+            }
             if (txt_location.Text == "")
             {
                 MessageBox.Show("Please Enter Location");
@@ -545,9 +552,11 @@ namespace OrderManagementTool
                 saveIndent.Location = txt_location.Text;
                 saveIndent.RaisedBy = _login.EmployeeID;
                 saveIndent.CreateDate = DateTime.Now;
-                // var approvalID= from a in  orderManagementContext.
-                // saveIndent.ApprovalID = cbx_approval_id.SelectedItem.ToString();
-                saveIndent.ApprovalID = 1;
+                var approvalID = (from a in orderManagementContext.UserMaster
+                                  where a.Email == cbx_approval_id.SelectedValue.ToString()
+                                  select a.UserId).FirstOrDefault();
+                saveIndent.ApprovalID = approvalID;
+                // saveIndent.ApprovalID = 1;
                 saveIndent.GridIndents = gridIndents;
                 try
                 {
@@ -573,7 +582,7 @@ namespace OrderManagementTool
                             SqlCommand testCMD1 = new SqlCommand("create_indentDetails", connection);
                             testCMD1.CommandType = CommandType.StoredProcedure;
                             testCMD1.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.IndentId });
-                            testCMD1.Parameters.Add(new SqlParameter("@ItemName", System.Data.SqlDbType.VarChar, 50) { Value = i.ItemName });
+                            testCMD1.Parameters.Add(new SqlParameter("@ItemName", System.Data.SqlDbType.VarChar, 50) { Value = i.ItemCategoryName });
                             testCMD1.Parameters.Add(new SqlParameter("@ItemCode", System.Data.SqlDbType.VarChar, 50) { Value = i.ItemCode });
                             testCMD1.Parameters.Add(new SqlParameter("@Unit", System.Data.SqlDbType.VarChar, 50) { Value = i.Units });
                             testCMD1.Parameters.Add(new SqlParameter("@Quantity", System.Data.SqlDbType.VarChar, 50) { Value = i.Quantity });
@@ -752,9 +761,12 @@ namespace OrderManagementTool
                         worksheet.Cell("B" + j).Value = i;
                         worksheet.Cell("C" + j).Value = gridIndents[k].ItemCode;
                         worksheet.Cell("D" + j).Value = gridIndents[k].Units;
-                        worksheet.Cell("E" + j).Value = gridIndents[k].TotalPlanned;
-                        worksheet.Cell("F" + j).Value = gridIndents[k].TotalSupplied;
-                        worksheet.Cell("G" + j).Value = gridIndents[k].StockAsOn;
+                        //worksheet.Cell("E" + j).Value = gridIndents[k].TotalPlanned;
+                        //worksheet.Cell("F" + j).Value = gridIndents[k].TotalSupplied;
+                        //worksheet.Cell("G" + j).Value = gridIndents[k].StockAsOn;
+                        worksheet.Cell("E" + j).Value = 0;
+                        worksheet.Cell("F" + j).Value = 0;
+                        worksheet.Cell("G" + j).Value = 0;
                         worksheet.Cell("H" + j).Value = gridIndents[k].Quantity;
                         worksheet.Cell("I" + j).Value = gridIndents[k].Description;
                         j++;

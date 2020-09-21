@@ -15,6 +15,7 @@ namespace OrderManagementTool.Models.Indent
         public string IndentRemarks { get; set; }
 
         public long ApprovalID { get; set; }
+        public string ApproverName { get; set; }
 
         public List<GridIndent> GridIndents { get; set; }
     }
