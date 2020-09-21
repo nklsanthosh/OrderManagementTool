@@ -65,8 +65,6 @@ namespace OrderManagementTool
 
                         Menu menu = new Menu(login);
                         menu.Show();
-                        var splashScreen = new SplashScreen();
-                        splashScreen.Close();
                         this.Close();
                     }
                     else

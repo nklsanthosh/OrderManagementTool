@@ -19,7 +19,7 @@
             <StackPanel Orientation="Horizontal">
                 <Image Source="Images/icons/icon_close_green.png"/>
             </StackPanel>
-            
+
         </Button>
         <Label Content="ORDER MANANGEMENT SYSTEM" FontSize="16" Visibility="Visible" FontFamily="Arial" FontWeight="Bold" Margin="220,124,105,446"/>
 
@@ -99,7 +99,7 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <PasswordBox x:Name="txt_password" HorizontalAlignment="Left" Margin="195,321,0,0" VerticalAlignment="Top"
+        <PasswordBox x:Name="txt_password" HorizontalAlignment="Left" Margin="195,314,0,0" VerticalAlignment="Top"
                      Width="230" Height="35" BorderBrush="#FF8CBD4B"  Tag="| Enter Password" TextBlock.TextAlignment="Center" 
                  TextBlock.LineStackingStrategy="BlockLineHeight" VerticalContentAlignment="Center">
             <PasswordBox.Style>
