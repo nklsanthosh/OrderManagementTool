@@ -4,77 +4,684 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OrderManagementTool"
-        mc:Ignorable="d" Icon="/Images/logo.png"
-        Title="Order Management System - Masters" Height="423" Width="718" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-    <Grid RenderTransformOrigin="0.98,0.894">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <TabControl Grid.ColumnSpan="2">
-            <TabItem Header="Add Category">
+        mc:Ignorable="d" Icon="/Images/logo.png" Background="#E7F8F0" 
+        Title="Order Management System - Masters" Height="683" Width="718" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.Resources>
+        <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+                <Border
+                  x:Name="Border" 
+                  Grid.ColumnSpan="2"
+                  CornerRadius="5"
+                  Background="#EBF8F0"
+                  BorderBrush="#FF8CBD4B"
+                  BorderThickness="1" />
+                <Border 
+                  Grid.Column="0"
+                  CornerRadius="5" 
+                  Margin="1" 
+                  Background="#EBF8F0"
+                  BorderBrush="#FF8CBD4B"
+                  BorderThickness="0,0,1,0" />
+                <Path 
+                  x:Name="Arrow"
+                  Grid.Column="1"     
+                  Fill="#FF8CBD4B"  
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
+                />
+            </Grid>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
+            <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
+        </ControlTemplate>
+
+        <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+            <Setter Property="MinWidth" Value="120"/>
+            <Setter Property="MinHeight" Value="20"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBox}">
+                        <Grid>
+                            <ToggleButton 
+                            Name="ToggleButton" 
+                            Template="{StaticResource ComboBoxToggleButton}" 
+                            Grid.Column="2" 
+                            Focusable="false"
+                            IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                            ClickMode="Press">
+                            </ToggleButton>
+                            <ContentPresenter Name="ContentSite" IsHitTestVisible="False"  Content="{TemplateBinding SelectionBoxItem}"
+                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                            Margin="3,3,23,3"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left" />
+                            <TextBox x:Name="PART_EditableTextBox"
+                            Style="{x:Null}" 
+                            Template="{StaticResource ComboBoxTextBox}" 
+                            HorizontalAlignment="Left" 
+                            VerticalAlignment="Center" 
+                            Margin="3,3,23,3"
+                            Focusable="True" 
+                            Background="#FF3F3F3F"
+                            Foreground="Green"
+                            Visibility="Hidden"
+                            IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                            <Popup 
+                            Name="Popup"
+                            Placement="Bottom"
+                            IsOpen="{TemplateBinding IsDropDownOpen}"
+                            AllowsTransparency="True" 
+                            Focusable="False"
+                            PopupAnimation="Slide">
+
+                                <Grid Name="DropDown"
+                              SnapsToDevicePixels="True"                
+                              MinWidth="{TemplateBinding ActualWidth}"
+                              MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border 
+                                x:Name="DropDownBorder"
+                                Background="#FF3F3F3F"
+
+                                BorderThickness="1"
+                                BorderBrush="#888888"/>
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#888888"/>
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                            </Trigger>
+                            <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
+                                <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="0"/>
+                                <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0"/>
+                            </Trigger>
+                            <Trigger Property="IsEditable"  Value="true">
+                                <Setter Property="IsTabStop" Value="false"/>
+                                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+            </Style.Triggers>
+        </Style>
+
+        <!-- SimpleStyles: ComboBoxItem -->
+        <Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                        <Border Name="Border"
+                              Padding="2"
+                              SnapsToDevicePixels="true">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#FF4F4F4F"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#888888"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Border BorderThickness="1" BorderBrush="#8ABC48" Background="#FFFFFF" Margin="30,22,30,22"/>
+        <Image Source="images/icons/logo_slpp_home.jpg" Margin="34,24,609,575"/>
+        <TabControl Margin="80,122,80,190">
+            <TabControl.Resources>
+                <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type TabItem}">
+                                <Border x:Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
+                                    <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="#FFFFFF" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Border" Property="Background" Value="#EBF8F0" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+            <TabItem  Header="Add Category" Foreground="#609F19" FontFamily="Verdana" FontSize="11" FontWeight="Bold" Background="#FFFFFF" BorderBrush="#609F19" >
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="189*"/>
-                        <ColumnDefinition Width="8*"/>
-                        <ColumnDefinition Width="57*"/>
-                        <ColumnDefinition Width="26*"/>
-                        <ColumnDefinition Width="432*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label x:Name="lbl_category_name" Content="Category Name : " HorizontalAlignment="Left" Margin="185,90,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.407,0.464" Grid.ColumnSpan="5"/>
-                    <TextBox x:Name="txt_category_name" HorizontalAlignment="Left" Margin="22,90,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="26" LostFocus="txt_category_name_LostFocus" Grid.Column="4"/>
-                    <Button x:Name="btn_add_category"  HorizontalAlignment="Left" Margin="92,180,0,0" VerticalAlignment="Top" Click="btn_add_category_Click" Width="130" Height="30" Grid.Column="4">
+                    <Border BorderThickness="1" BorderBrush="#8ABC48" Background="#FFFFFF" Margin="76,60,83,79"/>
+                    <Label x:Name="lbl_category_name" Content="Category Name " HorizontalAlignment="Left" Margin="122,90,0,0" FontWeight="Regular" VerticalAlignment="Top" Width="100" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" />
+                    <TextBox x:Name="txt_category_name" Margin="234,90,0,0" Text="" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" 
+                             Width="212" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False"  LostFocus="txt_category_name_LostFocus">
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+                                <Setter Property="BorderBrush" Value="#8CBD48"/>
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                <Setter Property="AllowDrop" Value="true"/>
+                                <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+                                <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type TextBox}">
+                                            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="5">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                                </Grid>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsEnabled" Value="false">
+                                                    <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="true">
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                                                </Trigger>
+                                                <Trigger Property="IsKeyboardFocused" Value="true">
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
+                                                </Trigger>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="Text" Value=""/>
+                                                    </MultiTrigger.Conditions>
+                                                </MultiTrigger>
+
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <!--<Button x:Name="btn_add_category"  HorizontalAlignment="Left" Margin="92,180,0,0" VerticalAlignment="Top" Click="btn_add_category_Click" Width="130" Height="30" Grid.Column="4">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="Images/add-icon.png" Width="20" Height="20"/>
                             <TextBlock Text="Add Category" VerticalAlignment="Center"/>
                         </StackPanel>
+                    </Button>-->
+                    <Button x:Name="btn_add_category"  HorizontalAlignment="Left" Margin="326,180,0,0" VerticalAlignment="Top" Click="btn_add_category_Click" Width="120" Height="29">
+                        <Button.Content>
+                            <Image Source="Images\Icons\btn_add_category.jpg" Width="120" Height="32"  Margin="-2,-2,0,2" />
+
+                        </Button.Content>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="1" Padding="2">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
                     </Button>
-                    <Label x:Name="lbl_category_desc" Content="Category Desc: " HorizontalAlignment="Left" Margin="185,135,0,0" VerticalAlignment="Top" Width="90" Grid.ColumnSpan="4"></Label>
-                    <TextBox x:Name="txt_category_description" HorizontalAlignment="Left" Margin="22,135,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="26" Grid.Column="4"/>
-                    <Border BorderThickness="1" BorderBrush="Black" Margin="156,60,156,138" Grid.ColumnSpan="5"/>
+                    <Label x:Name="lbl_category_desc" Content="Category Description " HorizontalAlignment="Left" Margin="93,135,0,0" FontWeight="Regular" VerticalAlignment="Top" Width="132" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+                    <TextBox x:Name="txt_category_description" Margin="234,132,0,0" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" 
+                             Width="212" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False">
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+                                <Setter Property="BorderBrush" Value="#8CBD48"/>
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                <Setter Property="AllowDrop" Value="true"/>
+                                <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+                                <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type TextBox}">
+                                            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="5">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                                </Grid>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsEnabled" Value="false">
+                                                    <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="true">
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                                                </Trigger>
+                                                <Trigger Property="IsKeyboardFocused" Value="true">
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
+                                                </Trigger>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="Text" Value=""/>
+                                                    </MultiTrigger.Conditions>
+                                                </MultiTrigger>
+
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Add Item">
+            <TabItem Header="Add Item" Foreground="#609F19" FontFamily="Verdana" FontSize="11" FontWeight="Bold" Background="#FFFFFF" BorderBrush="#609F19" Height="18" VerticalAlignment="Bottom" >
+
                 <Grid >
-                    <Label Content="ItemCategory :" HorizontalAlignment="Left" Margin="190,55,0,0" VerticalAlignment="Top" Width="88"  Height="26"/>
-                    <ComboBox x:Name="cbx_category_name" HorizontalAlignment="Left" Margin="325,55,0,0" VerticalAlignment="Top" Width="200" DropDownOpened="cbx_category_name_DropDownOpened" DropDownClosed="cbx_category_name_DropDownClosed" Height="26"/>
-                    <Label x:Name="lbl_item_name" Content="Item Name: " HorizontalAlignment="Left" Margin="193,100,0,0" VerticalAlignment="Top" Width="72"  Height="25"/>
-                    <TextBox x:Name="txt_item_name" HorizontalAlignment="Left" Margin="325,100,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="26" LostFocus="txt_label_name_LostFocus"/>
-                    <Label x:Name="lbl_item_code"  Content="Item Code: " HorizontalAlignment="Left" Margin="193,145,0,0" VerticalAlignment="Top" Width="88" Height="26"/>
-                    <TextBox x:Name="txt_item_code" HorizontalAlignment="Left" Margin="325,145,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="26" LostFocus="txt_item_code_LostFocus"/>
-                    <Label x:Name="lbl_item_description"  Height="26" Content="Item Description: " HorizontalAlignment="Left" Margin="185,190,0,0" VerticalAlignment="Top" Width="99"/>
-                    <TextBox x:Name="txt_item_description" HorizontalAlignment="Left" Margin="325,190,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="26"/>
-                    <Label x:Name="lbl_technical_specification" Content="Item Technical Spec :" HorizontalAlignment="Left" Margin="185,235,0,0" VerticalAlignment="Top" Width="126" RenderTransformOrigin="1.2,3.545" Height="26"/>
-                    <TextBox x:Name="txt_item_technical_specification" HorizontalAlignment="Left" Margin="325,235,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="26"/>
-                    <Button x:Name="btn_add_item" HorizontalAlignment="Left" Margin="395,282,0,0" VerticalAlignment="Top" Click="btn_add_item_Click" Width="130" Height="30">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="Images/add-icon.png" Width="20" Height="20"/>
-                            <TextBlock Text=" Add Item" VerticalAlignment="Center"/>
-                        </StackPanel>
+                    <Border BorderThickness="1" BorderBrush="#8ABC48" Background="#FFFFFF"  Margin="59,23,53,7"/>
+
+                    <Label Content="ItemCategory" Margin="109,47,336,0" VerticalAlignment="Top"  Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+                    <ComboBox x:Name="cbx_category_name" HorizontalAlignment="Left" Margin="232,47,0,0" VerticalAlignment="Top" Width="212" DropDownOpened="cbx_category_name_DropDownOpened" DropDownClosed="cbx_category_name_DropDownClosed" Height="26">
+                    </ComboBox>
+                    <Label x:Name="lbl_item_name" Content="Item Name" Margin="125,86,336,0" VerticalAlignment="Top"  Height="25" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+                    <TextBox x:Name="txt_item_name" HorizontalAlignment="Left" Margin="232,86,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" LostFocus="txt_label_name_LostFocus" Width="212" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False">
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+                                <Setter Property="BorderBrush" Value="#8CBD48"/>
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                <Setter Property="AllowDrop" Value="true"/>
+                                <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+                                <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type TextBox}">
+                                            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="5">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                                </Grid>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsEnabled" Value="false">
+                                                    <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="true">
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                                                </Trigger>
+                                                <Trigger Property="IsKeyboardFocused" Value="true">
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
+                                                </Trigger>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="Text" Value=""/>
+                                                    </MultiTrigger.Conditions>
+                                                </MultiTrigger>
+
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <Label x:Name="lbl_item_code"  Content="Item Code" Margin="129,130,336,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+                    <TextBox x:Name="txt_item_code" HorizontalAlignment="Left" Margin="232,130,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" LostFocus="txt_item_code_LostFocus" Width="212" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False">
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+                                <Setter Property="BorderBrush" Value="#8CBD48"/>
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                <Setter Property="AllowDrop" Value="true"/>
+                                <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+                                <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type TextBox}">
+                                            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="5">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                                </Grid>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsEnabled" Value="false">
+                                                    <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="true">
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                                                </Trigger>
+                                                <Trigger Property="IsKeyboardFocused" Value="true">
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
+                                                </Trigger>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="Text" Value=""/>
+                                                    </MultiTrigger.Conditions>
+                                                </MultiTrigger>
+
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <Label x:Name="lbl_item_description"  Height="26" Content="Item Description" Margin="95,175,336,0" VerticalAlignment="Top" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+                    <TextBox x:Name="txt_item_description" HorizontalAlignment="Left" Margin="232,175,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False">
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+                                <Setter Property="BorderBrush" Value="#8CBD48"/>
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                <Setter Property="AllowDrop" Value="true"/>
+                                <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+                                <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type TextBox}">
+                                            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="5">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                                </Grid>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsEnabled" Value="false">
+                                                    <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="true">
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                                                </Trigger>
+                                                <Trigger Property="IsKeyboardFocused" Value="true">
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
+                                                </Trigger>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="Text" Value=""/>
+                                                    </MultiTrigger.Conditions>
+                                                </MultiTrigger>
+
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <Label x:Name="lbl_technical_specification" Content="Technical Specification" Margin="67,223,325,0" VerticalAlignment="Top" RenderTransformOrigin="1.2,3.545" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+                    <TextBox x:Name="txt_item_technical_specification" HorizontalAlignment="Left" Margin="232,220,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False">
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+                                <Setter Property="BorderBrush" Value="#8CBD48"/>
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                <Setter Property="AllowDrop" Value="true"/>
+                                <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+                                <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type TextBox}">
+                                            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="5">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                                </Grid>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsEnabled" Value="false">
+                                                    <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="true">
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                                                </Trigger>
+                                                <Trigger Property="IsKeyboardFocused" Value="true">
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
+                                                </Trigger>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="Text" Value=""/>
+                                                    </MultiTrigger.Conditions>
+                                                </MultiTrigger>
+
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <Button x:Name="btn_add_item" HorizontalAlignment="Left" Margin="325,265,0,0" VerticalAlignment="Top" Click="btn_add_item_Click"  Width="120" Height="29">
+                        <Button.Content>
+                            <Image Source="Images\Icons\btn_add_item.jpg" Width="120" Height="32"  Margin="-2,-2,0,2" />
+
+                        </Button.Content>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="1" Padding="2">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
                     </Button>
-                    <Border BorderThickness="1" BorderBrush="Black" Margin="156,32,156,40"/>
+
                 </Grid>
             </TabItem>
-            <TabItem Header="Add Unit">
+            <TabItem Header="Add Unit" Foreground="#609F19" FontFamily="Verdana" FontSize="11" FontWeight="Bold" Background="#FFFFFF" BorderBrush="#609F19" >
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="581*"/>
-                        <ColumnDefinition Width="131*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label x:Name="lbl_unit" Content="Unit : " HorizontalAlignment="Center" Margin="0,90,0,0" VerticalAlignment="Top" Width="38" RenderTransformOrigin="1.357,2.005" Height="26"/>
-                    <TextBox x:Name="txt_unit" HorizontalAlignment="Left" Margin="325,90,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="26" TextChanged="TextBox_TextChanged" LostFocus="txt_unit_LostFocus"/>
-                    <Button x:Name="btn_add_unit" HorizontalAlignment="Left" Margin="395,180,0,0" VerticalAlignment="Top" Click="btn_add_unit_Click"  Width="130" Height="30">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="Images/add-icon.png" Width="20" Height="20"/>
-                            <TextBlock Text=" Add Unit" VerticalAlignment="Center"/>
-                        </StackPanel>
+                    <Border BorderThickness="1" Margin="100,60,80,60" BorderBrush="#8ABC48" Background="#FFFFFF" />
+                    <Label x:Name="lbl_unit" Content="Unit" HorizontalAlignment="Left" Margin="176,94,0,0" VerticalAlignment="Top" Width="38" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+                    <TextBox x:Name="txt_unit" HorizontalAlignment="Left" Margin="223,90,0,0" Text="" TextChanged="TextBox_TextChanged" LostFocus="txt_unit_LostFocus" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False">
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+                                <Setter Property="BorderBrush" Value="#8CBD48"/>
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                <Setter Property="AllowDrop" Value="true"/>
+                                <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+                                <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type TextBox}">
+                                            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="5">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                                </Grid>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsEnabled" Value="false">
+                                                    <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="true">
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                                                </Trigger>
+                                                <Trigger Property="IsKeyboardFocused" Value="true">
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
+                                                </Trigger>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="Text" Value=""/>
+                                                    </MultiTrigger.Conditions>
+                                                </MultiTrigger>
+
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <Button x:Name="btn_add_unit" HorizontalAlignment="Left" Margin="317,190,0,0" VerticalAlignment="Top" Click="btn_add_unit_Click" Width="120" Height="29">
+                        <Button.Content>
+                            <Image Source="Images\Icons\btn_add_unit.jpg" Width="120" Height="32"  Margin="-2,-2,0,2" />
+
+                        </Button.Content>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="1" Padding="2">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
                     </Button>
-                    <Label x:Name="lbl_unit_description" Content="Unit Description : " HorizontalAlignment="Left" Margin="215,135,0,0" VerticalAlignment="Top" Width="102" Height="26"/>
-                    <TextBox x:Name="txt_unit_description" HorizontalAlignment="Left" Margin="325,135,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="26"/>
-                    <Border BorderThickness="1" BorderBrush="Black" Margin="156,60,14,143"/>
+                    <Label x:Name="lbl_unit_description" Content="Unit Description : " HorizontalAlignment="Left" Margin="113,138,0,0" VerticalAlignment="Top" Width="102" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+                    <TextBox x:Name="txt_unit_description" HorizontalAlignment="Left" Margin="224,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False">
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+                                <Setter Property="BorderBrush" Value="#8CBD48"/>
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                <Setter Property="AllowDrop" Value="true"/>
+                                <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+                                <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type TextBox}">
+                                            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="5">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                                </Grid>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsEnabled" Value="false">
+                                                    <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="true">
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                                                </Trigger>
+                                                <Trigger Property="IsKeyboardFocused" Value="true">
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
+                                                </Trigger>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="Text" Value=""/>
+                                                    </MultiTrigger.Conditions>
+                                                </MultiTrigger>
+
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
                 </Grid>
             </TabItem>
         </TabControl>
+        <Image Source="images/icons/grey_icon.png" Margin="91,23,596,570" />
+        <Label x:Name="lblHeader" Content="ORDER MANANGEMENT SYSTEM" FontSize="16" Visibility="Visible" FontFamily="Arial" FontWeight="Bold"  Margin="105,48,324,0" VerticalAlignment="Top" Height="30"/>
+        <Label x:Name="lblBreadCrumb" Content="&gt; Masters" HorizontalAlignment="Left" Margin="371,50,0,0"  FontFamily="Verdana" Foreground="#6c6c6c" VerticalAlignment="Top" Width="72" Height="26"/>
+        <Image Source="images/icons/horizontal_line_icon.png" Margin="31,69,31,551" />
+        <Image Source="images/icons/horizontal_line_icon.png" Margin="32,540,31,95" />
+        <Label x:Name="lblPoweredBy" Content="Powered By" HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="39,557,0,0" VerticalAlignment="Top" Width="77" Height="26"/>
+        <Image Source="images/icons/logo_devlup_inner_v2.jpg" Margin="43,568,605,28"/>
+        <Label x:Name="lblCopy" Content="Copyrights © 2020 Devlup Solutions" HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="461,570,0,0" VerticalAlignment="Top" Width="213" Height="26"/>
+        <Label x:Name="lblRightd" Content="All rights reserved." HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="559,589,0,0" VerticalAlignment="Top" Width="115" Height="26"/>
 
     </Grid>
 </Window>

@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OrderManagementTool"
         mc:Ignorable="d" Icon="/Images/logo.png" Background="#E7F8F0" 
-        Title="Order Management System - Menu" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Order Management System - Menu" Height="650" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Margin="0,2,0,-2">
 
         <Border BorderThickness="1" BorderBrush="#8ABC48" Background="#FFFFFF" Margin="40,32,40,32"/>
 
 
-        <Label x:Name="lbl_indent" Content="Create or Search Indent" HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="76,129,0,0" VerticalAlignment="Top" Width="144" Height="30"/>
-        <Button x:Name="btn_create_Indent" HorizontalAlignment="Left" Margin="238,129,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_create_Indent_Click">
+        <Label x:Name="lbl_indent" Content="Create or Search Indent" HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="76,152,0,0" VerticalAlignment="Top" Width="144" Height="30"/>
+        <Button x:Name="btn_create_Indent" HorizontalAlignment="Left" Margin="238,152,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_create_Indent_Click">
             <Button.Content>
                 <Image Source="Images\Icons\btn_create_indent.jpg" Margin="-2,-2,0,0" Width="130" Height="32"/>
 
@@ -31,7 +31,7 @@
                 </Style>
             </Button.Style>
         </Button>
-        <TextBox x:Name="txt_indent_no" HorizontalAlignment="Left" Margin="461,129,0,0" TextWrapping="Wrap"
+        <TextBox x:Name="txt_indent_no" HorizontalAlignment="Left" Margin="461,152,0,0" TextWrapping="Wrap"
                  VerticalAlignment="Top" Width="91" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
@@ -89,8 +89,8 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <Label Content="Indent No :" HorizontalAlignment="Left" Margin="388,129,0,0" VerticalAlignment="Top" Width="79" Height="30" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" />
-        <Button x:Name="btn_search_indent"  HorizontalAlignment="Left" Margin="557,129,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_search_indent_Click">
+        <Label Content="Indent No :" HorizontalAlignment="Left" Margin="388,152,0,0" VerticalAlignment="Top" Width="79" Height="30" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" />
+        <Button x:Name="btn_search_indent"  HorizontalAlignment="Left" Margin="557,152,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_search_indent_Click">
             <Button.Content>
                 <Image Source="Images\Icons\btn_search_indent.jpg" Margin="-2,-2,0,0" Width="130" Height="32"/>
             </Button.Content>
@@ -108,8 +108,8 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Label x:Name="lbl_item" Content="Masters" HorizontalAlignment="Left" Margin="164,168,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" />
-        <Button x:Name="btn_add_item" HorizontalAlignment="Left" Margin="238,168,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_add_item_Click">
+        <Label x:Name="lbl_item" Content="Masters" HorizontalAlignment="Left" Margin="164,191,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" />
+        <Button x:Name="btn_add_item" HorizontalAlignment="Left" Margin="238,191,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_add_item_Click">
             <Button.Content>
                 <Image Source="Images\Icons\btn_add_masters.jpg" Margin="-2,-2,0,0" Width="130" Height="32"/>
 
@@ -128,7 +128,7 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button x:Name="btn_log_off"  HorizontalAlignment="Left" Margin="652,55,0,0" VerticalAlignment="Top"  Height="30" Width="90" Background="#609f19"  
+        <Button x:Name="btn_log_off"  HorizontalAlignment="Left" Margin="650,66,0,0" VerticalAlignment="Top"  Height="30" Width="90" Background="#609f19"  
                 FontFamily="Verdana" FontWeight="Bold" FontSize="11" Click="btn_log_off_Click" Foreground="#FFFFFF" >
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
@@ -147,14 +147,17 @@
         </Button>
 
 
-        <Label x:Name="lblHeader" Content="ORDER MANANGEMENT SYSTEM" FontSize="16" Visibility="Visible" FontFamily="Arial" FontWeight="Bold"  Margin="117,57,394,0" VerticalAlignment="Top" Height="30"/>
-        <Label x:Name="lblBreadCrumb" Content="> Menu" HorizontalAlignment="Left" Margin="383,59,0,0"  FontFamily="Verdana" Foreground="#6c6c6c" VerticalAlignment="Top" Width="63" Height="26"/>
-        <Image Source="images/icons/logo_slpp_home.jpg" Margin="41,34,689,330"/>
-        <Image Source="images/icons/grey_icon.png" Margin="93,33,663,325" />
-        <Image Source="images/icons/horizontal_line_icon.png" Margin="43,59,40,284" />
-        <Image Source="images/icons/horizontal_line_icon.png" Margin="43,291,40,102" />
-        <Label x:Name="lblPoweredBy" Content="Powered By" HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="49,314,0,0" VerticalAlignment="Top" Width="77" Height="26"/>
-        <Image Source="images/icons/logo_devlup_inner_v2.jpg" Margin="51,333,679,33"/>
+        <Label x:Name="lblHeader" Content="ORDER MANANGEMENT SYSTEM" FontSize="16" Visibility="Visible" FontFamily="Arial" FontWeight="Bold"  Margin="117,68,394,0" VerticalAlignment="Top" Height="30"/>
+        <Label x:Name="lblBreadCrumb" Content="> Menu" HorizontalAlignment="Left" Margin="383,70,0,0"  FontFamily="Verdana" Foreground="#6c6c6c" VerticalAlignment="Top" Width="63" Height="26"/>
+        <Image Source="images/icons/logo_slpp_home.jpg" Margin="42,38,688,522"/>
+        <Image Source="images/icons/grey_icon.png" Margin="99,38,670,514" />
+        <Image Source="images/icons/horizontal_line_icon.png" Margin="41,89,42,498" />
+        <Image Source="images/icons/horizontal_line_icon.png" Margin="43,499,40,103" />
+        <Label x:Name="lblPoweredBy" Content="Powered By" HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="47,520,0,0" VerticalAlignment="Top" Width="77" Height="26"/>
+        <Image Source="images/icons/logo_devlup_inner_v2.jpg" Margin="51,541,679,36"/>
+        <Label x:Name="lblCopy" Content="Copyrights © 2020 Devlup Solutions" HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="535,529,0,0" VerticalAlignment="Top" Width="213" Height="26"/>
+        <Label x:Name="lblRightd" Content="All rights reserved." HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="634,548,0,0" VerticalAlignment="Top" Width="115" Height="26"/>
+
 
     </Grid>
 </Window>
