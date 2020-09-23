@@ -71,7 +71,7 @@ namespace OrderManagementTool
                         viewIndent.ApproverName = Convert.ToString(dataSet.Tables[0].Rows[counter]["Approver"]);
                         viewIndent.Date = Convert.ToDateTime(dataSet.Tables[0].Rows[counter]["Date"]);
                         viewIndent.Location = Convert.ToString(dataSet.Tables[0].Rows[counter]["Location"]);
-                        viewIndent.Remarks = Convert.ToString(dataSet.Tables[0].Rows[counter]["Remarks"]);
+                        viewIndent.IndentRemarks = Convert.ToString(dataSet.Tables[0].Rows[counter]["Remarks"]);
 
                         viewIndent.CategoryName = Convert.ToString(dataSet.Tables[0].Rows[counter]["ItemCategoryName"]);
                         viewIndent.ItemCode = Convert.ToString(dataSet.Tables[0].Rows[counter]["ItemCode"]);
@@ -79,7 +79,7 @@ namespace OrderManagementTool
                         viewIndent.Description = Convert.ToString(dataSet.Tables[0].Rows[counter]["Description"]);
                         viewIndent.Technical_Specifications = Convert.ToString(dataSet.Tables[0].Rows[counter]["TechnicalSpecification"]);
                         viewIndent.Quantity = Convert.ToInt32(dataSet.Tables[0].Rows[counter]["Quantity"]);
-                        viewIndent.Remarks = Convert.ToString(dataSet.Tables[0].Rows[counter]["Item Remarks"]);
+                       // viewIndent.Remarks = Convert.ToString(dataSet.Tables[0].Rows[counter]["Item Remarks"]);
 
                         viewIndent.Email = Convert.ToString(dataSet.Tables[0].Rows[counter]["Email"]);
 
