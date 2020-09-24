@@ -12,12 +12,12 @@
 
         <Border BorderThickness="1" BorderBrush="#8ABC48" Background="#FFFFFF" HorizontalAlignment="Center" Height="516" VerticalAlignment="Center"  Width="519"/>
 
-        <Image Source="/Images/icons/logo_slpp_home.jpg" Height="100px" Width="100px" Margin="356,75,288,425"/>
-        <Label Content="ORDER MANANGEMENT SYSTEM" FontSize="22" FontFamily="Arial" Foreground="#000000" FontWeight="Bold" Height="50px" Margin="232,183,148,367" RenderTransformOrigin="0.773,0.708"/>
-        <Label Content="Version 1.0" FontSize="11"  FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="370,225,264,345" RenderTransformOrigin="0.558,1.438"/>
-        <controls:RadialProgressBar Margin="340,158,295,92"/>
-        <Label Content="Powered By" FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="364,403,295,167" RenderTransformOrigin="1.494,1.533"/>
-        <Image Source="/Images/icons/logo_devlup.jpg" Height="80px"  Margin="357,428,295,92"/>
+        <Image Source="/Images/logo.png" Height="100px" Width="100px" Margin="326,75,326,425"/>
+        <Label Content="ORDER MANANGEMENT SYSTEM" FontSize="22" FontFamily="Arial" Foreground="#000000" FontWeight="Bold" Height="50px" Margin="198,183,182,367" RenderTransformOrigin="0.773,0.708"/>
+        <Label Content="Version 1.0" FontSize="11"  FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="336,225,298,345" RenderTransformOrigin="0.558,1.438"/>
+        <controls:RadialProgressBar Margin="319,273,313,207"/>
+        <Label Content="Powered By" FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="339,403,320,167" RenderTransformOrigin="1.494,1.533"/>
+        <Image Source="/Images/icons/logo_devlup_home_v2.jpg"  Margin="326,405,318,92"/>
         <Label Content="Copyrights © 2020 Devlup Solutions" FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="421,507,116,63"/>
         <Label Content="All rights reserved." FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="521,526,121,44"/>
 

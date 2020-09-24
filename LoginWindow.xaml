@@ -23,7 +23,7 @@
         </Button>
         <Label Content="ORDER MANANGEMENT SYSTEM" FontSize="16" Visibility="Visible" FontFamily="Arial" FontWeight="Bold" Margin="220,124,105,446"/>
 
-        <Image Source="/Images/icons/logo_slpp_home.jpg" Height="70" Margin="131,77,396,453"/>
+        <Image Source="/Images/logo.png" Height="70" Margin="131,77,396,453"/>
         <Image Source="/Images/icons/grey_icon.png" Height="70" Margin="210,76,380,454" />
         <Image Source="/Images/icons/horizontal_line_icon.png" Margin="135,153,107,445"/>
         <Label Content="Welcome" HorizontalAlignment="Left" Margin="265,241,0,0" FontFamily="VErdana" FontSize="16" 
@@ -163,7 +163,7 @@
         </PasswordBox>
         <Image Source="/Images/icons/horizontal_line_icon.png" Margin="125,413,107,178"/>
         <Label Content="Powered By" FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Margin="125,433,400,145" RenderTransformOrigin="1.494,1.533"/>
-        <Image Source="/Images/icons/logo_devlup.jpg"  Margin="119,464,400,73"/>
+        <Image Source="/Images/icons/logo_devlup_inner_v2.jpg"  Margin="119,464,400,73"/>
         <Label Content="Copyrights © 2020 Devlup Solutions" FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="294,476,94,94"/>
         <Label Content="All rights reserved." FontSize="11" FontFamily="Verdana" Foreground="#6C6C6C" Height="30px" Margin="394,497,94,73"/>
         <Image Source="/Images/icons/icon_member.jpg" Height="70" Margin="259,167,255,363"/>
