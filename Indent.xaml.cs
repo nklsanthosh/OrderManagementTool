@@ -21,6 +21,8 @@ using OrderManagementTool.Models.Excel;
 using ClosedXML.Excel;
 using System.ComponentModel;
 using LinqToDB.Data;
+using System.Net.Mail;
+using System.Net;
 
 namespace OrderManagementTool
 {
@@ -39,6 +41,7 @@ namespace OrderManagementTool
         private List<GridIndent> gridIndents = new List<GridIndent>();
         // public BindableCollection<string> ItemName { get; set; }
         private readonly Login _login;
+        private static string filePathLocation;
 
         public Indent(Login login)
         {
@@ -339,31 +342,39 @@ namespace OrderManagementTool
 
         private void LoadApprovalStatus()
         {
-            cbx_approval_id.Items.Clear();
-            var exceptionList = new List<string> { "Clerk", "Supervisor" };
-            var data = (from emp in orderManagementContext.Employee
-                        join des in orderManagementContext.Designation
-                        on emp.DesignationId equals des.DesignationId
-                        select
-                        new
-                        {
-                            emp.FirstName,
-                            emp.LastName,
-                            des.Designation1
-                        })
-                             .Distinct().ToList();
-            foreach (string s in exceptionList)
+            try
             {
-                var remove = data.Select(e => e.Designation1 == s).ToList();
-                int index = remove.IndexOf(true);
-                if (index >= 0)
-                    data.RemoveAt(index);
+                cbx_approval_id.Items.Clear();
+                var exceptionList = new List<string> { "Clerk", "Supervisor" };
+                var data = (from emp in orderManagementContext.Employee
+                            join des in orderManagementContext.Designation
+                            on emp.DesignationId equals des.DesignationId
+                            select
+                            new
+                            {
+                                emp.FirstName,
+                                emp.LastName,
+                                des.Designation1
+                            })
+                                 .Distinct().ToList();
+                foreach (string s in exceptionList)
+                {
+                    var remove = data.Select(e => e.Designation1 == s).ToList();
+                    int index = remove.IndexOf(true);
+                    if (index >= 0)
+                        data.RemoveAt(index);
+                }
+
+                foreach (var i in data)
+                {
+                    cbx_approval_id.Items.Add(i.FirstName.Trim() + " " + i.LastName.Trim());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured during Approval ID fetch " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            foreach (var i in data)
-            {
-                cbx_approval_id.Items.Add(i.FirstName.Trim() + " " + i.LastName.Trim());
-            }
         }
 
         private void LoadItemCategoryName()
@@ -437,7 +448,7 @@ namespace OrderManagementTool
 
         private void LoadApprovalId()
         {
-            // var approval= from i in orderManagementContext.
+            LoadApprovalStatus();
         }
 
         private void btn_clear_fields_Click(object sender, RoutedEventArgs e)
@@ -612,6 +623,44 @@ namespace OrderManagementTool
                     this.Cursor = null;
                 }
             }
+        }
+
+        private static bool SendMail(string body)
+        {
+            bool mailSent = false;
+            string message = DateTime.Now + " In SendMail\n";
+
+            using (MailMessage mm = new MailMessage())
+            {
+                mm.From = new MailAddress(Convert.ToString(ConfigurationManager.AppSettings["MailFrom"]));
+                string[] _toAddress = Convert.ToString(ConfigurationManager.AppSettings["MailTo"]).Split(';');
+                foreach (string address in _toAddress)
+                {
+                    mm.To.Add(address);
+                }
+                mm.Subject = ConfigurationManager.AppSettings["Subject"];
+                mm.Body = body;
+                mm.IsBodyHtml = false;
+
+                mm.Attachments.Add(new System.Net.Mail.Attachment(filePathLocation));
+
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = ConfigurationManager.AppSettings["Host"];
+                smtp.EnableSsl = true;
+                NetworkCredential NetworkCred = new NetworkCredential(ConfigurationManager.AppSettings["Username"],
+                    ConfigurationManager.AppSettings["Password"]);
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = NetworkCred;
+                smtp.Port = int.Parse(ConfigurationManager.AppSettings["Port"]);
+
+                message = DateTime.Now + " Sending Mail\n";
+                smtp.Send(mm);
+                message = DateTime.Now + " Mail Sent\n";
+
+                System.Threading.Thread.Sleep(3000);
+                mailSent = true;
+            }
+            return mailSent;
         }
 
         private void btn_generate_report_Click(object sender, RoutedEventArgs e)
@@ -915,10 +964,11 @@ namespace OrderManagementTool
                     "Indent_" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() +
                     DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() +
                         DateTime.Now.Second.ToString() + ".xlsx";
-
+                filePathLocation = filePath;
                 workBook.SaveAs(filePath);
                 MessageBox.Show("The Indent file has been created.", "Order Management System",
                     MessageBoxButton.OK, MessageBoxImage.Information);
+                SendMail("Indent has been generated");
             }
             catch (Exception ex)
             {
@@ -1251,6 +1301,12 @@ namespace OrderManagementTool
                 if (gridSelectedIndex >= 0)
                 {
                     gridIndents.RemoveAt(gridSelectedIndex);
+                    int count = 1;
+                    foreach (var i in gridIndents)
+                    {
+                        i.SlNo = count;
+                        count++;
+                    }
                     grid_indentdata.ItemsSource = null;
                     grid_indentdata.ItemsSource = gridIndents;
                     gridSelectedIndex = -1;

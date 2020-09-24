@@ -406,7 +406,7 @@
         <Image Source="images/icons/logo_slpp_home.jpg" Margin="44,36,1139,537"/>
         <Label x:Name="lblHeader" Content="ORDER MANANGEMENT SYSTEM" FontSize="16" Visibility="Visible" FontFamily="Arial" FontWeight="Bold"  Margin="108,57,851,0" VerticalAlignment="Top" Height="30"/>
         <Label x:Name="lblBreadCrumb" Content="&gt; Indent" HorizontalAlignment="Left" Margin="374,59,0,0"  FontFamily="Verdana" Foreground="#6c6c6c" VerticalAlignment="Top" Width="72" Height="26"/>
-        <DataGrid x:Name="grid_indentdata" Margin="52,302,45,158" AlternationCount="2" SelectionChanged="DataGrid_SelectionChanged" AutoGenerateColumns ="True" CanUserAddRows="True" ColumnWidth="Auto"/>
+        <DataGrid x:Name="grid_indentdata" Margin="52,302,45,158" AlternationCount="2" SelectionChanged="DataGrid_SelectionChanged" AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"  ColumnWidth="*"  />
         <Label x:Name="lbl_itemcategoryname" Content="Item Category Name" HorizontalAlignment="Left" Margin="52,165,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.04" Width="120" Height="30"/>
         <Label x:Name="lbl_itemcode" Content="Item Code" HorizontalAlignment="Left" Margin="197,165,0,0" VerticalAlignment="Top" Width="77" Height="30"/>
         <Label x:Name="lbl_description" Content="Description" HorizontalAlignment="Left" Margin="520,165,0,0" VerticalAlignment="Top" Width="77" Height="30" RenderTransformOrigin="0.86,2.601"/>
