@@ -177,9 +177,9 @@
                                 <Border.BorderBrush>
                                     <SolidColorBrush Color="#8DBE4D"/>
                                 </Border.BorderBrush>
-                                <Border.Background>
+                                <!--<Border.Background>
                                     <SolidColorBrush Color="#EBF8F0"/>
-                                </Border.Background>
+                                </Border.Background>-->
                                 <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
 			                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
 				                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
@@ -190,9 +190,9 @@
             </Setter>
         </Style>
         <Style TargetType="{x:Type DataGridRow}">
-            <Setter Property="Background" Value="LightYellow" />
             <Setter Property="FontFamily" Value="Verdana"/>
-            <Setter Property="Foreground" Value="#609F19"/>
+            <Setter Property="Foreground" Value="#6C6C6C"/>
+            <Setter Property="FontSize" Value="11"/>
             <Setter Property="SnapsToDevicePixels" Value="true" />
             <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
             <Setter Property="ValidationErrorTemplate">
@@ -209,9 +209,8 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type DataGridRow}">
                         <Border x:Name="DGR_Border"
-					        BorderBrush="{TemplateBinding BorderBrush}"
 					        BorderThickness="{TemplateBinding BorderThickness}"
-					        SnapsToDevicePixels="True">
+                            SnapsToDevicePixels="True">
                             <Border.Background>
 
                                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
@@ -250,12 +249,6 @@
                                             <ColorAnimationUsingKeyFrames Storyboard.TargetName="DGR_Border" Storyboard.TargetProperty="(Panel.Background).                         (GradientBrush.GradientStops)[1].(GradientStop.Color)">
                                                 <EasingColorKeyFrame KeyTime="0" Value="#F7FCF9" />
                                             </ColorAnimationUsingKeyFrames>
-                                            <!--<ColorAnimationUsingKeyFrames Storyboard.TargetName="DGR_Border" Storyboard.TargetProperty="(Panel.Foreground).                         (GradientBrush.GradientStops)[0].(GradientStop.Color)">
-                                            <EasingColorKeyFrame KeyTime="0" Value="#FFFFFF" />
-                                            </ColorAnimationUsingKeyFrames>
-                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="DGR_Border" Storyboard.TargetProperty="(Panel.Foreground).                         (GradientBrush.GradientStops)[1].(GradientStop.Color)">
-                                                <EasingColorKeyFrame KeyTime="0" Value="#FFFFFF" />
-                                            </ColorAnimationUsingKeyFrames>-->
                                         </Storyboard>
                                     </VisualState>
                                 </VisualStateGroup>
@@ -297,7 +290,7 @@
                     <ControlTemplate TargetType="{x:Type DataGridCell}">
                         <Border x:Name="border"
 					        Background="Transparent"
-					        BorderBrush="Transparent"
+					        BorderBrush="#8DBE4D"
 					        BorderThickness="1"
 					        SnapsToDevicePixels="True">
                             <VisualStateManager.VisualStateGroups>

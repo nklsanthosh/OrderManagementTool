@@ -149,7 +149,7 @@
 
         <Label x:Name="lblHeader" Content="ORDER MANANGEMENT SYSTEM" FontSize="16" Visibility="Visible" FontFamily="Arial" FontWeight="Bold"  Margin="117,68,394,0" VerticalAlignment="Top" Height="30"/>
         <Label x:Name="lblBreadCrumb" Content="> Menu" HorizontalAlignment="Left" Margin="383,70,0,0"  FontFamily="Verdana" Foreground="#6c6c6c" VerticalAlignment="Top" Width="63" Height="26"/>
-        <Image Source="images/icons/logo_slpp_home.jpg" Margin="42,38,688,522"/>
+        <Image Source="Images/logo.png" Margin="42,38,688,522"/>
         <Image Source="images/icons/grey_icon.png" Margin="99,38,670,514" />
         <Image Source="images/icons/horizontal_line_icon.png" Margin="41,89,42,498" />
         <Image Source="images/icons/horizontal_line_icon.png" Margin="43,499,40,103" />

@@ -26,9 +26,9 @@
                                 <Border.BorderBrush>
                                     <SolidColorBrush Color="#8DBE4D"/>
                                 </Border.BorderBrush>
-                                <Border.Background>
+                                <!--<Border.Background>
                                     <SolidColorBrush Color="#EBF8F0"/>
-                                </Border.Background>
+                                </Border.Background>-->
                                 <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
 			                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
 				                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
@@ -39,9 +39,9 @@
             </Setter>
         </Style>
         <Style TargetType="{x:Type DataGridRow}">
-            <Setter Property="Background" Value="LightYellow" />
             <Setter Property="FontFamily" Value="Verdana"/>
-            <Setter Property="Foreground" Value="#609F19"/>
+            <Setter Property="Foreground" Value="#6C6C6C"/>
+            <Setter Property="FontSize" Value="11"/>
             <Setter Property="SnapsToDevicePixels" Value="true" />
             <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
             <Setter Property="ValidationErrorTemplate">
@@ -60,13 +60,8 @@
                         <Border x:Name="DGR_Border"
 					        BorderThickness="{TemplateBinding BorderThickness}"
                             SnapsToDevicePixels="True">
-                            <Border.BorderBrush>
-                                <SolidColorBrush Color="#8DBE4D"/>
-                                
-                            </Border.BorderBrush>
-                            
                             <Border.Background>
-                                
+
                                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                     <GradientStop Offset="0" Color="#FFFFFF" />
                                     <GradientStop Offset="1" Color="#FFFFFF" />
@@ -144,7 +139,7 @@
                     <ControlTemplate TargetType="{x:Type DataGridCell}">
                         <Border x:Name="border"
 					        Background="Transparent"
-					        BorderBrush="Transparent"
+					        BorderBrush="#8DBE4D"
 					        BorderThickness="1"
 					        SnapsToDevicePixels="True">
                             <VisualStateManager.VisualStateGroups>
@@ -172,12 +167,12 @@
 
     </Window.Resources>
     <Grid>
-        <Border BorderThickness="1" BorderBrush="#8ABC48" Background="#FFFFFF" Margin="40,32,40,32"/>
+        <Border BorderThickness="1" BorderBrush="#8ABC48" Background="#FFFFFF" Margin="40,28,40,36"/>
         <Image Source="images/logo.png" Margin="42,25,1007,495"/>
         <Label x:Name="lblHeader" Content="ORDER MANANGEMENT SYSTEM" FontSize="16" Visibility="Visible" FontFamily="Arial" FontWeight="Bold"  Margin="111,59,708,0" VerticalAlignment="Top" Height="30"/>
         <Label x:Name="lblBreadCrumb" Content="&gt; View Indent" HorizontalAlignment="Left" Margin="377,61,0,0"  FontFamily="Verdana" Foreground="#6c6c6c" VerticalAlignment="Top" Width="103" Height="26"/>
         <DataGrid x:Name="grid_all_indents" Margin="0,130,0,157" HorizontalAlignment="Center" Width="1000" SelectionChanged="grid_all_indents_SelectionChanged"/>
-        <Button x:Name="btn_view_indent"  HorizontalAlignment="Left" Margin="924,452,0,0" VerticalAlignment="Top" Click="btn_view_indent_Click" Width="120" Height="29">
+        <Button x:Name="btn_view_indent"  HorizontalAlignment="Left" Margin="924,448,0,0" VerticalAlignment="Top" Click="btn_view_indent_Click" Width="120" Height="29">
             <Button.Content>
                 <Image Source="Images\Icons\btn_view_indent.jpg" Width="120" Height="32"  Margin="-2,-2,0,2" />
 
@@ -200,8 +195,8 @@
         <Image Source="images/icons/grey_icon.png" Margin="101,34,993,505" />
         <Label x:Name="lblPoweredBy" Content="Powered By" HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="52,496,0,0" VerticalAlignment="Top" Width="77" Height="26"/>
         <Image Source="images/icons/logo_devlup_inner_v2.jpg" Margin="49,508,989,33"/>
-        <Label x:Name="lblCopy" Content="Copyrights © 2020 Devlup Solutions" HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="846,513,0,0" VerticalAlignment="Top" Width="213" Height="26"/>
-        <Label x:Name="lblRightd" Content="All rights reserved." HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="945,532,0,0" VerticalAlignment="Top" Width="114" Height="26"/>
-        <Image Source="images/icons/horizontal_line_icon.png" Margin="40,481,40,96"/>
+        <Label x:Name="lblCopy" Content="Copyrights © 2020 Devlup Solutions" HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="846,509,0,0" VerticalAlignment="Top" Width="213" Height="26"/>
+        <Label x:Name="lblRightd" Content="All rights reserved." HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="945,528,0,0" VerticalAlignment="Top" Width="114" Height="26"/>
+        <Image Source="images/icons/horizontal_line_icon.png" Margin="40,477,40,100"/>
     </Grid>
 </Window>
