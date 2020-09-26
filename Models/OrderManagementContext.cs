@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 
 namespace OrderManagementTool.Models
@@ -9,7 +7,7 @@ namespace OrderManagementTool.Models
     {
         public OrderManagementContext()
         {
-            
+
         }
 
 
@@ -39,7 +37,7 @@ namespace OrderManagementTool.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                 optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString);
+                optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString);
                 //optionsBuilder.UseSqlServer("Data Source=SGZ-IN01142\\SQLEXPRESS;Initial Catalog=OrderManagement;Integrated Security=True;");
             }
         }

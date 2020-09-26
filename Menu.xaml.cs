@@ -1,18 +1,10 @@
-﻿using OrderManagementTool.Models;
+﻿using log4net;
+using OrderManagementTool.Models;
 using OrderManagementTool.Models.LogIn;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Windows;
 using System.Linq;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using log4net;
+using System.Windows;
 
 namespace OrderManagementTool
 {
@@ -68,7 +60,7 @@ namespace OrderManagementTool
                                     "Order Management System",
                                         MessageBoxButton.OK,
                                             MessageBoxImage.Error);
-                log.Error("Role mapping issue : " +ex.StackTrace);
+                log.Error("Role mapping issue : " + ex.StackTrace);
             }
         }
 
@@ -135,7 +127,7 @@ namespace OrderManagementTool
                                    "Order Management System",
                                        MessageBoxButton.OK,
                                            MessageBoxImage.Error);
-                log.Error("View Indent Click error : "+ex.StackTrace);
+                log.Error("View Indent Click error : " + ex.StackTrace);
             }
         }
     }

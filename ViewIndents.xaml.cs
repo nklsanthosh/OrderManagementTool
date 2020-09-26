@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using log4net;
+using Microsoft.Data.SqlClient;
 using OrderManagementTool.Models;
 using OrderManagementTool.Models.Indent;
 using OrderManagementTool.Models.LogIn;
@@ -7,17 +8,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
-using System.Text;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Linq;
-using log4net;
 
 namespace OrderManagementTool
 {
@@ -83,7 +76,7 @@ namespace OrderManagementTool
                         viewIndent.Description = Convert.ToString(dataSet.Tables[0].Rows[counter]["Description"]);
                         viewIndent.Technical_Specifications = Convert.ToString(dataSet.Tables[0].Rows[counter]["TechnicalSpecification"]);
                         viewIndent.Quantity = Convert.ToInt32(dataSet.Tables[0].Rows[counter]["Quantity"]);
-                       // viewIndent.Remarks = Convert.ToString(dataSet.Tables[0].Rows[counter]["Item Remarks"]);
+                        // viewIndent.Remarks = Convert.ToString(dataSet.Tables[0].Rows[counter]["Item Remarks"]);
 
                         viewIndent.Email = Convert.ToString(dataSet.Tables[0].Rows[counter]["Email"]);
 

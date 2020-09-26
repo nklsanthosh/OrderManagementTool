@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OrderManagementTool.Models.Indent
+﻿namespace OrderManagementTool.Models.Indent
 {
     public class GridIndent
     {
@@ -18,7 +14,7 @@ namespace OrderManagementTool.Models.Indent
         //public int StockAsOn { get; set; }
         public string Units { get; set; }
         public string Remarks { get; set; }
-       // public string CategoryName { get; set; }
+        // public string CategoryName { get; set; }
 
     }
 }

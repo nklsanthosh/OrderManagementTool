@@ -1,28 +1,20 @@
-﻿using OrderManagementTool.Models;
+﻿using ClosedXML.Excel;
+using Microsoft.Data.SqlClient;
+using OrderManagementTool.Models;
+using OrderManagementTool.Models.Excel;
+using OrderManagementTool.Models.Indent;
+using OrderManagementTool.Models.LogIn;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Linq;
-using Caliburn.Micro;
-using OrderManagementTool.Models.Indent;
-using System.Data;
-using OrderManagementTool.Models.LogIn;
-using Microsoft.Data.SqlClient;
-using System.Configuration;
-using OrderManagementTool.Models.Excel;
-using ClosedXML.Excel;
-using System.ComponentModel;
-using LinqToDB.Data;
-using System.Net.Mail;
-using System.Net;
 using ILog = log4net.ILog;
 using LogManager = log4net.LogManager;
 
@@ -149,7 +141,7 @@ namespace OrderManagementTool
             catch (Exception ex)
             {
                 MessageBox.Show("An error occured during save. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
-                log.Error("Error while fetching Indent information: " +ex.StackTrace);
+                log.Error("Error while fetching Indent information: " + ex.StackTrace);
             }
         }
 
@@ -385,7 +377,7 @@ namespace OrderManagementTool
                 {
                     cbx_approval_id.Items.Add(i.FirstName.Trim() + " " + i.LastName.Trim());
                 }
-                log.Error("Approval Information loaded." );
+                log.Error("Approval Information loaded.");
             }
             catch (Exception ex)
             {
@@ -473,7 +465,7 @@ namespace OrderManagementTool
         {
             try
             {
-                log.Info("Clearing Fields" );
+                log.Info("Clearing Fields");
                 ClearFields();
                 log.Info("Cleared fields");
             }
@@ -719,7 +711,7 @@ namespace OrderManagementTool
 
             GenerateIndent(_headers, headerData, gridIndents);
         }
-        private  Dictionary<string, string> GetHeaders()
+        private Dictionary<string, string> GetHeaders()
         {
             log.Info("Reading Header information from AppConfig");
             Dictionary<string, string> headers = new Dictionary<string, string>();
