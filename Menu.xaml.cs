@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using log4net;
 
 namespace OrderManagementTool
 {
@@ -20,10 +21,12 @@ namespace OrderManagementTool
     /// </summary>
     public partial class Menu : Window
     {
+        ILog log = LogManager.GetLogger(typeof(MainWindow));
         private readonly Login _login;
         OrderManagementContext orderManagementContext = new OrderManagementContext();
         public Menu()
         {
+            log.Info("In Menu Landing Page...");
             InitializeComponent();
         }
 
@@ -33,6 +36,8 @@ namespace OrderManagementTool
             InitializeComponent();
             try
             {
+                log.Info("Fetching Roles...");
+
                 var rolesMapping = (from roleMap in orderManagementContext.RoleMapping
                                     join roles in orderManagementContext.RolesMaster on roleMap.RoleId equals roles.RoleId
                                     join users in orderManagementContext.UserMaster on roleMap.UserId equals users.UserId
@@ -55,6 +60,7 @@ namespace OrderManagementTool
                         btn_add_item.Visibility = Visibility.Visible;
                     }
                 }
+                log.Info("Roles applied..");
             }
             catch (Exception ex)
             {
@@ -62,6 +68,7 @@ namespace OrderManagementTool
                                     "Order Management System",
                                         MessageBoxButton.OK,
                                             MessageBoxImage.Error);
+                log.Error("Role mapping issue : " +ex.StackTrace);
             }
         }
 
@@ -91,6 +98,7 @@ namespace OrderManagementTool
         {
             try
             {
+                log.Info("Search Indent activated...");
                 if (txt_indent_no.Text != null && txt_indent_no.Text != "")
                 {
                     long indentNo = long.Parse(txt_indent_no.Text);
@@ -115,6 +123,7 @@ namespace OrderManagementTool
                 }
                 else
                 {
+                    log.Info("Opening View Indent screen...");
                     ViewIndents viewIndent = new ViewIndents(_login);
                     viewIndent.Show();
                     this.Close();
@@ -126,6 +135,7 @@ namespace OrderManagementTool
                                    "Order Management System",
                                        MessageBoxButton.OK,
                                            MessageBoxImage.Error);
+                log.Error("View Indent Click error : "+ex.StackTrace);
             }
         }
     }

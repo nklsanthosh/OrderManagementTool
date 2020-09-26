@@ -57,12 +57,14 @@
     <None Remove="Images\logout.png" />
     <None Remove="Images\search-icon.png" />
     <None Remove="Images\update-icon.png" />
+    <None Remove="log4net.config" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Caliburn.Micro.Core" Version="3.2.0" />
     <PackageReference Include="ClosedXML" Version="0.95.3" />
     <PackageReference Include="linq2db" Version="3.1.3" />
+    <PackageReference Include="log4net" Version="2.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.8">
@@ -219,6 +221,9 @@
     </Resource>
     <Resource Include="Images\update-icon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 

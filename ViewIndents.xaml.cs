@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Linq;
+using log4net;
 
 namespace OrderManagementTool
 {
@@ -25,6 +26,7 @@ namespace OrderManagementTool
     /// </summary>
     public partial class ViewIndents : Window
     {
+        ILog log = LogManager.GetLogger(typeof(MainWindow));
         OrderManagementContext orderManagementContext = new OrderManagementContext();
         private static List<ViewIndent> viewIndents = new List<ViewIndent>();
         private static int gridSelectedIndex = -1;
@@ -34,12 +36,14 @@ namespace OrderManagementTool
         public ViewIndents(Login login)
         {
             _login = login;
+            log.Info("In View Indent...");
             InitializeComponent();
             LoadGrid();
         }
 
         private void LoadGrid()
         {
+            log.Info("LKoading ...");
             try
             {
                 using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
@@ -90,10 +94,12 @@ namespace OrderManagementTool
                     grid_all_indents.ItemsSource = null;
                     grid_all_indents.ItemsSource = viewIndents;
                 }
+                log.Info("Indent Loaded...");
             }
             catch (Exception ex)
             {
                 MessageBox.Show("An error occured during save. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                log.Error("Eror loading indent : " + ex.StackTrace);
             }
         }
 
@@ -152,6 +158,7 @@ namespace OrderManagementTool
                                    "Order Management System",
                                        MessageBoxButton.OK,
                                            MessageBoxImage.Error);
+                log.Error("Error on clicking the indent row : " + ex.StackTrace);
             }
         }
     }

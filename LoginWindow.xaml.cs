@@ -1,4 +1,5 @@
-﻿using OrderManagementTool.Models;
+﻿using log4net;
+using OrderManagementTool.Models;
 using OrderManagementTool.Models.LogIn;
 using System;
 using System.Collections.Generic;
@@ -22,8 +23,10 @@ namespace OrderManagementTool
     /// </summary>
     public partial class MainWindow : Window
     {
+        ILog log = LogManager.GetLogger(typeof(MainWindow));
         public MainWindow()
         {
+            log.Info("In Login Screen...");
             InitializeComponent();
             btn_Login.IsEnabled = false;
 
@@ -34,7 +37,7 @@ namespace OrderManagementTool
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            log.Info("Login Process started...");
             if (txt_username.Text.Length == 0)
             {
                 MessageBox.Show("Please Enter Valid UserName", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -78,7 +81,9 @@ namespace OrderManagementTool
                                        "Order Management System",
                                            MessageBoxButton.OK,
                                                MessageBoxImage.Error);
+                    log.Error("Login error "+ex.StackTrace);
                 }
+                log.Info("Login Process Completed...");
             }
         }
 

@@ -13,20 +13,24 @@ using System.Windows.Shapes;
 using System.Linq;
 using OrderManagementTool.Models.LogIn;
 using System.ComponentModel;
+using log4net;
 
 namespace OrderManagementTool
 {
+   
     /// <summary>
     /// Interaction logic for Item.xaml
     /// </summary>
     public partial class Item : Window
     {
+        ILog log = LogManager.GetLogger(typeof(MainWindow));
         OrderManagementContext orderManagementContext = new OrderManagementContext();
         private readonly Login _login;
 
         public Item(Login login)
         {
             _login = login;
+            log.Info("In Masters Screen...");
             InitializeComponent();
             txt_item_code.IsEnabled = false;
             txt_item_description.IsEnabled = false;
@@ -173,6 +177,7 @@ namespace OrderManagementTool
 
         private void btn_add_item_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("Adding Item Category...");
             string itemName = txt_item_name.Text;
             string itemCode = txt_item_code.Text;
             string itemDescription = txt_item_description.Text;
@@ -219,6 +224,7 @@ namespace OrderManagementTool
 
         private void btn_add_unit_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("Adding Units...");
             string unit = txt_unit.Text;
             string unitDescription = txt_unit_description.Text;
             orderManagementContext.UnitMaster.Add(

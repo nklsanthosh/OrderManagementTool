@@ -23,6 +23,8 @@ using System.ComponentModel;
 using LinqToDB.Data;
 using System.Net.Mail;
 using System.Net;
+using ILog = log4net.ILog;
+using LogManager = log4net.LogManager;
 
 namespace OrderManagementTool
 {
@@ -31,6 +33,7 @@ namespace OrderManagementTool
     /// </summary>
     public partial class Indent : Window
     {
+        ILog log = LogManager.GetLogger(typeof(MainWindow));
         private List<string> itemCode;
         private string selectedItemCode;
         private List<string> units;
@@ -46,6 +49,7 @@ namespace OrderManagementTool
         public Indent(Login login)
         {
             _login = login;
+            log.Info("In Indent Screen...");
             InitializeComponent();
             LoadItemCategoryName();
             LoadApprovalStatus();
@@ -66,6 +70,7 @@ namespace OrderManagementTool
         public Indent(Login login, long indentNo)
         {
             _login = login;
+            log.Info("In Indent Screen...");
             InitializeComponent();
             LoadItemCategoryName();
             LoadApprovalStatus();
@@ -88,6 +93,7 @@ namespace OrderManagementTool
         {
             try
             {
+                log.Info("Getting Indent infomration for Indent No: " + indentNo);
                 using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
                 {
                     connection.Open();
@@ -143,6 +149,7 @@ namespace OrderManagementTool
             catch (Exception ex)
             {
                 MessageBox.Show("An error occured during save. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                log.Error("Error while fetching Indent information: " +ex.StackTrace);
             }
         }
 
@@ -172,6 +179,7 @@ namespace OrderManagementTool
                                    "Order Management System",
                                        MessageBoxButton.OK,
                                            MessageBoxImage.Error);
+                log.Error("Error while selection of items in datagrid: " + ex.StackTrace);
             }
         }
 
@@ -187,6 +195,7 @@ namespace OrderManagementTool
                                    "Order Management System",
                                        MessageBoxButton.OK,
                                            MessageBoxImage.Error);
+                log.Error("Error while selecting item category: " + ex.StackTrace);
             }
         }
 
@@ -202,6 +211,7 @@ namespace OrderManagementTool
                                    "Order Management System",
                                        MessageBoxButton.OK,
                                            MessageBoxImage.Error);
+                log.Error("Error while selecting item code: " + ex.StackTrace);
             }
         }
 
@@ -217,6 +227,7 @@ namespace OrderManagementTool
                                    "Order Management System",
                                        MessageBoxButton.OK,
                                            MessageBoxImage.Error);
+                log.Error("Error while selecting units: " + ex.StackTrace);
             }
         }
 
@@ -247,6 +258,7 @@ namespace OrderManagementTool
                                    "Order Management System",
                                        MessageBoxButton.OK,
                                            MessageBoxImage.Error);
+                log.Error("Error while selecting Item code: " + ex.StackTrace);
             }
         }
 
@@ -254,6 +266,7 @@ namespace OrderManagementTool
         {
             try
             {
+                log.Info("Adding Indent information");
                 if (cbx_itemcategoryname.SelectedItem != null && cbx_itemcode.SelectedItem != null && txt_quantity.Text != ""
                    && quantityEntered != 0 && cbx_units.SelectedItem != null)
                 {
@@ -330,6 +343,7 @@ namespace OrderManagementTool
                                             MessageBoxButton.OK,
                                                 MessageBoxImage.Error);
                 }
+                log.Error("Indent infomration added");
             }
             catch (Exception ex)
             {
@@ -337,6 +351,7 @@ namespace OrderManagementTool
                                    "Order Management System",
                                        MessageBoxButton.OK,
                                            MessageBoxImage.Error);
+                log.Error("Error while adding Indent information: " + ex.StackTrace);
             }
         }
 
@@ -344,6 +359,7 @@ namespace OrderManagementTool
         {
             try
             {
+                log.Error("Loading Approval infomration");
                 cbx_approval_id.Items.Clear();
                 var exceptionList = new List<string> { "Clerk", "Supervisor" };
                 var data = (from emp in orderManagementContext.Employee
@@ -369,10 +385,12 @@ namespace OrderManagementTool
                 {
                     cbx_approval_id.Items.Add(i.FirstName.Trim() + " " + i.LastName.Trim());
                 }
+                log.Error("Approval Information loaded." );
             }
             catch (Exception ex)
             {
                 MessageBox.Show("An error occured during Approval ID fetch " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                log.Error("Error while loading approval : " + ex.StackTrace);
             }
 
         }
@@ -455,7 +473,9 @@ namespace OrderManagementTool
         {
             try
             {
+                log.Info("Clearing Fields" );
                 ClearFields();
+                log.Info("Cleared fields");
             }
             catch (Exception ex)
             {
@@ -463,11 +483,13 @@ namespace OrderManagementTool
                                    "Order Management System",
                                        MessageBoxButton.OK,
                                            MessageBoxImage.Error);
+                log.Error("Error while clearing Indent information: " + ex.StackTrace);
             }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            log.Info("Adding data to grid");
             if (gridSelectedIndex >= 0)
             {
                 // bool itemPresent = false;
@@ -502,6 +524,7 @@ namespace OrderManagementTool
                 gridSelectedIndex = -1;
                 ClearFields();
                 // }
+                log.Info("Data added to grid");
             }
             else
             {
@@ -527,13 +550,14 @@ namespace OrderManagementTool
                                    "Order Management System",
                                        MessageBoxButton.OK,
                                            MessageBoxImage.Error);
+                log.Error("Error while loading approval : " + ex.StackTrace);
             }
         }
 
         private void btn_create_indent_Click(object sender, RoutedEventArgs e)
         {
             this.Cursor = Cursors.Wait;
-
+            log.Info("Creating Indent...");
             if (datepicker_date1.SelectedDate.ToString() == "")
             {
                 MessageBox.Show("Please enter Valid Date");
@@ -613,10 +637,12 @@ namespace OrderManagementTool
                         testCMD2.ExecuteNonQuery();
                     }
                     GenerateIndent();
+                    log.Info("Indent created and generated.");
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("An error occured during save. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                    log.Error("Error while creating approval : " + ex.StackTrace);
                 }
                 finally
                 {
@@ -625,8 +651,9 @@ namespace OrderManagementTool
             }
         }
 
-        private static bool SendMail(string body)
+        private bool SendMail(string body)
         {
+            log.Info("Sending Mail..");
             bool mailSent = false;
             string message = DateTime.Now + " In SendMail\n";
 
@@ -661,6 +688,7 @@ namespace OrderManagementTool
                 mailSent = true;
             }
             return mailSent;
+            log.Info("Mail sent..");
         }
 
         private void btn_generate_report_Click(object sender, RoutedEventArgs e)
@@ -691,8 +719,9 @@ namespace OrderManagementTool
 
             GenerateIndent(_headers, headerData, gridIndents);
         }
-        private static Dictionary<string, string> GetHeaders()
+        private  Dictionary<string, string> GetHeaders()
         {
+            log.Info("Reading Header information from AppConfig");
             Dictionary<string, string> headers = new Dictionary<string, string>();
             var configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             foreach (var sectionKey in configuration.Sections.Keys)
@@ -708,9 +737,10 @@ namespace OrderManagementTool
             return headers;
         }
 
-        private static void GenerateIndent(Dictionary<string, string> headersAndFooters,
+        private void GenerateIndent(Dictionary<string, string> headersAndFooters,
             IndentHeader headerData, List<GridIndent> gridIndents)
         {
+            log.Info("Generating Indent Report..");
             try
             {
                 var workBook = new XLWorkbook();
@@ -969,6 +999,7 @@ namespace OrderManagementTool
                 MessageBox.Show("The Indent file has been created.", "Order Management System",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 SendMail("Indent has been generated");
+                log.Info("Indent has been generated..");
             }
             catch (Exception ex)
             {
@@ -977,6 +1008,7 @@ namespace OrderManagementTool
                 //log.Error(ex.Message);
                 MessageBox.Show("An error occurred. Please contact the administrator", "Order Management System",
                     MessageBoxButton.OK, MessageBoxImage.Error);
+                log.Error("Error while gererating indent report: " + ex.StackTrace);
             }
         }
         private static void GeneratePurchaseOrder(Dictionary<string, string> headersAndFooters, List<ExportIndent> gridIndents)
@@ -1323,6 +1355,7 @@ namespace OrderManagementTool
                                  "Order Management System",
                                      MessageBoxButton.OK,
                                          MessageBoxImage.Error);
+                log.Error("Error while removing Indent : " + ex.StackTrace);
             }
         }
     }
