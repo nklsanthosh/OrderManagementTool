@@ -52,7 +52,7 @@ namespace OrderManagementTool
                     txt_item_description.IsEnabled = false;
                     txt_item_technical_specification.IsEnabled = false;
                     btn_add_item.IsEnabled = false;
-                    MessageBox.Show("Item Name is already present");
+                    MessageBox.Show("Item Name is already present", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
@@ -78,11 +78,10 @@ namespace OrderManagementTool
                     txt_item_description.IsEnabled = false;
                     txt_item_technical_specification.IsEnabled = false;
                     btn_add_item.IsEnabled = false;
-                    MessageBox.Show("Item Name is already present");
+                    MessageBox.Show("Item Code is already present", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
-
                     txt_item_code.IsEnabled = true;
                     btn_add_item.IsEnabled = true;
                     txt_item_description.IsEnabled = true;
@@ -107,6 +106,7 @@ namespace OrderManagementTool
             {
                 txt_unit_description.IsEnabled = false;
                 btn_add_unit.IsEnabled = false;
+                MessageBox.Show("Unit is already present", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
@@ -127,7 +127,7 @@ namespace OrderManagementTool
                 {
                     btn_add_category.IsEnabled = false;
                     txt_category_description.IsEnabled = false;
-                    MessageBox.Show("Item Category Name is Already Present");
+                    MessageBox.Show("Item Category Name is already present", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
@@ -139,22 +139,29 @@ namespace OrderManagementTool
 
         private void btn_add_category_Click(object sender, RoutedEventArgs e)
         {
-            string categoryName = txt_category_name.Text;
-            string categoryDescription = txt_category_description.Text;
+            try
+            {
+                string categoryName = txt_category_name.Text;
+                string categoryDescription = txt_category_description.Text;
 
-            orderManagementContext.ItemCategory.Add(
-                new ItemCategory
-                {
-                    ItemCategoryName = categoryName,
-                    CreatedDate = DateTime.Now,
-                    CreatedBy = _login.EmployeeID,
-                    Description = categoryDescription
-                }
-                );
-            orderManagementContext.SaveChanges();
-            txt_category_name.Text = "";
-            txt_category_description.Text = "";
-            MessageBox.Show("Item Category " + categoryName + " is added successfully");
+                orderManagementContext.ItemCategory.Add(
+                    new ItemCategory
+                    {
+                        ItemCategoryName = categoryName,
+                        CreatedDate = DateTime.Now,
+                        CreatedBy = _login.EmployeeID,
+                        Description = categoryDescription
+                    }
+                    );
+                orderManagementContext.SaveChanges();
+                txt_category_name.Text = "";
+                txt_category_description.Text = "";
+                MessageBox.Show("Item Category " + categoryName + " is added successfully", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured during Item Category Creation. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void cbx_category_name_DropDownOpened(object sender, EventArgs e)
@@ -170,29 +177,36 @@ namespace OrderManagementTool
 
         private void btn_add_item_Click(object sender, RoutedEventArgs e)
         {
-            log.Info("Adding Item Category...");
-            string itemName = txt_item_name.Text;
-            string itemCode = txt_item_code.Text;
-            string itemDescription = txt_item_description.Text;
-            string itemtechnicalSpec = txt_item_technical_specification.Text;
-            string categoryName = cbx_category_name.SelectedItem.ToString();
-            var itemCategoryId = (from i in orderManagementContext.ItemCategory
-                                  where i.ItemCategoryName == categoryName
-                                  select i.ItemCategoryId).FirstOrDefault();
+            try
+            {
+                log.Info("Adding Item Category...");
+                string itemName = txt_item_name.Text;
+                string itemCode = txt_item_code.Text;
+                string itemDescription = txt_item_description.Text;
+                string itemtechnicalSpec = txt_item_technical_specification.Text;
+                string categoryName = cbx_category_name.SelectedItem.ToString();
+                var itemCategoryId = (from i in orderManagementContext.ItemCategory
+                                      where i.ItemCategoryName == categoryName
+                                      select i.ItemCategoryId).FirstOrDefault();
 
-            orderManagementContext.ItemMaster.Add(
-                new ItemMaster
-                {
-                    ItemCode = itemCode,
-                    ItemName = itemName,
-                    Description = itemDescription,
-                    TechnicalSpecification = itemtechnicalSpec,
-                    ItemCategoryId = itemCategoryId,
-                    CreatedDate = DateTime.Now,
-                    CreatedBy = _login.EmployeeID
-                });
-            orderManagementContext.SaveChanges();
-            MessageBox.Show("Item Code " + itemCode + " is added successfully");
+                orderManagementContext.ItemMaster.Add(
+                    new ItemMaster
+                    {
+                        ItemCode = itemCode,
+                        ItemName = itemName,
+                        Description = itemDescription,
+                        TechnicalSpecification = itemtechnicalSpec,
+                        ItemCategoryId = itemCategoryId,
+                        CreatedDate = DateTime.Now,
+                        CreatedBy = _login.EmployeeID
+                    });
+                orderManagementContext.SaveChanges();
+                MessageBox.Show("Item Code " + itemCode + " is added successfully", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured during Item Code Creation. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void cbx_category_name_DropDownClosed(object sender, EventArgs e)
@@ -217,18 +231,26 @@ namespace OrderManagementTool
 
         private void btn_add_unit_Click(object sender, RoutedEventArgs e)
         {
-            log.Info("Adding Units...");
-            string unit = txt_unit.Text;
-            string unitDescription = txt_unit_description.Text;
-            orderManagementContext.UnitMaster.Add(
-                new UnitMaster
-                {
-                    Unit = unit,
-                    Description = unitDescription,
-                    CreatedBy = _login.EmployeeID,
-                    CreatedDate = DateTime.Now
-                });
-            orderManagementContext.SaveChanges();
+            try
+            {
+                log.Info("Adding Units...");
+                string unit = txt_unit.Text;
+                string unitDescription = txt_unit_description.Text;
+                orderManagementContext.UnitMaster.Add(
+                    new UnitMaster
+                    {
+                        Unit = unit,
+                        Description = unitDescription,
+                        CreatedBy = _login.EmployeeID,
+                        CreatedDate = DateTime.Now
+                    });
+                orderManagementContext.SaveChanges();
+                MessageBox.Show("Unit " + unit + " is added successfully", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured during Unit Creation. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         protected override void OnClosing(CancelEventArgs e)
