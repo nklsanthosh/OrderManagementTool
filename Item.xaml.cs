@@ -38,6 +38,7 @@ namespace OrderManagementTool
 
         private void txt_label_name_LostFocus(object sender, RoutedEventArgs e)
         {
+            log.Info("In Item Name lost focus...");
             string itemName = txt_item_name.Text;
             if (itemName != "")
             {
@@ -63,6 +64,7 @@ namespace OrderManagementTool
 
         private void txt_item_code_LostFocus(object sender, RoutedEventArgs e)
         {
+            log.Info("In item code lost focus...");
             string labelName = txt_item_name.Text;
             string labelCode = txt_item_code.Text;
 
@@ -97,6 +99,7 @@ namespace OrderManagementTool
 
         private void txt_unit_LostFocus(object sender, RoutedEventArgs e)
         {
+            log.Info("In Unit lost focus...");
             string unitname = txt_unit.Text;
 
             var isPresent = (from u in orderManagementContext.UnitMaster
@@ -141,6 +144,7 @@ namespace OrderManagementTool
         {
             try
             {
+                log.Info("In add category...");
                 string categoryName = txt_category_name.Text;
                 string categoryDescription = txt_category_description.Text;
 
@@ -157,9 +161,11 @@ namespace OrderManagementTool
                 txt_category_name.Text = "";
                 txt_category_description.Text = "";
                 MessageBox.Show("Item Category " + categoryName + " is added successfully", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                log.Info("Category added...");
             }
             catch (Exception ex)
             {
+                log.Info("Exception while adding category - " +ex.StackTrace);
                 MessageBox.Show("An error occured during Item Category Creation. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -179,7 +185,7 @@ namespace OrderManagementTool
         {
             try
             {
-                log.Info("Adding Item Category...");
+                log.Info("Adding Item Code...");
                 string itemName = txt_item_name.Text;
                 string itemCode = txt_item_code.Text;
                 string itemDescription = txt_item_description.Text;
@@ -202,9 +208,11 @@ namespace OrderManagementTool
                     });
                 orderManagementContext.SaveChanges();
                 MessageBox.Show("Item Code " + itemCode + " is added successfully", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                log.Info("Item Code added...");
             }
             catch (Exception ex)
             {
+                log.Info("Exception while adding item code - " + ex.StackTrace);
                 MessageBox.Show("An error occured during Item Code Creation. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -249,6 +257,7 @@ namespace OrderManagementTool
             }
             catch (Exception ex)
             {
+                log.Info("Exception while adding units - " + ex.StackTrace);
                 MessageBox.Show("An error occured during Unit Creation. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
