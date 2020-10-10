@@ -51,7 +51,8 @@ namespace OrderManagementTool
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show("An error occured during Load. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                log.Error("Error while fetching Indent information: " + ex.StackTrace);
             }
             //Image img = new Image();
             //img.Source = new BitmapImage(new Uri(@"~/Images/create-icon.png"));
@@ -80,7 +81,8 @@ namespace OrderManagementTool
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show("An error occured during Indent Retrival. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                log.Error("Error while fetching Indent information: " + ex.StackTrace);
             }
             //Image img = new Image();
             //img.Source = new BitmapImage(new Uri(@"~/Images/create-icon.png"));
@@ -155,7 +157,7 @@ namespace OrderManagementTool
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occured during Retrival. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("An error occured during Data Retrival. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
                 log.Error("Error while fetching Indent information: " + ex.StackTrace);
             }
         }
