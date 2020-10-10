@@ -40,12 +40,19 @@ namespace OrderManagementTool
         public long indentNo;
         public Indent(Login login)
         {
-            _login = login;
-            log.Info("In Indent Screen...");
-            InitializeComponent();
-            LoadItemCategoryName();
-            LoadApprovalStatus();
-            txt_raised_by.Text = _login.UserEmail;
+            try
+            {
+                _login = login;
+                log.Info("In Indent Screen...");
+                InitializeComponent();
+                LoadItemCategoryName();
+                LoadApprovalStatus();
+                txt_raised_by.Text = _login.UserEmail;
+            }
+            catch(Exception ex)
+            {
+
+            }
             //Image img = new Image();
             //img.Source = new BitmapImage(new Uri(@"~/Images/create-icon.png"));
 
@@ -61,13 +68,20 @@ namespace OrderManagementTool
 
         public Indent(Login login, long indentNo)
         {
-            _login = login;
-            log.Info("In Indent Screen...");
-            InitializeComponent();
-            LoadItemCategoryName();
-            LoadApprovalStatus();
-            txt_raised_by.Text = _login.UserEmail;
-            GetIndent(indentNo);
+            try
+            {
+                _login = login;
+                log.Info("In Indent Screen...");
+                InitializeComponent();
+                LoadItemCategoryName();
+                LoadApprovalStatus();
+                txt_raised_by.Text = _login.UserEmail;
+                GetIndent(indentNo);
+            }
+            catch(Exception ex)
+            {
+
+            }
             //Image img = new Image();
             //img.Source = new BitmapImage(new Uri(@"~/Images/create-icon.png"));
 

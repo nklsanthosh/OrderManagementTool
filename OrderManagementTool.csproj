@@ -45,6 +45,7 @@
     <None Remove="Images\icons\icon_update_field.png" />
     <None Remove="Images\icons\icon_username.png" />
     <None Remove="Images\icons\img_loader.jpg" />
+    <None Remove="Images\icons\logo.ico" />
     <None Remove="Images\icons\logo_devlup.jpg" />
     <None Remove="Images\icons\logo_devlup_home_v2.jpg" />
     <None Remove="Images\icons\logo_devlup_inner.jpg" />
@@ -188,6 +189,9 @@
     <Resource Include="Images\icons\img_loader.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\icons\logo.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\icons\logo_devlup.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -215,7 +219,9 @@
     <Resource Include="Images\logo.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\logout.png" />
+    <Resource Include="Images\logout.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\search-icon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
