@@ -49,7 +49,7 @@ namespace OrderManagementTool
                 LoadApprovalStatus();
                 txt_raised_by.Text = _login.UserEmail;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
@@ -78,7 +78,7 @@ namespace OrderManagementTool
                 txt_raised_by.Text = _login.UserEmail;
                 GetIndent(indentNo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
@@ -365,6 +365,8 @@ namespace OrderManagementTool
         {
             try
             {
+                cbx_approval_id.SelectedValuePath = "Key";
+                cbx_approval_id.DisplayMemberPath = "Value";
                 log.Error("Loading Approval infomration");
                 cbx_approval_id.Items.Clear();
                 var exceptionList = new List<string> { "Clerk", "Supervisor" };
@@ -376,7 +378,8 @@ namespace OrderManagementTool
                             {
                                 emp.FirstName,
                                 emp.LastName,
-                                des.Designation1
+                                des.Designation1,
+                                emp.EmployeeId
                             })
                                  .Distinct().ToList();
                 foreach (string s in exceptionList)
@@ -386,10 +389,9 @@ namespace OrderManagementTool
                     if (index >= 0)
                         data.RemoveAt(index);
                 }
-
                 foreach (var i in data)
                 {
-                    cbx_approval_id.Items.Add(i.FirstName.Trim() + " " + i.LastName.Trim());
+                    cbx_approval_id.Items.Add(new KeyValuePair<long, string>(i.EmployeeId, i.FirstName.Trim() + " " + i.LastName.Trim()));
                 }
                 log.Error("Approval Information loaded.");
             }
@@ -567,22 +569,26 @@ namespace OrderManagementTool
             if (datepicker_date1.SelectedDate.ToString() == "")
             {
                 MessageBox.Show("Please enter Valid Date");
+                this.Cursor = null;
                 return;
             }
             if (cbx_approval_id.SelectedValue == null)
             {
                 MessageBox.Show("Please select Approver");
+                this.Cursor = null;
                 return;
             }
             if (txt_location.Text == "")
             {
                 MessageBox.Show("Please Enter Location");
+                this.Cursor = null;
                 return;
             }
 
             if (gridIndents.Count == 0)
             {
                 MessageBox.Show("Please Enter Indent Details");
+                this.Cursor = null;
                 return;
             }
 
@@ -593,10 +599,10 @@ namespace OrderManagementTool
                 saveIndent.Location = txt_location.Text;
                 saveIndent.RaisedBy = _login.EmployeeID;
                 saveIndent.CreateDate = DateTime.Now;
-                var approvalID = (from a in orderManagementContext.UserMaster
-                                  where a.Email == cbx_approval_id.SelectedValue.ToString()
-                                  select a.UserId).FirstOrDefault();
-                saveIndent.ApprovalID = approvalID;
+                // var approvalID = (from a in orderManagementContext.UserMaster
+                //                  where a.Email == cbx_approval_id.SelectedValue.ToString()
+                //                  select a.UserId).FirstOrDefault();
+                saveIndent.ApprovalID = Convert.ToInt64(cbx_approval_id.SelectedValue);
                 // saveIndent.ApprovalID = 1;
                 saveIndent.GridIndents = gridIndents;
                 try
@@ -617,8 +623,8 @@ namespace OrderManagementTool
                         testCMD.ExecuteNonQuery(); // read output value from @NewId 
                         saveIndent.IndentId = Convert.ToInt32(testCMD.Parameters["@IndentId"].Value);
 
-                        indentNo= Convert.ToInt32(testCMD.Parameters["@IndentId"].Value);
-                        indentNo= Convert.ToInt32(testCMD.Parameters["@IndentId"].Value);
+                        indentNo = Convert.ToInt32(testCMD.Parameters["@IndentId"].Value);
+                        indentNo = Convert.ToInt32(testCMD.Parameters["@IndentId"].Value);
                         foreach (var i in saveIndent.GridIndents)
                         {
                             SqlCommand testCMD1 = new SqlCommand("create_indentDetails", connection);

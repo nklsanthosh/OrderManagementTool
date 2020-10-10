@@ -120,6 +120,7 @@ namespace OrderManagementTool
 
         private void txt_category_name_LostFocus(object sender, RoutedEventArgs e)
         {
+            log.Info("In item Category lost focus...");
             string categoryName = txt_category_name.Text;
             if (categoryName != "")
             {
