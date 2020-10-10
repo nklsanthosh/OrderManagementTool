@@ -37,7 +37,7 @@ namespace OrderManagementTool
         // public BindableCollection<string> ItemName { get; set; }
         private readonly Login _login;
         private static string filePathLocation;
-
+        public long indentNo;
         public Indent(Login login)
         {
             _login = login;
@@ -603,7 +603,8 @@ namespace OrderManagementTool
                         testCMD.ExecuteNonQuery(); // read output value from @NewId 
                         saveIndent.IndentId = Convert.ToInt32(testCMD.Parameters["@IndentId"].Value);
 
-
+                        indentNo= Convert.ToInt32(testCMD.Parameters["@IndentId"].Value);
+                        indentNo= Convert.ToInt32(testCMD.Parameters["@IndentId"].Value);
                         foreach (var i in saveIndent.GridIndents)
                         {
                             SqlCommand testCMD1 = new SqlCommand("create_indentDetails", connection);
@@ -658,6 +659,7 @@ namespace OrderManagementTool
                     mm.To.Add(address);
                 }
                 mm.Subject = ConfigurationManager.AppSettings["Subject"];
+                body = body + ". Please click on the link to approve or deny the indent. " + ConfigurationManager.AppSettings["url"] + "/" + indentNo;
                 mm.Body = body;
                 mm.IsBodyHtml = false;
 
@@ -1166,131 +1168,6 @@ namespace OrderManagementTool
                 j += 3;
                 worksheet.Cell("G" + j).Value = headersAndFooters["Sign"];
 
-                //worksheet.Cell("A1").Style.Fill.BackgroundColor = XLColor.Gray;
-                //worksheet.Cell("B1").Style.Fill.BackgroundColor = XLColor.Gray;
-                //worksheet.Cell("C1").Style.Fill.BackgroundColor = XLColor.Gray;
-                //worksheet.Cell("D1").Style.Fill.BackgroundColor = XLColor.Gray;
-                //worksheet.Cell("E1").Style.Fill.BackgroundColor = XLColor.Gray;
-                //worksheet.Cell("F1").Style.Fill.BackgroundColor = XLColor.Gray;
-                //worksheet.Cell("G1").Style.Fill.BackgroundColor = XLColor.Gray;
-                //worksheet.Cell("H1").Style.Fill.BackgroundColor = XLColor.Gray;
-                //worksheet.Cell("A1").Style.Font.Bold = true;
-                //worksheet.Cell("B1").Style.Font.Bold = true;
-                //worksheet.Cell("C1").Style.Font.Bold = true;
-                //worksheet.Cell("D1").Style.Font.Bold = true;
-                //worksheet.Cell("E1").Style.Font.Bold = true;
-                //worksheet.Cell("F1").Style.Font.Bold = true;
-                //worksheet.Cell("G1").Style.Font.Bold = true;
-                //worksheet.Cell("H1").Style.Font.Bold = true;
-                //worksheet.Cell("A1").Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("A1").Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("A1").Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("A1").Style.Border.RightBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("B1").Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("B1").Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("B1").Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("B1").Style.Border.RightBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("C1").Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("C1").Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("C1").Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("C1").Style.Border.RightBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("D1").Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("D1").Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("D1").Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("D1").Style.Border.RightBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("E1").Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("E1").Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("E1").Style.Border.RightBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("E1").Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("F1").Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("F1").Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("F1").Style.Border.RightBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("F1").Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("G1").Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("G1").Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("G1").Style.Border.RightBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("G1").Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("H1").Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("H1").Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("H1").Style.Border.RightBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("H1").Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                //int index = 2;
-                //decimal grandTotalAmount = 0;
-                //decimal grandTaxTotal = 0;
-                //decimal grandBillTotal = 0;
-                //foreach (ArasuOutputData _report in lstOutputData)
-                //{
-                //    worksheet.Cell("A" + index).Value = Convert.ToString(_report.DueDate);
-                //    worksheet.Cell("B" + index).Value = Convert.ToString(_report.CustomerId);
-                //    worksheet.Cell("C" + index).Value = Convert.ToString(_report.CustomerName);
-                //    worksheet.Cell("D" + index).Value = Convert.ToString(_report.SerialNumber);
-                //    worksheet.Cell("E" + index).Value = Convert.ToString(_report.CAFNumber);
-                //    worksheet.Cell("F" + index).Value = Convert.ToString(_report.BillAmount);
-                //    worksheet.Cell("G" + index).Value = Convert.ToString(_report.TaxAmount);
-                //    worksheet.Cell("H" + index).Value = Convert.ToString(_report.TotalAmount);
-                //    grandTotalAmount += _report.TotalAmount;
-                //    grandTaxTotal += _report.TaxAmount;
-                //    grandBillTotal += _report.BillAmount;
-                //    worksheet.Cell("A" + index).Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("A" + index).Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("A" + index).Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("A" + index).Style.Border.RightBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("B" + index).Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("B" + index).Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("B" + index).Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("B" + index).Style.Border.RightBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("C" + index).Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("C" + index).Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("C" + index).Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("C" + index).Style.Border.RightBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("D" + index).Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("D" + index).Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("D" + index).Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("D" + index).Style.Border.RightBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("E" + index).Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("E" + index).Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("E" + index).Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("E" + index).Style.Border.RightBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("F" + index).Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("F" + index).Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("F" + index).Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("F" + index).Style.Border.RightBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("G" + index).Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("G" + index).Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("G" + index).Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("G" + index).Style.Border.RightBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("H" + index).Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("H" + index).Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("H" + index).Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                //    worksheet.Cell("H" + index).Style.Border.RightBorder = XLBorderStyleValues.Medium;
-                //    index++;
-                //}
-                //worksheet.Cell("E" + index).Value = "Grand Total";
-                //worksheet.Cell("E" + index).Style.Font.Bold = true;
-                //worksheet.Cell("F" + index).Value = grandBillTotal;
-                //worksheet.Cell("G" + index).Value = grandTaxTotal;
-                //worksheet.Cell("H" + index).Value = grandTotalAmount;
-                //worksheet.Cell("E" + index).Style.Font.Bold = true;
-                //worksheet.Cell("F" + index).Style.Font.Bold = true;
-                //worksheet.Cell("G" + index).Style.Font.Bold = true;
-                //worksheet.Cell("H" + index).Style.Font.Bold = true;
-                //worksheet.Cell("E" + index).Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("E" + index).Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("E" + index).Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("E" + index).Style.Border.RightBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("F" + index).Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("F" + index).Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("F" + index).Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("F" + index).Style.Border.RightBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("G" + index).Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("G" + index).Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("G" + index).Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("G" + index).Style.Border.RightBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("H" + index).Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("H" + index).Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("H" + index).Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                //worksheet.Cell("H" + index).Style.Border.RightBorder = XLBorderStyleValues.Medium;
-
                 worksheet.Columns(1, 10).AdjustToContents();
                 //worksheet.Column(1).Width = 20;
                 string filePath = Convert.ToString(headersAndFooters["ReportGeneratedPath"]) +
@@ -1299,10 +1176,6 @@ namespace OrderManagementTool
                         DateTime.Now.Second.ToString() + ".xlsx";
 
                 workBook.SaveAs(filePath);
-                //outputFilePath = filePath;
-                ////Console.WriteLine("Report Generated..");
-                //Console.WriteLine("Press any key to continue..");
-                //Console.ReadLine();
             }
             catch (Exception ex)
             {
