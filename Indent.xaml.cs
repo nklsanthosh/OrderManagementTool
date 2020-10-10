@@ -124,6 +124,7 @@ namespace OrderManagementTool
                         saveIndent.Location = Convert.ToString(dataSet.Tables[0].Rows[counter]["Location"]);
                         saveIndent.IndentRemarks = Convert.ToString(dataSet.Tables[0].Rows[counter]["Remarks"]);
                         saveIndent.ApproverName = Convert.ToString(dataSet.Tables[0].Rows[counter]["Approver"]);
+                        saveIndent.ApprovalID = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["Approver ID"]);
 
                         GridIndent gridIndent = new GridIndent();
                         gridIndent.SlNo = counter + 1;
@@ -145,7 +146,7 @@ namespace OrderManagementTool
                     txt_raised_by.Text = saveIndent.Email;
                     datepicker_date1.SelectedDate = saveIndent.Date;
                     txt_location.Text = saveIndent.Location;
-                    cbx_approval_id.SelectedValue = saveIndent.ApproverName;
+                    cbx_approval_id.SelectedValue = saveIndent.ApprovalID;
 
                     grid_indentdata.ItemsSource = null;
                     grid_indentdata.ItemsSource = gridIndents;
@@ -154,7 +155,7 @@ namespace OrderManagementTool
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occured during save. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("An error occured during Retrival. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
                 log.Error("Error while fetching Indent information: " + ex.StackTrace);
             }
         }
