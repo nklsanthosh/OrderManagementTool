@@ -669,43 +669,53 @@ namespace OrderManagementTool
 
         private bool SendMail(string body)
         {
-            log.Info("Sending Mail..");
             bool mailSent = false;
-            string message = DateTime.Now + " In SendMail\n";
-
-            using (MailMessage mm = new MailMessage())
+            try
             {
-                mm.From = new MailAddress(Convert.ToString(ConfigurationManager.AppSettings["MailFrom"]));
-                string[] _toAddress = Convert.ToString(ConfigurationManager.AppSettings["MailTo"]).Split(';');
-                foreach (string address in _toAddress)
+                log.Info("Sending Mail..");
+
+                string message = DateTime.Now + " In SendMail\n";
+
+                using (MailMessage mm = new MailMessage())
                 {
-                    mm.To.Add(address);
+                    mm.From = new MailAddress(Convert.ToString(ConfigurationManager.AppSettings["MailFrom"]));
+                    string[] _toAddress = Convert.ToString(ConfigurationManager.AppSettings["MailTo"]).Split(';');
+                    foreach (string address in _toAddress)
+                    {
+                        mm.To.Add(address);
+                    }
+                    mm.Subject = ConfigurationManager.AppSettings["Subject"];
+                    body = body + ". Please click on the link to approve or deny the indent. " + ConfigurationManager.AppSettings["url"] + "/" + indentNo;
+                    mm.Body = body;
+                    mm.IsBodyHtml = false;
+
+                    mm.Attachments.Add(new System.Net.Mail.Attachment(filePathLocation));
+
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = ConfigurationManager.AppSettings["Host"];
+                    smtp.EnableSsl = true;
+                    NetworkCredential NetworkCred = new NetworkCredential(ConfigurationManager.AppSettings["Username"],
+                        ConfigurationManager.AppSettings["Password"]);
+                    smtp.UseDefaultCredentials = true;
+                    smtp.Credentials = NetworkCred;
+                    smtp.Port = int.Parse(ConfigurationManager.AppSettings["Port"]);
+
+                    message = DateTime.Now + " Sending Mail\n";
+                    smtp.Send(mm);
+                    message = DateTime.Now + " Mail Sent\n";
+
+                    System.Threading.Thread.Sleep(3000);
+                    mailSent = true;
                 }
-                mm.Subject = ConfigurationManager.AppSettings["Subject"];
-                body = body + ". Please click on the link to approve or deny the indent. " + ConfigurationManager.AppSettings["url"] + "/" + indentNo;
-                mm.Body = body;
-                mm.IsBodyHtml = false;
-
-                mm.Attachments.Add(new System.Net.Mail.Attachment(filePathLocation));
-
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = ConfigurationManager.AppSettings["Host"];
-                smtp.EnableSsl = true;
-                NetworkCredential NetworkCred = new NetworkCredential(ConfigurationManager.AppSettings["Username"],
-                    ConfigurationManager.AppSettings["Password"]);
-                smtp.UseDefaultCredentials = true;
-                smtp.Credentials = NetworkCred;
-                smtp.Port = int.Parse(ConfigurationManager.AppSettings["Port"]);
-
-                message = DateTime.Now + " Sending Mail\n";
-                smtp.Send(mm);
-                message = DateTime.Now + " Mail Sent\n";
-
-                System.Threading.Thread.Sleep(3000);
-                mailSent = true;
+                return mailSent;
+                log.Info("Mail sent..");
             }
-            return mailSent;
-            log.Info("Mail sent..");
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error while sending mail : " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                log.Error("Error while Sending Mail : " + ex.StackTrace);
+                return mailSent;
+            }
         }
 
         private void btn_generate_report_Click(object sender, RoutedEventArgs e)
