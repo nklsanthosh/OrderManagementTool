@@ -32,7 +32,7 @@ namespace OrderManagementTool
             log.Info("In AddItemCategory Screen...");
             InitializeComponent();
             btn_add_category.IsEnabled = false;
-            txt_category_description.IsEnabled = false;
+            //txt_category_description.IsEnabled = false;
         }
 
         private void btn_add_category_Click(object sender, RoutedEventArgs e)
@@ -55,7 +55,7 @@ namespace OrderManagementTool
                 orderManagementContext.SaveChanges();
                 txt_category_name.Text = "";
                 txt_category_description.Text = "";
-                MessageBox.Show("Item Category " + categoryName + " is added successfully", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Item Category " + categoryName + " is added successfully", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                 log.Info("Category added...");
             }
             catch (Exception ex)
@@ -78,7 +78,8 @@ namespace OrderManagementTool
                 if (isPresent != 0)
                 {
                     btn_add_category.IsEnabled = false;
-                    txt_category_description.IsEnabled = false;
+                    // txt_category_description.IsEnabled = false;
+                     txt_category_description.Text = "";
                     MessageBox.Show("Item Category Name is already present", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else

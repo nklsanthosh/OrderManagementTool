@@ -552,7 +552,7 @@
                 <Grid>
                     <Border BorderThickness="1" Margin="100,60,80,60" BorderBrush="#8ABC48" Background="#FFFFFF" />
                     <Label x:Name="lbl_unit" Content="Unit" HorizontalAlignment="Left" Margin="176,94,0,0" VerticalAlignment="Top" Width="38" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-                    <TextBox x:Name="txt_unit" HorizontalAlignment="Left" Margin="223,90,0,0" Text="" TextChanged="TextBox_TextChanged" LostFocus="txt_unit_LostFocus" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False">
+                    <TextBox x:Name="txt_unit" HorizontalAlignment="Left" Margin="223,90,0,0"  LostFocus="txt_unit_LostFocus" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False">
                         <TextBox.Style>
                             <Style TargetType="{x:Type TextBox}">
                                 <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>

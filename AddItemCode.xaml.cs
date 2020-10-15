@@ -107,7 +107,7 @@ namespace OrderManagementTool
                         CreatedBy = _login.EmployeeID
                     });
                 orderManagementContext.SaveChanges();
-                MessageBox.Show("Item Code " + itemCode + " is added successfully", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Item Code " + itemCode + " is added successfully", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                 log.Info("Item Code added...");
             }
             catch (Exception ex)

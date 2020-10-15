@@ -1268,5 +1268,10 @@ namespace OrderManagementTool
             AddItemCode addCode = new AddItemCode(_login);
             addCode.Show();
         }
+        private void btn_add_unit_Click(object sender, RoutedEventArgs e)
+        {
+            AddUnit addUnit = new AddUnit(_login);
+            addUnit.Show();
+        }
     }
 }

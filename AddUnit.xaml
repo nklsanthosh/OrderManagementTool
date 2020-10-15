@@ -1,16 +1,15 @@
-﻿<Window x:Class="OrderManagementTool.AddItemCategory"
+﻿<Window x:Class="OrderManagementTool.AddUnit"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OrderManagementTool"
         mc:Ignorable="d"
-        Title="Add Item Category" Height="300" Width="550" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Add Unit" Height="300" Width="550" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
-        <Border BorderThickness="1" BorderBrush="#8ABC48" Background="#FFFFFF" Margin="76,60,60,40"/>
-        <Label x:Name="lbl_category_name" Content="Category Name " HorizontalAlignment="Left" Margin="122,90,0,0" FontWeight="Regular" VerticalAlignment="Top" Width="100" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" />
-        <TextBox x:Name="txt_category_name" Margin="234,90,0,0" Text="" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" 
-                             Width="212" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False"  LostFocus="txt_category_name_LostFocus">
+        <Border BorderThickness="1" Margin="100,60,65,40" BorderBrush="#8ABC48" Background="#FFFFFF" />
+        <Label x:Name="lbl_unit" Content="Unit" HorizontalAlignment="Left" Margin="176,94,0,0" VerticalAlignment="Top" Width="38" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+        <TextBox x:Name="txt_unit" HorizontalAlignment="Left" Margin="223,90,0,0" Text=""  FocusManager.LostFocus="txt_unit_LostFocus" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
@@ -59,15 +58,9 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <!--<Button x:Name="btn_add_category"  HorizontalAlignment="Left" Margin="92,180,0,0" VerticalAlignment="Top" Click="btn_add_category_Click" Width="130" Height="30" Grid.Column="4">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="Images/add-icon.png" Width="20" Height="20"/>
-                            <TextBlock Text="Add Category" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Button>-->
-        <Button x:Name="btn_add_category"  HorizontalAlignment="Left" Margin="326,180,0,0" VerticalAlignment="Top" Click="btn_add_category_Click" Width="120" Height="29">
+        <Button x:Name="btn_add_unit" HorizontalAlignment="Left" Margin="317,190,0,0" VerticalAlignment="Top" Click="btn_add_unit_Click" Width="120" Height="29">
             <Button.Content>
-                <Image Source="Images\Icons\btn_add_category.jpg" Width="120" Height="32"  Margin="-2,-2,0,2" />
+                <Image Source="Images\Icons\btn_add_unit.jpg" Width="120" Height="32"  Margin="-2,-2,0,2" />
 
             </Button.Content>
             <Button.Style>
@@ -84,9 +77,8 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Label x:Name="lbl_category_desc" Content="Category Description " HorizontalAlignment="Left" Margin="93,135,0,0" FontWeight="Regular" VerticalAlignment="Top" Width="132" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <TextBox x:Name="txt_category_description" Margin="234,132,0,0" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" 
-                             Width="212" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False">
+        <Label x:Name="lbl_unit_description" Content="Unit Description : " HorizontalAlignment="Left" Margin="113,138,0,0" VerticalAlignment="Top" Width="102" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+        <TextBox x:Name="txt_unit_description" HorizontalAlignment="Left" Margin="224,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>

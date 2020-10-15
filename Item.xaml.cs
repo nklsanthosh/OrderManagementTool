@@ -161,7 +161,7 @@ namespace OrderManagementTool
                 orderManagementContext.SaveChanges();
                 txt_category_name.Text = "";
                 txt_category_description.Text = "";
-                MessageBox.Show("Item Category " + categoryName + " is added successfully", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Item Category " + categoryName + " is added successfully", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                 log.Info("Category added...");
             }
             catch (Exception ex)
@@ -254,7 +254,7 @@ namespace OrderManagementTool
                         CreatedDate = DateTime.Now
                     });
                 orderManagementContext.SaveChanges();
-                MessageBox.Show("Unit " + unit + " is added successfully", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Unit " + unit + " is added successfully", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
