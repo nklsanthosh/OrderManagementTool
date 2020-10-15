@@ -1256,5 +1256,17 @@ namespace OrderManagementTool
                 log.Error("Error while removing Indent : " + ex.StackTrace);
             }
         }
+
+        private void btn_add_category_Click(object sender, RoutedEventArgs e)
+        {
+            AddItemCategory addCategory = new AddItemCategory(_login);
+            addCategory.Show();
+        }
+
+        private void btn_item_code_Click(object sender, RoutedEventArgs e)
+        {
+            AddItemCode addCode = new AddItemCode(_login);
+            addCode.Show();
+        }
     }
 }
