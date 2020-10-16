@@ -38,11 +38,15 @@ namespace OrderManagementTool
         private readonly Login _login;
         private static string filePathLocation;
         public long indentNo;
+        public string mailFrom;
+        public string mailTo;
+
         public Indent(Login login)
         {
             try
             {
                 _login = login;
+                mailFrom = _login.UserEmail;
                 log.Info("In Indent Screen...");
                 InitializeComponent();
                 LoadItemCategoryName();
@@ -652,6 +656,10 @@ namespace OrderManagementTool
                         testCMD2.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.RaisedBy });
                         testCMD2.ExecuteNonQuery();
                     }
+                    mailTo = (from a in orderManagementContext.UserMaster
+                              where a.EmployeeId == saveIndent.ApprovalID
+                              select a.Email).FirstOrDefault();
+
                     GenerateIndent();
                     log.Info("Indent created and generated.");
                 }
@@ -679,11 +687,15 @@ namespace OrderManagementTool
                 using (MailMessage mm = new MailMessage())
                 {
                     mm.From = new MailAddress(Convert.ToString(ConfigurationManager.AppSettings["MailFrom"]));
-                    string[] _toAddress = Convert.ToString(ConfigurationManager.AppSettings["MailTo"]).Split(';');
-                    foreach (string address in _toAddress)
-                    {
-                        mm.To.Add(address);
-                    }
+                    //string[] _toAddress = Convert.ToString(ConfigurationManager.AppSettings["MailTo"]).Split(';');
+                    //foreach (string address in _toAddress)
+                    //{
+                    //    mm.To.Add(address);
+                    //}
+
+                    mm.To.Add(mailFrom);
+                    mm.To.Add(mailTo);
+
                     mm.Subject = ConfigurationManager.AppSettings["Subject"];
                     body = body + ". Please click on the link to approve or deny the indent. " + ConfigurationManager.AppSettings["url"] + "/" + indentNo;
                     mm.Body = body;
