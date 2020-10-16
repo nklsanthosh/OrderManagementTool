@@ -188,10 +188,15 @@
             </TabControl.Resources>
             <TabItem  Header="Add Category" Foreground="#609F19" FontFamily="Verdana" FontSize="11" FontWeight="Bold" Background="#FFFFFF" BorderBrush="#609F19" >
                 <Grid>
-                    <Border BorderThickness="1" BorderBrush="#8ABC48" Background="#FFFFFF" Margin="76,60,83,79"/>
-                    <Label x:Name="lbl_category_name" Content="Category Name " HorizontalAlignment="Left" Margin="122,90,0,0" FontWeight="Regular" VerticalAlignment="Top" Width="100" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" />
-                    <TextBox x:Name="txt_category_name" Margin="234,90,0,0" Text="" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" 
-                             Width="212" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False"  LostFocus="txt_category_name_LostFocus">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="37*"/>
+                        <ColumnDefinition Width="0*"/>
+                        <ColumnDefinition Width="101*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border BorderThickness="1" BorderBrush="#8ABC48" Background="#FFFFFF" Margin="76,60,83,79" Grid.ColumnSpan="3"/>
+                    <Label x:Name="lbl_category_name" Content="Category Name " HorizontalAlignment="Left" Margin="122,90,0,0" FontWeight="Regular" VerticalAlignment="Top" Width="100" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Grid.ColumnSpan="3" />
+                    <TextBox x:Name="txt_category_name" Margin="86,90,0,0" Text="" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" 
+                             Width="212" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False"  LostFocus="txt_category_name_LostFocus" Grid.Column="2">
                         <TextBox.Style>
                             <Style TargetType="{x:Type TextBox}">
                                 <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
@@ -246,7 +251,7 @@
                             <TextBlock Text="Add Category" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>-->
-                    <Button x:Name="btn_add_category"  HorizontalAlignment="Left" Margin="326,180,0,0" VerticalAlignment="Top" Click="btn_add_category_Click" Width="120" Height="29">
+                    <Button x:Name="btn_add_category"  HorizontalAlignment="Left" Margin="178,180,0,0" VerticalAlignment="Top" Click="btn_add_category_Click" Width="120" Height="29" Grid.Column="2">
                         <Button.Content>
                             <Image Source="Images\Icons\btn_add_category.jpg" Width="120" Height="32"  Margin="-2,-2,0,2" />
 
@@ -265,9 +270,9 @@
                             </Style>
                         </Button.Style>
                     </Button>
-                    <Label x:Name="lbl_category_desc" Content="Category Description " HorizontalAlignment="Left" Margin="93,135,0,0" FontWeight="Regular" VerticalAlignment="Top" Width="132" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-                    <TextBox x:Name="txt_category_description" Margin="234,132,0,0" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" 
-                             Width="212" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False">
+                    <Label x:Name="lbl_category_desc" Content="Category Description " HorizontalAlignment="Left" Margin="93,135,0,0" FontWeight="Regular" VerticalAlignment="Top" Width="132" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Grid.ColumnSpan="3"/>
+                    <TextBox x:Name="txt_category_description" Margin="86,132,0,0" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" 
+                             Width="212" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" Grid.Column="2">
                         <TextBox.Style>
                             <Style TargetType="{x:Type TextBox}">
                                 <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>

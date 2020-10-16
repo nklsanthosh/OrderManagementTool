@@ -625,9 +625,9 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button x:Name="btn_add_category" HorizontalAlignment="Left" Margin="100,262,0,0" VerticalAlignment="Top" Click="btn_add_category_Click" Width="120" Height="29">
+        <Button x:Name="btn_add_category" HorizontalAlignment="Left" Margin="50,262,0,0" VerticalAlignment="Top" Click="btn_add_category_Click" Width="120" Height="29">
             <Button.Content>
-                <Image Source="Images\Icons\btn_clear_fields.jpg" Width="120" Height="32"  Margin="-2,-2,0,2" />
+                <Image Source="Images\Icons\btn_add_category.jpg" Width="120" Height="32"  Margin="-2,-2,0,2" />
             </Button.Content>
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
@@ -643,9 +643,9 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button x:Name="btn_add_itemcode" HorizontalAlignment="Left" Margin="240,262,0,0" VerticalAlignment="Top" Click="btn_item_code_Click" Width="120" Height="29">
+        <Button x:Name="btn_add_itemcode" HorizontalAlignment="Left" Margin="175,262,0,0" VerticalAlignment="Top" Click="btn_item_code_Click" Width="120" Height="29">
             <Button.Content>
-                <Image Source="Images\Icons\btn_clear_fields.jpg" Width="120" Height="32" />
+                <Image Source="Images\Icons\btn_add_item.jpg" Width="120" Height="32"  Margin="-2,-2,0,2" />
             </Button.Content>
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
@@ -662,9 +662,9 @@
             </Button.Style>
         </Button>
 
-        <Button x:Name="btn_add_unit" HorizontalAlignment="Left" Margin="375,262,0,0" VerticalAlignment="Top" Click="btn_add_unit_Click" Width="120" Height="29">
+        <Button x:Name="btn_add_unit" HorizontalAlignment="Left" Margin="300,262,0,0" VerticalAlignment="Top" Click="btn_add_unit_Click" Width="120" Height="29">
             <Button.Content>
-                <Image Source="Images\Icons\btn_clear_fields.jpg" Width="120" Height="32" />
+                <Image Source="Images\Icons\btn_add_unit.jpg" Width="120" Height="32"  Margin="-2,-2,0,2" />
             </Button.Content>
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
