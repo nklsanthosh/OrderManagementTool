@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using ExcelDataReader;
 using Microsoft.Data.SqlClient;
 using OrderManagementTool.Models;
 using OrderManagementTool.Models.Excel;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -26,6 +28,8 @@ namespace OrderManagementTool
     public partial class Indent : Window
     {
         ILog log = LogManager.GetLogger(typeof(MainWindow));
+        private string path = Convert.ToString(ConfigurationManager.AppSettings["InputFilePath"]);
+        private string targetPath = Convert.ToString(ConfigurationManager.AppSettings["TargetReportPath"]);
         private List<string> itemCode;
         private string selectedItemCode;
         private List<string> units;
@@ -1236,6 +1240,211 @@ namespace OrderManagementTool
             menu.Show();
         }
 
+        private void btn_upload_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                List<SaveIndent> lstInputData = new List<SaveIndent>();
+                DirectoryInfo dInfo = new DirectoryInfo(path);
+                FileInfo[] files = dInfo.GetFiles("*.xlsx");
+                if(files.Length==0)
+                    MessageBox.Show("There are no files to process. Kindly move the files in the location.",
+                      "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+                foreach (FileInfo file in files)
+                {
+
+                    string filePath = path + "\\" + file.Name;
+                    using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
+                    {
+                        PullIndentData(lstInputData, stream);
+                    }
+                    File.SetAttributes(filePath, FileAttributes.Normal);
+                    targetPath = targetPath + "\\" + file.Name;
+                    File.Move(filePath, targetPath);
+                    MessageBox.Show("The file has been processed and data has been uploaded.", 
+                        "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+                    log.Info("The file has been processed and data has been uploaded.");
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Unable to upload the data from the file. An error occured : "+ ex.Message, 
+                    "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                log.Error("Unable to upload the data from the file. An error occured : " + ex.Message);
+            }
+        }
+        private void PullIndentData(List<SaveIndent> lstIndent, FileStream stream)
+        {
+            SaveIndent saveIndent = null;
+            List<List<string>> _readData = new List<List<string>>();
+            bool isHeader = false;
+            {
+                using (var reader = ExcelReaderFactory.CreateReader(stream))
+                {
+                    do
+                    {
+                        while (reader.Read()) //Each ROW
+                        {
+
+                            List<string> lst = new List<string>();
+                            for (int column = 0; column < reader.FieldCount; column++)
+                            {
+
+                                //Console.WriteLine(reader.GetString(column));//Will blow up if the value is decimal etc. 
+                                if (reader.GetValue(column) != null)
+                                    if (!Convert.ToString(reader.GetValue(column)).Contains("Raised By"))
+                                    {
+
+                                        lst.Add(Convert.ToString(reader.GetValue(column)));
+                                        isHeader = false;
+                                    }
+                                    //Console.WriteLine(reader.GetValue(column));//Get Value returns object
+                                    else
+                                    {
+                                        isHeader = true;
+                                        break;
+                                    }
+                            }
+                            if(!isHeader)
+                                _readData.Add(lst);
+
+                        }
+                        //foreach (string s in lst)
+                        //{
+                        foreach (List<string> lst in _readData)
+                        {
+                            decimal totalAmount = 0;
+                            if (lst.Count > 0)
+                            {
+                                List<GridIndent> lstGridIndent = null;
+                                if (lst[4] == "1")
+                                {
+                                    if (saveIndent != null)
+                                    {
+                                        CreateIndent(saveIndent);
+                                    }
+                                    saveIndent = new SaveIndent();
+                                    ////lst[1] = lst[1].Contains('-') ? lst[1].Replace('-', '/') : lst[1];
+                                    ////var dateComponent = lst[1].Split(' ')[0].Split('/');
+                                    //lst[1] = dateComponent[1] + "/" + dateComponent[0] + "/" + dateComponent[2];
+                                    var raisedBy = (from i in orderManagementContext.UserMaster
+                                                    where i.Email == lst[0]
+                                                    select i).FirstOrDefault();
+                                    saveIndent.RaisedBy = raisedBy.EmployeeId;
+                                    saveIndent.Date = Convert.ToDateTime(lst[1]);
+                                    saveIndent.Location = lst[2];
+                                    saveIndent.ApproverName = lst[3];
+                                    var approver = (from i in orderManagementContext.Employee
+                                                    where i.FirstName.Contains(lst[3])
+                                                    select i).FirstOrDefault();
+                                    saveIndent.ApprovalID = approver.EmployeeId;
+                                    saveIndent.CreateDate = DateTime.Now;
+
+                                    lstGridIndent = new List<GridIndent>();
+                                    GridIndent _indent = new GridIndent();
+                                    _indent.SlNo = Convert.ToInt32(lst[4]);
+                                    _indent.ItemCategoryName = lst[5];
+                                    _indent.ItemCode = lst[6];
+                                    _indent.ItemName = lst[7];
+                                    _indent.Description = lst[8];
+                                    _indent.Technical_Specifications = lst[9];
+                                    _indent.Units = lst[10];
+                                    _indent.Quantity = Convert.ToInt32(lst[11]);
+                                    _indent.Remarks = lst[12];
+
+                                    lstGridIndent.Add(_indent);
+                                    saveIndent.GridIndents = lstGridIndent;
+                                }
+                                else
+                                {
+                                    lstGridIndent = saveIndent.GridIndents;
+                                    GridIndent _indent = new GridIndent();
+                                    _indent.SlNo = Convert.ToInt32(lst[4]);
+                                    _indent.ItemCategoryName = lst[5];
+                                    _indent.ItemCode = lst[6];
+                                    _indent.ItemName = lst[7];
+                                    _indent.Description = lst[8];
+                                    _indent.Technical_Specifications = lst[9];
+                                    _indent.Units = lst[10];
+                                    _indent.Quantity = Convert.ToInt32(lst[11]);
+                                    _indent.Remarks = lst[12];
+
+                                    lstGridIndent.Add(_indent);
+                                    saveIndent.GridIndents = lstGridIndent;
+                                }
+
+                            }
+                            //}
+                           
+                        }
+                    } while (reader.NextResult()); //Move to NEXT SHEET
+
+                    if (saveIndent != null)
+                    {
+                        CreateIndent(saveIndent);
+                    }
+
+                }
+            }
+
+            //return null;// inputData;
+        }
+
+        private void CreateIndent(SaveIndent saveIndent)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
+                {
+                    connection.Open();
+                    SqlCommand testCMD = new SqlCommand("create_indent", connection);
+                    testCMD.CommandType = CommandType.StoredProcedure;
+
+                    testCMD.Parameters.Add(new SqlParameter("@Date", System.Data.SqlDbType.VarChar, 50) { Value = saveIndent.Date });
+                    testCMD.Parameters.Add(new SqlParameter("@Location", System.Data.SqlDbType.VarChar, 50) { Value = saveIndent.Location });
+                    testCMD.Parameters.Add(new SqlParameter("@RaisedBy", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.RaisedBy });
+                    testCMD.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.DateTime, 50) { Value = saveIndent.CreateDate });
+                    testCMD.Parameters.Add(new SqlParameter("@IndentId", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.IndentId });
+                    testCMD.Parameters["@IndentId"].Direction = ParameterDirection.Output;
+
+                    testCMD.ExecuteNonQuery(); // read output value from @NewId 
+                    saveIndent.IndentId = Convert.ToInt32(testCMD.Parameters["@IndentId"].Value);
+
+                    indentNo = Convert.ToInt32(testCMD.Parameters["@IndentId"].Value);
+                    indentNo = Convert.ToInt32(testCMD.Parameters["@IndentId"].Value);
+                    foreach (var i in saveIndent.GridIndents)
+                    {
+                        string createDate = saveIndent.CreateDate.Month + "/" + saveIndent.CreateDate.Day + "/" + saveIndent.CreateDate.Year;
+                        SqlCommand testCMD1 = new SqlCommand("create_indentDetails", connection);
+                        testCMD1.CommandType = CommandType.StoredProcedure;
+                        testCMD1.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.IndentId });
+                        testCMD1.Parameters.Add(new SqlParameter("@ItemName", System.Data.SqlDbType.VarChar, 50) { Value = i.ItemCategoryName });
+                        testCMD1.Parameters.Add(new SqlParameter("@ItemCode", System.Data.SqlDbType.VarChar, 50) { Value = i.ItemCode });
+                        testCMD1.Parameters.Add(new SqlParameter("@Unit", System.Data.SqlDbType.VarChar, 50) { Value = i.Units });
+                        testCMD1.Parameters.Add(new SqlParameter("@Quantity", System.Data.SqlDbType.VarChar, 50) { Value = i.Quantity });
+                        testCMD1.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.VarChar, 50) { Value = createDate });
+                        testCMD1.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.RaisedBy });
+                        testCMD1.Parameters.Add(new SqlParameter("@Remarks", System.Data.SqlDbType.VarChar, 50) { Value = i.Remarks });
+                        testCMD1.ExecuteNonQuery(); // read output value from @NewId 
+                    }
+
+                    SqlCommand testCMD2 = new SqlCommand("create_indent_Approval", connection);
+                    testCMD2.CommandType = CommandType.StoredProcedure;
+                    testCMD2.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.IndentId });
+                    testCMD2.Parameters.Add(new SqlParameter("@ApprovalID", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.ApprovalID });
+                    testCMD2.Parameters.Add(new SqlParameter("@ApprovalStatusID", System.Data.SqlDbType.BigInt, 50) { Value = 1 });
+                    testCMD2.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.DateTime, 50) { Value = saveIndent.CreateDate });
+                    testCMD2.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.RaisedBy });
+                    testCMD2.ExecuteNonQuery();
+                }
+                log.Info("Indent created and generated.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured during up;oad. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                log.Error("Error while creating approval via upload : " + ex.StackTrace);
+            }
+        }
         private void btn_remove_indent_Click(object sender, RoutedEventArgs e)
         {
             try
