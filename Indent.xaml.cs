@@ -29,7 +29,7 @@ namespace OrderManagementTool
     {
         ILog log = LogManager.GetLogger(typeof(MainWindow));
         private string path = Convert.ToString(ConfigurationManager.AppSettings["InputFilePath"]);
-        private string targetPath = Convert.ToString(ConfigurationManager.AppSettings["TargetReportPath"]);
+        //private string targetPath = Convert.ToString(ConfigurationManager.AppSettings["TargetReportPath"]);
         private List<string> itemCode;
         private string selectedItemCode;
         private List<string> units;
@@ -1244,10 +1244,10 @@ namespace OrderManagementTool
         {
             try
             {
-                List<SaveIndent> lstInputData = new List<SaveIndent>();
+                List<ExcelIndent> lstInputData = new List<ExcelIndent>();
                 DirectoryInfo dInfo = new DirectoryInfo(path);
                 FileInfo[] files = dInfo.GetFiles("*.xlsx");
-                if(files.Length==0)
+                if (files.Length == 0)
                     MessageBox.Show("There are no files to process. Kindly move the files in the location.",
                       "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                 foreach (FileInfo file in files)
@@ -1259,23 +1259,27 @@ namespace OrderManagementTool
                         PullIndentData(lstInputData, stream);
                     }
                     File.SetAttributes(filePath, FileAttributes.Normal);
+                    string targetPath = Convert.ToString(ConfigurationManager.AppSettings["TargetReportPath"]);
+                    //var fileName = file.Name.Split('.');
+                    //targetPath = targetPath + "\\" + fileName[0] + DateTime.Now.ToString()+ "."+fileName[1];
                     targetPath = targetPath + "\\" + file.Name;
-                    File.Move(filePath, targetPath);
-                    MessageBox.Show("The file has been processed and data has been uploaded.", 
+                    File.Move(filePath, targetPath,true);
+                    MessageBox.Show("The file has been processed and data has been uploaded.",
                         "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                     log.Info("The file has been processed and data has been uploaded.");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show("Unable to upload the data from the file. An error occured : "+ ex.Message, 
+                MessageBox.Show("Unable to upload the data from the file. An error occured : " + ex.Message,
                     "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
                 log.Error("Unable to upload the data from the file. An error occured : " + ex.Message);
             }
         }
-        private void PullIndentData(List<SaveIndent> lstIndent, FileStream stream)
+        private void PullIndentData(List<ExcelIndent> lstIndent, FileStream stream)
         {
-            SaveIndent saveIndent = null;
+            //ExcelIndent loadExcelIndent = null;
+            List<ExcelIndent> lstGridIndent = new List<ExcelIndent>();
             List<List<string>> _readData = new List<List<string>>();
             bool isHeader = false;
             {
@@ -1305,7 +1309,7 @@ namespace OrderManagementTool
                                         break;
                                     }
                             }
-                            if(!isHeader)
+                            if (!isHeader)
                                 _readData.Add(lst);
 
                         }
@@ -1313,81 +1317,193 @@ namespace OrderManagementTool
                         //{
                         foreach (List<string> lst in _readData)
                         {
-                            decimal totalAmount = 0;
+
+                            //  decimal totalAmount = 0;
                             if (lst.Count > 0)
                             {
-                                List<GridIndent> lstGridIndent = null;
-                                if (lst[4] == "1")
-                                {
-                                    if (saveIndent != null)
-                                    {
-                                        CreateIndent(saveIndent);
-                                    }
-                                    saveIndent = new SaveIndent();
-                                    ////lst[1] = lst[1].Contains('-') ? lst[1].Replace('-', '/') : lst[1];
-                                    ////var dateComponent = lst[1].Split(' ')[0].Split('/');
-                                    //lst[1] = dateComponent[1] + "/" + dateComponent[0] + "/" + dateComponent[2];
-                                    var raisedBy = (from i in orderManagementContext.UserMaster
-                                                    where i.Email == lst[0]
-                                                    select i).FirstOrDefault();
-                                    saveIndent.RaisedBy = raisedBy.EmployeeId;
-                                    saveIndent.Date = Convert.ToDateTime(lst[1]);
-                                    saveIndent.Location = lst[2];
-                                    saveIndent.ApproverName = lst[3];
-                                    var approver = (from i in orderManagementContext.Employee
-                                                    where i.FirstName.Contains(lst[3])
-                                                    select i).FirstOrDefault();
-                                    saveIndent.ApprovalID = approver.EmployeeId;
-                                    saveIndent.CreateDate = DateTime.Now;
+                                //if (lst[4] == "1")
+                                //{
+                                //if (loadExcelIndent != null)
+                                //{
+                                //    // CreateIndent(loadExcelIndent);
+                                //}
+                                //loadExcelIndent = new LoadExcelIndent();
+                                ////lst[1] = lst[1].Contains('-') ? lst[1].Replace('-', '/') : lst[1];
+                                ////var dateComponent = lst[1].Split(' ')[0].Split('/');
+                                //lst[1] = dateComponent[1] + "/" + dateComponent[0] + "/" + dateComponent[2];
+                                //var raisedBy = (from i in orderManagementContext.UserMaster
+                                //                where i.Email == lst[0]
+                                //                select i).FirstOrDefault();
+                                //loadExcelIndent.RaisedBy = raisedBy.EmployeeId;
+                                //loadExcelIndent.Date = Convert.ToDateTime(lst[1]);
+                                //loadExcelIndent.Location = lst[2];
+                                //loadExcelIndent.ApproverName = lst[3];
+                                //var approver = (from i in orderManagementContext.Employee
+                                //                where i.FirstName.Contains(lst[3])
+                                //                select i).FirstOrDefault();
+                                //loadExcelIndent.ApprovalID = approver.EmployeeId;
+                                //loadExcelIndent.CreateDate = DateTime.Now;
 
-                                    lstGridIndent = new List<GridIndent>();
-                                    GridIndent _indent = new GridIndent();
-                                    _indent.SlNo = Convert.ToInt32(lst[4]);
-                                    _indent.ItemCategoryName = lst[5];
-                                    _indent.ItemCode = lst[6];
-                                    _indent.ItemName = lst[7];
-                                    _indent.Description = lst[8];
-                                    _indent.Technical_Specifications = lst[9];
-                                    _indent.Units = lst[10];
-                                    _indent.Quantity = Convert.ToInt32(lst[11]);
-                                    _indent.Remarks = lst[12];
+                                //lstGridIndent = new List<ExcelIndent>();
+                                //ExcelIndent _indent = new ExcelIndent();
+                                //_indent.SlNo = Convert.ToInt32(lst[4]);
+                                //_indent.ItemCategoryName = lst[5];
+                                //_indent.ItemCode = lst[6];
+                                //_indent.ItemName = lst[7];
+                                //_indent.Description = lst[8];
+                                //_indent.Technical_Specifications = lst[9];
+                                //_indent.Units = lst[10];
+                                //_indent.Quantity = Convert.ToInt32(lst[11]);
+                                //_indent.Remarks = lst[12];
 
-                                    lstGridIndent.Add(_indent);
-                                    saveIndent.GridIndents = lstGridIndent;
-                                }
-                                else
-                                {
-                                    lstGridIndent = saveIndent.GridIndents;
-                                    GridIndent _indent = new GridIndent();
-                                    _indent.SlNo = Convert.ToInt32(lst[4]);
-                                    _indent.ItemCategoryName = lst[5];
-                                    _indent.ItemCode = lst[6];
-                                    _indent.ItemName = lst[7];
-                                    _indent.Description = lst[8];
-                                    _indent.Technical_Specifications = lst[9];
-                                    _indent.Units = lst[10];
-                                    _indent.Quantity = Convert.ToInt32(lst[11]);
-                                    _indent.Remarks = lst[12];
+                                //    lstGridIndent.Add(_indent);
+                                //    loadExcelIndent.ExcelIndents = lstGridIndent;
+                                //}
+                                //else
+                                //{
+                                // lstGridIndent = new List<ExcelIndent>();
+                                ExcelIndent _indent = new ExcelIndent();
+                                //_indent.SlNo = Convert.ToInt32(lst[4]);
+                                _indent.ItemCategoryName = lst[0];
+                                _indent.ItemCategoryDescription = lst[1];
+                                _indent.ItemCode = lst[2];
+                                _indent.ItemName = lst[3];
+                                _indent.Description = lst[4];
+                                _indent.Technical_Specifications = lst[5];
+                                _indent.Units = lst[6];
+                                _indent.UnitsDescription = lst[7];
+                                _indent.Quantity = Convert.ToInt32(lst[8]);
+                                _indent.Remarks = lst[9];
+                                _indent.CreatedBy = lst[9];
 
-                                    lstGridIndent.Add(_indent);
-                                    saveIndent.GridIndents = lstGridIndent;
-                                }
-
+                                lstGridIndent.Add(_indent);
+                                // loadExcelIndent.ExcelIndents = lstGridIndent;
                             }
-                            //}
-                           
                         }
+                        //}
                     } while (reader.NextResult()); //Move to NEXT SHEET
 
-                    if (saveIndent != null)
+                    if (lstGridIndent != null)
                     {
-                        CreateIndent(saveIndent);
-                    }
+                        bool entryMade = CreateEntry(lstGridIndent);
 
+                        if (entryMade)
+                        {
+                            foreach (var excelIndent in lstGridIndent)
+                            {
+                                GridIndent gridIndent = new GridIndent();
+                                gridIndent.SlNo = gridIndents.Count + 1;
+                                gridIndent.ItemCategoryName = excelIndent.ItemCategoryName;
+                                gridIndent.ItemCode = excelIndent.ItemCode;
+                                gridIndent.ItemName = excelIndent.ItemName;
+                                gridIndent.Quantity = excelIndent.Quantity;
+                                gridIndent.Remarks = excelIndent.Remarks;
+                                gridIndent.Units = excelIndent.Units;
+                                gridIndent.Description = excelIndent.Description;
+
+                                bool itemPresent = false;
+                                foreach (var i in gridIndents)
+                                {
+                                    if (i.ItemName == gridIndent.ItemName && i.ItemCode == gridIndent.ItemCode && i.Description == gridIndent.Description && i.Technical_Specifications == gridIndent.Technical_Specifications && itemPresent == false)
+                                    {
+                                        itemPresent = true;
+                                        i.Quantity = i.Quantity + gridIndent.Quantity;
+                                    }
+                                }
+                                if (!itemPresent)
+                                {
+                                    gridIndents.Add(gridIndent);
+                                }
+                            }
+                            grid_indentdata.ItemsSource = null;
+                            grid_indentdata.ItemsSource = gridIndents;
+                            gridSelectedIndex = -1;
+                            // CreateIndent(saveIndent);
+                        }
+                    }
                 }
             }
-
             //return null;// inputData;
+        }
+
+        private bool CreateEntry(List<ExcelIndent> excelIndents)
+        {
+
+            bool dataUpdated = false;
+            try
+            {
+                foreach (var excelIndent in excelIndents)
+                {
+                    var isItemCategoryPresent = (from i in orderManagementContext.ItemCategory
+                                                 where i.ItemCategoryName == excelIndent.ItemCategoryName
+                                                 select i.ItemCategoryId).FirstOrDefault();
+                    if (isItemCategoryPresent == 0)
+                    {
+                        orderManagementContext.ItemCategory.Add(
+                       new ItemCategory
+                       {
+                           ItemCategoryName = excelIndent.ItemCategoryName,
+                           CreatedDate = DateTime.Now,
+                           CreatedBy = _login.EmployeeID,
+                           Description = excelIndent.ItemCategoryDescription
+                       }
+                       );
+                        orderManagementContext.SaveChanges();
+                    }
+
+                    var isItemCodePresent = (from i in orderManagementContext.ItemMaster
+                                             from ic in orderManagementContext.ItemCategory
+                                             where i.ItemCategoryId == ic.ItemCategoryId && ic.ItemCategoryName == excelIndent.ItemCategoryName && i.ItemCode == excelIndent.ItemCode
+                                             select i.ItemMasterId).FirstOrDefault();
+
+                    if (isItemCodePresent == 0)
+                    {
+                        var itemCategoryId = (from i in orderManagementContext.ItemCategory
+                                              where i.ItemCategoryName == excelIndent.ItemCategoryName
+                                              select i.ItemCategoryId).FirstOrDefault();
+
+                        orderManagementContext.ItemMaster.Add(
+                            new ItemMaster
+                            {
+                                ItemCode = excelIndent.ItemCode,
+                                ItemName = excelIndent.ItemName,
+                                Description = excelIndent.Description,
+                                TechnicalSpecification = excelIndent.Technical_Specifications,
+                                ItemCategoryId = itemCategoryId,
+                                CreatedDate = DateTime.Now,
+                                CreatedBy = _login.EmployeeID
+                            });
+                        orderManagementContext.SaveChanges();
+                    }
+
+
+                    var isUnitPresent = (from u in orderManagementContext.UnitMaster
+                                         where u.Unit == excelIndent.Units
+                                         select u.UnitMasterId).FirstOrDefault();
+                    if (isUnitPresent == 0)
+                    {
+                        orderManagementContext.UnitMaster.Add(
+                        new UnitMaster
+                        {
+                            Unit = excelIndent.Units,
+                            Description = excelIndent.UnitsDescription,
+                            CreatedBy = _login.EmployeeID,
+                            CreatedDate = DateTime.Now
+                        });
+                        orderManagementContext.SaveChanges();
+                    }
+                    dataUpdated = true;
+                }
+                dataUpdated = true;
+                return dataUpdated;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured during item details data upload  " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                log.Error("Error while creating approval via upload : " + ex.StackTrace);
+                dataUpdated = false;
+                return dataUpdated;
+            }
         }
 
         private void CreateIndent(SaveIndent saveIndent)
@@ -1422,7 +1538,7 @@ namespace OrderManagementTool
                         testCMD1.Parameters.Add(new SqlParameter("@ItemCode", System.Data.SqlDbType.VarChar, 50) { Value = i.ItemCode });
                         testCMD1.Parameters.Add(new SqlParameter("@Unit", System.Data.SqlDbType.VarChar, 50) { Value = i.Units });
                         testCMD1.Parameters.Add(new SqlParameter("@Quantity", System.Data.SqlDbType.VarChar, 50) { Value = i.Quantity });
-                        testCMD1.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.VarChar, 50) { Value = createDate });
+                        testCMD1.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.DateTime, 50) { Value = createDate });
                         testCMD1.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.RaisedBy });
                         testCMD1.Parameters.Add(new SqlParameter("@Remarks", System.Data.SqlDbType.VarChar, 50) { Value = i.Remarks });
                         testCMD1.ExecuteNonQuery(); // read output value from @NewId 
@@ -1441,7 +1557,7 @@ namespace OrderManagementTool
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occured during up;oad. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("An error occured during upload. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
                 log.Error("Error while creating approval via upload : " + ex.StackTrace);
             }
         }
