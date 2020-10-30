@@ -1,6 +1,7 @@
 ﻿using ClosedXML.Excel;
 using ExcelDataReader;
 using Microsoft.Data.SqlClient;
+using Microsoft.Win32;
 using OrderManagementTool.Models;
 using OrderManagementTool.Models.Excel;
 using OrderManagementTool.Models.Indent;
@@ -1247,30 +1248,35 @@ namespace OrderManagementTool
         {
             try
             {
+                string filePath = string.Empty;
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                if (openFileDialog.ShowDialog() == true)
+                    filePath = openFileDialog.FileName;
+                //File.ReadAllText(openFileDialog.FileName);
                 List<ExcelIndent> lstInputData = new List<ExcelIndent>();
-                DirectoryInfo dInfo = new DirectoryInfo(path);
-                FileInfo[] files = dInfo.GetFiles("*.xlsx");
-                if (files.Length == 0)
-                    MessageBox.Show("There are no files to process. Kindly move the files in the location.",
-                      "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
-                foreach (FileInfo file in files)
-                {
+                //DirectoryInfo dInfo = new DirectoryInfo(path);
+                //FileInfo[] files = dInfo.GetFiles("*.xlsx");
+                //if (files.Length == 0)
+                //    MessageBox.Show("There are no files to process. Kindly move the files in the location.",
+                //      "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+                //foreach (FileInfo file in files)
+                //{
 
-                    string filePath = path + "\\" + file.Name;
-                    using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
-                    {
-                        PullIndentData(lstInputData, stream);
-                    }
-                    File.SetAttributes(filePath, FileAttributes.Normal);
-                    string targetPath = Convert.ToString(ConfigurationManager.AppSettings["TargetReportPath"]);
-                    //var fileName = file.Name.Split('.');
-                    //targetPath = targetPath + "\\" + fileName[0] + DateTime.Now.ToString()+ "."+fileName[1];
-                    targetPath = targetPath + "\\" + file.Name;
-                    File.Move(filePath, targetPath, true);
-                    MessageBox.Show("The file has been processed and data has been uploaded.",
+                //    string filePath = path + "\\" + file.Name;
+                using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
+                {
+                    PullIndentData(lstInputData, stream);
+                }
+                File.SetAttributes(filePath, FileAttributes.Normal);
+                string targetPath = Convert.ToString(ConfigurationManager.AppSettings["TargetReportPath"]);
+                ////var fileName = file.Name.Split('.');
+                ////targetPath = targetPath + "\\" + fileName[0] + DateTime.Now.ToString()+ "."+fileName[1];
+                targetPath = targetPath + "\\" + openFileDialog.SafeFileName;
+                File.Move(filePath, targetPath, true);
+                MessageBox.Show("The file has been processed and data has been uploaded.",
                         "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                     log.Info("The file has been processed and data has been uploaded.");
-                }
+                //}
             }
             catch (Exception ex)
             {
@@ -1286,6 +1292,7 @@ namespace OrderManagementTool
             List<List<string>> _readData = new List<List<string>>();
             bool isHeader = false;
             {
+                string raisedBy = string.Empty;
                 using (var reader = ExcelReaderFactory.CreateReader(stream))
                 {
                     do
@@ -1299,7 +1306,7 @@ namespace OrderManagementTool
 
                                 //Console.WriteLine(reader.GetString(column));//Will blow up if the value is decimal etc. 
                                 if (reader.GetValue(column) != null)
-                                    if (!Convert.ToString(reader.GetValue(column)).Contains("Raised By"))
+                                    if (!Convert.ToString(reader.GetValue(column)).Contains("Item Category Name"))
                                     {
 
                                         lst.Add(Convert.ToString(reader.GetValue(column)));
@@ -1311,13 +1318,22 @@ namespace OrderManagementTool
                                         isHeader = true;
                                         break;
                                     }
+                                //else
+                                //{
+                                //    isHeader = true;
+                                //    break;
+                                //}
+                               
+                                    
                             }
                             if (!isHeader)
-                                _readData.Add(lst);
+                                if(lst.Count>0)
+                                    _readData.Add(lst);
 
                         }
                         //foreach (string s in lst)
                         //{
+                        
                         foreach (List<string> lst in _readData)
                         {
 
@@ -1376,9 +1392,9 @@ namespace OrderManagementTool
                                 _indent.Units = lst[6];
                                 _indent.UnitsDescription = lst[7];
                                 _indent.Quantity = Convert.ToInt32(lst[8]);
-                                _indent.Remarks = lst[9];
-                                _indent.CreatedBy = lst[9];
-
+                                //_indent. = lst[9];
+                                // _indent.CreatedBy = lst[9];
+                                raisedBy = lst[9];
                                 lstGridIndent.Add(_indent);
                                 // loadExcelIndent.ExcelIndents = lstGridIndent;
                             }
@@ -1388,6 +1404,7 @@ namespace OrderManagementTool
 
                     if (lstGridIndent != null)
                     {
+                        txt_raised_by.Text = raisedBy;
                         bool entryMade = CreateEntry(lstGridIndent);
 
                         if (entryMade)
