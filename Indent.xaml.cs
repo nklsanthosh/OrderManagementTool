@@ -1043,6 +1043,7 @@ namespace OrderManagementTool
                         DateTime.Now.Second.ToString() + ".xlsx";
                 filePathLocation = filePath;
                 workBook.SaveAs(filePath);
+                this.Cursor = null;
                 MessageBox.Show("The Indent file has been created.", "Order Management System",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 SendMail("Indent has been generated");
@@ -1275,7 +1276,7 @@ namespace OrderManagementTool
                 File.Move(filePath, targetPath, true);
                 MessageBox.Show("The file has been processed and data has been uploaded.",
                         "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
-                    log.Info("The file has been processed and data has been uploaded.");
+                log.Info("The file has been processed and data has been uploaded.");
                 //}
             }
             catch (Exception ex)
@@ -1292,7 +1293,7 @@ namespace OrderManagementTool
             List<List<string>> _readData = new List<List<string>>();
             bool isHeader = false;
             {
-                string raisedBy = string.Empty;
+                //string raisedBy = string.Empty;
                 using (var reader = ExcelReaderFactory.CreateReader(stream))
                 {
                     do
@@ -1323,17 +1324,17 @@ namespace OrderManagementTool
                                 //    isHeader = true;
                                 //    break;
                                 //}
-                               
-                                    
+
+
                             }
                             if (!isHeader)
-                                if(lst.Count>0)
+                                if (lst.Count > 0)
                                     _readData.Add(lst);
 
                         }
                         //foreach (string s in lst)
                         //{
-                        
+
                         foreach (List<string> lst in _readData)
                         {
 
@@ -1392,9 +1393,16 @@ namespace OrderManagementTool
                                 _indent.Units = lst[6];
                                 _indent.UnitsDescription = lst[7];
                                 _indent.Quantity = Convert.ToInt32(lst[8]);
-                                //_indent. = lst[9];
-                                // _indent.CreatedBy = lst[9];
-                                raisedBy = lst[9];
+                                _indent.CreatedBy = lst[9];
+                                if (lst.Count > 10)
+                                {
+                                    _indent.Remarks = lst[10];
+                                }
+                                else
+                                {
+                                    _indent.Remarks = "";
+                                }
+                                // raisedBy = lst[9];
                                 lstGridIndent.Add(_indent);
                                 // loadExcelIndent.ExcelIndents = lstGridIndent;
                             }
@@ -1404,7 +1412,7 @@ namespace OrderManagementTool
 
                     if (lstGridIndent != null)
                     {
-                        txt_raised_by.Text = raisedBy;
+                        // txt_raised_by.Text = raisedBy;
                         bool entryMade = CreateEntry(lstGridIndent);
 
                         if (entryMade)
