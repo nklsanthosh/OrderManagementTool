@@ -56,6 +56,7 @@ namespace OrderManagementTool
                 LoadItemCategoryName();
                 LoadApprovalStatus();
                 txt_raised_by.Text = _login.UserEmail;
+                this.datepicker_date1.SelectedDate = DateTime.Now.Date;
             }
             catch (Exception ex)
             {
@@ -86,6 +87,7 @@ namespace OrderManagementTool
                 LoadApprovalStatus();
                 txt_raised_by.Text = _login.UserEmail;
                 GetIndent(indentNo);
+                this.datepicker_date1.SelectedDate = DateTime.Now.Date;
             }
             catch (Exception ex)
             {
@@ -666,6 +668,7 @@ namespace OrderManagementTool
 
                     GenerateIndent();
                     log.Info("Indent created and generated.");
+                    this.Cursor = null;
                 }
                 catch (Exception ex)
                 {
@@ -1263,7 +1266,7 @@ namespace OrderManagementTool
                     //var fileName = file.Name.Split('.');
                     //targetPath = targetPath + "\\" + fileName[0] + DateTime.Now.ToString()+ "."+fileName[1];
                     targetPath = targetPath + "\\" + file.Name;
-                    File.Move(filePath, targetPath,true);
+                    File.Move(filePath, targetPath, true);
                     MessageBox.Show("The file has been processed and data has been uploaded.",
                         "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                     log.Info("The file has been processed and data has been uploaded.");
