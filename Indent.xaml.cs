@@ -388,7 +388,7 @@ namespace OrderManagementTool
                             join des in orderManagementContext.Designation
                             on emp.DesignationId equals des.DesignationId
                             where emp.EmployeeId != _login.EmployeeID
-                            where emp.DesignationId > (from emp1 in orderManagementContext.Employee where emp1.EmployeeId == _login.EmployeeID select emp1.DesignationId).FirstOrDefault()
+                            where emp.DesignationId < (from emp1 in orderManagementContext.Employee where emp1.EmployeeId == _login.EmployeeID select emp1.DesignationId).FirstOrDefault()
                             select
                             new
                             {
