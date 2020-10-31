@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace OrderManagementTool.Models
 {
@@ -17,5 +18,6 @@ namespace OrderManagementTool.Models
         public long CreatedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public long? ModifiedBy { get; set; }
+        public long ReportsTo { get; set; }
     }
 }

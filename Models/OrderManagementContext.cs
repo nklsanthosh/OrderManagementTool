@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
 using System.Configuration;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace OrderManagementTool.Models
 {
@@ -7,10 +9,7 @@ namespace OrderManagementTool.Models
     {
         public OrderManagementContext()
         {
-
         }
-
-
 
         public OrderManagementContext(DbContextOptions<OrderManagementContext> options)
             : base(options)
@@ -38,7 +37,6 @@ namespace OrderManagementTool.Models
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString);
-                //optionsBuilder.UseSqlServer("Data Source=SGZ-IN01142\\SQLEXPRESS;Initial Catalog=OrderManagement;Integrated Security=True;");
             }
         }
 
@@ -46,9 +44,7 @@ namespace OrderManagementTool.Models
         {
             modelBuilder.Entity<ApprovalStatus>(entity =>
             {
-                entity.Property(e => e.ApprovalStatusId)
-                    .HasColumnName("ApprovalStatusID")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.ApprovalStatusId).HasColumnName("ApprovalStatusID");
 
                 entity.Property(e => e.ApprovalStatus1)
                     .IsRequired()
@@ -141,9 +137,7 @@ namespace OrderManagementTool.Models
 
             modelBuilder.Entity<IndentApproval>(entity =>
             {
-                entity.Property(e => e.IndentApprovalId)
-                    .HasColumnName("IndentApprovalID")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.IndentApprovalId).HasColumnName("IndentApprovalID");
 
                 entity.Property(e => e.ApprovalId).HasColumnName("ApprovalID");
 
@@ -152,8 +146,6 @@ namespace OrderManagementTool.Models
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.IndentId).HasColumnName("IndentID");
-
-                entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Remarks).HasMaxLength(100);
             });
@@ -181,9 +173,7 @@ namespace OrderManagementTool.Models
             {
                 entity.HasKey(e => e.IndentId);
 
-                entity.Property(e => e.IndentId)
-                    .HasColumnName("IndentID")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.IndentId).HasColumnName("IndentID");
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
@@ -236,9 +226,7 @@ namespace OrderManagementTool.Models
 
             modelBuilder.Entity<RoleMapping>(entity =>
             {
-                entity.Property(e => e.RoleMappingId)
-                    .HasColumnName("RoleMappingID")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.RoleMappingId).HasColumnName("RoleMappingID");
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 

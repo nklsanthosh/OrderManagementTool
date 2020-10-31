@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace OrderManagementTool.Models
 {
@@ -9,6 +10,7 @@ namespace OrderManagementTool.Models
         public long ItemCategoryId { get; set; }
         public long ItemMasterId { get; set; }
         public long UnitId { get; set; }
+        public int Quantity { get; set; }
         public string Remarks { get; set; }
         public DateTime CreatedDate { get; set; }
         public long CreatedBy { get; set; }
