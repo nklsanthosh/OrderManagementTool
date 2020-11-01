@@ -384,27 +384,40 @@ namespace OrderManagementTool
                 log.Error("Loading Approval infomration");
                 cbx_approval_id.Items.Clear();
                 var exceptionList = new List<string> { "Clerk", "Supervisor" };
+                //var data = (from emp in orderManagementContext.Employee
+                //            join des in orderManagementContext.Designation
+                //            on emp.DesignationId equals des.DesignationId
+                //            where emp.EmployeeId != _login.EmployeeID
+                //            where emp.DesignationId < (from emp1 in orderManagementContext.Employee where emp1.EmployeeId == _login.EmployeeID select emp1.DesignationId).FirstOrDefault()
+                //            select
+                //            new
+                //            {
+                //                emp.FirstName,
+                //                emp.LastName,
+                //                des.Designation1,
+                //                emp.EmployeeId
+                //            })
+                //                 .Distinct().ToList();
+                //foreach (string s in exceptionList)
+                //{
+                //    var remove = data.Select(e => e.Designation1 == s).ToList();
+                //    int index = remove.IndexOf(true);
+                //    if (index >= 0)
+                //        data.RemoveAt(index);
+                //}
+
                 var data = (from emp in orderManagementContext.Employee
-                            join des in orderManagementContext.Designation
-                            on emp.DesignationId equals des.DesignationId
-                            where emp.EmployeeId != _login.EmployeeID
-                            where emp.DesignationId < (from emp1 in orderManagementContext.Employee where emp1.EmployeeId == _login.EmployeeID select emp1.DesignationId).FirstOrDefault()
-                            select
-                            new
+                            where emp.EmployeeId == (from emp1 in orderManagementContext.Employee
+                                                     where emp1.EmployeeId == _login.EmployeeID
+                                                     select emp1.ReportsTo).FirstOrDefault()
+                            select new
                             {
                                 emp.FirstName,
                                 emp.LastName,
-                                des.Designation1,
                                 emp.EmployeeId
-                            })
-                                 .Distinct().ToList();
-                foreach (string s in exceptionList)
-                {
-                    var remove = data.Select(e => e.Designation1 == s).ToList();
-                    int index = remove.IndexOf(true);
-                    if (index >= 0)
-                        data.RemoveAt(index);
-                }
+                            });
+
+
                 foreach (var i in data)
                 {
                     cbx_approval_id.Items.Add(new KeyValuePair<long, string>(i.EmployeeId, i.FirstName.Trim() + " " + i.LastName.Trim()));
@@ -416,7 +429,6 @@ namespace OrderManagementTool
                 MessageBox.Show("An error occured during Approval ID fetch " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
                 log.Error("Error while loading approval : " + ex.StackTrace);
             }
-
         }
 
         private void LoadItemCategoryName()
