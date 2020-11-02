@@ -18,8 +18,8 @@ using System.Net.Mail;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using ILog = log4net.ILog;
-using LogManager = log4net.LogManager;
+//using ILog = log4net.ILog;
+//using LogManager = log4net.LogManager;
 
 namespace OrderManagementTool
 {

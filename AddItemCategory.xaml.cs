@@ -1,5 +1,4 @@
-﻿using log4net;
-using OrderManagementTool.Models;
+﻿using OrderManagementTool.Models;
 using OrderManagementTool.Models.LogIn;
 using System;
 using System.Collections.Generic;
@@ -29,7 +28,7 @@ namespace OrderManagementTool
         {
             InitializeComponent();
             _login = login;
-           // log.Info("In AddItemCategory Screen...");
+            // log.Info("In AddItemCategory Screen...");
             InitializeComponent();
             btn_add_category.IsEnabled = false;
             //txt_category_description.IsEnabled = false;
@@ -79,7 +78,7 @@ namespace OrderManagementTool
                 {
                     btn_add_category.IsEnabled = false;
                     // txt_category_description.IsEnabled = false;
-                     txt_category_description.Text = "";
+                    txt_category_description.Text = "";
                     MessageBox.Show("Item Category Name is already present", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else

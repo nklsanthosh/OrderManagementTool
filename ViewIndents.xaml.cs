@@ -1,4 +1,4 @@
-﻿using log4net;
+﻿//using log4net;
 using Microsoft.Data.SqlClient;
 using OrderManagementTool.Models;
 using OrderManagementTool.Models.Indent;

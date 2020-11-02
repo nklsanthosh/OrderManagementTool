@@ -1,4 +1,4 @@
-﻿using log4net;
+﻿//using log4net;
 using OrderManagementTool.Models;
 using System.Windows;
 using System.Linq;

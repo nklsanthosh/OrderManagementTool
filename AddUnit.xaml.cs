@@ -1,5 +1,4 @@
-﻿using log4net;
-using OrderManagementTool.Models;
+﻿using OrderManagementTool.Models;
 using OrderManagementTool.Models.LogIn;
 using System;
 using System.Collections.Generic;
