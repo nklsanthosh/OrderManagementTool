@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderManagementTool", "OrderManagementTool.csproj", "{013EDFD1-0B6F-47AC-99FD-B8F14848F746}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "OMSInstaller", "..\OMSInstaller\OMSInstaller.vdproj", "{39A8E26F-9C22-4BD7-8A1F-43CBE2ED93CB}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "OrderManagementSystem", "..\OrderManagementSystem\OrderManagementSystem.vdproj", "{867C8D42-E74D-4267-B20F-D341EAAC3624}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +17,8 @@ Global
 		{013EDFD1-0B6F-47AC-99FD-B8F14848F746}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{013EDFD1-0B6F-47AC-99FD-B8F14848F746}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{013EDFD1-0B6F-47AC-99FD-B8F14848F746}.Release|Any CPU.Build.0 = Release|Any CPU
-		{39A8E26F-9C22-4BD7-8A1F-43CBE2ED93CB}.Debug|Any CPU.ActiveCfg = Debug
-		{39A8E26F-9C22-4BD7-8A1F-43CBE2ED93CB}.Release|Any CPU.ActiveCfg = Release
+		{867C8D42-E74D-4267-B20F-D341EAAC3624}.Debug|Any CPU.ActiveCfg = Debug
+		{867C8D42-E74D-4267-B20F-D341EAAC3624}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
