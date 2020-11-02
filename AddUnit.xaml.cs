@@ -21,13 +21,13 @@ namespace OrderManagementTool
     /// </summary>
     public partial class AddUnit : Window
     {
-        ILog log = LogManager.GetLogger(typeof(MainWindow));
+        //ILog log = LogManager.GetLogger(typeof(MainWindow));
         OrderManagementContext orderManagementContext = new OrderManagementContext();
         private readonly Login _login;
 
         public AddUnit(Login login)
         {
-            log.Info("In Add Unit Screen...");
+            //log.Info("In Add Unit Screen...");
             _login = login;
             InitializeComponent();
             btn_add_unit.IsEnabled = false;
@@ -36,7 +36,7 @@ namespace OrderManagementTool
 
         private void txt_unit_LostFocus(object sender, RoutedEventArgs e)
         {
-            log.Info("In Unit lost focus...");
+            //log.Info("In Unit lost focus...");
             string unitname = txt_unit.Text;
 
             var isPresent = (from u in orderManagementContext.UnitMaster
@@ -59,7 +59,7 @@ namespace OrderManagementTool
         {
             try
             {
-                log.Info("Adding Units...");
+                //log.Info("Adding Units...");
                 string unit = txt_unit.Text;
                 string unitDescription = txt_unit_description.Text;
                 orderManagementContext.UnitMaster.Add(
@@ -75,7 +75,7 @@ namespace OrderManagementTool
             }
             catch (Exception ex)
             {
-                log.Info("Exception while adding units - " + ex.StackTrace);
+               // log.Info("Exception while adding units - " + ex.StackTrace);
                 MessageBox.Show("An error occured during Unit Creation. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

@@ -12,7 +12,7 @@ namespace OrderManagementTool
     /// </summary>
     public partial class AddItemCode : Window
     {
-        ILog log = LogManager.GetLogger(typeof(MainWindow));
+        //ILog log = LogManager.GetLogger(typeof(MainWindow));
         OrderManagementContext orderManagementContext = new OrderManagementContext();
         private readonly Login _login;
 
@@ -28,7 +28,7 @@ namespace OrderManagementTool
         }
         private void txt_label_name_LostFocus(object sender, RoutedEventArgs e)
         {
-            log.Info("In Item Name lost focus...");
+            //log.Info("In Item Name lost focus...");
             string itemName = txt_item_name.Text;
             if (itemName != "")
             {
@@ -85,7 +85,7 @@ namespace OrderManagementTool
         {
             try
             {
-                log.Info("Adding Item Code...");
+                //log.Info("Adding Item Code...");
                 string itemName = txt_item_name.Text;
                 string itemCode = txt_item_code.Text;
                 string itemDescription = txt_item_description.Text;
@@ -108,18 +108,18 @@ namespace OrderManagementTool
                     });
                 orderManagementContext.SaveChanges();
                 MessageBox.Show("Item Code " + itemCode + " is added successfully", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
-                log.Info("Item Code added...");
+                //log.Info("Item Code added...");
             }
             catch (Exception ex)
             {
-                log.Info("Exception while adding item code - " + ex.StackTrace);
+               // log.Info("Exception while adding item code - " + ex.StackTrace);
                 MessageBox.Show("An error occured during Item Code Creation. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void txt_item_code_LostFocus(object sender, RoutedEventArgs e)
         {
-            log.Info("In item code lost focus...");
+            //log.Info("In item code lost focus...");
             string labelName = txt_item_name.Text;
             string labelCode = txt_item_code.Text;
 

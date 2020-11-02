@@ -13,10 +13,10 @@ namespace OrderManagementTool
     /// </summary>
     public partial class MainWindow : Window
     {
-        ILog log = LogManager.GetLogger(typeof(MainWindow));
+        //ILog log = LogManager.GetLogger(typeof(MainWindow));
         public MainWindow()
         {
-            log.Info("In Login Screen...");
+            //log.Info("In Login Screen...");
             InitializeComponent();
             btn_Login.IsEnabled = false;
 
@@ -27,7 +27,7 @@ namespace OrderManagementTool
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            log.Info("Login Process started...");
+            //log.Info("Login Process started...");
             if (txt_username.Text.Length == 0)
             {
                 MessageBox.Show("Please Enter Valid UserName", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -71,9 +71,9 @@ namespace OrderManagementTool
                                        "Order Management System",
                                            MessageBoxButton.OK,
                                                MessageBoxImage.Error);
-                    log.Error("Login error " + ex.StackTrace);
+                    //log.Error("Login error " + ex.StackTrace);
                 }
-                log.Info("Login Process Completed...");
+                //log.Info("Login Process Completed...");
             }
         }
 

@@ -21,7 +21,7 @@ namespace OrderManagementTool
     /// </summary>
     public partial class AddItemCategory : Window
     {
-        ILog log = LogManager.GetLogger(typeof(MainWindow));
+        //ILog log = LogManager.GetLogger(typeof(MainWindow));
         OrderManagementContext orderManagementContext = new OrderManagementContext();
         private readonly Login _login;
 
@@ -29,7 +29,7 @@ namespace OrderManagementTool
         {
             InitializeComponent();
             _login = login;
-            log.Info("In AddItemCategory Screen...");
+           // log.Info("In AddItemCategory Screen...");
             InitializeComponent();
             btn_add_category.IsEnabled = false;
             //txt_category_description.IsEnabled = false;
@@ -39,7 +39,7 @@ namespace OrderManagementTool
         {
             try
             {
-                log.Info("In add category...");
+                //log.Info("In add category...");
                 string categoryName = txt_category_name.Text;
                 string categoryDescription = txt_category_description.Text;
 
@@ -56,11 +56,11 @@ namespace OrderManagementTool
                 txt_category_name.Text = "";
                 txt_category_description.Text = "";
                 MessageBox.Show("Item Category " + categoryName + " is added successfully", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
-                log.Info("Category added...");
+                //log.Info("Category added...");
             }
             catch (Exception ex)
             {
-                log.Info("Exception while adding category - " + ex.StackTrace);
+                //log.Info("Exception while adding category - " + ex.StackTrace);
                 MessageBox.Show("An error occured during Item Category Creation. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -68,7 +68,7 @@ namespace OrderManagementTool
 
         private void txt_category_name_LostFocus(object sender, RoutedEventArgs e)
         {
-            log.Info("In item Category lost focus...");
+            //log.Info("In item Category lost focus...");
             string categoryName = txt_category_name.Text;
             if (categoryName != "")
             {

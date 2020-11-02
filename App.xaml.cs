@@ -9,12 +9,12 @@ namespace OrderManagementTool
     /// </summary>
     public partial class App : Application
     {
-        ILog log = LogManager.GetLogger(typeof(App));
+      //  ILog log = LogManager.GetLogger(typeof(App));
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            log.Info("Initialising ...");
+           // log.Info("Initialising ...");
             //initialize the splash screen and set it as the application main window
             var splashScreen = new SplashScreen();
             this.MainWindow = splashScreen;
