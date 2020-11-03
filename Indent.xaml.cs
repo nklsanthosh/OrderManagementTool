@@ -121,6 +121,7 @@ namespace OrderManagementTool
                     testCMD.CommandType = CommandType.StoredProcedure;
 
                     testCMD.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.BigInt, 50) { Value = indentNo });
+                    testCMD.Parameters.Add(new SqlParameter("@UserID", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
 
                     // SqlDataReader dataReader = testCMD.ExecuteReader();
                     SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(testCMD);

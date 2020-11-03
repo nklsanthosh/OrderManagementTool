@@ -45,7 +45,7 @@ namespace OrderManagementTool
                     SqlCommand testCMD = new SqlCommand("GetIndent", connection);
                     testCMD.CommandType = CommandType.StoredProcedure;
 
-                    // testCMD.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.BigInt, 50) { Value = null });
+                     testCMD.Parameters.Add(new SqlParameter("@UserId", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
 
                     // SqlDataReader dataReader = testCMD.ExecuteReader();
                     SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(testCMD);
