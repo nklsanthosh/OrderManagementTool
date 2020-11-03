@@ -87,6 +87,7 @@ namespace OrderManagementTool
                 LoadItemCategoryName();
                 LoadApprovalStatus();
                 txt_raised_by.Text = _login.UserEmail;
+                txt_indent_no.Text = indentNo.ToString();
                 GetIndent(indentNo);
                 this.datepicker_date1.SelectedDate = DateTime.Now.Date;
             }
@@ -1290,14 +1291,14 @@ namespace OrderManagementTool
                 File.Move(filePath, targetPath, true);
                 MessageBox.Show("The file has been processed and data has been uploaded.",
                         "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
-               // log.Info("The file has been processed and data has been uploaded.");
+                // log.Info("The file has been processed and data has been uploaded.");
                 //}
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Unable to upload the data from the file. An error occured : " + ex.Message,
                     "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
-               // log.Error("Unable to upload the data from the file. An error occured : " + ex.Message);
+                // log.Error("Unable to upload the data from the file. An error occured : " + ex.Message);
             }
         }
         private void PullIndentData(List<ExcelIndent> lstIndent, FileStream stream)
