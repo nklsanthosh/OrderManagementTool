@@ -89,6 +89,7 @@ namespace OrderManagementTool
                 txt_raised_by.Text = _login.UserEmail;
                 txt_indent_no.Text = indentNo.ToString();
                 GetIndent(indentNo);
+                DisableAllFields();
                 this.datepicker_date1.SelectedDate = DateTime.Now.Date;
             }
             catch (Exception ex)
@@ -108,7 +109,46 @@ namespace OrderManagementTool
             //btn.Content = stackPnl;
             //datepicker_date.Children.Add(btn);
         }
-
+        private void DisableAllFields()
+        {
+            datepicker_date1.Focusable = false;
+            datepicker_date1.IsEnabled = false;
+            txt_indent_no.IsEnabled = false;
+            txt_raised_by.IsEnabled = false;
+            txt_location.IsEnabled = false;
+            cbx_approval_id.IsEnabled = false;
+            cbx_itemcategoryname.IsEnabled = false;
+            cbx_itemcode.IsEnabled = false;
+            txt_item_name.IsEnabled = false;
+            txt_description.IsEnabled = false;
+            txt_quantity.IsEnabled = false;
+            txt_technical_description.IsEnabled = false;
+            cbx_units.IsEnabled = false;
+            txt_remarks.IsEnabled = false;
+            btn_add_category.IsEnabled = false;
+            btn_add_itemcode.IsEnabled = false;
+            btn_upload.IsEnabled = false;
+            btn_update_field.IsEnabled = false;
+            btn_clear_fields.IsEnabled = false;
+            btn_remove_indent.IsEnabled = false;
+            btn_generate_report.IsEnabled = false;
+            btn_create_indent.IsEnabled = false;
+            btn_generate_report.IsEnabled = false;
+            grid_indentdata.IsEnabled = false;
+            //btn_update_field.Focusable = false;
+            //btn_clear_fields.IsEnabled = false;
+            //btn_clear_fields.Focusable = false;
+            //btn_remove_indent.IsEnabled = false;
+            //btn_remove_indent.Focusable = false;
+            //btn_add_indent.IsEnabled = false;
+            //btn_add_indent.Focusable = false;
+            //btn_create_indent.IsEnabled = false;
+            //btn_create_indent.Focusable = false;
+            //btn_generate_report.IsEnabled = false;
+            //btn_generate_report.Focusable = false;
+            //grid_indentdata.IsReadOnly = true;
+            //grid_indentdata.Focusable = false;
+        }
         private void GetIndent(long indentNo)
         {
             try
