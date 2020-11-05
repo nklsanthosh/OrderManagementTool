@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -26,6 +25,7 @@ namespace OrderManagementTool.Models
         public virtual DbSet<IndentMaster> IndentMaster { get; set; }
         public virtual DbSet<ItemCategory> ItemCategory { get; set; }
         public virtual DbSet<ItemMaster> ItemMaster { get; set; }
+        public virtual DbSet<LocationCode> LocationCode { get; set; }
         public virtual DbSet<RoleMapping> RoleMapping { get; set; }
         public virtual DbSet<RolesMaster> RolesMaster { get; set; }
         public virtual DbSet<UnitMaster> UnitMaster { get; set; }
@@ -36,7 +36,7 @@ namespace OrderManagementTool.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString);
+                optionsBuilder.UseSqlServer("Data Source=106.51.136.135;Initial Catalog=OrderManagement;Persist Security Info=True;User ID=sa;Password=Adminomt@2020");
             }
         }
 
@@ -222,6 +222,24 @@ namespace OrderManagementTool.Models
                     .HasForeignKey(d => d.ItemCategoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ItemMaster_ItemCategory");
+            });
+
+            modelBuilder.Entity<LocationCode>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.HasIndex(e => e.LocationId)
+                    .HasName("ClusteredIndex-LocationCode")
+                    .IsUnique()
+                    .IsClustered();
+
+                entity.Property(e => e.LocationId).HasColumnName("Location_Id");
+
+                entity.Property(e => e.LocationName)
+                    .IsRequired()
+                    .HasColumnName("Location_Name")
+                    .HasMaxLength(50)
+                    .IsFixedLength();
             });
 
             modelBuilder.Entity<RoleMapping>(entity =>
