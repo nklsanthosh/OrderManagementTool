@@ -47,14 +47,22 @@ namespace OrderManagementTool
                     OrderManagementContext orderManagementContext = new OrderManagementContext();
                     //var userFound = orderManagementContext.UserMaster.Where(s => s.Email == username & s.Password == password).FirstOrDefault();
                     var userFound = (from i in orderManagementContext.UserMaster
+                                     join emp in orderManagementContext.Employee
+                                     on i.EmployeeId equals emp.EmployeeId
                                      where i.Email == username && i.Password == password
-                                     select i).FirstOrDefault();
+                                     select new
+                                     {
+                                         emp.FirstName,
+                                         emp.LastName,
+                                         emp.EmployeeId,
+                                     }).FirstOrDefault();
 
                     if (userFound != null)
                     {
                         Login login = new Login();
                         login.UserEmail = username;
                         login.EmployeeID = userFound.EmployeeId;
+                        login.UserName = userFound.FirstName + " " + userFound.LastName;
 
                         Menu menu = new Menu(login);
                         menu.Show();

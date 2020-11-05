@@ -12,6 +12,7 @@ namespace OrderManagementTool.Models.Indent
         public DateTime CreateDate { get; set; }
         public long IndentId { get; set; }
         public string IndentRemarks { get; set; }
+        public string ApprovalStatus { get; set; }
 
         public long ApprovalID { get; set; }
         public string ApproverName { get; set; }
