@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -36,7 +37,7 @@ namespace OrderManagementTool.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=106.51.136.135;Initial Catalog=OrderManagement;Persist Security Info=True;User ID=sa;Password=Adminomt@2020");
+                optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString);
             }
         }
 
@@ -179,11 +180,16 @@ namespace OrderManagementTool.Models
 
                 entity.Property(e => e.Date).HasColumnType("datetime");
 
-                entity.Property(e => e.Location).HasMaxLength(50);
-
                 entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Remarks).HasMaxLength(50);
+
+                entity.HasOne(d => d.LocationCodeNavigation)
+                    .WithMany(p => p.IndentMaster)
+                    .HasPrincipalKey(p => p.LocationId)
+                    .HasForeignKey(d => d.LocationCode)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_IndentMaster_IndentMaster");
             });
 
             modelBuilder.Entity<ItemCategory>(entity =>
