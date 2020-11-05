@@ -9,7 +9,6 @@ namespace OrderManagementTool.Models
         public DateTime Date { get; set; }
         public long LocationCode { get; set; }
         public string Remarks { get; set; }
-        public int RevisionNumber { get; set; }
         public long RaisedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public long CreatedBy { get; set; }
