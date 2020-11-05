@@ -399,14 +399,14 @@
         <Image Source="Images/logo.png" Margin="44,36,1139,537"/>
         <Label x:Name="lblHeader" Content="ORDER MANANGEMENT SYSTEM" FontSize="16" Visibility="Visible" FontFamily="Arial" FontWeight="Bold"  Margin="108,57,851,0" VerticalAlignment="Top" Height="30"/>
         <Label x:Name="lblBreadCrumb" Content="&gt; Indent" HorizontalAlignment="Left" Margin="374,59,0,0"  FontFamily="Verdana" Foreground="#6c6c6c" VerticalAlignment="Top" Width="72" Height="26"/>
-        <DataGrid x:Name="grid_indentdata" Margin="52,302,45,158" AlternationCount="2" SelectionChanged="DataGrid_SelectionChanged" AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"  ColumnWidth="*"  />
-        <Label x:Name="lbl_itemcategoryname" Content="Item Category Name" HorizontalAlignment="Left" Margin="52,165,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.04" Width="120" Height="30"/>
-        <Label x:Name="lbl_itemcode" Content="Item Code" HorizontalAlignment="Left" Margin="197,165,0,0" VerticalAlignment="Top" Width="77" Height="30"/>
-        <Label x:Name="lbl_description" Content="Description" HorizontalAlignment="Left" Margin="520,165,0,0" VerticalAlignment="Top" Width="77" Height="30" RenderTransformOrigin="0.86,2.601"/>
-        <Label x:Name="lbl_technical_specifications" Content="Technical Specifications" HorizontalAlignment="Left" Margin="665,165,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.079,1.581" Width="130" Height="30"/>
-        <Label x:Name="lbl_quantity" Content="Quantity" HorizontalAlignment="Left" Margin="982,165,0,0" VerticalAlignment="Top" Width="66" Height="30" RenderTransformOrigin="3.106,0.035"/>
-        <Label x:Name="lbl_unit" Content="Units" HorizontalAlignment="Left" Margin="897,165,0,0" VerticalAlignment="Top" Width="44" Height="30"/>
-        <Label Content="Remarks" HorizontalAlignment="Left" Margin="1090,165,0,0" VerticalAlignment="Top" Width="64" Height="30"/>
+        <DataGrid x:Name="grid_indentdata" Margin="52,302,45,195" AlternationCount="2" SelectionChanged="DataGrid_SelectionChanged" AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*"  />
+        <Label x:Name="lbl_itemcategoryname" Content="Item Category Name" HorizontalAlignment="Left" Margin="52,185,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.04" Width="120" Height="30"/>
+        <Label x:Name="lbl_itemcode" Content="Item Code" HorizontalAlignment="Left" Margin="197,185,0,0" VerticalAlignment="Top" Width="77" Height="30"/>
+        <Label x:Name="lbl_description" Content="Description" HorizontalAlignment="Left" Margin="520,185,0,0" VerticalAlignment="Top" Width="77" Height="30" RenderTransformOrigin="0.86,2.601"/>
+        <Label x:Name="lbl_technical_specifications" Content="Technical Specifications" HorizontalAlignment="Left" Margin="665,185,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.079,1.581" Width="130" Height="30"/>
+        <Label x:Name="lbl_quantity" Content="Quantity" HorizontalAlignment="Left" Margin="982,185,0,0" VerticalAlignment="Top" Width="66" Height="30" RenderTransformOrigin="3.106,0.035"/>
+        <Label x:Name="lbl_unit" Content="Units" HorizontalAlignment="Left" Margin="897,185,0,0" VerticalAlignment="Top" Width="44" Height="30"/>
+        <Label Content="Remarks" HorizontalAlignment="Left" Margin="1090,185,0,0" VerticalAlignment="Top" Width="64" Height="30"/>
         <ComboBox x:Name="cbx_itemcategoryname" Grid.Row="0" HorizontalAlignment="Left" Margin="50,214,0,0" VerticalAlignment="Top" Width="120" Height="30" DropDownOpened="cbx_itemcategoryname_DropDownOpened" />
         <ComboBox x:Name="cbx_itemcode" HorizontalAlignment="Left" Margin="178,214,0,0" VerticalAlignment="Top" Width="105"  DropDownOpened="cbx_itemcode_DropDownOpened" DropDownClosed="cbx_itemcode_DropDownClosed" Height="30" />
         <TextBox x:Name="txt_description" HorizontalAlignment="Left" Margin="466,214,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="175" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False">
@@ -737,9 +737,9 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Label x:Name="lbl_raised_by" Content="Raised By " HorizontalAlignment="Left" Margin="216,123,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <Label x:Name="lbl_indent_number" Content="Indent No" HorizontalAlignment="Left" Margin="52,125,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <TextBox x:Name="txt_raised_by" HorizontalAlignment="Left" Margin="288,123,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" IsReadOnly="True">
+        <Label x:Name="lbl_raised_by" Content="Raised By " HorizontalAlignment="Left" Margin="216,149,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+        <Label x:Name="lbl_indent_number" Content="Indent No" HorizontalAlignment="Left" Margin="52,151,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+        <TextBox x:Name="txt_raised_by" HorizontalAlignment="Left" Margin="288,149,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" IsReadOnly="True">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
@@ -788,7 +788,7 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <TextBox x:Name="txt_indent_no" HorizontalAlignment="Left" Margin="132,123,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" IsReadOnly="True">
+        <TextBox x:Name="txt_indent_no" HorizontalAlignment="Left" Margin="132,149,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" IsReadOnly="True">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
@@ -836,12 +836,12 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <Label x:Name="lbl_approval_to" Content="Approval To" HorizontalAlignment="Left" Margin="921,124,0,0" VerticalAlignment="Top" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <Label x:Name="lbl_date" Content="Date" HorizontalAlignment="Left" Margin="496,123,0,0" VerticalAlignment="Top" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <DatePicker x:Name="datepicker_date1" HorizontalAlignment="Left" Margin="541,123,0,0" VerticalAlignment="Top"/>
-        <Label Content="Location" HorizontalAlignment="Left" Margin="666,126,0,0" VerticalAlignment="Top" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <ComboBox x:Name="cbx_location_id" HorizontalAlignment="Left" Margin="728,123,0,0" VerticalAlignment="Top" Width="175" Height="30" DropDownOpened="cbx_location_id_DropDownOpened"/>
-        <ComboBox x:Name="cbx_approval_id" HorizontalAlignment="Left" Margin="1008,123,0,0" VerticalAlignment="Top" Width="175" Height="30" DropDownOpened="cbx_approval_id_DropDownOpened"/>
+        <Label x:Name="lbl_approval_to" Content="Approval To" HorizontalAlignment="Left" Margin="921,150,0,0" VerticalAlignment="Top" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+        <Label x:Name="lbl_date" Content="Date" HorizontalAlignment="Left" Margin="496,149,0,0" VerticalAlignment="Top" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+        <DatePicker x:Name="datepicker_date1" HorizontalAlignment="Left" Margin="541,149,0,0" VerticalAlignment="Top"/>
+        <Label Content="Location" HorizontalAlignment="Left" Margin="666,152,0,0" VerticalAlignment="Top" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+        <ComboBox x:Name="cbx_location_id" HorizontalAlignment="Left" Margin="728,149,0,0" VerticalAlignment="Top" Width="175" Height="30" DropDownOpened="cbx_location_id_DropDownOpened"/>
+        <ComboBox x:Name="cbx_approval_id" HorizontalAlignment="Left" Margin="1008,149,0,0" VerticalAlignment="Top" Width="175" Height="30" DropDownOpened="cbx_approval_id_DropDownOpened"/>
         <Button x:Name="btn_create_indent" HorizontalAlignment="Left" Margin="940,488,0,0" VerticalAlignment="Top" Click="btn_create_indent_Click" Width="120" Height="29">
             <Button.Content>
                 <Image Source="Images\Icons\btn_create_indent.jpg" Width="120" Height="32"  Margin="-2,-2,0,2" />
@@ -899,8 +899,57 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Label x:Name="lbl_item_name" Content="Item Name" HorizontalAlignment="Left" Margin="332,165,0,0" VerticalAlignment="Top" Width="120" Height="30"/>
+        <Label x:Name="lbl_item_name" Content="Item Name" HorizontalAlignment="Left" Margin="332,185,0,0" VerticalAlignment="Top" Width="120" Height="30"/>
         <TextBox x:Name="txt_item_name" HorizontalAlignment="Left" Margin="308,214,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"  Width="150" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False">
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+                    <Setter Property="BorderBrush" Value="#8CBD48"/>
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    <Setter Property="AllowDrop" Value="true"/>
+                    <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+                    <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type TextBox}">
+                                <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                    </Grid>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="true">
+                                        <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
+                                    </Trigger>
+                                    <MultiTrigger>
+                                        <MultiTrigger.Conditions>
+                                            <Condition Property="Text" Value=""/>
+                                        </MultiTrigger.Conditions>
+                                    </MultiTrigger>
+
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        <TextBox x:Name="txt_Revision_Remarks" HorizontalAlignment="Left" Margin="197,470,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"  Width="446" Height="47" BorderBrush="#FF8CBD4B" UseLayoutRounding="False">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
@@ -956,5 +1005,7 @@
         <Image Source="images/icons/logo_devlup_inner_v2.jpg" Margin="46,543,1136,33"/>
         <Label x:Name="lblCopy" Content="Copyrights © 2020 Devlup Solutions" HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="983,545,0,0" VerticalAlignment="Top" Width="213" Height="26"/>
         <Label x:Name="lblRightd" Content="All rights reserved." HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="1082,564,0,0" VerticalAlignment="Top" Width="114" Height="26"/>
+        <Label x:Name="lbl_approval_status" Content="" HorizontalAlignment="Left" Margin="1005,108,0,0" VerticalAlignment="Top" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+        <Label x:Name="lbl_revision_remarks" Content="Revision Remarks" HorizontalAlignment="Left" Margin="52,470,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.079,1.581" Width="130" Height="30"/>
     </Grid>
 </Window>
