@@ -45,7 +45,7 @@ namespace OrderManagementTool
                     SqlCommand testCMD = new SqlCommand("GetIndent", connection);
                     testCMD.CommandType = CommandType.StoredProcedure;
 
-                     testCMD.Parameters.Add(new SqlParameter("@UserId", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
+                    testCMD.Parameters.Add(new SqlParameter("@UserId", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
 
                     // SqlDataReader dataReader = testCMD.ExecuteReader();
                     SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(testCMD);
@@ -67,6 +67,7 @@ namespace OrderManagementTool
                         viewIndent.IndentId = (long)Convert.ToInt64(dataSet.Tables[0].Rows[counter]["IndentID"]);
                         viewIndent.ApproverName = Convert.ToString(dataSet.Tables[0].Rows[counter]["Approver"]);
                         viewIndent.Date = Convert.ToDateTime(dataSet.Tables[0].Rows[counter]["Date"]);
+                        viewIndent.LocationCode = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["LocationCode"]);
                         viewIndent.Location = Convert.ToString(dataSet.Tables[0].Rows[counter]["Location"]);
                         viewIndent.IndentRemarks = Convert.ToString(dataSet.Tables[0].Rows[counter]["Remarks"]);
 
@@ -91,7 +92,7 @@ namespace OrderManagementTool
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occured during save. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("An error occured during indent load. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
                 //log.Error("Eror loading indent : " + ex.StackTrace);
             }
         }

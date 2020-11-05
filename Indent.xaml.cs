@@ -89,7 +89,7 @@ namespace OrderManagementTool
                 txt_raised_by.Text = _login.UserEmail;
                 txt_indent_no.Text = indentNo.ToString();
                 GetIndent(indentNo);
-                
+
                 this.datepicker_date1.SelectedDate = DateTime.Now.Date;
             }
             catch (Exception ex)
@@ -115,7 +115,7 @@ namespace OrderManagementTool
             datepicker_date1.IsEnabled = false;
             txt_indent_no.IsEnabled = false;
             txt_raised_by.IsEnabled = false;
-            txt_location.IsEnabled = false;
+            cbx_location_id.IsEnabled = false;
             cbx_approval_id.IsEnabled = false;
             cbx_itemcategoryname.IsEnabled = false;
             cbx_itemcode.IsEnabled = false;
@@ -176,7 +176,7 @@ namespace OrderManagementTool
                     while (counter < dataSet.Tables[0].Rows.Count)
                     {
                         saveIndent.Date = Convert.ToDateTime(dataSet.Tables[0].Rows[counter]["Date"]);
-                        saveIndent.Location = Convert.ToString(dataSet.Tables[0].Rows[counter]["Location"]);
+                        saveIndent.LocationCode = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["Location"]);
                         saveIndent.IndentRemarks = Convert.ToString(dataSet.Tables[0].Rows[counter]["Remarks"]);
                         saveIndent.ApproverName = Convert.ToString(dataSet.Tables[0].Rows[counter]["Approver"]);
                         saveIndent.ApprovalID = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["Approver ID"]);
@@ -201,12 +201,12 @@ namespace OrderManagementTool
                     dataSet.Dispose();
                     txt_raised_by.Text = saveIndent.Email;
                     datepicker_date1.SelectedDate = saveIndent.Date;
-                    txt_location.Text = saveIndent.Location;
+                    cbx_location_id.SelectedItem = saveIndent.LocationCode;
                     cbx_approval_id.SelectedValue = saveIndent.ApprovalID;
 
                     grid_indentdata.ItemsSource = null;
                     grid_indentdata.ItemsSource = gridIndents;
-                    if(saveIndent.ApprovalStatus != "Enquiry Required")
+                    if (saveIndent.ApprovalStatus != "Enquiry Required")
                     {
                         DisableAllFields();
                     }
@@ -478,6 +478,32 @@ namespace OrderManagementTool
             }
         }
 
+        private void LoadLocationId()
+        {
+            try
+            {
+                cbx_location_id.SelectedValuePath = "Key";
+                cbx_location_id.DisplayMemberPath = "Value";
+                ////log.Error("Loading Approval infomration");
+                cbx_location_id.Items.Clear();
+
+                var data = (from loc in orderManagementContext.LocationCode
+                            select loc).ToList();
+
+
+                foreach (var i in data)
+                {
+                    cbx_location_id.Items.Add(new KeyValuePair<long, string>(i.LocationId, i.LocationId + " - " + i.LocationName.Trim()));
+                }
+                ////log.Error("Approval Information loaded.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured during Location Code fetch " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                ////log.Error("Error while loading location code : " + ex.StackTrace);
+            }
+        }
+
         private void LoadItemCategoryName()
         {
             cbx_itemcategoryname.Items.Clear();
@@ -547,10 +573,10 @@ namespace OrderManagementTool
             txt_item_name.Text = "";
         }
 
-        private void LoadApprovalId()
-        {
-            LoadApprovalStatus();
-        }
+        //private void LoadApprovalId()
+        //{
+        //    LoadApprovalStatus();
+        //}
 
         private void btn_clear_fields_Click(object sender, RoutedEventArgs e)
         {
@@ -625,7 +651,7 @@ namespace OrderManagementTool
         {
             try
             {
-                LoadApprovalId();
+                LoadApprovalStatus();
             }
             catch (Exception ex)
             {
@@ -653,7 +679,7 @@ namespace OrderManagementTool
                 this.Cursor = null;
                 return;
             }
-            if (txt_location.Text == "")
+            if (cbx_approval_id.SelectedValue == null)
             {
                 MessageBox.Show("Please Enter Location");
                 this.Cursor = null;
@@ -671,7 +697,7 @@ namespace OrderManagementTool
             {
                 SaveIndent saveIndent = new SaveIndent();
                 saveIndent.Date = datepicker_date1.SelectedDate;
-                saveIndent.Location = txt_location.Text;
+                saveIndent.LocationCode = Convert.ToInt64(cbx_location_id.SelectedValue);
                 saveIndent.RaisedBy = _login.EmployeeID;
                 saveIndent.CreateDate = DateTime.Now;
                 // var approvalID = (from a in orderManagementContext.UserMaster
@@ -689,7 +715,7 @@ namespace OrderManagementTool
                         testCMD.CommandType = CommandType.StoredProcedure;
 
                         testCMD.Parameters.Add(new SqlParameter("@Date", System.Data.SqlDbType.VarChar, 50) { Value = saveIndent.Date });
-                        testCMD.Parameters.Add(new SqlParameter("@Location", System.Data.SqlDbType.VarChar, 50) { Value = saveIndent.Location });
+                        testCMD.Parameters.Add(new SqlParameter("@LocationCode", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.LocationCode });
                         testCMD.Parameters.Add(new SqlParameter("@RaisedBy", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.RaisedBy });
                         testCMD.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.DateTime, 50) { Value = saveIndent.CreateDate });
                         testCMD.Parameters.Add(new SqlParameter("@IndentId", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.IndentId });
@@ -1606,7 +1632,7 @@ namespace OrderManagementTool
                     testCMD.CommandType = CommandType.StoredProcedure;
 
                     testCMD.Parameters.Add(new SqlParameter("@Date", System.Data.SqlDbType.VarChar, 50) { Value = saveIndent.Date });
-                    testCMD.Parameters.Add(new SqlParameter("@Location", System.Data.SqlDbType.VarChar, 50) { Value = saveIndent.Location });
+                    testCMD.Parameters.Add(new SqlParameter("@Location", System.Data.SqlDbType.VarChar, 50) { Value = saveIndent.LocationCode });
                     testCMD.Parameters.Add(new SqlParameter("@RaisedBy", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.RaisedBy });
                     testCMD.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.DateTime, 50) { Value = saveIndent.CreateDate });
                     testCMD.Parameters.Add(new SqlParameter("@IndentId", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.IndentId });
@@ -1699,5 +1725,21 @@ namespace OrderManagementTool
             AddUnit addUnit = new AddUnit(_login);
             addUnit.Show();
         }
+         private void cbx_location_id_DropDownOpened(object sender, EventArgs e)
+        {
+            try
+            {
+                LoadLocationId();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred :" + ex.Message,
+                                   "Order Management System",
+                                       MessageBoxButton.OK,
+                                           MessageBoxImage.Error);
+                ////log.Error("Error while loading approval : " + ex.StackTrace);
+            }
+        }
+
     }
 }

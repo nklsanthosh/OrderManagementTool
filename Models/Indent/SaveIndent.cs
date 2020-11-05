@@ -6,7 +6,7 @@ namespace OrderManagementTool.Models.Indent
     public class SaveIndent
     {
         public DateTime? Date { get; set; }
-        public string Location { get; set; }
+        public long LocationCode { get; set; }
         public long RaisedBy { get; set; }
         public string Email { get; set; }
         public DateTime CreateDate { get; set; }
