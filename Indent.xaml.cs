@@ -45,6 +45,7 @@ namespace OrderManagementTool
         public long indentNo;
         // public string mailFrom;
         public string mailTo;
+        private bool isGridReadOnly = false;
 
         public Indent(Login login)
         {
@@ -134,7 +135,8 @@ namespace OrderManagementTool
             btn_generate_report.IsEnabled = false;
             btn_create_indent.IsEnabled = false;
             btn_generate_report.IsEnabled = false;
-            grid_indentdata.IsEnabled = false;
+            grid_indentdata.IsReadOnly = true;
+            // grid_indentdata.IsEnabled = false;
             //btn_update_field.Focusable = false;
             //btn_clear_fields.IsEnabled = false;
             //btn_clear_fields.Focusable = false;
@@ -176,7 +178,7 @@ namespace OrderManagementTool
                     while (counter < dataSet.Tables[0].Rows.Count)
                     {
                         saveIndent.Date = Convert.ToDateTime(dataSet.Tables[0].Rows[counter]["Date"]);
-                        saveIndent.LocationCode = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["Location"]);
+                        saveIndent.LocationCode = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["LocationCode"]);
                         saveIndent.IndentRemarks = Convert.ToString(dataSet.Tables[0].Rows[counter]["Remarks"]);
                         saveIndent.ApproverName = Convert.ToString(dataSet.Tables[0].Rows[counter]["Approver"]);
                         saveIndent.ApprovalID = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["Approver ID"]);
@@ -201,7 +203,9 @@ namespace OrderManagementTool
                     dataSet.Dispose();
                     txt_raised_by.Text = saveIndent.Email;
                     datepicker_date1.SelectedDate = saveIndent.Date;
-                    cbx_location_id.SelectedItem = saveIndent.LocationCode;
+                    LoadApprovalStatus();
+                    LoadLocationId();
+                    cbx_location_id.SelectedValue = saveIndent.LocationCode;
                     cbx_approval_id.SelectedValue = saveIndent.ApprovalID;
 
                     grid_indentdata.ItemsSource = null;
@@ -209,6 +213,7 @@ namespace OrderManagementTool
                     if (saveIndent.ApprovalStatus != "Enquiry Required")
                     {
                         DisableAllFields();
+                        isGridReadOnly = true;
                     }
 
                 }
@@ -225,19 +230,22 @@ namespace OrderManagementTool
             //DataRowView rowview = grid_indentdata.SelectedItem as DataRowView;
             try
             {
-                var rowview = grid_indentdata.SelectedItem as GridIndent;
-                gridSelectedIndex = grid_indentdata.SelectedIndex;
-
-                if (rowview != null)
+                if (!isGridReadOnly)
                 {
-                    txt_quantity.Text = Convert.ToInt32(rowview.Quantity).ToString();
-                    LoadItemCategoryName();
-                    cbx_itemcategoryname.SelectedItem = rowview.ItemCategoryName;
-                    LoadItemCode();
-                    cbx_itemcode.SelectedItem = rowview.ItemCode;
-                    LoadDescription();
-                    LoadUnits();
-                    cbx_units.SelectedItem = rowview.Units;
+                    var rowview = grid_indentdata.SelectedItem as GridIndent;
+                    gridSelectedIndex = grid_indentdata.SelectedIndex;
+
+                    if (rowview != null)
+                    {
+                        txt_quantity.Text = Convert.ToInt32(rowview.Quantity).ToString();
+                        LoadItemCategoryName();
+                        cbx_itemcategoryname.SelectedItem = rowview.ItemCategoryName;
+                        LoadItemCode();
+                        cbx_itemcode.SelectedItem = rowview.ItemCode;
+                        LoadDescription();
+                        LoadUnits();
+                        cbx_units.SelectedItem = rowview.Units;
+                    }
                 }
             }
             catch (Exception ex)
@@ -493,7 +501,7 @@ namespace OrderManagementTool
 
                 foreach (var i in data)
                 {
-                    cbx_location_id.Items.Add(new KeyValuePair<long, string>(i.LocationId, i.LocationId + " - " + i.LocationName.Trim()));
+                    cbx_location_id.Items.Add(new KeyValuePair<long, string>(i.LocationCodeId, i.LocationId + " - " + i.LocationName.Trim()));
                 }
                 ////log.Error("Approval Information loaded.");
             }
@@ -1725,7 +1733,7 @@ namespace OrderManagementTool
             AddUnit addUnit = new AddUnit(_login);
             addUnit.Show();
         }
-         private void cbx_location_id_DropDownOpened(object sender, EventArgs e)
+        private void cbx_location_id_DropDownOpened(object sender, EventArgs e)
         {
             try
             {

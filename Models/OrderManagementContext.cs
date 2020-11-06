@@ -180,16 +180,11 @@ namespace OrderManagementTool.Models
 
                 entity.Property(e => e.Date).HasColumnType("datetime");
 
+                entity.Property(e => e.LocationCodeId).HasColumnName("LocationCode_Id");
+
                 entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Remarks).HasMaxLength(50);
-
-                entity.HasOne(d => d.LocationCodeNavigation)
-                    .WithMany(p => p.IndentMaster)
-                    .HasPrincipalKey(p => p.LocationId)
-                    .HasForeignKey(d => d.LocationCode)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_IndentMaster_IndentMaster");
             });
 
             modelBuilder.Entity<ItemCategory>(entity =>
@@ -232,12 +227,16 @@ namespace OrderManagementTool.Models
 
             modelBuilder.Entity<LocationCode>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.LocationCodeId)
+                    .HasName("PK_LocationCode_1")
+                    .IsClustered(false);
 
                 entity.HasIndex(e => e.LocationId)
                     .HasName("ClusteredIndex-LocationCode")
                     .IsUnique()
                     .IsClustered();
+
+                entity.Property(e => e.LocationCodeId).HasColumnName("LocationCode_Id");
 
                 entity.Property(e => e.LocationId).HasColumnName("Location_Id");
 

@@ -9,7 +9,7 @@ namespace OrderManagementTool.Models.Indent
         public string Email { get; set; }
         public DateTime? Date { get; set; }
         public string Location { get; set; }
-        public long LocationCode { get; set; }
+        public long LocationId { get; set; }
         public string ApproverName { get; set; }
         public string IndentRemarks { get; set; }
         public string CategoryName { get; set; }
