@@ -159,11 +159,26 @@ namespace OrderManagementTool
                 using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
                 {
                     connection.Open();
+                    SqlCommand testCMD2 = new SqlCommand("GetEmployees", connection);
+                    testCMD2.CommandType = CommandType.StoredProcedure;
+                    testCMD2.Parameters.Add(new SqlParameter("@EmployeeId", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
+                    List<string> userId = new List<string>();
+                    string userIdComma = "";
+
+
+                    using (SqlDataReader reader = testCMD2.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            userId.Add(reader[0].ToString());
+                        }
+                        userIdComma = String.Join(",", userId);
+                    }
                     SqlCommand testCMD = new SqlCommand("GetIndent", connection);
                     testCMD.CommandType = CommandType.StoredProcedure;
 
                     testCMD.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.BigInt, 50) { Value = indentNo });
-                    testCMD.Parameters.Add(new SqlParameter("@UserID", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
+                    testCMD.Parameters.Add(new SqlParameter("@UserID", System.Data.SqlDbType.VarChar, 300) { Value = _login.EmployeeID });
 
                     // SqlDataReader dataReader = testCMD.ExecuteReader();
                     SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(testCMD);
@@ -208,6 +223,7 @@ namespace OrderManagementTool
                     cbx_location_id.SelectedValue = saveIndent.LocationCode;
                     cbx_approval_id.SelectedValue = saveIndent.ApprovalID;
 
+                    txt_Revision_Remarks.Text = saveIndent.IndentRemarks;
                     grid_indentdata.ItemsSource = null;
                     grid_indentdata.ItemsSource = gridIndents;
                     if (saveIndent.ApprovalStatus != "Enquiry Required")
@@ -718,53 +734,106 @@ namespace OrderManagementTool
                 {
                     using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
                     {
-                        connection.Open();
-                        SqlCommand testCMD = new SqlCommand("create_indent", connection);
-                        testCMD.CommandType = CommandType.StoredProcedure;
-
-                        testCMD.Parameters.Add(new SqlParameter("@Date", System.Data.SqlDbType.VarChar, 50) { Value = saveIndent.Date });
-                        testCMD.Parameters.Add(new SqlParameter("@LocationCode", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.LocationCode });
-                        testCMD.Parameters.Add(new SqlParameter("@RaisedBy", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.RaisedBy });
-                        testCMD.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.DateTime, 50) { Value = saveIndent.CreateDate });
-                        testCMD.Parameters.Add(new SqlParameter("@IndentId", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.IndentId });
-                        testCMD.Parameters["@IndentId"].Direction = ParameterDirection.Output;
-
-                        testCMD.ExecuteNonQuery(); // read output value from @NewId 
-                        saveIndent.IndentId = Convert.ToInt32(testCMD.Parameters["@IndentId"].Value);
-
-                        indentNo = Convert.ToInt32(testCMD.Parameters["@IndentId"].Value);
-
-                        foreach (var i in saveIndent.GridIndents)
+                        if (txt_indent_no.Text == null || txt_indent_no.Text == "")
                         {
-                            SqlCommand testCMD1 = new SqlCommand("create_indentDetails", connection);
-                            testCMD1.CommandType = CommandType.StoredProcedure;
-                            testCMD1.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.IndentId });
-                            testCMD1.Parameters.Add(new SqlParameter("@ItemName", System.Data.SqlDbType.VarChar, 50) { Value = i.ItemCategoryName });
-                            testCMD1.Parameters.Add(new SqlParameter("@ItemCode", System.Data.SqlDbType.VarChar, 50) { Value = i.ItemCode });
-                            testCMD1.Parameters.Add(new SqlParameter("@Unit", System.Data.SqlDbType.VarChar, 50) { Value = i.Units });
-                            testCMD1.Parameters.Add(new SqlParameter("@Quantity", System.Data.SqlDbType.VarChar, 50) { Value = i.Quantity });
-                            testCMD1.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.VarChar, 50) { Value = saveIndent.CreateDate });
-                            testCMD1.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.RaisedBy });
-                            testCMD1.Parameters.Add(new SqlParameter("@Remarks", System.Data.SqlDbType.VarChar, 50) { Value = i.Remarks });
-                            testCMD1.ExecuteNonQuery(); // read output value from @NewId 
+                            connection.Open();
+                            SqlCommand testCMD = new SqlCommand("create_indent", connection);
+                            testCMD.CommandType = CommandType.StoredProcedure;
+
+                            testCMD.Parameters.Add(new SqlParameter("@Date", System.Data.SqlDbType.VarChar, 50) { Value = saveIndent.Date });
+                            testCMD.Parameters.Add(new SqlParameter("@LocationCode", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.LocationCode });
+                            testCMD.Parameters.Add(new SqlParameter("@RaisedBy", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.RaisedBy });
+                            testCMD.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.DateTime, 50) { Value = saveIndent.CreateDate });
+                            testCMD.Parameters.Add(new SqlParameter("@IndentId", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.IndentId });
+                            testCMD.Parameters["@IndentId"].Direction = ParameterDirection.Output;
+
+                            testCMD.ExecuteNonQuery(); // read output value from @NewId 
+                            saveIndent.IndentId = Convert.ToInt32(testCMD.Parameters["@IndentId"].Value);
+
+                            indentNo = Convert.ToInt32(testCMD.Parameters["@IndentId"].Value);
+
+                            foreach (var i in saveIndent.GridIndents)
+                            {
+                                SqlCommand testCMD1 = new SqlCommand("create_indentDetails", connection);
+                                testCMD1.CommandType = CommandType.StoredProcedure;
+                                testCMD1.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.IndentId });
+                                testCMD1.Parameters.Add(new SqlParameter("@ItemName", System.Data.SqlDbType.VarChar, 50) { Value = i.ItemCategoryName });
+                                testCMD1.Parameters.Add(new SqlParameter("@ItemCode", System.Data.SqlDbType.VarChar, 50) { Value = i.ItemCode });
+                                testCMD1.Parameters.Add(new SqlParameter("@Unit", System.Data.SqlDbType.VarChar, 50) { Value = i.Units });
+                                testCMD1.Parameters.Add(new SqlParameter("@Quantity", System.Data.SqlDbType.VarChar, 50) { Value = i.Quantity });
+                                testCMD1.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.VarChar, 50) { Value = saveIndent.CreateDate });
+                                testCMD1.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.RaisedBy });
+                                testCMD1.Parameters.Add(new SqlParameter("@Remarks", System.Data.SqlDbType.VarChar, 50) { Value = i.Remarks });
+                                testCMD1.ExecuteNonQuery(); // read output value from @NewId 
+                            }
+
+                            SqlCommand testCMD2 = new SqlCommand("create_indent_Approval", connection);
+                            testCMD2.CommandType = CommandType.StoredProcedure;
+                            testCMD2.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.IndentId });
+                            testCMD2.Parameters.Add(new SqlParameter("@ApprovalID", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.ApprovalID });
+                            testCMD2.Parameters.Add(new SqlParameter("@ApprovalStatusID", System.Data.SqlDbType.BigInt, 50) { Value = 1 });
+                            testCMD2.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.DateTime, 50) { Value = saveIndent.CreateDate });
+                            testCMD2.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.RaisedBy });
+                            testCMD2.ExecuteNonQuery();
+                            mailTo = (from a in orderManagementContext.UserMaster
+                                      where a.EmployeeId == saveIndent.ApprovalID
+                                      select a.Email).FirstOrDefault();
+                            SendMail("Indent Number " + indentNo + " is generated by " + _login.UserName);
+                            MessageBox.Show("The Indent file has been created.", "Order Management System",
+                  MessageBoxButton.OK, MessageBoxImage.Information);
+
                         }
 
-                        SqlCommand testCMD2 = new SqlCommand("create_indent_Approval", connection);
-                        testCMD2.CommandType = CommandType.StoredProcedure;
-                        testCMD2.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.IndentId });
-                        testCMD2.Parameters.Add(new SqlParameter("@ApprovalID", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.ApprovalID });
-                        testCMD2.Parameters.Add(new SqlParameter("@ApprovalStatusID", System.Data.SqlDbType.BigInt, 50) { Value = 1 });
-                        testCMD2.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.DateTime, 50) { Value = saveIndent.CreateDate });
-                        testCMD2.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.RaisedBy });
-                        testCMD2.ExecuteNonQuery();
-                    }
-                    mailTo = (from a in orderManagementContext.UserMaster
-                              where a.EmployeeId == saveIndent.ApprovalID
-                              select a.Email).FirstOrDefault();
+                        else
+                        {
+                            connection.Open();
+                            indentNo = Convert.ToInt64(txt_indent_no.Text);
+                            SqlCommand testCMD = new SqlCommand("delete_indent_details", connection);
+                            testCMD.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.BigInt, 50) { Value = indentNo });
+                            testCMD.CommandType = CommandType.StoredProcedure;
 
-                    GenerateIndent();
-                    ////log.Info("Indent created and generated.");
-                    this.Cursor = null;
+                            testCMD.ExecuteNonQuery(); // read output value from @NewId 
+                            saveIndent.IndentId = Convert.ToInt32(testCMD.Parameters["@IndentId"].Value);
+
+                            foreach (var i in saveIndent.GridIndents)
+                            {
+                                string createDate = saveIndent.CreateDate.Month + "/" + saveIndent.CreateDate.Day + "/" + saveIndent.CreateDate.Year;
+                                SqlCommand testCMD1 = new SqlCommand("create_indentDetails", connection);
+                                testCMD1.CommandType = CommandType.StoredProcedure;
+                                testCMD1.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.IndentId });
+                                testCMD1.Parameters.Add(new SqlParameter("@ItemName", System.Data.SqlDbType.VarChar, 50) { Value = i.ItemCategoryName });
+                                testCMD1.Parameters.Add(new SqlParameter("@ItemCode", System.Data.SqlDbType.VarChar, 50) { Value = i.ItemCode });
+                                testCMD1.Parameters.Add(new SqlParameter("@Unit", System.Data.SqlDbType.VarChar, 50) { Value = i.Units });
+                                testCMD1.Parameters.Add(new SqlParameter("@Quantity", System.Data.SqlDbType.VarChar, 50) { Value = i.Quantity });
+                                testCMD1.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.DateTime, 50) { Value = createDate });
+                                testCMD1.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.RaisedBy });
+                                testCMD1.Parameters.Add(new SqlParameter("@Remarks", System.Data.SqlDbType.VarChar, 50) { Value = i.Remarks });
+                                testCMD1.ExecuteNonQuery(); // read output value from @NewId 
+                            }
+
+                            SqlCommand testCMD2 = new SqlCommand("update_indent_Approval", connection);
+                            testCMD2.CommandType = CommandType.StoredProcedure;
+                            testCMD2.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.IndentId });
+                            testCMD2.Parameters.Add(new SqlParameter("@ApprovalID", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.ApprovalID });
+                            testCMD2.Parameters.Add(new SqlParameter("@ApprovalStatusID", System.Data.SqlDbType.BigInt, 50) { Value = 1 });
+                            testCMD2.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.DateTime, 50) { Value = saveIndent.CreateDate });
+                            testCMD2.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.RaisedBy });
+                            testCMD2.ExecuteNonQuery();
+                            mailTo = (from a in orderManagementContext.UserMaster
+                                      where a.EmployeeId == saveIndent.ApprovalID
+                                      select a.Email).FirstOrDefault();
+                            SendMail("Indent Number " + indentNo + " is updated by " + _login.UserName);
+                            MessageBox.Show("The Indent has been updated.", "Order Management System",
+                               MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        }
+                        //log.Info("Indent created and generated.");
+
+
+                        //GenerateIndent();
+                        ////log.Info("Indent created and generated.");
+                        this.Cursor = null;
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -1141,7 +1210,7 @@ namespace OrderManagementTool
                 this.Cursor = null;
                 MessageBox.Show("The Indent file has been created.", "Order Management System",
                     MessageBoxButton.OK, MessageBoxImage.Information);
-                SendMail("Indent Number " + indentNo + " is generated by " + _login.UserName);
+
                 ////log.Info("Indent has been generated..");
             }
             catch (Exception ex)
