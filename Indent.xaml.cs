@@ -159,21 +159,21 @@ namespace OrderManagementTool
                 using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
                 {
                     connection.Open();
-                    SqlCommand testCMD2 = new SqlCommand("GetEmployees", connection);
-                    testCMD2.CommandType = CommandType.StoredProcedure;
-                    testCMD2.Parameters.Add(new SqlParameter("@EmployeeId", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
-                    List<string> userId = new List<string>();
-                    string userIdComma = "";
+                    //SqlCommand testCMD2 = new SqlCommand("GetEmployees", connection);
+                    //testCMD2.CommandType = CommandType.StoredProcedure;
+                    //testCMD2.Parameters.Add(new SqlParameter("@EmployeeId", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
+                    //List<string> userId = new List<string>();
+                    //string userIdComma = "";
 
 
-                    using (SqlDataReader reader = testCMD2.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            userId.Add(reader[0].ToString());
-                        }
-                        userIdComma = String.Join(",", userId);
-                    }
+                    //using (SqlDataReader reader = testCMD2.ExecuteReader())
+                    //{
+                    //    while (reader.Read())
+                    //    {
+                    //        userId.Add(reader[0].ToString());
+                    //    }
+                    //    userIdComma = String.Join(",", userId);
+                    //}
                     SqlCommand testCMD = new SqlCommand("GetIndent", connection);
                     testCMD.CommandType = CommandType.StoredProcedure;
 
@@ -218,7 +218,7 @@ namespace OrderManagementTool
                     dataSet.Dispose();
                     txt_raised_by.Text = saveIndent.Email;
                     datepicker_date1.SelectedDate = saveIndent.Date;
-                    LoadApprovalStatus();
+                    LoadApprovalStatusRetrival();
                     LoadLocationId();
                     cbx_location_id.SelectedValue = saveIndent.LocationCode;
                     cbx_approval_id.SelectedValue = saveIndent.ApprovalID;
@@ -502,6 +502,36 @@ namespace OrderManagementTool
             }
         }
 
+        private void LoadApprovalStatusRetrival()
+        {
+            try
+            {
+                cbx_approval_id.SelectedValuePath = "Key";
+                cbx_approval_id.DisplayMemberPath = "Value";
+                ////log.Error("Loading Approval infomration");
+                cbx_approval_id.Items.Clear();
+
+                var data = (from emp in orderManagementContext.Employee
+                            select new
+                            {
+                                emp.FirstName,
+                                emp.LastName,
+                                emp.EmployeeId
+                            });
+
+
+                foreach (var i in data)
+                {
+                    cbx_approval_id.Items.Add(new KeyValuePair<long, string>(i.EmployeeId, i.FirstName.Trim() + " " + i.LastName.Trim()));
+                }
+                ////log.Error("Approval Information loaded.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured during Retrival Approval ID fetch " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                ////log.Error("Error while loading approval : " + ex.StackTrace);
+            }
+        }
         private void LoadLocationId()
         {
             try
