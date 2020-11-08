@@ -2,6 +2,8 @@
 using OrderManagementTool.Models;
 using OrderManagementTool.Models.LogIn;
 using System;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,7 +21,24 @@ namespace OrderManagementTool
             //log.Info("In Login Screen...");
             InitializeComponent();
             btn_Login.IsEnabled = false;
+            ReadCredentials();
+        }
 
+        private void ReadCredentials()
+        {
+            string path = ConfigurationManager.AppSettings["ImitializationPath"];
+
+            DirectoryInfo dInfo = new DirectoryInfo(path);
+            FileInfo[] files = dInfo.GetFiles("OMT.ini");
+            if (files.Length > 0)
+            {
+                StreamReader file = File.OpenText(files[0].FullName);
+                string readInfo = file.ReadToEnd();
+                string userName = readInfo.Split(',')[0];
+                string password = readInfo.Split(',')[1];
+                txt_username.Text = userName;
+                txt_password.Password = password;
+            }
         }
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
