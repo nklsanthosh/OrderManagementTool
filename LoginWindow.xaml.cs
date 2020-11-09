@@ -26,7 +26,7 @@ namespace OrderManagementTool
 
         private void ReadCredentials()
         {
-            string path = ConfigurationManager.AppSettings["ImitializationPath"];
+            string path = ConfigurationManager.AppSettings["InitializationPath"];
 
             DirectoryInfo dInfo = new DirectoryInfo(path);
             FileInfo[] files = dInfo.GetFiles("OMT.ini");

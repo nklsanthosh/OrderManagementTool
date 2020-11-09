@@ -764,6 +764,7 @@ namespace OrderManagementTool
                 saveIndent.ApprovalID = Convert.ToInt64(cbx_approval_id.SelectedValue);
                 // saveIndent.ApprovalID = 1;
                 saveIndent.GridIndents = gridIndents;
+                bool isMailSent = false;
                 try
                 {
                     using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
@@ -814,9 +815,17 @@ namespace OrderManagementTool
                                       select a.Email).FirstOrDefault();
                             txt_indent_no.Text = indentNo.ToString();
                             string body = GenerateIndent(indentNo.ToString());
-                            SendMail("Indent Number " + indentNo + " is updated by " + _login.UserName, body);
-                            MessageBox.Show("The Indent  " + indentNo + " is created.", "Order Management System",
-                  MessageBoxButton.OK, MessageBoxImage.Information);
+                            isMailSent = SendMail("Indent Number " + indentNo + " is updated by " + _login.UserName, body);
+                            if (isMailSent)
+                            {
+                                MessageBox.Show("The Indent  " + indentNo + " is created.", "Order Management System",
+                      MessageBoxButton.OK, MessageBoxImage.Information);
+                            }
+                            else
+                            {
+                                MessageBox.Show("The Indent  " + indentNo + " is created. But mail is not sent", "Order Management System",
+                     MessageBoxButton.OK, MessageBoxImage.Information);
+                            }
                         }
 
                         else
@@ -858,13 +867,22 @@ namespace OrderManagementTool
                                       where a.EmployeeId == saveIndent.ApprovalID
                                       select a.Email).FirstOrDefault();
                             string body = GenerateIndent(indentNo.ToString());
-                            SendMail("Indent Number " + indentNo + " is updated by " + _login.UserName, body);
-                            MessageBox.Show("The Indent number " + indentNo + " has been updated.", "Order Management System",
-                               MessageBoxButton.OK, MessageBoxImage.Information);
+                            isMailSent = SendMail("Indent Number " + indentNo + " is updated by " + _login.UserName, body);
 
+                            if (isMailSent)
+                            {
+
+                                MessageBox.Show("The Indent number " + indentNo + " has been updated.", "Order Management System",
+                                   MessageBoxButton.OK, MessageBoxImage.Information);
+                            }
+                            else
+                            {
+                                MessageBox.Show("The Indent  " + indentNo + " is updated. But mail is not sent", "Order Management System",
+                     MessageBoxButton.OK, MessageBoxImage.Information);
+                            }
                         }
                         //log.Info("Indent created and generated.");
-                        
+
                         ////log.Info("Indent created and generated.");
                         DisableAllFields();
                         grid_indentdata.IsEnabled = false;
@@ -914,6 +932,7 @@ namespace OrderManagementTool
                     SmtpClient smtp = new SmtpClient();
                     smtp.Host = ConfigurationManager.AppSettings["Host"];
                     smtp.EnableSsl = true;
+                    //smtp.EnableSsl = false;
                     NetworkCredential NetworkCred = new NetworkCredential(ConfigurationManager.AppSettings["Username"],
                         ConfigurationManager.AppSettings["Password"]);
                     smtp.UseDefaultCredentials = true;
@@ -1037,9 +1056,9 @@ namespace OrderManagementTool
                     if (k <= gridIndents.Count - 1)
                     {
                         htmlString.Append("<tr style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;font-size:11;'>");
-                        htmlString.Append("<td>" + gridIndents[k].ItemCode  +"</td>");
+                        htmlString.Append("<td>" + gridIndents[k].ItemCode + "</td>");
                         htmlString.Append("<td>" + gridIndents[k].ItemCategoryName + "</td>");
-                        htmlString.Append("<td>" + gridIndents[k].ItemName+ "</td>");
+                        htmlString.Append("<td>" + gridIndents[k].ItemName + "</td>");
                         htmlString.Append("<td>" + gridIndents[k].Technical_Specifications + "</td>");
                         htmlString.Append("<td>" + gridIndents[k].Units + "</td>");
                         htmlString.Append("<td>" + gridIndents[k].Quantity + "</td>");
@@ -1055,7 +1074,7 @@ namespace OrderManagementTool
                 return htmlString.ToString();
             }
             catch (Exception ex)
-            {                
+            {
                 MessageBox.Show("An error occurred. Please contact the administrator", "Order Management System",
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 return null;
