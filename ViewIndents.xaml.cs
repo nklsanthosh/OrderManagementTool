@@ -11,6 +11,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace OrderManagementTool
 {
@@ -31,7 +32,43 @@ namespace OrderManagementTool
             _login = login;
             //log.Info("In View Indent...");
             InitializeComponent();
+            LoadApprovalStatus();
             LoadGrid();
+        }
+
+        private void LoadApprovalStatus()
+        {
+            try
+            {
+                cbx_approval_status.SelectedValuePath = "Key";
+                cbx_approval_status.DisplayMemberPath = "Value";
+                cbx_approval_status.Items.Clear();
+                var itemCategoryName = (from i in orderManagementContext.ApprovalStatus
+                                        select new
+                                        {
+                                            i.ApprovalStatusId,
+                                            i.ApprovalStatus1
+                                        }).Distinct().ToList();
+                foreach (var i in itemCategoryName)
+                {
+                    cbx_approval_status.Items.Add(new KeyValuePair<long, string>(i.ApprovalStatusId, i.ApprovalStatus1.Trim()));
+                }
+                cbx_approval_status.SelectedValue = 1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured during Approval Status Load. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        private void cbx_approval_status_DropDownOpened(object sender, EventArgs e)
+        {
+            this.Cursor = Cursors.Wait;
+
+        }
+        private void cbx_approval_status_DropDownClosed(object sender, EventArgs e)
+        {
+            LoadGrid();
+            this.Cursor = null;
         }
 
         private void LoadGrid()
@@ -39,14 +76,16 @@ namespace OrderManagementTool
             //log.Info("LKoading ...");
             try
             {
+                long approvalStatusId = Convert.ToInt64(cbx_approval_status.SelectedValue);
                 using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
                 {
                     connection.Open();
-                    SqlCommand testCMD = new SqlCommand("GetIndent", connection);
+                    SqlCommand testCMD = new SqlCommand("GetIndentByApprovalStatus", connection);
                     testCMD.CommandType = CommandType.StoredProcedure;
 
                     //testCMD.Parameters.Add(new SqlParameter("@UserId", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
                     testCMD.Parameters.Add(new SqlParameter("@UserID", System.Data.SqlDbType.VarChar, 300) { Value = _login.EmployeeID });
+                    testCMD.Parameters.Add(new SqlParameter("@ApprovalStatusId", System.Data.SqlDbType.BigInt, 50) { Value = approvalStatusId });
 
                     // SqlDataReader dataReader = testCMD.ExecuteReader();
                     SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(testCMD);
@@ -67,6 +106,7 @@ namespace OrderManagementTool
                         viewIndent.Sl_No = counter + 1;
                         viewIndent.IndentId = (long)Convert.ToInt64(dataSet.Tables[0].Rows[counter]["IndentID"]);
                         viewIndent.ApproverName = Convert.ToString(dataSet.Tables[0].Rows[counter]["Approver"]);
+                        viewIndent.Approval_Status = Convert.ToString(dataSet.Tables[0].Rows[counter]["ApprovalStatus"]);
                         viewIndent.Date = Convert.ToDateTime(dataSet.Tables[0].Rows[counter]["Date"]);
                         viewIndent.LocationId = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["LocationId"]);
                         viewIndent.Location = Convert.ToString(dataSet.Tables[0].Rows[counter]["Location"]);

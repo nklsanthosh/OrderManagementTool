@@ -6,6 +6,7 @@ namespace OrderManagementTool.Models.Indent
     {
         public int Sl_No { get; set; }
         public long IndentId { get; set; }
+        public string Approval_Status { get; set; }
         public string Email { get; set; }
         public DateTime? Date { get; set; }
         public string Location { get; set; }

@@ -1944,13 +1944,12 @@ namespace OrderManagementTool
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred :" + ex.Message,
+                MessageBox.Show("An error occurred during Location Load. " + ex.Message,
                                    "Order Management System",
                                        MessageBoxButton.OK,
                                            MessageBoxImage.Error);
                 ////log.Error("Error while loading approval : " + ex.StackTrace);
             }
-        }
-
+        }      
     }
 }
