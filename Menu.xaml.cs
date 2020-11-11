@@ -86,6 +86,13 @@ namespace OrderManagementTool
             this.Close();
         }
 
+        private void btn_create_PO_Click(object sender, RoutedEventArgs e)
+        {
+            QuoteComparer qC = new QuoteComparer();
+            qC.Show();
+            this.Close();
+        }
+
         private void btn_search_indent_Click(object sender, RoutedEventArgs e)
         {
             try

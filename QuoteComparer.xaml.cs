@@ -21,5 +21,10 @@ namespace OrderManagementTool
         {
             InitializeComponent();
         }
+
+        private void grid_po_confirmation_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

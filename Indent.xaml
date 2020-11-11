@@ -841,7 +841,7 @@
         <DatePicker x:Name="datepicker_date1" HorizontalAlignment="Left" Margin="541,149,0,0" VerticalAlignment="Top"/>
         <Label Content="Location" HorizontalAlignment="Left" Margin="666,152,0,0" VerticalAlignment="Top" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
         <ComboBox x:Name="cbx_location_id" HorizontalAlignment="Left" Margin="728,149,0,0" VerticalAlignment="Top" Width="175" Height="30" DropDownOpened="cbx_location_id_DropDownOpened"/>
-        <ComboBox x:Name="cbx_approval_id" HorizontalAlignment="Left" Margin="1008,149,0,0" VerticalAlignment="Top" Width="175" Height="30" DropDownOpened="cbx_approval_id_DropDownOpened" SelectionChanged="cbx_approval_id_SelectionChanged"/>
+        <ComboBox x:Name="cbx_approval_id" HorizontalAlignment="Left" Margin="1008,149,0,0" VerticalAlignment="Top" Width="175" Height="30" DropDownOpened="cbx_approval_id_DropDownOpened" />
         <Button x:Name="btn_create_indent" HorizontalAlignment="Left" Margin="940,488,0,0" VerticalAlignment="Top" Click="btn_create_indent_Click" Width="120" Height="29">
             <Button.Content>
                 <Image Source="Images\Icons\btn_create_indent.jpg" Width="120" Height="32"  Margin="-2,-2,0,2" />

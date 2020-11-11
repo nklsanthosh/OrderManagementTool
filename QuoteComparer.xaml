@@ -4,17 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OrderManagementTool"
-        mc:Ignorable="d" mc:Ignorable="d" Icon="/Images/logo.png" Background="#E7F8F0" 
+        mc:Ignorable="d" Icon="/Images/logo.png" Background="#E7F8F0" 
         Title="Order Management System - Quote Comparer" WindowStartupLocation="CenterScreen" Height="676" Width="1262"
          ResizeMode="NoResize">
     <Grid>
         <Border BorderThickness="1" BorderBrush="#8ABC48" Background="#FFFFFF" Margin="43,32,37,32"/>
 
-        <CheckBox x:Name="chkApprove1" Content="Approve Quotation 1" Margin="102,467,1002,175" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Background="#E7F8F0">
+        <CheckBox x:Name="checkbox_Approve1" Content="Approve Quotation 1" Margin="106,365,998,175" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Background="#E7F8F0" IsChecked="False">
         </CheckBox>
-        <CheckBox x:Name="chkApprove2" Content="Approve Quotation 2" Margin="411,466,693,176" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Background="#E7F8F0">
+        <CheckBox x:Name="checkbox_Approve2" Content="Approve Quotation 2" Margin="440,365,664,176" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Background="#E7F8F0" IsChecked="False">
         </CheckBox>
-        <CheckBox x:Name="chkApprove3" Content="Approve Quotation 3" Margin="684,466,420,176" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Background="#E7F8F0">
+        <CheckBox x:Name="checkbox_Approve3" Content="Approve Quotation 3" Margin="802,365,302,176" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Background="#E7F8F0" IsChecked="False">
         </CheckBox>
         <Image Source="Images/logo.png" Margin="44,36,1139,537" />
         <Label x:Name="lblHeader" Content="ORDER MANANGEMENT SYSTEM" FontSize="16" Visibility="Visible" FontFamily="Arial" FontWeight="Bold"  Margin="120,65,839,0" VerticalAlignment="Top" Height="30"/>
@@ -76,9 +76,9 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <DataGrid x:Name="grid_indentdata" Margin="52,162,45,427" AlternationCount="2" SelectionChanged="DataGrid_SelectionChanged" AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*"  />
+        <DataGrid x:Name="grid_indentdata" Margin="52,162,45,427" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*"  />
         <Label x:Name="lbl_quote_1" Content="Quotation 1" HorizontalAlignment="Left" Margin="52,244,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <Button x:Name="btn_upload" HorizontalAlignment="Left" Margin="130,244,0,0" VerticalAlignment="Top" Click="btn_upload_Click" Width="120" Height="29">
+        <Button x:Name="btn_upload" HorizontalAlignment="Left" Margin="130,244,0,0" VerticalAlignment="Top"  Width="120" Height="29">
             <Button.Content>
                 <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
             </Button.Content>
@@ -97,7 +97,7 @@
             </Button.Style>
         </Button>
         <Label x:Name="lbl_quote_2" Content="Quotation 2" HorizontalAlignment="Left" Margin="52,275,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <Button x:Name="btn_upload_2" HorizontalAlignment="Left" Margin="130,275,0,0" VerticalAlignment="Top" Click="btn_upload_Click" Width="120" Height="29">
+        <Button x:Name="btn_upload_2" HorizontalAlignment="Left" Margin="130,275,0,0" VerticalAlignment="Top" Width="120" Height="29">
             <Button.Content>
                 <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
             </Button.Content>
@@ -116,7 +116,7 @@
             </Button.Style>
         </Button>
         <Label x:Name="lbl_quote_3" Content="Quotation 3" HorizontalAlignment="Left" Margin="52,310,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <Button x:Name="btn_upload_3" HorizontalAlignment="Left" Margin="130,310,0,0" VerticalAlignment="Top" Click="btn_upload_Click" Width="120" Height="29">
+        <Button x:Name="btn_upload_3" HorizontalAlignment="Left" Margin="130,310,0,0" VerticalAlignment="Top"  Width="120" Height="29">
             <Button.Content>
                 <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
             </Button.Content>
@@ -134,7 +134,7 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button x:Name="btn_compare" HorizontalAlignment="Left" Margin="280,244,0,0" VerticalAlignment="Top" Click="btn_upload_Click" Width="120" Height="29">
+        <Button x:Name="btn_compare" HorizontalAlignment="Left" Margin="280,244,0,0" VerticalAlignment="Top"  Width="120" Height="29">
             <Button.Content>
                 <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
             </Button.Content>
@@ -152,9 +152,9 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button x:Name="btn_Approve" HorizontalAlignment="Left" Margin="1045,460,0,0" VerticalAlignment="Top" Click="btn_upload_Click" Width="120" Height="29">
+        <Button x:Name="btn_Approve" HorizontalAlignment="Left" Margin="1045,460,0,0" VerticalAlignment="Top"  Width="120" Height="29">
             <Button.Content>
-                <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
+                <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32" />
             </Button.Content>
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
@@ -170,9 +170,9 @@
                 </Style>
             </Button.Style>
         </Button>
-        <DataGrid x:Name="grid_quote_1" Margin="46,344,944,214" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*"  />
-        <DataGrid x:Name="grid_quote_2" Margin="338,344,654,214" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*"  />
-        <DataGrid x:Name="grid_quote_3" Margin="623,344,360,214" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*"  />
-        <DataGrid x:Name="grid_po_confirmation" Margin="962,344,45,214" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*"  />
+        <DataGrid x:Name="grid_quote_1" Margin="57,390,933,125" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*"  />
+        <DataGrid x:Name="grid_quote_2" Margin="384,390,608,125" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*"  />
+        <DataGrid x:Name="grid_quote_3" Margin="725,390,258,125" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*"  />
+        <DataGrid x:Name="grid_po_confirmation" Margin="608,244,302,311" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_po_confirmation_SelectionChanged"  />
     </Grid>
 </Window>

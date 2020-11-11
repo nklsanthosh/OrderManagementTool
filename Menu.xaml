@@ -31,6 +31,8 @@
                 </Style>
             </Button.Style>
         </Button>
+        <Button x:Name="btn_create_PO" Content="Create PO" HorizontalAlignment="Left" Margin="557,191,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_create_PO_Click">
+        </Button>
         <TextBox x:Name="txt_indent_no" HorizontalAlignment="Left" Margin="461,152,0,0" TextWrapping="Wrap"
                  VerticalAlignment="Top" Width="91" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False">
             <TextBox.Style>
