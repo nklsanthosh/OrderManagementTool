@@ -28,7 +28,7 @@
         <Label x:Name="lblRightd" Content="All rights reserved." HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="1082,564,0,0" VerticalAlignment="Top" Width="114" Height="26"/>
 
         <Label x:Name="lbl_indent_number" Content="Indent No" HorizontalAlignment="Left" Margin="52,125,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <TextBox x:Name="txt_indent_no" HorizontalAlignment="Left" Margin="132,123,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" IsReadOnly="True">
+        <TextBox x:Name="txt_indent_no" HorizontalAlignment="Left" Margin="132,123,0,0" Text="" LostFocus="txt_indent_no_LostFocus" TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" >
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>

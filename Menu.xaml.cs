@@ -88,7 +88,7 @@ namespace OrderManagementTool
 
         private void btn_create_PO_Click(object sender, RoutedEventArgs e)
         {
-            QuoteComparer qC = new QuoteComparer();
+            QuoteComparer qC = new QuoteComparer(_login);
             qC.Show();
             this.Close();
         }
