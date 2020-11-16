@@ -134,6 +134,8 @@ namespace OrderManagementTool
             catch (Exception ex)
             {
                 MessageBox.Show("An error occured during indent load. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                this.Close();
                 //log.Error("Eror loading indent : " + ex.StackTrace);
             }
         }

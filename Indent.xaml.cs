@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -68,17 +69,6 @@ namespace OrderManagementTool
                 MessageBox.Show("An error occured during Load. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
                 ////log.Error("Error while fetching Indent information: " + ex.StackTrace);
             }
-            //Image img = new Image();
-            //img.Source = new BitmapImage(new Uri(@"~/Images/create-icon.png"));
-
-            //StackPanel stackPnl = new StackPanel();
-            //stackPnl.Orientation = Orientation.Horizontal;
-            //stackPnl.Margin = new Thickness(10);
-            //stackPnl.Children.Add(img);
-
-            //Button btn = new Button();
-            //btn.Content = stackPnl;
-            //datepicker_date.Children.Add(btn);
         }
 
         public Indent(Login login, long indentNo)
@@ -99,6 +89,7 @@ namespace OrderManagementTool
             catch (Exception ex)
             {
                 MessageBox.Show("An error occured during Indent Retrival. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Close();
                 ////log.Error("Error while fetching Indent information: " + ex.StackTrace);
             }
             //Image img = new Image();
@@ -723,50 +714,74 @@ namespace OrderManagementTool
 
         private void btn_create_indent_Click(object sender, RoutedEventArgs e)
         {
-            this.Cursor = Cursors.Wait;
-            ////log.Info("Creating Indent...");
-            if (datepicker_date1.SelectedDate.ToString() == "")
+            try
             {
-                MessageBox.Show("Please enter Valid Date");
-                this.Cursor = null;
-                return;
-            }
-            if (cbx_approval_id.SelectedValue == null)
-            {
-                MessageBox.Show("Please select Approver");
-                this.Cursor = null;
-                return;
-            }
-            if (cbx_approval_id.SelectedValue == null)
-            {
-                MessageBox.Show("Please Enter Location");
-                this.Cursor = null;
-                return;
-            }
-
-            if (gridIndents.Count == 0)
-            {
-                MessageBox.Show("Please Enter Indent Details");
-                this.Cursor = null;
-                return;
-            }
-
-            else
-            {
-                SaveIndent saveIndent = new SaveIndent();
-                saveIndent.Date = datepicker_date1.SelectedDate;
-                saveIndent.LocationCode = Convert.ToInt64(cbx_location_id.SelectedValue);
-                saveIndent.RaisedBy = _login.EmployeeID;
-                saveIndent.CreateDate = DateTime.Now;
-                // var approvalID = (from a in orderManagementContext.UserMaster
-                //                  where a.Email == cbx_approval_id.SelectedValue.ToString()
-                //                  select a.UserId).FirstOrDefault();
-                saveIndent.ApprovalID = Convert.ToInt64(cbx_approval_id.SelectedValue);
-                // saveIndent.ApprovalID = 1;
-                saveIndent.GridIndents = gridIndents;
-                bool isMailSent = false;
-                try
+                this.Cursor = Cursors.Wait;
+                ////log.Info("Creating Indent...");
+                if (datepicker_date1.SelectedDate.ToString() == "")
                 {
+                    MessageBox.Show("Please enter Valid Date");
+                    this.Cursor = null;
+                    return;
+                }
+                if (cbx_approval_id.SelectedValue == null)
+                {
+                    MessageBox.Show("Please select Approver");
+                    this.Cursor = null;
+                    return;
+                }
+                if (cbx_approval_id.SelectedValue == null)
+                {
+                    MessageBox.Show("Please Enter Location");
+                    this.Cursor = null;
+                    return;
+                }
+
+                if (gridIndents.Count == 0)
+                {
+                    MessageBox.Show("Please Enter Indent Details");
+                    this.Cursor = null;
+                    return;
+                }
+
+                else
+                {
+                    SaveIndent saveIndent = new SaveIndent();
+                    string selected_date;
+
+
+                    if (datepicker_date1.SelectedDate.ToString().Contains("-"))
+                    {
+                        var fulldate = datepicker_date1.SelectedDate.ToString().Split(" ");
+                        var date = fulldate[0].Split("-");
+                        //var date = fulldate[0].Replace("-", "/");
+
+                        var modifiedDate = date[2] + "/" + date[1] + "/" + date[0];
+                        // DateTime enteredDate = Convert.ChangeType(modifiedDate, typeof(DateTime));
+                        DateTime enteredDate = new DateTime(Convert.ToInt32(date[2]), Convert.ToInt32(date[1]), Convert.ToInt32(date[0]));
+                        // DateTime enteredDate = modifiedDate.ToDateTime("yyyy/d/M HH:mm");
+
+                        //CultureInfo culture = new CultureInfo("en-US");
+                        //DateTime tempDate = Convert.ToDateTime(date, culture);
+
+                        CultureInfo provider = CultureInfo.InvariantCulture;
+                        //DateTime dateTime16 = DateTime.ParseExact(date, new string[] { "MM.dd.yyyy", "MM-dd-yyyy", "MM/dd/yyyy" }, provider, DateTimeStyles.None);
+
+                        //selected_date = DateTime.ParseExact(date, "dd/MM/yyyy", CultureInfo.InvariantCulture)
+                        //    .ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
+                    }
+                    saveIndent.Date = datepicker_date1.SelectedDate;
+                    saveIndent.LocationCode = Convert.ToInt64(cbx_location_id.SelectedValue);
+                    saveIndent.RaisedBy = _login.EmployeeID;
+                    saveIndent.CreateDate = DateTime.Now;
+                    // var approvalID = (from a in orderManagementContext.UserMaster
+                    //                  where a.Email == cbx_approval_id.SelectedValue.ToString()
+                    //                  select a.UserId).FirstOrDefault();
+                    saveIndent.ApprovalID = Convert.ToInt64(cbx_approval_id.SelectedValue);
+                    // saveIndent.ApprovalID = 1;
+                    saveIndent.GridIndents = gridIndents;
+                    bool isMailSent = false;
+
                     using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
                     {
                         if (txt_indent_no.Text == null || txt_indent_no.Text == "")
@@ -775,10 +790,10 @@ namespace OrderManagementTool
                             SqlCommand testCMD = new SqlCommand("create_indent", connection);
                             testCMD.CommandType = CommandType.StoredProcedure;
 
-                            testCMD.Parameters.Add(new SqlParameter("@Date", System.Data.SqlDbType.VarChar, 50) { Value = saveIndent.Date });
+                            //testCMD.Parameters.Add(new SqlParameter("@Date", System.Data.SqlDbType.VarChar, 50) { Value = saveIndent.Date });
                             testCMD.Parameters.Add(new SqlParameter("@LocationCode", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.LocationCode });
                             testCMD.Parameters.Add(new SqlParameter("@RaisedBy", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.RaisedBy });
-                            testCMD.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.DateTime, 50) { Value = saveIndent.CreateDate });
+                            //testCMD.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.DateTime, 50) { Value = saveIndent.CreateDate });
                             testCMD.Parameters.Add(new SqlParameter("@IndentId", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.IndentId });
                             testCMD.Parameters["@IndentId"].Direction = ParameterDirection.Output;
 
@@ -796,7 +811,7 @@ namespace OrderManagementTool
                                 testCMD1.Parameters.Add(new SqlParameter("@ItemCode", System.Data.SqlDbType.VarChar, 50) { Value = i.ItemCode });
                                 testCMD1.Parameters.Add(new SqlParameter("@Unit", System.Data.SqlDbType.VarChar, 50) { Value = i.Units });
                                 testCMD1.Parameters.Add(new SqlParameter("@Quantity", System.Data.SqlDbType.VarChar, 50) { Value = i.Quantity });
-                                testCMD1.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.VarChar, 50) { Value = saveIndent.CreateDate });
+                                //testCMD1.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.VarChar, 50) { Value = saveIndent.CreateDate });
                                 testCMD1.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.RaisedBy });
                                 testCMD1.Parameters.Add(new SqlParameter("@Remarks", System.Data.SqlDbType.VarChar, 50) { Value = i.Remarks });
                                 testCMD1.ExecuteNonQuery(); // read output value from @NewId 
@@ -807,7 +822,7 @@ namespace OrderManagementTool
                             testCMD2.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.IndentId });
                             testCMD2.Parameters.Add(new SqlParameter("@ApprovalID", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.ApprovalID });
                             testCMD2.Parameters.Add(new SqlParameter("@ApprovalStatusID", System.Data.SqlDbType.BigInt, 50) { Value = 1 });
-                            testCMD2.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.DateTime, 50) { Value = saveIndent.CreateDate });
+                            // testCMD2.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.DateTime, 50) { Value = saveIndent.CreateDate });
                             testCMD2.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.RaisedBy });
                             testCMD2.ExecuteNonQuery();
                             mailTo = (from a in orderManagementContext.UserMaster
@@ -849,7 +864,7 @@ namespace OrderManagementTool
                                 testCMD1.Parameters.Add(new SqlParameter("@ItemCode", System.Data.SqlDbType.VarChar, 50) { Value = i.ItemCode });
                                 testCMD1.Parameters.Add(new SqlParameter("@Unit", System.Data.SqlDbType.VarChar, 50) { Value = i.Units });
                                 testCMD1.Parameters.Add(new SqlParameter("@Quantity", System.Data.SqlDbType.VarChar, 50) { Value = i.Quantity });
-                                testCMD1.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.DateTime, 50) { Value = createDate });
+                                //testCMD1.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.DateTime, 50) { Value = createDate });
                                 testCMD1.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.RaisedBy });
                                 testCMD1.Parameters.Add(new SqlParameter("@Remarks", System.Data.SqlDbType.VarChar, 50) { Value = i.Remarks });
                                 testCMD1.ExecuteNonQuery(); // read output value from @NewId 
@@ -860,7 +875,7 @@ namespace OrderManagementTool
                             testCMD2.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.IndentId });
                             testCMD2.Parameters.Add(new SqlParameter("@ApprovalID", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.ApprovalID });
                             testCMD2.Parameters.Add(new SqlParameter("@ApprovalStatusID", System.Data.SqlDbType.BigInt, 50) { Value = 1 });
-                            testCMD2.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.DateTime, 50) { Value = saveIndent.CreateDate });
+                            //testCMD2.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.DateTime, 50) { Value = saveIndent.CreateDate });
                             testCMD2.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.RaisedBy });
                             testCMD2.ExecuteNonQuery();
                             mailTo = (from a in orderManagementContext.UserMaster
@@ -889,17 +904,19 @@ namespace OrderManagementTool
                         this.Cursor = null;
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("An error occured during save. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
-                    ////log.Error("Error while creating approval : " + ex.StackTrace);
-                }
-                finally
-                {
-                    this.Cursor = null;
-                }
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured during save. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                ////log.Error("Error while creating approval : " + ex.StackTrace);
+            }
+            finally
+            {
+                this.Cursor = null;
             }
         }
+
 
         private bool SendMail(string subject, string body)
         {
@@ -931,11 +948,11 @@ namespace OrderManagementTool
 
                     SmtpClient smtp = new SmtpClient();
                     smtp.Host = ConfigurationManager.AppSettings["Host"];
-                    smtp.EnableSsl = true;
+                    smtp.EnableSsl = false;
                     //smtp.EnableSsl = false;
                     NetworkCredential NetworkCred = new NetworkCredential(ConfigurationManager.AppSettings["Username"],
                         ConfigurationManager.AppSettings["Password"]);
-                    smtp.UseDefaultCredentials = true;
+                    smtp.UseDefaultCredentials = false;
                     smtp.Credentials = NetworkCred;
                     smtp.Port = int.Parse(ConfigurationManager.AppSettings["Port"]);
 
@@ -1043,7 +1060,8 @@ namespace OrderManagementTool
                 htmlString.Append("<td style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;'><i></i></td></tr>");
                 htmlString.Append("</table>");
                 htmlString.Append("<table width='60%'  border=1 border-style='solid' border-color='#8CBD48'>");
-                htmlString.Append("<tr style='background-color:#609F19;color:#FFFFFF;font-family:Verdana;font-size:11;vertical-align:middle'><td>Item Code</td>");
+                htmlString.Append("<tr style='background-color:#609F19;color:#FFFFFF;font-family:Verdana;font-size:11;vertical-align:middle'><td>Sl.No</td>");
+                htmlString.Append("<td>Item Code</td>");
                 htmlString.Append("<td>Item Category Name</td>");
                 htmlString.Append("<td>Item Name</td>");
                 htmlString.Append("<td>Technical Specifications</td>");
@@ -1051,11 +1069,13 @@ namespace OrderManagementTool
                 htmlString.Append("<td>Quantity</td>");
                 htmlString.Append("<td>Remarks</td>");
                 htmlString.Append("</tr>");
+                int counter = 0;
                 for (int k = 0; k < gridIndents.Count + 10; k++)
                 {
                     if (k <= gridIndents.Count - 1)
                     {
                         htmlString.Append("<tr style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;font-size:11;'>");
+                        htmlString.Append("<td>" + counter + 1 + "</td>");
                         htmlString.Append("<td>" + gridIndents[k].ItemCode + "</td>");
                         htmlString.Append("<td>" + gridIndents[k].ItemCategoryName + "</td>");
                         htmlString.Append("<td>" + gridIndents[k].ItemName + "</td>");
@@ -1067,9 +1087,9 @@ namespace OrderManagementTool
                     }
                 }
                 htmlString.Append("<tr>");
-                htmlString.Append("<td colspan=7 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;font-size:11;vertical-align:middle'><i>Revision Remarks: </i></td></tr>");
-                htmlString.Append("<tr><td colspan=7 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;font-size:11;vertical-align:middle'><i>1.          </i></td></tr>");
-                htmlString.Append("<tr><td colspan=7 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;font-size:11;vertical-align:middle'><i>2.          </i></td></tr>");
+                htmlString.Append("<td colspan=9 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;font-size:11;vertical-align:middle'><i>Revision Remarks: </i></td></tr>");
+                htmlString.Append("<tr><td colspan=9 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;font-size:11;vertical-align:middle'><i>1.          </i></td></tr>");
+                htmlString.Append("<tr><td colspan=9 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;font-size:11;vertical-align:middle'><i>2.          </i></td></tr>");
                 htmlString.Append("</table>");
                 return htmlString.ToString();
             }
@@ -1950,6 +1970,6 @@ namespace OrderManagementTool
                                            MessageBoxImage.Error);
                 ////log.Error("Error while loading approval : " + ex.StackTrace);
             }
-        }      
+        }
     }
 }
