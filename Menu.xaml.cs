@@ -88,7 +88,8 @@ namespace OrderManagementTool
 
         private void btn_create_PO_Click(object sender, RoutedEventArgs e)
         {
-            QuoteComparer qC = new QuoteComparer(_login);
+            long indentNo = Convert.ToInt64(txt_po_indent_no.Text);
+            QuoteComparer qC = new QuoteComparer(_login,indentNo);
             qC.Show();
             this.Close();
         }
@@ -135,6 +136,18 @@ namespace OrderManagementTool
                                        MessageBoxButton.OK,
                                            MessageBoxImage.Error);
                 //log.Error("View Indent Click error : " + ex.StackTrace);
+            }
+        }
+
+        private void txt_po_indent_no_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (txt_po_indent_no.Text == "")
+            {
+                btn_create_PO.IsEnabled = false;
+            }
+            else
+            {
+                btn_create_PO.IsEnabled = true;
             }
         }
     }

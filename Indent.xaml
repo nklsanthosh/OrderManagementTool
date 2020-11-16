@@ -1005,7 +1005,8 @@
         <Image Source="images/icons/logo_devlup_inner_v2.jpg" Margin="46,543,1136,33"/>
         <Label x:Name="lblCopy" Content="Copyrights © 2020 Devlup Solutions" HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="983,545,0,0" VerticalAlignment="Top" Width="213" Height="26"/>
         <Label x:Name="lblRightd" Content="All rights reserved." HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="1082,564,0,0" VerticalAlignment="Top" Width="114" Height="26"/>
-        <Label x:Name="lbl_approval_status" Content="" HorizontalAlignment="Left" Margin="1005,108,0,0" VerticalAlignment="Top" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+        <Label x:Name="lbl_approval_status" Content="" HorizontalAlignment="Left" Margin="1005,108,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Width="191"/>
+        <Label x:Name="lbl_approval_stats" Content="Approval Status : " HorizontalAlignment="Left" Margin="897,108,0,0" VerticalAlignment="Top" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Width="118"/>
         <Label x:Name="lbl_revision_remarks" Content="Revision Remarks" HorizontalAlignment="Left" Margin="52,470,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.079,1.581" Width="130" Height="30"/>
     </Grid>
 </Window>

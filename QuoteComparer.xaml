@@ -28,7 +28,7 @@
         <Label x:Name="lblRightd" Content="All rights reserved." HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="1082,564,0,0" VerticalAlignment="Top" Width="114" Height="26"/>
 
         <Label x:Name="lbl_indent_number" Content="Indent No" HorizontalAlignment="Left" Margin="52,125,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <TextBox x:Name="txt_indent_no" HorizontalAlignment="Left" Margin="132,123,0,0" Text=""  TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" >
+        <TextBox x:Name="txt_indent_no" HorizontalAlignment="Left" Margin="132,123,0,0" Text=""  TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" IsReadOnly="True">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
@@ -76,7 +76,7 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <DataGrid x:Name="grid_indentdata" Margin="52,162,45,451" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_indentdata_SelectionChanged"  />
+        <DataGrid x:Name="grid_indentdata" Margin="52,162,45,436" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_indentdata_SelectionChanged"  />
         <Label x:Name="lbl_quote_1" Content="Quotation 1" HorizontalAlignment="Left" Margin="52,244,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
         <Button x:Name="btn_upload" HorizontalAlignment="Left" Margin="130,244,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click=" btn_upload_Click_1">
             <Button.Content>

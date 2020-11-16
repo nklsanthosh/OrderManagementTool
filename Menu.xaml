@@ -31,8 +31,8 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Label x:Name="lbl_Po_item" Content="Purchase Order Creation" HorizontalAlignment="Left" Margin="72,230,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" />
-        <Button x:Name="btn_create_PO"  HorizontalAlignment="Left" Margin="238,230,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_create_PO_Click">
+        <Label x:Name="lbl_Po_item" Content="PO Creation" HorizontalAlignment="Left" Margin="64,230,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" />
+        <Button x:Name="btn_create_PO"  HorizontalAlignment="Left" Margin="238,230,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_create_PO_Click" IsEnabled="False">
             <Button.Content>
                 <Image Source="Images\Icons\btn_create_indent.jpg" Margin="-2,-2,0,0" Width="130" Height="32"/>
 
@@ -73,6 +73,64 @@
         </Button>-->
         <TextBox x:Name="txt_indent_no" HorizontalAlignment="Left" Margin="461,152,0,0" TextWrapping="Wrap"
                  VerticalAlignment="Top" Width="91" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False">
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+                    <Setter Property="BorderBrush" Value="#8CBD48"/>
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    <Setter Property="AllowDrop" Value="true"/>
+                    <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+                    <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type TextBox}">
+                                <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                    </Grid>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="true">
+                                        <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
+                                    </Trigger>
+                                    <MultiTrigger>
+                                        <MultiTrigger.Conditions>
+                                            <Condition Property="Text" Value=""/>
+                                        </MultiTrigger.Conditions>
+                                    </MultiTrigger>
+
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <!--<Style.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                                <Condition Property="IsSelectionActive" Value="false"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                        </MultiTrigger>
+                    </Style.Triggers>-->
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        <TextBox x:Name="txt_po_indent_no" HorizontalAlignment="Left" Margin="148,230,0,0" TextWrapping="Wrap"
+                 VerticalAlignment="Top" Width="72" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" TextChanged="txt_po_indent_no_TextChanged">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>

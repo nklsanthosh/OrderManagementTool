@@ -62,6 +62,8 @@ namespace OrderManagementTool
                 txt_raised_by.Text = _login.UserEmail;
                 this.datepicker_date1.SelectedDate = DateTime.Now.Date;
                 lbl_approval_status.Content = "Awaiting Approval";
+                // lbl_approval_status.BorderBrush = System.Windows.Media.Brushes.Blue;
+                lbl_approval_status.Background = System.Windows.Media.Brushes.Aqua;
                 //lbl_approval_status.Foreground ();
             }
             catch (Exception ex)
@@ -192,7 +194,7 @@ namespace OrderManagementTool
                         saveIndent.IndentRemarks = Convert.ToString(dataSet.Tables[0].Rows[counter]["Remarks"]);
                         saveIndent.ApproverName = Convert.ToString(dataSet.Tables[0].Rows[counter]["Approver"]);
                         saveIndent.ApprovalID = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["Approver ID"]);
-                        saveIndent.ApprovalStatus = Convert.ToString(dataSet.Tables[0].Rows[counter]["Approval Status"]);
+                        saveIndent.ApprovalStatus = Convert.ToString(dataSet.Tables[0].Rows[counter]["ApprovalStatus"]);
 
                         GridIndent gridIndent = new GridIndent();
                         gridIndent.SlNo = counter + 1;
@@ -218,6 +220,7 @@ namespace OrderManagementTool
                     cbx_location_id.SelectedValue = saveIndent.LocationCode;
                     cbx_approval_id.SelectedValue = saveIndent.ApprovalID;
 
+                    lbl_approval_status.Content = saveIndent.ApprovalStatus;
                     txt_Revision_Remarks.Text = saveIndent.IndentRemarks;
                     grid_indentdata.ItemsSource = null;
                     grid_indentdata.ItemsSource = gridIndents;
@@ -917,7 +920,6 @@ namespace OrderManagementTool
             }
         }
 
-
         private bool SendMail(string subject, string body)
         {
             bool mailSent = false;
@@ -1590,8 +1592,8 @@ namespace OrderManagementTool
                 string targetPath = Convert.ToString(ConfigurationManager.AppSettings["TargetReportPath"]);
                 ////var fileName = file.Name.Split('.');
                 ////targetPath = targetPath + "\\" + fileName[0] + DateTime.Now.ToString()+ "."+fileName[1];
-                targetPath = targetPath + "\\" + openFileDialog.SafeFileName;
-                File.Move(filePath, targetPath, true);
+                //targetPath = targetPath + "\\" + openFileDialog.SafeFileName;
+                //File.Move(filePath, targetPath, true);
                 MessageBox.Show("The file has been processed and data has been uploaded.",
                         "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                 // log.Info("The file has been processed and data has been uploaded.");

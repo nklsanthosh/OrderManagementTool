@@ -51,10 +51,11 @@ namespace OrderManagementTool
         List<Poitem> poitems_2 = new List<Poitem>();
         List<Poitem> poitems_3 = new List<Poitem>();
 
-        public QuoteComparer(Login login)
+        public QuoteComparer(Login login, long indentNo)
         {
             _login = login;
             InitializeComponent();
+            txt_indent_no.Text = indentNo.ToString();
         }
 
         private void grid_po_confirmation_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -80,8 +81,8 @@ namespace OrderManagementTool
                 File.SetAttributes(filePath, FileAttributes.Normal);
                 string targetPath = Convert.ToString(ConfigurationManager.AppSettings["TargetReportPath"]);
 
-                targetPath = targetPath + "\\" + openFileDialog.SafeFileName;
-                File.Move(filePath, targetPath, true);
+                //targetPath = targetPath + "\\" + openFileDialog.SafeFileName;
+                //File.Move(filePath, targetPath, true);
                 MessageBox.Show("The file has been processed and data has been uploaded.",
                         "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                 // log.Info("The file has been processed and data has been uploaded.");
@@ -113,8 +114,8 @@ namespace OrderManagementTool
                 File.SetAttributes(filePath, FileAttributes.Normal);
                 string targetPath = Convert.ToString(ConfigurationManager.AppSettings["TargetReportPath"]);
 
-                targetPath = targetPath + "\\" + openFileDialog.SafeFileName;
-                File.Move(filePath, targetPath, true);
+                //targetPath = targetPath + "\\" + openFileDialog.SafeFileName;
+                //File.Move(filePath, targetPath, true);
                 MessageBox.Show("The file has been processed and data has been uploaded.",
                         "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                 // log.Info("The file has been processed and data has been uploaded.");
@@ -145,8 +146,8 @@ namespace OrderManagementTool
                 File.SetAttributes(filePath, FileAttributes.Normal);
                 string targetPath = Convert.ToString(ConfigurationManager.AppSettings["TargetReportPath"]);
 
-                targetPath = targetPath + "\\" + openFileDialog.SafeFileName;
-                File.Move(filePath, targetPath, true);
+                //targetPath = targetPath + "\\" + openFileDialog.SafeFileName;
+                //File.Move(filePath, targetPath, true);
                 MessageBox.Show("The file has been processed and data has been uploaded.",
                         "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                 // log.Info("The file has been processed and data has been uploaded.");
