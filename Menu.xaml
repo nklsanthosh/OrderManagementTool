@@ -129,8 +129,11 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <TextBox x:Name="txt_po_indent_no" HorizontalAlignment="Left" Margin="148,230,0,0" TextWrapping="Wrap"
-                 VerticalAlignment="Top" Width="72" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" >
+
+        <TextBox x:Name="txt_po_indent_no" HorizontalAlignment="Left" Margin="148,230,0,0" Text="" TextWrapping="Wrap"
+                 VerticalAlignment="Top"  Width="72" Height="30"
+                 BorderBrush="#FF8CBD4B" UseLayoutRounding="False" Tag="Indent #" TextBlock.TextAlignment="Left" 
+                 TextBlock.LineStackingStrategy="BlockLineHeight"  VerticalContentAlignment="Center" >
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
@@ -153,6 +156,10 @@
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
                                         <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                        
+                                        <TextBlock Grid.Column="1"  Padding="0,0,0,0" Margin="0,0,0,0" ForceCursor="True"/>
+                                        <Label Margin="10,0,0,0" x:Name="WaterMarkLabel" Content="{TemplateBinding Tag}" VerticalAlignment="Center"
+                                            Visibility="Collapsed" Foreground="Gray" FontFamily="Arial"/>
                                     </Grid>
                                 </Border>
                                 <ControlTemplate.Triggers>
@@ -169,13 +176,16 @@
                                         <MultiTrigger.Conditions>
                                             <Condition Property="Text" Value=""/>
                                         </MultiTrigger.Conditions>
+                                        <Setter Property="Visibility" TargetName="WaterMarkLabel" Value="Visible"/>
                                     </MultiTrigger>
-
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Foreground" Value="DimGray"/>
+                                    </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
-                    <!--<Style.Triggers>
+                    <Style.Triggers>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
@@ -183,7 +193,7 @@
                             </MultiTrigger.Conditions>
                             <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
                         </MultiTrigger>
-                    </Style.Triggers>-->
+                    </Style.Triggers>
                 </Style>
             </TextBox.Style>
         </TextBox>

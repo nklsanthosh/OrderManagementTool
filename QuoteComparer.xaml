@@ -27,8 +27,8 @@
         <Label x:Name="lblCopy" Content="Copyrights © 2020 Devlup Solutions" HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="983,545,0,0" VerticalAlignment="Top" Width="213" Height="26"/>
         <Label x:Name="lblRightd" Content="All rights reserved." HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="1082,564,0,0" VerticalAlignment="Top" Width="114" Height="26"/>
 
-        <Label x:Name="lbl_PO_number" Content="PO No : " HorizontalAlignment="Left" Margin="75,125,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <TextBox x:Name="txt_PO_no" HorizontalAlignment="Left" Margin="132,123,0,0" Text=""  TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" IsReadOnly="True">
+        <Label x:Name="lbl_PO_number" Content="PO No : " HorizontalAlignment="Left" Margin="75,117,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+        <TextBox x:Name="txt_PO_no" HorizontalAlignment="Left" Margin="132,115,0,0" Text=""  TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" IsReadOnly="True">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
@@ -76,8 +76,8 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <Label x:Name="lbl_indent_number" Content="Indent No :" HorizontalAlignment="Left" Margin="252,125,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <TextBox x:Name="txt_indent_no" HorizontalAlignment="Left" Margin="325,123,0,0" Text=""  TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" IsReadOnly="True">
+        <Label x:Name="lbl_indent_number" Content="Indent No :" HorizontalAlignment="Left" Margin="252,117,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+        <TextBox x:Name="txt_indent_no" HorizontalAlignment="Left" Margin="325,115,0,0" Text=""  TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" IsReadOnly="True">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
@@ -125,7 +125,7 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <DataGrid x:Name="grid_indentdata" Margin="52,162,45,436" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_indentdata_SelectionChanged"  />
+        <DataGrid x:Name="grid_indentdata" Margin="52,150,45,427" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_indentdata_SelectionChanged"  />
         <Label x:Name="lbl_quote_1" Content="Quotation 1" HorizontalAlignment="Left" Margin="52,244,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
         <Button x:Name="btn_upload" HorizontalAlignment="Left" Margin="130,244,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click=" btn_upload_Click_1">
             <Button.Content>
@@ -185,7 +185,7 @@
         </Button>
         <Button x:Name="btn_compare" HorizontalAlignment="Left" Margin="280,244,0,0" VerticalAlignment="Top"  Width="120" Height="29">
             <Button.Content>
-                <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
+                <Image Source="Images\Icons\btn_compare.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
             </Button.Content>
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
@@ -204,7 +204,7 @@
 
         <Button x:Name="btn_Create_PO" HorizontalAlignment="Left" Margin="845,330,0,0" VerticalAlignment="Top"  Width="120" Height="29">
             <Button.Content>
-                <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32" RenderTransformOrigin="0.5,0.5" >
+                <Image Source="Images\Icons\btn_createPO.png" Width="120" Height="32" RenderTransformOrigin="0.5,0.5" >
                     <Image.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -231,7 +231,7 @@
         </Button>
         <Button x:Name="btn_Approve" HorizontalAlignment="Left" Margin="1045,330,0,0" VerticalAlignment="Top"  Width="120" Height="29">
             <Button.Content>
-                <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32" RenderTransformOrigin="0.5,0.5" >
+                <Image Source="Images\Icons\btn_generatePO.png" Width="120" Height="32" RenderTransformOrigin="0.5,0.5" >
                     <Image.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -261,8 +261,8 @@
         <DataGrid x:Name="grid_quote_1" Margin="57,390,839,125" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*"   />
         <DataGrid x:Name="grid_quote_2" Margin="448,390,442,125" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_quote_2_SelectionChanged"  />
         <DataGrid x:Name="grid_quote_3" Margin="839,390,66,125" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_quote_3_SelectionChanged"  />
-        <DataGrid x:Name="grid_po_confirmation" Margin="414,229,463,311" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_po_confirmation_SelectionChanged"  />
-        <Label x:Name="Remarks" Content="Remarks : " HorizontalAlignment="Left" Margin="818,240,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+        <DataGrid x:Name="grid_po_confirmation" Margin="414,244,463,311" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_po_confirmation_SelectionChanged"  />
+        <Label x:Name="Remarks" Content="Remarks : " HorizontalAlignment="Left" Margin="818,238,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
         <TextBox x:Name="txt_PO_Remarks" HorizontalAlignment="Left" Margin="820,266,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="376" Height="57" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" TextChanged="txt_PO_Remarks_TextChanged" >
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
