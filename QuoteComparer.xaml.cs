@@ -65,6 +65,7 @@ namespace OrderManagementTool
             LoadApprovalStatus();
             cbx_ApprovalStatus_id.SelectedValue = 1;
             cbx_ApprovalStatus_id.IsEnabled = false;
+            FillIndent();
         }
 
         public QuoteComparer(Login login, long indentNo)
