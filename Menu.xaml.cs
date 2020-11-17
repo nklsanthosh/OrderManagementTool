@@ -88,10 +88,21 @@ namespace OrderManagementTool
 
         private void btn_create_PO_Click(object sender, RoutedEventArgs e)
         {
-            long indentNo = Convert.ToInt64(txt_po_indent_no.Text);
-            QuoteComparer qC = new QuoteComparer(_login,indentNo);
-            qC.Show();
-            this.Close();
+            if (txt_po_indent_no.Text != "")
+            {
+                long indentNo = Convert.ToInt64(txt_po_indent_no.Text);
+                QuoteComparer qC = new QuoteComparer(_login, indentNo);
+                qC.Show();
+                this.Close();
+            }
+            else
+            {               
+                QuoteComparer qC = new QuoteComparer(_login);
+                qC.Show();
+                this.Close();
+            }
+
+           
         }
 
         private void btn_search_indent_Click(object sender, RoutedEventArgs e)

@@ -27,6 +27,10 @@ namespace OrderManagementTool.Models
         public virtual DbSet<ItemCategory> ItemCategory { get; set; }
         public virtual DbSet<ItemMaster> ItemMaster { get; set; }
         public virtual DbSet<LocationCode> LocationCode { get; set; }
+        public virtual DbSet<Numbers> Numbers { get; set; }
+        public virtual DbSet<Poapproval> Poapproval { get; set; }
+        public virtual DbSet<Podetails> Podetails { get; set; }
+        public virtual DbSet<Pomaster> Pomaster { get; set; }
         public virtual DbSet<RoleMapping> RoleMapping { get; set; }
         public virtual DbSet<RolesMaster> RolesMaster { get; set; }
         public virtual DbSet<UnitMaster> UnitMaster { get; set; }
@@ -244,6 +248,89 @@ namespace OrderManagementTool.Models
                     .IsRequired()
                     .HasColumnName("Location_Name")
                     .HasMaxLength(50)
+                    .IsFixedLength();
+            });
+
+            modelBuilder.Entity<Numbers>(entity =>
+            {
+                entity.HasKey(e => e.Number);
+
+                entity.Property(e => e.Number).ValueGeneratedNever();
+            });
+
+            modelBuilder.Entity<Poapproval>(entity =>
+            {
+                entity.ToTable("POApproval");
+
+                entity.Property(e => e.PoapprovalId).HasColumnName("POApprovalID");
+
+                entity.Property(e => e.ApprovalId).HasColumnName("ApprovalID");
+
+                entity.Property(e => e.ApprovalStatusId).HasColumnName("ApprovalStatusID");
+
+                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.PoId).HasColumnName("PO_ID");
+
+                entity.HasOne(d => d.ApprovalStatus)
+                    .WithMany(p => p.Poapproval)
+                    .HasForeignKey(d => d.ApprovalStatusId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_POApproval_ApprovalStatus");
+            });
+
+            modelBuilder.Entity<Podetails>(entity =>
+            {
+                entity.ToTable("PODetails");
+
+                entity.Property(e => e.PodetailsId).HasColumnName("PODetailsID");
+
+                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .HasMaxLength(300)
+                    .IsFixedLength();
+
+                entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.PoId).HasColumnName("PO_ID");
+
+                entity.Property(e => e.QNo).HasColumnName("Q_No");
+
+                entity.Property(e => e.TotalPrice)
+                    .HasColumnName("Total_Price")
+                    .HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.UnitPrice)
+                    .HasColumnName("Unit_Price")
+                    .HasColumnType("decimal(18, 2)");
+
+                entity.HasOne(d => d.UnitsNavigation)
+                    .WithMany(p => p.Podetails)
+                    .HasForeignKey(d => d.Units)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PODetails_UnitMaster");
+            });
+
+            modelBuilder.Entity<Pomaster>(entity =>
+            {
+                entity.HasKey(e => e.PoId);
+
+                entity.ToTable("POMaster");
+
+                entity.Property(e => e.PoId).HasColumnName("PO_ID");
+
+                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.IndentId).HasColumnName("IndentID");
+
+                entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Remarks)
+                    .HasMaxLength(300)
                     .IsFixedLength();
             });
 

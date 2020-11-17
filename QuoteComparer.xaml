@@ -202,7 +202,7 @@
             </Button.Style>
         </Button>
 
-        <Button x:Name="btn_Create_PO" HorizontalAlignment="Left" Margin="845,330,0,0" VerticalAlignment="Top"  Width="120" Height="29">
+        <Button x:Name="btn_Create_PO" HorizontalAlignment="Left" Margin="845,330,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click="btn_Create_PO_Click" >
             <Button.Content>
                 <Image Source="Images\Icons\btn_createPO.png" Width="120" Height="32" RenderTransformOrigin="0.5,0.5" >
                     <Image.RenderTransform>
@@ -258,10 +258,10 @@
         </Button>
 
 
-        <DataGrid x:Name="grid_quote_1" Margin="57,390,839,125" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*"   />
-        <DataGrid x:Name="grid_quote_2" Margin="448,390,442,125" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_quote_2_SelectionChanged"  />
-        <DataGrid x:Name="grid_quote_3" Margin="839,390,66,125" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_quote_3_SelectionChanged"  />
-        <DataGrid x:Name="grid_po_confirmation" Margin="414,244,463,311" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_po_confirmation_SelectionChanged"  />
+        <DataGrid x:Name="grid_quote_1" Margin="57,390,839,125" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" IsReadOnly="True"  />
+        <DataGrid x:Name="grid_quote_2" Margin="448,390,442,125" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_quote_2_SelectionChanged" IsReadOnly="True" />
+        <DataGrid x:Name="grid_quote_3" Margin="839,390,66,125" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_quote_3_SelectionChanged" IsReadOnly="True"/>
+        <DataGrid x:Name="grid_po_confirmation" Margin="414,244,463,311" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_po_confirmation_SelectionChanged"  IsReadOnly="True"/>
         <Label x:Name="Remarks" Content="Remarks : " HorizontalAlignment="Left" Margin="818,238,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
         <TextBox x:Name="txt_PO_Remarks" HorizontalAlignment="Left" Margin="820,266,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="376" Height="57" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" TextChanged="txt_PO_Remarks_TextChanged" >
             <TextBox.Style>

@@ -17,8 +17,11 @@
     <None Remove="Images\icons\btn_add_masters.jpg" />
     <None Remove="Images\icons\btn_add_unit.jpg" />
     <None Remove="Images\icons\btn_clear_fields.jpg" />
+    <None Remove="Images\icons\btn_compare.png" />
+    <None Remove="Images\icons\btn_createPO.png" />
     <None Remove="Images\icons\btn_create_indent.jpg" />
     <None Remove="Images\icons\btn_dropdown.jpg" />
+    <None Remove="Images\icons\btn_generatePO.png" />
     <None Remove="Images\icons\btn_generate_report.jpg" />
     <None Remove="Images\icons\btn_password.jpg" />
     <None Remove="Images\icons\btn_remove_field.jpg" />
@@ -105,10 +108,19 @@
     <Resource Include="Images\icons\btn_clear_fields.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\icons\btn_compare.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\btn_createPO.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\icons\btn_create_indent.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\icons\btn_dropdown.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\btn_generatePO.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\icons\btn_generate_report.jpg">
