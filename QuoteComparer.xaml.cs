@@ -54,6 +54,7 @@ namespace OrderManagementTool
         List<Poitem> poitems_1 = new List<Poitem>();
         List<Poitem> poitems_2 = new List<Poitem>();
         List<Poitem> poitems_3 = new List<Poitem>();
+        List<Poitem> poitems_4 = new List<Poitem>();
         private long poID;
 
         public QuoteComparer(Login login)
@@ -61,6 +62,9 @@ namespace OrderManagementTool
             _login = login;
             InitializeComponent();
             txt_indent_no.IsReadOnly = false;
+            LoadApprovalStatus();
+            cbx_ApprovalStatus_id.SelectedValue = 1;
+            cbx_ApprovalStatus_id.IsEnabled = false;
         }
 
         public QuoteComparer(Login login, long indentNo)
@@ -68,9 +72,35 @@ namespace OrderManagementTool
             _login = login;
             InitializeComponent();
             txt_indent_no.Text = indentNo.ToString();
+            LoadApprovalStatus();
             FillIndent();
         }
 
+
+        private void LoadApprovalStatus()
+        {
+            try
+            {
+                cbx_ApprovalStatus_id.SelectedValuePath = "Key";
+                cbx_ApprovalStatus_id.DisplayMemberPath = "Value";
+                ////log.Error("Loading Approval infomration");
+                cbx_ApprovalStatus_id.Items.Clear();
+
+                var data = (from a in orderManagementContext.ApprovalStatus
+                            select a).ToList();
+
+                foreach (var i in data)
+                {
+                    cbx_ApprovalStatus_id.Items.Add(new KeyValuePair<long, string>(i.ApprovalStatusId, i.ApprovalStatus1));
+                }
+                ////log.Error("Approval Information loaded.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured during Approval Status fetch " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                ////log.Error("Error while loading location code : " + ex.StackTrace);
+            }
+        }
         private void grid_po_confirmation_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -308,6 +338,7 @@ namespace OrderManagementTool
             btn_upload_2.IsEnabled = false;
             btn_upload_3.IsEnabled = false;
             txt_PO_Remarks.IsEnabled = false;
+            cbx_ApprovalStatus_id.IsEnabled = false;
         }
 
 
@@ -327,6 +358,8 @@ namespace OrderManagementTool
             checkbox_Approve3.IsChecked = false;
             grid_po_confirmation.ItemsSource = null;
             grid_po_confirmation.ItemsSource = poitems_1;
+            poitems_4 = null;
+            poitems_4 = poitems_1;
         }
         private void checkbox_Approve2_Checked(object sender, RoutedEventArgs e)
         {
@@ -334,6 +367,8 @@ namespace OrderManagementTool
             checkbox_Approve3.IsChecked = false;
             grid_po_confirmation.ItemsSource = null;
             grid_po_confirmation.ItemsSource = poitems_2;
+            poitems_4 = null;
+            poitems_4 = poitems_1;
         }
 
         private void checkbox_Approve3_Checked(object sender, RoutedEventArgs e)
@@ -342,6 +377,8 @@ namespace OrderManagementTool
             checkbox_Approve2.IsChecked = false;
             grid_po_confirmation.ItemsSource = null;
             grid_po_confirmation.ItemsSource = poitems_3;
+            poitems_4 = null;
+            poitems_4 = poitems_1;
         }
 
         private void grid_indentdata_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -463,7 +500,7 @@ namespace OrderManagementTool
                               select a.Email).FirstOrDefault();
 
                     //string body = GenerateIndent(indentNo.ToString());
-                    isMailSent = SendMail("Purchase Order " + poID + " is created by " + _login.UserName);
+                    isMailSent = SendMail("Purchase Order " + poID + " is created by " + _login.UserName + ". Kindly Approve or Deny the Purchase Order ");
                     if (isMailSent)
                     {
                         MessageBox.Show("Purchase Order " + poID + " is created.", "Order Management System",
@@ -485,7 +522,24 @@ namespace OrderManagementTool
                       "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        private bool SendMail(string subject)
+
+
+        private void cbx_ApprovalStatus_id_DropDownOpened(object sender, EventArgs e)
+        {
+            try
+            {
+                LoadApprovalStatus();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred :" + ex.Message,
+                                   "Order Management System",
+                                       MessageBoxButton.OK,
+                                           MessageBoxImage.Error);
+                ////log.Error("Error while loading approval : " + ex.StackTrace);
+            }
+        }
+        private bool SendMail(string body)
         {
             bool mailSent = false;
             try
@@ -500,16 +554,15 @@ namespace OrderManagementTool
 
                     mm.Subject = "Purchase Order - " + poID.ToString();
 
-                    mm.Body = subject + " Kindly Approve or Deny the Purchase Order ";
-                    mm.IsBodyHtml = true;
+                    mm.Body = body;
+                    mm.IsBodyHtml = false;
 
                     // mm.Attachments.Add(new System.Net.Mail.Attachment(filePathLocation));
 
                     SmtpClient smtp = new SmtpClient();
                     smtp.Host = ConfigurationManager.AppSettings["Host"];
                     smtp.EnableSsl = false;
-                    NetworkCredential NetworkCred = new NetworkCredential(ConfigurationManager.AppSettings["Username"],
-     ConfigurationManager.AppSettings["Password"]);
+                    NetworkCredential NetworkCred = new NetworkCredential(ConfigurationManager.AppSettings["Username"], ConfigurationManager.AppSettings["Password"]);
                     smtp.UseDefaultCredentials = false;
                     smtp.Credentials = NetworkCred;
                     smtp.Port = int.Parse(ConfigurationManager.AppSettings["Port"]);
@@ -529,6 +582,79 @@ namespace OrderManagementTool
                 MessageBox.Show("An error while sending mail : " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
                 ////log.Error("Error while Sending Mail : " + ex.StackTrace);
                 return mailSent;
+            }
+        }
+
+
+
+        private void btn_Approve_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                poID = Convert.ToInt64(txt_PO_no.Text);
+                int approvalStatus = Convert.ToInt32(cbx_ApprovalStatus_id.SelectedValue);
+                bool isMailSent = false;
+                if (poitems_4.Count < 1)
+                {
+                    MessageBox.Show("Please select any one Quotation ", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
+                    {
+                        connection.Open();
+
+                        SqlCommand testCMD = new SqlCommand("DeletePurchaseOrderDetails", connection);
+                        testCMD.CommandType = CommandType.StoredProcedure;
+                        testCMD.Parameters.Add(new SqlParameter("@POId", System.Data.SqlDbType.BigInt, 50) { Value = poID });
+                        testCMD.Parameters.Add(new SqlParameter("@QNo", System.Data.SqlDbType.BigInt, 50) { Value = 4 });
+                        testCMD.ExecuteNonQuery();
+
+                        foreach (var i in poitems_4)
+                        {
+                            SqlCommand testCMD1 = new SqlCommand("CreatePurchaseOrderDetails", connection);
+                            testCMD1.CommandType = CommandType.StoredProcedure;
+                            testCMD1.Parameters.Add(new SqlParameter("@POId", System.Data.SqlDbType.BigInt, 50) { Value = poID });
+                            testCMD1.Parameters.Add(new SqlParameter("@Description", System.Data.SqlDbType.VarChar, 300) { Value = i.Description });
+                            testCMD1.Parameters.Add(new SqlParameter("@Quantity", System.Data.SqlDbType.BigInt, 50) { Value = i.Quantity });
+                            testCMD1.Parameters.Add(new SqlParameter("@Units", System.Data.SqlDbType.VarChar, 50) { Value = i.Units });
+                            testCMD1.Parameters.Add(new SqlParameter("@UnitPrice", System.Data.SqlDbType.Decimal, 50) { Value = i.Unit_Price });
+                            testCMD1.Parameters.Add(new SqlParameter("@TotalPrice", System.Data.SqlDbType.Decimal, 50) { Value = i.Total_Price });
+                            testCMD1.Parameters.Add(new SqlParameter("@QuoteNo", System.Data.SqlDbType.Int, 50) { Value = 4 });
+                            testCMD1.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
+                            testCMD1.ExecuteNonQuery(); // read output value from @NewId 
+                        }
+
+                        SqlCommand testCMD2 = new SqlCommand("CreatePurchaseOrderDetails", connection);
+                        testCMD2.CommandType = CommandType.StoredProcedure;
+                        testCMD2.Parameters.Add(new SqlParameter("@POId", System.Data.SqlDbType.BigInt, 50) { Value = poID });
+                        testCMD2.Parameters.Add(new SqlParameter("@ApprovalStatusID", System.Data.SqlDbType.BigInt, 50) { Value = approvalStatus });
+                        testCMD2.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
+                        testCMD2.ExecuteNonQuery();
+
+                        mailTo = (from a in orderManagementContext.UserMaster
+                                  where a.EmployeeId == (from emp in orderManagementContext.Employee where emp.EmployeeId == _login.EmployeeID select emp.ReportsTo).FirstOrDefault()
+                                  select a.Email).FirstOrDefault();
+                        isMailSent = SendMail("Purchase Order " + poID + " is Approved by " + _login.UserName + ". Kindly Approve or Deny the Purchase Order ");
+
+                        mailTo = _login.UserEmail;
+
+                        isMailSent = SendMail("Purchase Order " + poID + " is Approved by " + _login.UserName);
+                        connection.Close();
+                        if (isMailSent)
+                        {
+                            MessageBox.Show("Purchase Order " + poID + " is approved", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Purchase Order " + poID + " is approved but mail is not sent", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error while approving : " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         //private static void GeneratePurchaseOrder(Dictionary<string, string> headersAndFooters, List<ExportPO> poData)
