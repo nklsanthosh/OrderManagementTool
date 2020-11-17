@@ -138,17 +138,5 @@ namespace OrderManagementTool
                 //log.Error("View Indent Click error : " + ex.StackTrace);
             }
         }
-
-        private void txt_po_indent_no_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            if (txt_po_indent_no.Text == "")
-            {
-                btn_create_PO.IsEnabled = false;
-            }
-            else
-            {
-                btn_create_PO.IsEnabled = true;
-            }
-        }
     }
 }

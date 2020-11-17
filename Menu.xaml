@@ -32,7 +32,7 @@
             </Button.Style>
         </Button>
         <Label x:Name="lbl_Po_item" Content="PO Creation" HorizontalAlignment="Left" Margin="64,230,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" />
-        <Button x:Name="btn_create_PO"  HorizontalAlignment="Left" Margin="238,230,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_create_PO_Click" IsEnabled="False">
+        <Button x:Name="btn_create_PO"  HorizontalAlignment="Left" Margin="238,230,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_create_PO_Click" >
             <Button.Content>
                 <Image Source="Images\Icons\btn_create_indent.jpg" Margin="-2,-2,0,0" Width="130" Height="32"/>
 
@@ -130,7 +130,7 @@
             </TextBox.Style>
         </TextBox>
         <TextBox x:Name="txt_po_indent_no" HorizontalAlignment="Left" Margin="148,230,0,0" TextWrapping="Wrap"
-                 VerticalAlignment="Top" Width="72" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" TextChanged="txt_po_indent_no_TextChanged">
+                 VerticalAlignment="Top" Width="72" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" >
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>

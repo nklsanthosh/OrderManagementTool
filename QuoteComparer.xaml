@@ -27,8 +27,57 @@
         <Label x:Name="lblCopy" Content="Copyrights © 2020 Devlup Solutions" HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="983,545,0,0" VerticalAlignment="Top" Width="213" Height="26"/>
         <Label x:Name="lblRightd" Content="All rights reserved." HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="1082,564,0,0" VerticalAlignment="Top" Width="114" Height="26"/>
 
-        <Label x:Name="lbl_indent_number" Content="Indent No" HorizontalAlignment="Left" Margin="52,125,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <TextBox x:Name="txt_indent_no" HorizontalAlignment="Left" Margin="132,123,0,0" Text=""  TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" IsReadOnly="True">
+        <Label x:Name="lbl_PO_number" Content="PO No : " HorizontalAlignment="Left" Margin="75,125,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+        <TextBox x:Name="txt_PO_no" HorizontalAlignment="Left" Margin="132,123,0,0" Text=""  TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" IsReadOnly="True">
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+                    <Setter Property="BorderBrush" Value="#8CBD48"/>
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    <Setter Property="AllowDrop" Value="true"/>
+                    <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+                    <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type TextBox}">
+                                <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                    </Grid>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="true">
+                                        <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
+                                    </Trigger>
+                                    <MultiTrigger>
+                                        <MultiTrigger.Conditions>
+                                            <Condition Property="Text" Value=""/>
+                                        </MultiTrigger.Conditions>
+                                    </MultiTrigger>
+
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        <Label x:Name="lbl_indent_number" Content="Indent No :" HorizontalAlignment="Left" Margin="252,125,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+        <TextBox x:Name="txt_indent_no" HorizontalAlignment="Left" Margin="325,123,0,0" Text=""  TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" IsReadOnly="True">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
@@ -152,7 +201,8 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button x:Name="btn_Approve" HorizontalAlignment="Left" Margin="1045,340,0,0" VerticalAlignment="Top"  Width="120" Height="29">
+
+        <Button x:Name="btn_Create_PO" HorizontalAlignment="Left" Margin="845,330,0,0" VerticalAlignment="Top"  Width="120" Height="29">
             <Button.Content>
                 <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32" RenderTransformOrigin="0.5,0.5" >
                     <Image.RenderTransform>
@@ -179,12 +229,41 @@
                 </Style>
             </Button.Style>
         </Button>
+        <Button x:Name="btn_Approve" HorizontalAlignment="Left" Margin="1045,330,0,0" VerticalAlignment="Top"  Width="120" Height="29">
+            <Button.Content>
+                <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32" RenderTransformOrigin="0.5,0.5" >
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleX="-2.526"/>
+                            <RotateTransform/>
+                            <TranslateTransform X="0.706"/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </Button.Content>
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="1" Padding="2">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
+
+
         <DataGrid x:Name="grid_quote_1" Margin="57,390,839,125" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*"   />
         <DataGrid x:Name="grid_quote_2" Margin="448,390,442,125" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_quote_2_SelectionChanged"  />
         <DataGrid x:Name="grid_quote_3" Margin="839,390,66,125" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_quote_3_SelectionChanged"  />
         <DataGrid x:Name="grid_po_confirmation" Margin="414,229,463,311" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_po_confirmation_SelectionChanged"  />
-        <Label x:Name="Remarks" Content="Remarks : " HorizontalAlignment="Left" Margin="804,240,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <TextBox x:Name="txt_PO_Remarks" HorizontalAlignment="Left" Margin="804,266,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="361" Height="57" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" >
+        <Label x:Name="Remarks" Content="Remarks : " HorizontalAlignment="Left" Margin="818,240,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+        <TextBox x:Name="txt_PO_Remarks" HorizontalAlignment="Left" Margin="820,266,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="376" Height="57" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" TextChanged="txt_PO_Remarks_TextChanged" >
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>

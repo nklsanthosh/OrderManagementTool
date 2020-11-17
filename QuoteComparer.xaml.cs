@@ -51,6 +51,13 @@ namespace OrderManagementTool
         List<Poitem> poitems_2 = new List<Poitem>();
         List<Poitem> poitems_3 = new List<Poitem>();
 
+        public QuoteComparer(Login login)
+        {
+            _login = login;
+            InitializeComponent();
+            txt_indent_no.IsReadOnly = false;
+        }
+
         public QuoteComparer(Login login, long indentNo)
         {
             _login = login;
@@ -270,5 +277,9 @@ namespace OrderManagementTool
             menu.Show();
         }
 
+        private void txt_PO_Remarks_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
