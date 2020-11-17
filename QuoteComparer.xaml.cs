@@ -638,7 +638,9 @@ namespace OrderManagementTool
                                   select a.Email).FirstOrDefault();
                         isMailSent = SendMail("Purchase Order " + poID + " is Approved by " + _login.UserName + ". Kindly Approve or Deny the Purchase Order ");
 
-                        mailTo = _login.UserEmail;
+                        mailTo = (from a in orderManagementContext.UserMaster
+                                 where a.EmployeeId == (from ia in orderManagementContext.IndentApproval where ia.IndentId == indentNo select ia.CreatedBy).FirstOrDefault()
+                                 select a.Email).FirstOrDefault();
 
                         isMailSent = SendMail("Purchase Order " + poID + " is Approved by " + _login.UserName);
                         connection.Close();
