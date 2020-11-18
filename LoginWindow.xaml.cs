@@ -26,19 +26,30 @@ namespace OrderManagementTool
 
         private void ReadCredentials()
         {
-            string path = ConfigurationManager.AppSettings["InitializationPath"];
-
-            DirectoryInfo dInfo = new DirectoryInfo(path);
-            FileInfo[] files = dInfo.GetFiles("OMT.ini");
-            if (files.Length > 0)
+            try
             {
-                StreamReader file = File.OpenText(files[0].FullName);
-                string readInfo = file.ReadToEnd();
-                string userName = readInfo.Split(',')[0];
-                string password = readInfo.Split(',')[1];
-                txt_username.Text = userName;
-                txt_password.Password = password;
+                string path = ConfigurationManager.AppSettings["InitializationPath"];
+
+                DirectoryInfo dInfo = new DirectoryInfo(path);
+                FileInfo[] files = dInfo.GetFiles("OMT.ini");
+                if (files.Length > 0)
+                {
+                    StreamReader file = File.OpenText(files[0].FullName);
+                    string readInfo = file.ReadToEnd();
+                    string userName = readInfo.Split(',')[0];
+                    string password = readInfo.Split(',')[1];
+                    txt_username.Text = userName;
+                    txt_password.Password = password;
+                }
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show("An error occurred while reading log in credentials :" + ex.Message,
+                                      "Order Management System",
+                                          MessageBoxButton.OK,
+                                              MessageBoxImage.Error);
+            }
+            
         }
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {

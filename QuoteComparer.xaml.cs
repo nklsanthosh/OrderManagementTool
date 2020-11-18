@@ -66,17 +66,167 @@ namespace OrderManagementTool
             cbx_ApprovalStatus_id.SelectedValue = 1;
             cbx_ApprovalStatus_id.IsEnabled = false;
             FillIndent();
+            DisableCheckBoxes();
         }
 
-        public QuoteComparer(Login login, long indentNo)
+        public QuoteComparer(Login login, long PO_ID)
         {
             _login = login;
             InitializeComponent();
-            txt_indent_no.Text = indentNo.ToString();
+            GetPurchaseOrder(PO_ID);
+            txt_indent_no.Text = PO_ID.ToString();
             LoadApprovalStatus();
             FillIndent();
         }
 
+        private void DisableCheckBoxes()
+        {
+            checkbox_Approve1.IsEnabled = false;
+            checkbox_Approve2.IsEnabled = false;
+            checkbox_Approve3.IsEnabled = false;
+        }
+
+        private void EnableCheckBoxes()
+        {
+            checkbox_Approve1.IsEnabled = true;
+            checkbox_Approve2.IsEnabled = true;
+            checkbox_Approve3.IsEnabled = true;
+        }
+
+        private void GetPurchaseOrder(long PO_ID)
+        {
+            try
+            {
+                PORetrival pORetrival = new PORetrival();
+                ////log.Info("Getting Indent infomration for Indent No: " + indentNo);
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
+                {
+                    connection.Open();
+
+                    SqlCommand testCMD = new SqlCommand("GetPurchaseOrder", connection);
+                    testCMD.CommandType = CommandType.StoredProcedure;
+
+                    testCMD.Parameters.Add(new SqlParameter("@POId", System.Data.SqlDbType.BigInt, 50) { Value = PO_ID });
+
+                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(testCMD);
+
+                    DataSet dataSet = new DataSet();
+                    sqlDataAdapter.Fill(dataSet);
+
+                    int counter = 0;
+
+                    List<PoItemwithQuotation> poItemwithQuotation = new List<PoItemwithQuotation>();
+
+                    while (counter < dataSet.Tables[0].Rows.Count)
+                    {
+                        pORetrival.PO_ID = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["PO_ID"]);
+                        pORetrival.Indent_No = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["IndentID"]);
+                        pORetrival.Approval_Status_Id = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["ApprovalStatusId"]);
+
+                        PoItemwithQuotation p1 = new PoItemwithQuotation();
+                        p1.Description = Convert.ToString(dataSet.Tables[0].Rows[counter]["Description"]);
+                        p1.Quantity = Convert.ToInt32(dataSet.Tables[0].Rows[counter]["Quantity"]);
+                        p1.Q_No = Convert.ToInt32(dataSet.Tables[0].Rows[counter]["Q_No"]);
+                        p1.Units = Convert.ToString(dataSet.Tables[0].Rows[counter]["Units"]);
+                        p1.Unit_Price = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["Unit_Price"]);
+                        p1.Total_Price = Convert.ToDecimal(dataSet.Tables[0].Rows[counter]["Total_Price"]);
+                        poItemwithQuotation.Add(p1);
+                        counter++;
+                    }
+                    dataSet.Dispose();
+
+                    if (poItemwithQuotation.Count > 0)
+                    {
+                        foreach (var i in poItemwithQuotation)
+                        {
+                            if (i.Q_No == 1)
+                            {
+                                Poitem poitem = new Poitem();
+                                poitem.Sl_NO = poitems_1.Count + 1;
+                                poitem.Description = i.Description;
+                                poitem.Quantity = i.Quantity;
+                                poitem.Units = i.Units;
+                                poitem.Total_Price = i.Total_Price;
+                                poitem.Unit_Price = i.Unit_Price;
+                                poitems_1.Add(poitem);
+                            }
+                            else if (i.Q_No == 2)
+                            {
+                                Poitem poitem = new Poitem();
+                                poitem.Sl_NO = poitems_2.Count + 1;
+                                poitem.Description = i.Description;
+                                poitem.Quantity = i.Quantity;
+                                poitem.Units = i.Units;
+                                poitem.Total_Price = i.Total_Price;
+                                poitem.Unit_Price = i.Unit_Price;
+                                poitems_2.Add(poitem);
+                            }
+                            else if (i.Q_No == 3)
+                            {
+                                Poitem poitem = new Poitem();
+                                poitem.Sl_NO = poitems_3.Count + 1;
+                                poitem.Description = i.Description;
+                                poitem.Quantity = i.Quantity;
+                                poitem.Units = i.Units;
+                                poitem.Total_Price = i.Total_Price;
+                                poitem.Unit_Price = i.Unit_Price;
+                                poitems_3.Add(poitem);
+                            }
+                            else if (i.Q_No == 4)
+                            {
+                                Poitem poitem = new Poitem();
+                                poitem.Sl_NO = poitems_4.Count + 1;
+                                poitem.Description = i.Description;
+                                poitem.Quantity = i.Quantity;
+                                poitem.Units = i.Units;
+                                poitem.Total_Price = i.Total_Price;
+                                poitem.Unit_Price = i.Unit_Price;
+                                poitems_4.Add(poitem);
+                            }
+                        }
+                        if (poitems_1.Count > 0)
+                        {
+                            grid_quote_1.ItemsSource = null;
+                            grid_quote_1.ItemsSource = poitems_1;
+                        }
+                        if (poitems_2.Count > 0)
+                        {
+                            grid_quote_2.ItemsSource = null;
+                            grid_quote_2.ItemsSource = poitems_2;
+                        }
+                        if (poitems_3.Count > 0)
+                        {
+                            grid_quote_3.ItemsSource = null;
+                            grid_quote_3.ItemsSource = poitems_3;
+                        }
+                        if (poitems_4.Count > 0)
+                        {
+                            grid_po_confirmation.ItemsSource = null;
+                            grid_po_confirmation.ItemsSource = poitems_4;
+                        }
+
+                        txt_PO_no.Text = pORetrival.PO_ID.ToString();
+                        txt_indent_no.Text = pORetrival.Indent_No.ToString();
+                        LoadApprovalStatus();
+                        cbx_ApprovalStatus_id.SelectedValue = pORetrival.Approval_Status_Id;
+                        if (pORetrival.Approval_Status_Id != 1)
+                        {
+                            DisableCheckBoxes();
+                        }
+                        else
+                        {
+                            EnableCheckBoxes();
+                        }
+
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured during poData Retrival " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
         private void LoadApprovalStatus()
         {
@@ -340,6 +490,19 @@ namespace OrderManagementTool
             btn_upload_3.IsEnabled = false;
             txt_PO_Remarks.IsEnabled = false;
             cbx_ApprovalStatus_id.IsEnabled = false;
+        }
+
+        private void EnableFields()
+        {
+            txt_indent_no.IsEnabled = true;
+            checkbox_Approve1.IsEnabled = true;
+            checkbox_Approve2.IsEnabled = true;
+            checkbox_Approve3.IsEnabled = true;
+            btn_upload.IsEnabled = true;
+            btn_upload_2.IsEnabled = true;
+            btn_upload_3.IsEnabled = true;
+            txt_PO_Remarks.IsEnabled = true;
+            cbx_ApprovalStatus_id.IsEnabled = true;
         }
 
 
@@ -711,6 +874,39 @@ namespace OrderManagementTool
                 MessageBox.Show("An error while approving : " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private void txt_indent_no_LostFocus(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                indentNo = Convert.ToInt64(txt_indent_no.Text);
+                var isApproved = (from i in orderManagementContext.IndentApproval where i.IndentId == indentNo && i.ApprovalStatusId == 2 select i).FirstOrDefault();
+
+                if (isApproved != null)
+                {
+                    FillIndent();
+                    EnableFields();
+                }
+                else
+                {
+                    MessageBox.Show("The indent "+indentNo+" is not approved and not eligible to create PO", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+                    DisableFields();
+                    txt_indent_no.IsEnabled = true;
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occured in fetching Indent Approval Status", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+        //private static void GeneratePurchaseOrder(Dictionary<string, string> headersAndFooters, List<ExportPO> poData)
+        //{
+        //    try
+        //    {
+        //        var workBook = new XLWorkbook();
+        //        workBook.AddWorksheet("Report");
+        //        var worksheet = workBook.Worksheet("Report");
         private static void GeneratePurchaseOrder(Dictionary<string, string> headersAndFooters, ExportPO poData)
         {
             try

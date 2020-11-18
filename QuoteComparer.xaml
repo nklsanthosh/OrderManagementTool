@@ -459,7 +459,7 @@
             </TextBox.Style>
         </TextBox>
         <Label x:Name="lbl_indent_number" Content="Indent No :" HorizontalAlignment="Left" Margin="241,124,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <TextBox x:Name="txt_indent_no" HorizontalAlignment="Left" Margin="314,122,0,0" Text=""  TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" IsReadOnly="True">
+        <TextBox x:Name="txt_indent_no" HorizontalAlignment="Left" Margin="314,122,0,0" Text=""  TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" IsReadOnly="True" LostFocus="txt_indent_no_LostFocus">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>

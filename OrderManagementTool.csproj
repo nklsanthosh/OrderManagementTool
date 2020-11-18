@@ -16,6 +16,7 @@
     <None Remove="Images\icons\btn_add_item.jpg" />
     <None Remove="Images\icons\btn_add_masters.jpg" />
     <None Remove="Images\icons\btn_add_unit.jpg" />
+    <None Remove="Images\icons\btn_approvePO.png" />
     <None Remove="Images\icons\btn_clear_fields.jpg" />
     <None Remove="Images\icons\btn_compare.png" />
     <None Remove="Images\icons\btn_createPO.png" />
@@ -103,6 +104,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\icons\btn_add_unit.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\btn_approvePO.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\icons\btn_clear_fields.jpg">

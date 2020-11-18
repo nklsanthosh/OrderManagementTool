@@ -156,21 +156,7 @@ namespace OrderManagementTool
                 using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
                 {
                     connection.Open();
-                    //SqlCommand testCMD2 = new SqlCommand("GetEmployees", connection);
-                    //testCMD2.CommandType = CommandType.StoredProcedure;
-                    //testCMD2.Parameters.Add(new SqlParameter("@EmployeeId", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
-                    //List<string> userId = new List<string>();
-                    //string userIdComma = "";
-
-
-                    //using (SqlDataReader reader = testCMD2.ExecuteReader())
-                    //{
-                    //    while (reader.Read())
-                    //    {
-                    //        userId.Add(reader[0].ToString());
-                    //    }
-                    //    userIdComma = String.Join(",", userId);
-                    //}
+                  
                     SqlCommand testCMD = new SqlCommand("GetIndent", connection);
                     testCMD.CommandType = CommandType.StoredProcedure;
 
