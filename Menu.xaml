@@ -130,8 +130,8 @@
             </TextBox.Style>
         </TextBox>
 
-        <TextBox x:Name="txt_po_indent_no" HorizontalAlignment="Left" Margin="455,190,0,0" Text="" TextWrapping="Wrap"
-                 VerticalAlignment="Top"  Width="97" Height="30"
+        <TextBox x:Name="txt_po_indent_no" HorizontalAlignment="Left" Margin="460,190,0,0" Text="" TextWrapping="Wrap"
+                 VerticalAlignment="Top"  Width="92" Height="30"
                  BorderBrush="#FF8CBD4B" UseLayoutRounding="False" Tag="PO #" TextBlock.TextAlignment="Center" 
                  TextBlock.LineStackingStrategy="BlockLineHeight"  VerticalContentAlignment="Center" >
             <TextBox.Style>
@@ -197,7 +197,7 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <Label Content="Indent No :" HorizontalAlignment="Left" Margin="388,152,0,0" VerticalAlignment="Top" Width="79" Height="30" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" />
+        <Label Content="Indent No" HorizontalAlignment="Left" Margin="388,152,0,0" VerticalAlignment="Top" Width="79" Height="30" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" />
         <Button x:Name="btn_search_indent"  HorizontalAlignment="Left" Margin="557,152,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_search_indent_Click">
             <Button.Content>
                 <Image Source="Images\Icons\btn_search_indent.jpg" Margin="-2,-2,0,0" Width="130" Height="32"/>

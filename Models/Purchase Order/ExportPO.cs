@@ -9,6 +9,7 @@ namespace OrderManagementTool.Models.Purchase_Order
         public int POID;
         public int IndentID;
         public string Email;
+        public string Remarks;
         public DateTime PODate;
         public List<Poitem> Poitems;
     }
