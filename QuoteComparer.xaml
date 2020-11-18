@@ -5,30 +5,412 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OrderManagementTool"
         mc:Ignorable="d" Icon="/Images/logo.png" Background="#E7F8F0" 
-        Title="Order Management System - Quote Comparer" WindowStartupLocation="CenterScreen" Height="676" Width="1262"
+        Title="Order Management System - Quote Comparer" WindowStartupLocation="CenterScreen" Height="740" Width="1350"
          ResizeMode="NoResize">
+    <Window.Resources>
+        <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+                <Border
+                  x:Name="Border" 
+                  Grid.ColumnSpan="2"
+                  CornerRadius="5"
+                  Background="#EBF8F0"
+                  BorderBrush="#FF8CBD4B"
+                  BorderThickness="1" />
+                <Border 
+                  Grid.Column="0"
+                  CornerRadius="5" 
+                  Margin="1" 
+                  Background="#EBF8F0"
+                  BorderBrush="#FF8CBD4B"
+                  BorderThickness="0,0,1,0" />
+                <Path 
+                  x:Name="Arrow"
+                  Grid.Column="1"     
+                  Fill="#FF8CBD4B"  
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
+                />
+            </Grid>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
+            <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
+        </ControlTemplate>
+
+        <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+            <Setter Property="MinWidth" Value="120"/>
+            <Setter Property="MinHeight" Value="20"/>
+            <Setter Property="Foreground" Value="#6c6c6c"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBox}">
+                        <Grid>
+                            <ToggleButton 
+                            Name="ToggleButton" 
+                            Template="{StaticResource ComboBoxToggleButton}" 
+                            Grid.Column="2" 
+                            Focusable="false"
+                            IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                            ClickMode="Press">
+                            </ToggleButton>
+                            <ContentPresenter Name="ContentSite" IsHitTestVisible="False"  Content="{TemplateBinding SelectionBoxItem}"
+                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                            Margin="3,3,23,3"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left" />
+                            <TextBox x:Name="PART_EditableTextBox"
+                            Style="{x:Null}" 
+                            Template="{StaticResource ComboBoxTextBox}" 
+                            HorizontalAlignment="Left" 
+                            VerticalAlignment="Center" 
+                            Margin="3,3,23,3"
+                            Focusable="True" 
+                            Background="#FF3F3F3F"
+                            Foreground="Green"
+                            Visibility="Hidden"
+                            IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                            <Popup 
+                            Name="Popup"
+                            Placement="Bottom"
+                            IsOpen="{TemplateBinding IsDropDownOpen}"
+                            AllowsTransparency="True" 
+                            Focusable="False"
+                            PopupAnimation="Slide">
+
+                                <Grid Name="DropDown"
+                              SnapsToDevicePixels="True"                
+                              MinWidth="{TemplateBinding ActualWidth}"
+                              MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border 
+                                x:Name="DropDownBorder"
+                                Background="#EBF8F0"
+
+                                BorderThickness="1"
+                                BorderBrush="#609F19"/>
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="DarkGray"/>
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                            </Trigger>
+                            <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
+                                <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="0"/>
+                                <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0"/>
+                            </Trigger>
+                            <Trigger Property="IsEditable"  Value="true">
+                                <Setter Property="IsTabStop" Value="false"/>
+                                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+            </Style.Triggers>
+        </Style>
+
+        <!-- SimpleStyles: ComboBoxItem -->
+        <Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                        <Border Name="Border"
+                              Padding="2"
+                              SnapsToDevicePixels="true">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#609F19"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#FFFFFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Height" Value="35" />
+            <Setter Property="SeparatorBrush" Value="#8DBE4D" />
+            <Setter Property="FontWeight" Value="Regular" />
+            <Setter Property="FontFamily" Value="Verdana" />
+            <Setter Property="Foreground" Value="#609F19" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                        <Grid>
+                            <Border x:Name="columnHeaderBorder"
+		                        BorderThickness="1"
+		                        Padding="3,0,3,0">
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Color="#8DBE4D"/>
+                                </Border.BorderBrush>
+                                <!--<Border.Background>
+                                    <SolidColorBrush Color="#EBF8F0"/>
+                                </Border.Background>-->
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+			                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+				                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type DataGridRow}">
+            <Setter Property="FontFamily" Value="Verdana"/>
+            <Setter Property="Foreground" Value="#6C6C6C"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
+            <Setter Property="ValidationErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <TextBlock Margin="2,0,0,0"
+					           VerticalAlignment="Center"
+					           Foreground="Red"
+					           Text="!" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridRow}">
+                        <Border x:Name="DGR_Border"
+					        BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="True">
+                            <Border.Background>
+
+                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <GradientStop Offset="0" Color="#FFFFFF" />
+                                    <GradientStop Offset="1" Color="#FFFFFF" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="Normal_AlternatingRow">
+                                        <Storyboard>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="DGR_Border" Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)">
+                                                <EasingColorKeyFrame KeyTime="0" Value="#F7FCF9" />
+                                            </ColorAnimationUsingKeyFrames>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="DGR_Border" Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)">
+                                                <EasingColorKeyFrame KeyTime="0" Value="#F7FCF9" />
+                                            </ColorAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Normal_Selected">
+                                        <Storyboard>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="DGR_Border" Storyboard.TargetProperty="(Panel.Background).                         (GradientBrush.GradientStops)[0].(GradientStop.Color)">
+                                                <EasingColorKeyFrame KeyTime="0" Value="#F7FCF9" />
+                                            </ColorAnimationUsingKeyFrames>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="DGR_Border" Storyboard.TargetProperty="(Panel.Background).                         (GradientBrush.GradientStops)[1].(GradientStop.Color)">
+                                                <EasingColorKeyFrame KeyTime="0" Value="#F7FCF9" />
+                                            </ColorAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="DGR_Border" Storyboard.TargetProperty="(Panel.Background).                         (GradientBrush.GradientStops)[0].(GradientStop.Color)">
+                                                <EasingColorKeyFrame KeyTime="0" Value="#F7FCF9" />
+                                            </ColorAnimationUsingKeyFrames>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="DGR_Border" Storyboard.TargetProperty="(Panel.Background).                         (GradientBrush.GradientStops)[1].(GradientStop.Color)">
+                                                <EasingColorKeyFrame KeyTime="0" Value="#F7FCF9" />
+                                            </ColorAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <SelectiveScrollingGrid>
+                                <SelectiveScrollingGrid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </SelectiveScrollingGrid.ColumnDefinitions>
+                                <SelectiveScrollingGrid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </SelectiveScrollingGrid.RowDefinitions>
+                                <DataGridCellsPresenter Grid.Column="1"
+							                        ItemsPanel="{TemplateBinding ItemsPanel}"
+							                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                <DataGridDetailsPresenter Grid.Row="1"
+							                          Grid.Column="1"
+							                          SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding AreRowDetailsFrozen,
+							                                                                                         ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical},
+							                                                                                         Converter={x:Static DataGrid.RowDetailsScrollingConverter},
+							                                                                                         RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+							                          Visibility="{TemplateBinding DetailsVisibility}" />
+                                <DataGridRowHeader Grid.RowSpan="2"
+							                   SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical"
+							                   Visibility="{Binding HeadersVisibility,
+							                                        ConverterParameter={x:Static DataGridHeadersVisibility.Row},
+							                                        Converter={x:Static DataGrid.HeadersVisibilityConverter},
+							                                        RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                            </SelectiveScrollingGrid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type DataGridCell}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                        <Border x:Name="border"
+					        Background="Transparent"
+					        BorderBrush="#8DBE4D"
+					        BorderThickness="1"
+					        SnapsToDevicePixels="True">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Unfocused" />
+                                    <VisualState x:Name="Focused" />
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="CurrentStates">
+                                    <VisualState x:Name="Regular" />
+                                    <VisualState x:Name="Current">
+                                        <Storyboard>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
+                                                <EasingColorKeyFrame KeyTime="0" Value="Gray" />
+                                            </ColorAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--<Style TargetType="{x:Type DataGridRow}">
+            <Setter Property="Background" Value="LightYellow" />
+            <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
+            <Setter Property="FontWeight" Value="Regular" />
+            <Setter Property="FontFamily" Value="Verdana" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridRow}">
+                        <Border x:Name="DGR_Border"
+			                        BorderBrush="{TemplateBinding BorderBrush}"
+			                        BorderThickness="{TemplateBinding BorderThickness}"
+		                                SnapsToDevicePixels="True">
+                            
+                            <Border.Background>
+                                <SolidColorBrush Color="#F7FCF9"></SolidColorBrush>
+                            </Border.Background>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    -->
+        <!--    <VisualState x:Name="Normal" />-->
+        <!--
+                                    <VisualState x:Name="Normal_AlternatingRow">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="DGR_Border" 
+                                                Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)">
+                                            <EasingColorKeyFrame KeyTime="0" Value="#AAF0C570" />
+                                        </ColorAnimationUsingKeyFrames>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="DGR_Border" 
+                                                Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)">
+                                            <EasingColorKeyFrame KeyTime="0" Value="#AAFF7F00" />
+                                        </ColorAnimationUsingKeyFrames>
+
+                                    </Storyboard>
+                                </VisualState>
+                                    -->
+        <!--<VisualState x:Name="Normal_Selected">
+                                        <Storyboard>
+                                             ColorAnimation here same as Normal_AlternatingRow state 
+                                        </Storyboard>
+                                    </VisualState>-->
+        <!--
+                                    
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <SelectiveScrollingGrid>
+                                <SelectiveScrollingGrid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </SelectiveScrollingGrid.ColumnDefinitions>
+                                <SelectiveScrollingGrid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </SelectiveScrollingGrid.RowDefinitions>
+                                <DataGridCellsPresenter Grid.Column="1"
+			ItemsPanel="{TemplateBinding ItemsPanel}"
+			SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                <DataGridDetailsPresenter Grid.Row="1"
+			Grid.Column="1"
+			SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding 
+                             AreRowDetailsFrozen,
+                          ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical},
+			                          Converter={x:Static DataGrid.RowDetailsScrollingConverter},
+			                          RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+			                        Visibility="{TemplateBinding DetailsVisibility}" />
+                                <DataGridRowHeader Grid.RowSpan="2"
+		                                    SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical"
+                                            Visibility="{Binding HeadersVisibility,
+                                            ConverterParameter={x:Static DataGridHeadersVisibility.Row},
+                                            Converter={x:Static DataGrid.HeadersVisibilityConverter},
+                                            RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                            </SelectiveScrollingGrid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>-->
+    </Window.Resources>
+
     <Grid>
-        <Border BorderThickness="1" BorderBrush="#8ABC48" Background="#FFFFFF" Margin="43,32,37,32"/>
+        <Border BorderThickness="1" BorderBrush="#8ABC48" Background="#FFFFFF" Margin="45,33,39,29"/>
 
-        <CheckBox x:Name="checkbox_Approve1" Content="Approve Quotation 1" Margin="70,365,1012,197" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Background="#E7F8F0" IsChecked="False" Checked="checkbox_Approve1_Checked">
+        <Label x:Name="lblApprovedQuote" Content="Approved Quote" HorizontalAlignment="Left"  Margin="268,258,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Width="100"/>
+        <CheckBox x:Name="checkbox_Approve1" Content="Approve Quotation 1" Margin="58,388,1139,293" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Background="#E7F8F0" IsChecked="False" Checked="checkbox_Approve1_Checked">
         </CheckBox>
-        <CheckBox x:Name="checkbox_Approve2" Content="Approve Quotation 2" Margin="460,365,607,197" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Background="#E7F8F0" IsChecked="False" Checked="checkbox_Approve2_Checked">
-        </CheckBox>
-        <CheckBox x:Name="checkbox_Approve3" Content="Approve Quotation 3" Margin="840,365,222,197" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Background="#E7F8F0" IsChecked="False" Checked="checkbox_Approve3_Checked">
-        </CheckBox>
-        <Image Source="Images/logo.png" Margin="44,36,1139,537" />
-        <Label x:Name="lblHeader" Content="ORDER MANANGEMENT SYSTEM" FontSize="16" Visibility="Visible" FontFamily="Arial" FontWeight="Bold"  Margin="120,65,839,0" VerticalAlignment="Top" Height="30"/>
-        <Label x:Name="lblBreadCrumb" Content="&gt; Quote Compare" HorizontalAlignment="Left" Margin="384,65,0,0"  FontFamily="Verdana" Foreground="#6c6c6c" VerticalAlignment="Top" Width="138" Height="26"/>
-        <Image Source="images/icons/horizontal_line_icon.png" Margin="40,86,40,523" />
-        <Image Source="images/icons/horizontal_line_icon.png" Margin="40,519,40,89" />
-        <Image Source="images/icons/grey_icon.png" Margin="94,34,1133,538" />
-        <Label x:Name="lblPoweredBy" Content="Powered By" HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="43,540,0,0" VerticalAlignment="Top" Width="77" Height="26"/>
-        <Image Source="images/icons/logo_devlup_inner_v2.jpg" Margin="46,543,1136,33"/>
-        <Label x:Name="lblCopy" Content="Copyrights © 2020 Devlup Solutions" HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="983,545,0,0" VerticalAlignment="Top" Width="213" Height="26"/>
-        <Label x:Name="lblRightd" Content="All rights reserved." HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="1082,564,0,0" VerticalAlignment="Top" Width="114" Height="26"/>
-
-        <Label x:Name="lbl_PO_number" Content="PO No : " HorizontalAlignment="Left" Margin="75,117,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <TextBox x:Name="txt_PO_no" HorizontalAlignment="Left" Margin="132,115,0,0" Text=""  TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" IsReadOnly="True">
+        <Image Source="Images/logo.png" Margin="47,36,1216,614"/>
+        <Image Source="images/icons/horizontal_line_icon.png" Margin="46,99,39,595"  />
+        <Image Source="images/icons/grey_icon.png" Margin="123,33,1201,617"  />
+        <Image Source="images/icons/horizontal_line_icon.png" Margin="45,592,39,101" />
+        <Label x:Name="lblHeader" Content="ORDER MANANGEMENT SYSTEM" FontSize="16" Visibility="Visible" FontFamily="Arial" FontWeight="Bold"  Margin="139,70,820,0" VerticalAlignment="Top" Height="30"/>
+        <Label x:Name="lblBreadCrumb" Content="&gt; Quote Compare" HorizontalAlignment="Left" Margin="408,71,0,0"  FontFamily="Verdana" Foreground="#6c6c6c" VerticalAlignment="Top" Width="138" Height="26"/>
+        <Label x:Name="lblPoweredBy" Content="Powered By" HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="43,609,0,0" VerticalAlignment="Top" Width="77" Height="26"/>
+        <Image Source="images/icons/logo_devlup_inner_v2.jpg" Margin="46,633,1241,33"/>
+        <Label x:Name="lblCopy" Content="Copyrights © 2020 Devlup Solutions" HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="1084,621,0,0" VerticalAlignment="Top" Width="213" Height="26"/>
+        <Label x:Name="lblRightd" Content="All rights reserved." HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="1183,640,0,0" VerticalAlignment="Top" Width="114" Height="26"/>
+        <Label x:Name="lbl_PO_number" Content="PO No : " HorizontalAlignment="Left" Margin="75,124,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+        <TextBox x:Name="txt_PO_no" HorizontalAlignment="Left" Margin="132,121,0,0" Text=""  TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" IsReadOnly="True">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
@@ -76,8 +458,8 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <Label x:Name="lbl_indent_number" Content="Indent No :" HorizontalAlignment="Left" Margin="252,117,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <TextBox x:Name="txt_indent_no" HorizontalAlignment="Left" Margin="325,115,0,0" Text=""  TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" IsReadOnly="True">
+        <Label x:Name="lbl_indent_number" Content="Indent No :" HorizontalAlignment="Left" Margin="241,124,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+        <TextBox x:Name="txt_indent_no" HorizontalAlignment="Left" Margin="314,122,0,0" Text=""  TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" IsReadOnly="True">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
@@ -125,9 +507,9 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <DataGrid x:Name="grid_indentdata" Margin="52,150,45,427" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_indentdata_SelectionChanged"  />
-        <Label x:Name="lbl_quote_1" Content="Quotation 1" HorizontalAlignment="Left" Margin="52,244,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <Button x:Name="btn_upload" HorizontalAlignment="Left" Margin="130,244,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click=" btn_upload_Click_1">
+        <DataGrid x:Name="grid_indentdata" Margin="52,156,39,472" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_indentdata_SelectionChanged"  />
+        <Label x:Name="lbl_quote_1" Content="Quotation 1" HorizontalAlignment="Left" Margin="52,261,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+        <Button x:Name="btn_upload" HorizontalAlignment="Left" Margin="130,258,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click=" btn_upload_Click_1">
             <Button.Content>
                 <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
             </Button.Content>
@@ -145,8 +527,8 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Label x:Name="lbl_quote_2" Content="Quotation 2" HorizontalAlignment="Left" Margin="52,275,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <Button x:Name="btn_upload_2" HorizontalAlignment="Left" Margin="130,275,0,0" VerticalAlignment="Top" Width="120" Height="29" Click=" btn_upload_Click_2">
+        <Label x:Name="lbl_quote_2" Content="Quotation 2" HorizontalAlignment="Left" Margin="52,294,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+        <Button x:Name="btn_upload_2" HorizontalAlignment="Left" Margin="130,290,0,0" VerticalAlignment="Top" Width="120" Height="29" Click=" btn_upload_Click_2">
             <Button.Content>
                 <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
             </Button.Content>
@@ -164,8 +546,8 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Label x:Name="lbl_quote_3" Content="Quotation 3" HorizontalAlignment="Left" Margin="52,310,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <Button x:Name="btn_upload_3" HorizontalAlignment="Left" Margin="130,310,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click=" btn_upload_Click_3">
+        <Label x:Name="lbl_quote_3" Content="Quotation 3" HorizontalAlignment="Left" Margin="52,325,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+        <Button x:Name="btn_upload_3" HorizontalAlignment="Left" Margin="130,323,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click=" btn_upload_Click_3">
             <Button.Content>
                 <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
             </Button.Content>
@@ -183,7 +565,159 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button x:Name="btn_compare" HorizontalAlignment="Left" Margin="280,244,0,0" VerticalAlignment="Top"  Width="120" Height="29">
+        <Button x:Name="btn_Create_PO" HorizontalAlignment="Left" Margin="822,350,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click="btn_Create_PO_Click" >
+            <Button.Content>
+                <Image Source="Images\Icons\btn_createPO.png" Width="120" Height="32"  Margin="-2,-2,0,2" >
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleX="-2.526"/>
+                            <RotateTransform/>
+                            <TranslateTransform X="0.706"/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </Button.Content>
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="1" Padding="2">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button x:Name="btn_Generate" HorizontalAlignment="Left" Margin="959,350,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click="btn_generate_Click">
+            <Button.Content>
+                <Image Source="Images\Icons\btn_generatePO.png" Width="120" Height="32"  Margin="-2,-2,0,2" >
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleX="-2.526"/>
+                            <RotateTransform/>
+                            <TranslateTransform X="0.706"/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </Button.Content>
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="1" Padding="2">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button x:Name="btn_Approve" HorizontalAlignment="Left" Margin="1093,350,0,0" VerticalAlignment="Top" Visibility="Visible"  Width="120" Height="29" Click="btn_Approve_Click">
+            <Button.Content>
+                <Image Source="Images\Icons\btn_approvePO.png" Width="120" Height="32"  Margin="-2,-2,0,2" >
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleX="-2.526"/>
+                            <RotateTransform/>
+                            <TranslateTransform X="0.706"/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </Button.Content>
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="1" Padding="2">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
+
+
+        <CheckBox x:Name="checkbox_Approve2" Content="Approve Quotation 2" Margin="447,389,733,287" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Background="#E7F8F0" IsChecked="False" Checked="checkbox_Approve2_Checked">
+        </CheckBox>
+        <CheckBox x:Name="checkbox_Approve3" Content="Approve Quotation 3" Margin="872,390,292,293" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Background="#E7F8F0" IsChecked="False" Checked="checkbox_Approve3_Checked">
+        </CheckBox>
+
+        <Label x:Name="lbl_ApprovalStatus" Content="Approval Status:" HorizontalAlignment="Left" Margin="1014,119,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Width="102"/>
+        <ComboBox x:Name="cbx_ApprovalStatus_id" HorizontalAlignment="Left" Margin="1118,118,0,0" VerticalAlignment="Top" Width="175" Height="30" DropDownOpened="cbx_ApprovalStatus_id_DropDownOpened"/>
+        <DataGrid x:Name="grid_quote_1" Margin="57,413,910,127" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" IsReadOnly="True"  />
+        <DataGrid x:Name="grid_quote_2" Margin="448,414,486,126" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_quote_2_SelectionChanged" IsReadOnly="True" />
+        <DataGrid x:Name="grid_quote_3" Margin="873,415,46,125" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_quote_3_SelectionChanged" IsReadOnly="True"/>
+        <DataGrid x:Name="grid_po_confirmation" Margin="384,257,558,339" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_po_confirmation_SelectionChanged"  IsReadOnly="True"/>
+        <Label x:Name="Remarks" Content="Remarks : " HorizontalAlignment="Left" Margin="818,242,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+        <TextBox x:Name="txt_PO_Remarks" HorizontalAlignment="Left" Margin="820,266,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="476" Height="68" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" TextChanged="txt_PO_Remarks_TextChanged" >
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+                    <Setter Property="BorderBrush" Value="#8CBD48"/>
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    <Setter Property="AllowDrop" Value="true"/>
+                    <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+                    <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type TextBox}">
+                                <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                    </Grid>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="true">
+                                        <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
+                                    </Trigger>
+                                    <MultiTrigger>
+                                        <MultiTrigger.Conditions>
+                                            <Condition Property="Text" Value=""/>
+                                        </MultiTrigger.Conditions>
+                                    </MultiTrigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+
+        <!--
+        
+        
+        
+
+        
+        
+       
+        -->
+        <!--<Button x:Name="btn_compare" HorizontalAlignment="Left" Margin="280,244,0,0" VerticalAlignment="Top"  Width="120" Height="29">
             <Button.Content>
                 <Image Source="Images\Icons\btn_compare.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
             </Button.Content>
@@ -200,142 +734,10 @@
                     </Setter>
                 </Style>
             </Button.Style>
-        </Button>
+        </Button>-->
+        <!--
 
-        <Button x:Name="btn_Create_PO" HorizontalAlignment="Left" Margin="822,330,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click="btn_Create_PO_Click" >
-            <Button.Content>
-                <Image Source="Images\Icons\btn_createPO.png" Width="120" Height="32" RenderTransformOrigin="0.5,0.5" >
-                    <Image.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform AngleX="-2.526"/>
-                            <RotateTransform/>
-                            <TranslateTransform X="0.706"/>
-                        </TransformGroup>
-                    </Image.RenderTransform>
-                </Image>
-            </Button.Content>
-            <Button.Style>
-                <Style TargetType="{x:Type Button}">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="Button">
-                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="1" Padding="2">
-                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Button.Style>
-        </Button>
-        <Button x:Name="btn_Generate" HorizontalAlignment="Left" Margin="959,330,0,0" VerticalAlignment="Top"  Width="120" Height="29">
-            <Button.Content>
-                <Image Source="Images\Icons\btn_generatePO.png" Width="120" Height="32" RenderTransformOrigin="0.5,0.5" >
-                    <Image.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform AngleX="-2.526"/>
-                            <RotateTransform/>
-                            <TranslateTransform X="0.706"/>
-                        </TransformGroup>
-                    </Image.RenderTransform>
-                </Image>
-            </Button.Content>
-            <Button.Style>
-                <Style TargetType="{x:Type Button}">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="Button">
-                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="1" Padding="2">
-                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Button.Style>
-        </Button>
-        <Button x:Name="btn_Approve" HorizontalAlignment="Left" Margin="1093,330,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click="btn_Approve_Click">
-            <Button.Content>
-                <Image Source="Images\Icons\btn_generatePO.png" Width="120" Height="32" RenderTransformOrigin="0.5,0.5" >
-                    <Image.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform AngleX="-2.526"/>
-                            <RotateTransform/>
-                            <TranslateTransform X="0.706"/>
-                        </TransformGroup>
-                    </Image.RenderTransform>
-                </Image>
-            </Button.Content>
-            <Button.Style>
-                <Style TargetType="{x:Type Button}">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="Button">
-                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="1" Padding="2">
-                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Button.Style>
-        </Button>
-        <Label x:Name="lbl_ApprovalStatus" Content="Approval Status:" HorizontalAlignment="Left" Margin="915,119,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <ComboBox x:Name="cbx_ApprovalStatus_id" HorizontalAlignment="Left" Margin="1030,117,0,0" VerticalAlignment="Top" Width="175" Height="30" DropDownOpened="cbx_ApprovalStatus_id_DropDownOpened"/>
-        <DataGrid x:Name="grid_quote_1" Margin="57,390,839,125" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" IsReadOnly="True"  />
-        <DataGrid x:Name="grid_quote_2" Margin="448,390,442,125" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_quote_2_SelectionChanged" IsReadOnly="True" />
-        <DataGrid x:Name="grid_quote_3" Margin="839,390,66,125" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_quote_3_SelectionChanged" IsReadOnly="True"/>
-        <DataGrid x:Name="grid_po_confirmation" Margin="414,244,463,311" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_po_confirmation_SelectionChanged"  IsReadOnly="True"/>
-        <Label x:Name="Remarks" Content="Remarks : " HorizontalAlignment="Left" Margin="818,238,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <TextBox x:Name="txt_PO_Remarks" HorizontalAlignment="Left" Margin="820,266,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="376" Height="57" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" TextChanged="txt_PO_Remarks_TextChanged" >
-            <TextBox.Style>
-                <Style TargetType="{x:Type TextBox}">
-                    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
-                    <Setter Property="BorderBrush" Value="#8CBD48"/>
-                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-                    <Setter Property="BorderThickness" Value="1"/>
-                    <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-                    <Setter Property="AllowDrop" Value="true"/>
-                    <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
-                    <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type TextBox}">
-                                <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="5">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-                                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
-                                    </Grid>
-                                </Border>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsEnabled" Value="false">
-                                        <Setter Property="Opacity" TargetName="border" Value="0.56"/>
-                                    </Trigger>
-                                    <Trigger Property="IsMouseOver" Value="true">
-                                        <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
-                                    </Trigger>
-                                    <Trigger Property="IsKeyboardFocused" Value="true">
-                                        <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
-                                    </Trigger>
-                                    <MultiTrigger>
-                                        <MultiTrigger.Conditions>
-                                            <Condition Property="Text" Value=""/>
-                                        </MultiTrigger.Conditions>
-                                    </MultiTrigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </TextBox.Style>
-        </TextBox>
+       
+       -->
     </Grid>
 </Window>

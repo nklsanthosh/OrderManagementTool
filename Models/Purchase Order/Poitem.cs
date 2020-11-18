@@ -11,6 +11,6 @@ namespace OrderManagementTool.Models.Purchase_Order
         public int Quantity { get; set; }
         public string Units { get; set; }
         public double Unit_Price { get; set; }
-        public double Total_Price { get; set; }
+        public decimal Total_Price { get; set; }
     }
 }

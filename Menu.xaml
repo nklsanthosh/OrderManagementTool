@@ -31,10 +31,10 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Label x:Name="lbl_Po_item" Content="PO Creation" HorizontalAlignment="Left" Margin="64,230,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" />
-        <Button x:Name="btn_create_PO"  HorizontalAlignment="Left" Margin="238,230,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_create_PO_Click" >
+        <Label x:Name="lbl_Po_item" Content="PO Creation" HorizontalAlignment="Left" Margin="379,191,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" />
+        <Button x:Name="btn_create_PO"  HorizontalAlignment="Left" Margin="557,192,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_create_PO_Click" >
             <Button.Content>
-                <Image Source="Images\Icons\btn_create_indent.jpg" Margin="-2,-2,0,0" Width="130" Height="32"/>
+                <Image Source="Images\Icons\btn_createPO.png" Margin="-2,-2,0,0" Width="130" Height="32"/>
 
             </Button.Content>
             <Button.Style>
@@ -130,9 +130,9 @@
             </TextBox.Style>
         </TextBox>
 
-        <TextBox x:Name="txt_po_indent_no" HorizontalAlignment="Left" Margin="148,230,0,0" Text="" TextWrapping="Wrap"
-                 VerticalAlignment="Top"  Width="72" Height="30"
-                 BorderBrush="#FF8CBD4B" UseLayoutRounding="False" Tag="Indent #" TextBlock.TextAlignment="Left" 
+        <TextBox x:Name="txt_po_indent_no" HorizontalAlignment="Left" Margin="455,190,0,0" Text="" TextWrapping="Wrap"
+                 VerticalAlignment="Top"  Width="97" Height="30"
+                 BorderBrush="#FF8CBD4B" UseLayoutRounding="False" Tag="PO #" TextBlock.TextAlignment="Center" 
                  TextBlock.LineStackingStrategy="BlockLineHeight"  VerticalContentAlignment="Center" >
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
@@ -156,7 +156,7 @@
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
                                         <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
-                                        
+
                                         <TextBlock Grid.Column="1"  Padding="0,0,0,0" Margin="0,0,0,0" ForceCursor="True"/>
                                         <Label Margin="10,0,0,0" x:Name="WaterMarkLabel" Content="{TemplateBinding Tag}" VerticalAlignment="Center"
                                             Visibility="Collapsed" Foreground="Gray" FontFamily="Arial"/>
