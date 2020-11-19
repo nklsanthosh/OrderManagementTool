@@ -90,19 +90,32 @@ namespace OrderManagementTool
         {
             if (txt_po_indent_no.Text != "")
             {
-                long indentNo = Convert.ToInt64(txt_po_indent_no.Text);
-                QuoteComparer qC = new QuoteComparer(_login, indentNo);
-                qC.Show();
-                this.Close();
+                long POID = Convert.ToInt64(txt_po_indent_no.Text);
+
+                var isFound = (from i in orderManagementContext.Pomaster where i.PoId == POID select i).FirstOrDefault();
+
+                if (isFound != null)
+                {
+                    QuoteComparer qC = new QuoteComparer(_login, POID);
+                    qC.Show();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Please enter a valid Purchase Order Number ",
+                                   "Order Management System",
+                                       MessageBoxButton.OK,
+                                           MessageBoxImage.Error);
+                }
             }
             else
-            {               
+            {
                 QuoteComparer qC = new QuoteComparer(_login);
                 qC.Show();
                 this.Close();
             }
 
-           
+
         }
 
         private void btn_search_indent_Click(object sender, RoutedEventArgs e)

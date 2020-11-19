@@ -74,7 +74,7 @@ namespace OrderManagementTool
             _login = login;
             InitializeComponent();
             GetPurchaseOrder(PO_ID);
-            txt_indent_no.Text = PO_ID.ToString();
+          
             LoadApprovalStatus();
             FillIndent();
         }
@@ -491,6 +491,9 @@ namespace OrderManagementTool
             btn_upload_3.IsEnabled = false;
             txt_PO_Remarks.IsEnabled = false;
             cbx_ApprovalStatus_id.IsEnabled = false;
+            btn_Approve.IsEnabled = false;
+            btn_Create_PO.IsEnabled = false;
+            btn_Generate.IsEnabled = false;
         }
 
         private void EnableFields()
@@ -504,6 +507,8 @@ namespace OrderManagementTool
             btn_upload_3.IsEnabled = true;
             txt_PO_Remarks.IsEnabled = true;
             cbx_ApprovalStatus_id.IsEnabled = true;
+            btn_Create_PO.IsEnabled = true;
+            btn_Generate.IsEnabled = true;
         }
 
 
@@ -614,13 +619,13 @@ namespace OrderManagementTool
                     this.Cursor = null;
                     return;
                 }
-                if(poitems_4.Count==0)
-                {
-                    MessageBox.Show("Please approve any of the 3 Quotations",
-                         "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
-                    this.Cursor = null;
-                    return;
-                }
+                //if(poitems_4.Count==0)
+                //{
+                //    MessageBox.Show("Please approve any of the 3 Quotations",
+                //         "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                //    this.Cursor = null;
+                //    return;
+                //}
                 if (txt_indent_no.Text == null || txt_indent_no.Text == "")
                 {
                     MessageBox.Show("Please enter indent number",
