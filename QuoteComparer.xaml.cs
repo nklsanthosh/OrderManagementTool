@@ -75,7 +75,7 @@ namespace OrderManagementTool
             InitializeComponent();
             GetPurchaseOrder(PO_ID);
             FillIndent();
-            FillApprovalStatusLevel();
+            FillApprovalStatusLevel(txt_PO_no.Text.Trim().ToString());
         }
 
         private void DisableCheckBoxes()
@@ -316,7 +316,7 @@ namespace OrderManagementTool
             }
         }
 
-        private void FillApprovalStatusLevel()
+        private void FillApprovalStatusLevel(string poID)
         {
             try
             {
@@ -328,7 +328,7 @@ namespace OrderManagementTool
                     testCMD.CommandType = CommandType.StoredProcedure;
 
                     //testCMD.Parameters.Add(new SqlParameter("@UserId", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
-                    testCMD.Parameters.Add(new SqlParameter("@POId", System.Data.SqlDbType.VarChar, 300) { Value = txt_PO_no.Text.Trim().ToString() });
+                    testCMD.Parameters.Add(new SqlParameter("@POId", System.Data.SqlDbType.VarChar, 300) { Value = poID });
 
                     // SqlDataReader dataReader = testCMD.ExecuteReader();
                     SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(testCMD);
@@ -936,12 +936,40 @@ namespace OrderManagementTool
             {
                 indentNo = Convert.ToInt64(txt_indent_no.Text);
                 var isApproved = (from i in orderManagementContext.IndentApproval where i.IndentId == indentNo && i.ApprovalStatusId == 2 select i).FirstOrDefault();
-
+                
                 if (isApproved != null)
                 {
-                    FillIndent();
-                    EnableFields();
-                    DisableCheckBoxes();
+                    var isPOApproved = (from i in orderManagementContext.IndentMaster
+                                        join j in orderManagementContext.Pomaster on i.IndentId equals j.IndentId
+                                        join k in orderManagementContext.Poapproval on j.PoId equals k.PoId
+                                        where i.IndentId == indentNo && k.ApprovalStatusId == 2
+                                        select i).FirstOrDefault();
+                    if (isPOApproved != null)
+                    {
+                        var poApprovedID = (from i in orderManagementContext.Pomaster
+                                    join j in orderManagementContext.IndentApproval on i.IndentId equals j.IndentId
+                                    join k in orderManagementContext.Podetails on i.PoId equals k.PoId
+                                    where i.IndentId == indentNo && j.ApprovalStatusId == 2 && k.QNo == 4
+                                    select i).FirstOrDefault();
+                        GetPurchaseOrder(poApprovedID.PoId);
+                        FillIndent();
+                        EnableFields();
+                        DisableCheckBoxes();
+                        FillApprovalStatusLevel(Convert.ToString(poApprovedID.PoId));
+                    }
+                    else
+                    {
+                        var poID = (from i in orderManagementContext.Pomaster
+                                    join j in orderManagementContext.IndentApproval on i.IndentId equals j.IndentId
+                                    join k in orderManagementContext.Podetails on i.PoId equals k.PoId
+                                    where i.IndentId == indentNo && j.ApprovalStatusId == 2 && k.QNo == 1
+                                    select i).FirstOrDefault();
+                        GetPurchaseOrder(poID.PoId);
+                        FillIndent();
+                        EnableFields();
+                        DisableCheckBoxes();
+                        FillApprovalStatusLevel(Convert.ToString(poID.PoId));
+                    }
                 }
                 else
                 {
