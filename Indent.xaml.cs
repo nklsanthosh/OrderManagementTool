@@ -1396,7 +1396,7 @@ namespace OrderManagementTool
                     PullIndentData(lstInputData, stream);
                 }
                 File.SetAttributes(filePath, FileAttributes.Normal);
-                string targetPath = Convert.ToString(ConfigurationManager.AppSettings["TargetReportPath"]);
+                //string targetPath = Convert.ToString(ConfigurationManager.AppSettings["TargetReportPath"]);
                 ////var fileName = file.Name.Split('.');
                 ////targetPath = targetPath + "\\" + fileName[0] + DateTime.Now.ToString()+ "."+fileName[1];
                 //targetPath = targetPath + "\\" + openFileDialog.SafeFileName;
