@@ -233,20 +233,20 @@
                                     <VisualState x:Name="Normal_Selected">
                                         <Storyboard>
                                             <ColorAnimationUsingKeyFrames Storyboard.TargetName="DGR_Border" Storyboard.TargetProperty="(Panel.Background).                         (GradientBrush.GradientStops)[0].(GradientStop.Color)">
-                                                <EasingColorKeyFrame KeyTime="0" Value="#F7FCF9" />
+                                                <EasingColorKeyFrame KeyTime="0" Value="DarkGreen" />
                                             </ColorAnimationUsingKeyFrames>
                                             <ColorAnimationUsingKeyFrames Storyboard.TargetName="DGR_Border" Storyboard.TargetProperty="(Panel.Background).                         (GradientBrush.GradientStops)[1].(GradientStop.Color)">
-                                                <EasingColorKeyFrame KeyTime="0" Value="#F7FCF9" />
+                                                <EasingColorKeyFrame KeyTime="0" Value="DarkGreen" />
                                             </ColorAnimationUsingKeyFrames>
                                         </Storyboard>
                                     </VisualState>
                                     <VisualState x:Name="MouseOver">
                                         <Storyboard>
                                             <ColorAnimationUsingKeyFrames Storyboard.TargetName="DGR_Border" Storyboard.TargetProperty="(Panel.Background).                         (GradientBrush.GradientStops)[0].(GradientStop.Color)">
-                                                <EasingColorKeyFrame KeyTime="0" Value="#F7FCF9" />
+                                                <EasingColorKeyFrame KeyTime="0" Value="GreenYellow" />
                                             </ColorAnimationUsingKeyFrames>
                                             <ColorAnimationUsingKeyFrames Storyboard.TargetName="DGR_Border" Storyboard.TargetProperty="(Panel.Background).                         (GradientBrush.GradientStops)[1].(GradientStop.Color)">
-                                                <EasingColorKeyFrame KeyTime="0" Value="#F7FCF9" />
+                                                <EasingColorKeyFrame KeyTime="0" Value="GreenYellow" />
                                             </ColorAnimationUsingKeyFrames>
                                         </Storyboard>
                                     </VisualState>
