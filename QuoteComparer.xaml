@@ -403,7 +403,7 @@
         <Label x:Name="lblApprovedQuote" Content="Approved Quote" HorizontalAlignment="Left"  Margin="268,4,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Width="100" Grid.Row="1"/>
         <CheckBox x:Name="checkbox_Approve1" Content="Approve Quotation 1" Margin="58,134,1139,293" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Background="#E7F8F0" IsChecked="False" Checked="checkbox_Approve1_Checked" Grid.Row="1">
         </CheckBox>
-        <Image Source="Images/logo.png" Margin="47,36,1216,144"/>
+        <Image Source="Images/logo.png" Margin="51,36,1212,144"/>
         <Image Source="images/icons/horizontal_line_icon.png" Margin="46,99,39,125"  />
         <Image Source="images/icons/grey_icon.png" Margin="123,33,1201,147"  />
         <Image Source="images/icons/horizontal_line_icon.png" Margin="45,338,39,101" Grid.Row="1" />
@@ -511,8 +511,8 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <DataGrid x:Name="grid_indentdata" Margin="52,156,385,2" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_indentdata_SelectionChanged"  />
-        <DataGrid x:Name="grid_ApprovalStatusLevel" Margin="1000,153,64,463" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" Grid.RowSpan="2"   />
+        <DataGrid x:Name="grid_indentdata" Margin="52,156,365,2" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_indentdata_SelectionChanged"  />
+        <DataGrid x:Name="grid_ApprovalStatusLevel" Margin="1010,153,54,0" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*"   />
         <Label x:Name="lbl_quote_1" Content="Quotation 1" HorizontalAlignment="Left" Margin="52,7,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Grid.Row="1"/>
         <Button x:Name="btn_upload" HorizontalAlignment="Left" Margin="130,4,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click=" btn_upload_Click_1" Grid.Row="1">
             <Button.Content>
@@ -658,14 +658,14 @@
         <CheckBox x:Name="checkbox_Approve3" Content="Approve Quotation 3" Margin="872,136,292,293" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Background="#E7F8F0" IsChecked="False" Checked="checkbox_Approve3_Checked" Grid.Row="1">
         </CheckBox>
 
-        <Label x:Name="lbl_ApprovalStatus" Content="Approval Status:" HorizontalAlignment="Left" Margin="1014,119,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Width="102"/>
-        <ComboBox x:Name="cbx_ApprovalStatus_id" HorizontalAlignment="Left" Margin="1118,118,0,0" VerticalAlignment="Top" Width="175" Height="30" DropDownOpened="cbx_ApprovalStatus_id_DropDownOpened" />
+        <Label x:Name="lbl_ApprovalStatus" Content="Approval Status:" HorizontalAlignment="Left" Margin="1004,119,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Width="102"/>
+        <ComboBox x:Name="cbx_ApprovalStatus_id" HorizontalAlignment="Left" Margin="1114,118,0,0" VerticalAlignment="Top" Width="175" Height="30" DropDownOpened="cbx_ApprovalStatus_id_DropDownOpened" />
         <DataGrid x:Name="grid_quote_1" Margin="57,159,910,127" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" IsReadOnly="True" Grid.Row="1"  />
-        <DataGrid x:Name="grid_quote_2" Margin="448,160,486,126" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_quote_2_SelectionChanged" IsReadOnly="True" Grid.Row="1" />
+        <DataGrid x:Name="grid_quote_2" Margin="448,160,486,126" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_quote_2_SelectionChanged" IsReadOnly="True" Grid.Row="1"  />
         <DataGrid x:Name="grid_quote_3" Margin="873,161,46,125" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_quote_3_SelectionChanged" IsReadOnly="True" Grid.Row="1"/>
         <DataGrid x:Name="grid_po_confirmation" Margin="384,3,558,339" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_po_confirmation_SelectionChanged"  IsReadOnly="True" Grid.Row="1"/>
-        <Label x:Name="Remarks" Content="Remarks : " HorizontalAlignment="Left" Margin="818,242,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Grid.RowSpan="2"/>
-        <TextBox x:Name="txt_PO_Remarks" HorizontalAlignment="Left" Margin="820,12,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="476" Height="68" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" TextChanged="txt_PO_Remarks_TextChanged" Grid.Row="1" >
+        <Label x:Name="Remarks" Content="Remarks : " HorizontalAlignment="Left" Margin="818,248,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Grid.RowSpan="2"/>
+        <TextBox x:Name="txt_PO_Remarks" HorizontalAlignment="Left" Margin="820,20,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="466" Height="60" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" TextChanged="txt_PO_Remarks_TextChanged" Grid.Row="1" >
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>

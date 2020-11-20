@@ -1237,9 +1237,13 @@ namespace OrderManagementTool
                         DateTime.Now.Second.ToString() + ".xlsx";
 
                 workBook.SaveAs(filePath);
+
+                MessageBox.Show("Purchase Order is generated in " + filePath, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
+
+                MessageBox.Show("Error occured while generating report ."+ ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                 //Console.WriteLine("An Exception occurred. Kindly contact the Administrator");
                 //////log.Error("Error while generating for Bot Report");
                 //////log.Error(ex.Message);
