@@ -1031,7 +1031,7 @@ namespace OrderManagementTool
                 //    .MoveTo(worksheet.Cell("A1"))
                 //    .Scale(.1).Placement = ClosedXML.Excel.Drawings.XLPicturePlacement.Move;
 
-                var imagePath = @"..\..\..\Images\Modified_Image.png";
+                var imagePath = @"..\..\..\Images\Modified-Image.png";
 
                 var image = worksheet.AddPicture(imagePath)
                     .MoveTo(worksheet.Cell("B1"))
