@@ -654,7 +654,7 @@
         </CheckBox>
 
         <Label x:Name="lbl_ApprovalStatus" Content="Approval Status:" HorizontalAlignment="Left" Margin="1014,119,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Width="102"/>
-        <ComboBox x:Name="cbx_ApprovalStatus_id" HorizontalAlignment="Left" Margin="1118,118,0,0" VerticalAlignment="Top" Width="175" Height="30" DropDownOpened="cbx_ApprovalStatus_id_DropDownOpened"/>
+        <ComboBox x:Name="cbx_ApprovalStatus_id" HorizontalAlignment="Left" Margin="1118,118,0,0" VerticalAlignment="Top" Width="175" Height="30" DropDownOpened="cbx_ApprovalStatus_id_DropDownOpened" />
         <DataGrid x:Name="grid_quote_1" Margin="57,413,910,127" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" IsReadOnly="True"  />
         <DataGrid x:Name="grid_quote_2" Margin="448,414,486,126" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_quote_2_SelectionChanged" IsReadOnly="True" />
         <DataGrid x:Name="grid_quote_3" Margin="873,415,46,125" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_quote_3_SelectionChanged" IsReadOnly="True"/>

@@ -41,7 +41,7 @@ namespace OrderManagementTool
         private List<string> units;
         private string selectedItemCategoryName;
         private int quantityEntered;
-        private int gridSelectedIndex;
+        //private int gridSelectedIndex;
         OrderManagementContext orderManagementContext = new OrderManagementContext();
         private List<GridIndent> gridIndents = new List<GridIndent>();
         // public BindableCollection<string> ItemName { get; set; }
@@ -50,7 +50,7 @@ namespace OrderManagementTool
         public long indentNo;
         // public string mailFrom;
         public string mailTo;
-        private bool isGridReadOnly = false;
+        //private bool isGridReadOnly = false;
         List<Poitem> poitems_1 = new List<Poitem>();
         List<Poitem> poitems_2 = new List<Poitem>();
         List<Poitem> poitems_3 = new List<Poitem>();
@@ -74,8 +74,6 @@ namespace OrderManagementTool
             _login = login;
             InitializeComponent();
             GetPurchaseOrder(PO_ID);
-          
-            LoadApprovalStatus();
             FillIndent();
         }
 
@@ -217,8 +215,7 @@ namespace OrderManagementTool
                         {
                             EnableCheckBoxes();
                         }
-
-
+                        btn_Approve.IsEnabled = false;
                     }
                 }
             }
@@ -465,7 +462,7 @@ namespace OrderManagementTool
                                     // loadExcelIndent.ExcelIndents = lstGridIndent;
                                 }
                             }
-                            _readData = new List<List<string>>(); 
+                            _readData = new List<List<string>>();
                             //}
                         } while (reader.NextResult()); //Move to NEXT SHEET
                     }
@@ -732,7 +729,7 @@ namespace OrderManagementTool
                     txt_PO_no.Text = poID.ToString();
                     //GeneratePO();
                     DisableFields();
-                    
+
                 }
 
             }
@@ -749,7 +746,14 @@ namespace OrderManagementTool
         {
             try
             {
-                LoadApprovalStatus();
+                if (txt_PO_no.Text != "")
+                {
+                    btn_Approve.IsEnabled = true;
+                }
+                else
+                {
+                    LoadApprovalStatus();
+                }
             }
             catch (Exception ex)
             {
@@ -813,6 +817,7 @@ namespace OrderManagementTool
             try
             {
                 poID = Convert.ToInt64(txt_PO_no.Text);
+                indentNo = Convert.ToInt64(txt_indent_no.Text);
                 int approvalStatus = Convert.ToInt32(cbx_ApprovalStatus_id.SelectedValue);
                 bool isMailSent = false;
                 if (poitems_4.Count < 1)
@@ -846,7 +851,7 @@ namespace OrderManagementTool
                             testCMD1.ExecuteNonQuery(); // read output value from @NewId 
                         }
 
-                        SqlCommand testCMD2 = new SqlCommand("CreatePurchaseOrderDetails", connection);
+                        SqlCommand testCMD2 = new SqlCommand("UpdatePurchaseOrderApproval", connection);
                         testCMD2.CommandType = CommandType.StoredProcedure;
                         testCMD2.Parameters.Add(new SqlParameter("@POId", System.Data.SqlDbType.BigInt, 50) { Value = poID });
                         testCMD2.Parameters.Add(new SqlParameter("@ApprovalStatusID", System.Data.SqlDbType.BigInt, 50) { Value = approvalStatus });
@@ -872,6 +877,7 @@ namespace OrderManagementTool
                         {
                             MessageBox.Show("Purchase Order " + poID + " is approved but mail is not sent", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
+                        DisableFields();
                     }
                 }
             }
@@ -892,11 +898,13 @@ namespace OrderManagementTool
                 {
                     FillIndent();
                     EnableFields();
+                    DisableCheckBoxes();
                 }
                 else
                 {
-                    MessageBox.Show("The indent "+indentNo+" is not approved and not eligible to create PO", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("The indent " + indentNo + " is not approved and not eligible to create PO", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                     DisableFields();
+                    DisableCheckBoxes();
                     txt_indent_no.IsEnabled = true;
                     return;
                 }
@@ -1001,8 +1009,8 @@ namespace OrderManagementTool
                 worksheet.Cell("E13").Style.Font.Bold = true;
                 // worksheet.Cell("F9").Value = headersAndFooters["Attn"];
                 worksheet.Cell("F10").Value = poData.Remarks;
-                worksheet.Cell("F11").Value = headersAndFooters["GSTNo"]; 
-                worksheet.Cell("F12").Value = headersAndFooters["IECNo"]; 
+                worksheet.Cell("F11").Value = headersAndFooters["GSTNo"];
+                worksheet.Cell("F12").Value = headersAndFooters["IECNo"];
                 worksheet.Cell("F13").Value = "1 Of 1";
 
                 worksheet.Cell("F10").Style.Font.Bold = true;
@@ -1087,13 +1095,13 @@ namespace OrderManagementTool
                 worksheet.Cell("A" + j).Value = headersAndFooters["SplLine1"];
                 worksheet.Cell("A" + j).Value = worksheet.Cell("A" + j).Value + "\n" +
                     headersAndFooters["SplLine2"];
-                worksheet.Cell("A" +j).WorksheetRow().Height=60;
+                worksheet.Cell("A" + j).WorksheetRow().Height = 60;
 
                 worksheet.Cell("A" + j).Style.Alignment.WrapText = true;
                 var rangeMerged8 = worksheet.Range("D" + j + ":F" + j).Merge();
                 worksheet.Cell("D" + j).Value = headersAndFooters["RejLine1"];
                 worksheet.Cell("D" + j).Style.Alignment.WrapText = true;
-                
+
                 row = worksheet.Row(1);
                 row.AdjustToContents();
                 row.Height = 40;

@@ -1,8 +1,11 @@
 ﻿//using log4net;
+using Microsoft.Data.SqlClient;
 using OrderManagementTool.Models;
 using OrderManagementTool.Models.LogIn;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Windows;
 
@@ -88,33 +91,67 @@ namespace OrderManagementTool
 
         private void btn_create_PO_Click(object sender, RoutedEventArgs e)
         {
-            if (txt_po_indent_no.Text != "")
+            try
             {
-                long POID = Convert.ToInt64(txt_po_indent_no.Text);
-
-                var isFound = (from i in orderManagementContext.Pomaster where i.PoId == POID select i).FirstOrDefault();
-
-                if (isFound != null)
+                if (txt_po_indent_no.Text != "")
                 {
-                    QuoteComparer qC = new QuoteComparer(_login, POID);
-                    qC.Show();
-                    this.Close();
+                    long POID = Convert.ToInt64(txt_po_indent_no.Text);
+
+                    // var isFound = (from i in orderManagementContext.Poapproval where i.PoId == POID select i).FirstOrDefault();
+
+                    int? isFound = null;
+
+                    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
+                    {
+                        connection.Open();
+
+                        SqlCommand testCMD = new SqlCommand("POCountForUser", connection);
+                        testCMD.CommandType = CommandType.StoredProcedure;
+
+                        testCMD.Parameters.Add(new SqlParameter("@POId", System.Data.SqlDbType.BigInt, 50) { Value = POID });
+                        testCMD.Parameters.Add(new SqlParameter("@UserId", System.Data.SqlDbType.BigInt, 50) { Value = (_login.EmployeeID).ToString() });
+
+                        SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(testCMD);
+
+                        DataSet dataSet = new DataSet();
+                        sqlDataAdapter.Fill(dataSet);
+
+                        int counter = 0;
+                        while (counter < dataSet.Tables[0].Rows.Count)
+                        {
+                            isFound = Convert.ToInt32(dataSet.Tables[0].Rows[counter]["Count"]);
+                            counter++;
+                        }
+                        dataSet.Dispose();
+                    }
+                    if (isFound != null)
+                    {
+                        QuoteComparer qC = new QuoteComparer(_login, POID);
+                        qC.Show();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("You are not authorised to view the PO ",
+                                       "Order Management System",
+                                           MessageBoxButton.OK,
+                                               MessageBoxImage.Error);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Please enter a valid Purchase Order Number ",
+                    QuoteComparer qC = new QuoteComparer(_login);
+                    qC.Show();
+                    this.Close();
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("An error occured PO Access Check " + ex.Message,
                                    "Order Management System",
                                        MessageBoxButton.OK,
                                            MessageBoxImage.Error);
-                }
             }
-            else
-            {
-                QuoteComparer qC = new QuoteComparer(_login);
-                qC.Show();
-                this.Close();
-            }
-
 
         }
 
