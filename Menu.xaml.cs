@@ -132,7 +132,7 @@ namespace OrderManagementTool
                     }
                     else
                     {
-                        MessageBox.Show("You are not authorised to view the PO ",
+                        MessageBox.Show("You are not authorised to view the PO " + POID,
                                        "Order Management System",
                                            MessageBoxButton.OK,
                                                MessageBoxImage.Error);
@@ -145,7 +145,7 @@ namespace OrderManagementTool
                     this.Close();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("An error occured PO Access Check " + ex.Message,
                                    "Order Management System",
@@ -164,11 +164,37 @@ namespace OrderManagementTool
                 {
                     long indentNo = long.Parse(txt_indent_no.Text);
 
-                    var idFound = (from i in orderManagementContext.IndentApproval
-                                   where i.IndentId == indentNo
-                                   select i).FirstOrDefault();
+                    //var idFound = (from i in orderManagementContext.IndentApproval
+                    //               where i.IndentId == indentNo
+                    //               select i).FirstOrDefault();
 
-                    if (idFound != null)
+                    int? isFound = null;
+
+                    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
+                    {
+                        connection.Open();
+
+                        SqlCommand testCMD = new SqlCommand("IndentCountForUser", connection);
+                        testCMD.CommandType = CommandType.StoredProcedure;
+
+                        testCMD.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.BigInt, 50) { Value = indentNo });
+                        testCMD.Parameters.Add(new SqlParameter("@UserId", System.Data.SqlDbType.BigInt, 50) { Value = (_login.EmployeeID).ToString() });
+
+                        SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(testCMD);
+
+                        DataSet dataSet = new DataSet();
+                        sqlDataAdapter.Fill(dataSet);
+
+                        int counter = 0;
+                        while (counter < dataSet.Tables[0].Rows.Count)
+                        {
+                            isFound = Convert.ToInt32(dataSet.Tables[0].Rows[counter]["Count"]);
+                            counter++;
+                        }
+                        dataSet.Dispose();
+                    }
+
+                    if (isFound != null)
                     {
                         Indent indent = new Indent(_login, indentNo);
                         indent.Show();
@@ -176,7 +202,7 @@ namespace OrderManagementTool
                     }
                     else
                     {
-                        MessageBox.Show("Please enter valid IndentID",
+                        MessageBox.Show("You are not authorised to view the indent " + indentNo,
                                   "Order Management System",
                                       MessageBoxButton.OK,
                                           MessageBoxImage.Error);
