@@ -238,7 +238,7 @@ namespace OrderManagementTool
                                 DisableFields();
                                 DisableCheckBoxes();
                             }
-                                           
+
                         }
                     }
                 }
@@ -882,7 +882,7 @@ namespace OrderManagementTool
         {
             try
             {
-                this.Cursor= Cursors.Wait;
+                this.Cursor = Cursors.Wait;
                 poID = Convert.ToInt64(txt_PO_no.Text);
                 indentNo = Convert.ToInt64(txt_indent_no.Text);
                 int approvalStatus = Convert.ToInt32(cbx_ApprovalStatus_id.SelectedValue);
@@ -1030,7 +1030,14 @@ namespace OrderManagementTool
                 //var image = worksheet.AddPicture(imagePath)
                 //    .MoveTo(worksheet.Cell("A1"))
                 //    .Scale(.1).Placement = ClosedXML.Excel.Drawings.XLPicturePlacement.Move;
-                var rangeMerged = worksheet.Range("A1:F1").Merge();
+
+                var imagePath = @"..\..\..\Images\Modified_Image.png";
+
+                var image = worksheet.AddPicture(imagePath)
+                    .MoveTo(worksheet.Cell("B1"))
+                    .Scale(.15);
+
+                                var rangeMerged = worksheet.Range("A1:F1").Merge();
                 rangeMerged.Style.Border.BottomBorder = XLBorderStyleValues.Medium;
                 rangeMerged.Style.Border.TopBorder = XLBorderStyleValues.Medium;
                 rangeMerged.Style.Border.LeftBorder = XLBorderStyleValues.Medium;
@@ -1243,7 +1250,7 @@ namespace OrderManagementTool
             catch (Exception ex)
             {
 
-                MessageBox.Show("Error occured while generating report ."+ ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Error occured while generating report ." + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                 //Console.WriteLine("An Exception occurred. Kindly contact the Administrator");
                 //////log.Error("Error while generating for Bot Report");
                 //////log.Error(ex.Message);
