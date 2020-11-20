@@ -9,6 +9,7 @@ namespace OrderManagementTool.Models.Purchase_Order
         public long PO_ID { get; set; }
         public long Indent_No { get; set; }
         public long Approval_Status_Id { get; set; }
+        public long Approver_Id { get; set; }
         public List<PoItemwithQuotation> poItemsWithQuotation;
       
     }

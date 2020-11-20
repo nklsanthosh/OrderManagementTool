@@ -116,11 +116,13 @@ namespace OrderManagementTool
 
                     List<PoItemwithQuotation> poItemwithQuotation = new List<PoItemwithQuotation>();
 
+
                     while (counter < dataSet.Tables[0].Rows.Count)
                     {
                         pORetrival.PO_ID = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["PO_ID"]);
                         pORetrival.Indent_No = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["IndentID"]);
                         pORetrival.Approval_Status_Id = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["ApprovalStatusId"]);
+                        pORetrival.Approver_Id = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["ApproverId"]);
 
                         PoItemwithQuotation p1 = new PoItemwithQuotation();
                         p1.Description = Convert.ToString(dataSet.Tables[0].Rows[counter]["Description"]);
@@ -217,6 +219,27 @@ namespace OrderManagementTool
                             EnableCheckBoxes();
                         }
                         btn_Approve.IsEnabled = false;
+                        if (pORetrival.Approver_Id <= _login.EmployeeID)
+                        {
+                            if (pORetrival.Approver_Id == _login.EmployeeID)
+                            {
+                                if (pORetrival.Approval_Status_Id != 1)
+                                {
+                                    DisableFields();
+                                    DisableCheckBoxes();
+                                }
+                                else
+                                {
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                DisableFields();
+                                DisableCheckBoxes();
+                            }
+                                           
+                        }
                     }
                 }
             }
@@ -859,6 +882,7 @@ namespace OrderManagementTool
         {
             try
             {
+                this.Cursor= Cursors.Wait;
                 poID = Convert.ToInt64(txt_PO_no.Text);
                 indentNo = Convert.ToInt64(txt_indent_no.Text);
                 int approvalStatus = Convert.ToInt32(cbx_ApprovalStatus_id.SelectedValue);
@@ -923,9 +947,11 @@ namespace OrderManagementTool
                         DisableFields();
                     }
                 }
+                this.Cursor = null;
             }
             catch (Exception ex)
             {
+                this.Cursor = null;
                 MessageBox.Show("An error while approving : " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -936,7 +962,7 @@ namespace OrderManagementTool
             {
                 indentNo = Convert.ToInt64(txt_indent_no.Text);
                 var isApproved = (from i in orderManagementContext.IndentApproval where i.IndentId == indentNo && i.ApprovalStatusId == 2 select i).FirstOrDefault();
-                
+
                 if (isApproved != null)
                 {
                     var isPOApproved = (from i in orderManagementContext.IndentMaster
@@ -947,10 +973,10 @@ namespace OrderManagementTool
                     if (isPOApproved != null)
                     {
                         var poApprovedID = (from i in orderManagementContext.Pomaster
-                                    join j in orderManagementContext.IndentApproval on i.IndentId equals j.IndentId
-                                    join k in orderManagementContext.Podetails on i.PoId equals k.PoId
-                                    where i.IndentId == indentNo && j.ApprovalStatusId == 2 && k.QNo == 4
-                                    select i).FirstOrDefault();
+                                            join j in orderManagementContext.IndentApproval on i.IndentId equals j.IndentId
+                                            join k in orderManagementContext.Podetails on i.PoId equals k.PoId
+                                            where i.IndentId == indentNo && j.ApprovalStatusId == 2 && k.QNo == 4
+                                            select i).FirstOrDefault();
                         GetPurchaseOrder(poApprovedID.PoId);
                         FillIndent();
                         EnableFields();
@@ -959,16 +985,16 @@ namespace OrderManagementTool
                     }
                     else
                     {
-                        var poID = (from i in orderManagementContext.Pomaster
-                                    join j in orderManagementContext.IndentApproval on i.IndentId equals j.IndentId
-                                    join k in orderManagementContext.Podetails on i.PoId equals k.PoId
-                                    where i.IndentId == indentNo && j.ApprovalStatusId == 2 && k.QNo == 1
-                                    select i).FirstOrDefault();
-                        GetPurchaseOrder(poID.PoId);
+                        //var poID = (from i in orderManagementContext.Pomaster
+                        //            join j in orderManagementContext.IndentApproval on i.IndentId equals j.IndentId
+                        //            join k in orderManagementContext.Podetails on i.PoId equals k.PoId
+                        //            where i.IndentId == indentNo && j.ApprovalStatusId == 2 && k.QNo == 1
+                        //            select i).FirstOrDefault();
+                        //GetPurchaseOrder(poID.PoId);
                         FillIndent();
                         EnableFields();
                         DisableCheckBoxes();
-                        FillApprovalStatusLevel(Convert.ToString(poID.PoId));
+                        //FillApprovalStatusLevel(Convert.ToString(poID.PoId));
                     }
                 }
                 else
