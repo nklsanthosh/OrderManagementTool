@@ -75,6 +75,7 @@ namespace OrderManagementTool
             InitializeComponent();
             GetPurchaseOrder(PO_ID);
             FillIndent();
+            FillApprovalStatusLevel();
         }
 
         private void DisableCheckBoxes()
@@ -312,6 +313,48 @@ namespace OrderManagementTool
             catch (Exception ex)
             {
 
+            }
+        }
+
+        private void FillApprovalStatusLevel()
+        {
+            try
+            {
+                List<ApprovalStatusLevel> approvalStatusLevels = new List<ApprovalStatusLevel>();
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
+                {
+                    connection.Open();
+                    SqlCommand testCMD = new SqlCommand("getPOApprovalLevel", connection);
+                    testCMD.CommandType = CommandType.StoredProcedure;
+
+                    //testCMD.Parameters.Add(new SqlParameter("@UserId", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
+                    testCMD.Parameters.Add(new SqlParameter("@POId", System.Data.SqlDbType.VarChar, 300) { Value = txt_PO_no.Text.Trim().ToString() });
+
+                    // SqlDataReader dataReader = testCMD.ExecuteReader();
+                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(testCMD);
+
+                    DataSet dataSet = new DataSet();
+                    sqlDataAdapter.Fill(dataSet);
+
+                    int counter = 0;
+
+                    while (counter < dataSet.Tables[0].Rows.Count)
+                    {
+                        ApprovalStatusLevel approvalStatusLevel = new ApprovalStatusLevel();
+                        approvalStatusLevel.Approver_Name = Convert.ToString(dataSet.Tables[0].Rows[counter]["ApproverName"]);
+                        approvalStatusLevel.Approver_Status = Convert.ToString(dataSet.Tables[0].Rows[counter]["ApprovalStatus"]);
+                        approvalStatusLevels.Add(approvalStatusLevel);
+                        counter++;
+                    }
+                    dataSet.Dispose();
+                    grid_ApprovalStatusLevel.ItemsSource = null;
+                    grid_ApprovalStatusLevel.ItemsSource = approvalStatusLevels;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occured during Approval Status Check : " + ex.Message,
+                   "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void btn_upload_Click_1(object sender, RoutedEventArgs e)

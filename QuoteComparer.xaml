@@ -507,7 +507,8 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <DataGrid x:Name="grid_indentdata" Margin="52,156,39,472" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_indentdata_SelectionChanged"  />
+        <DataGrid x:Name="grid_indentdata" Margin="52,156,385,472" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_indentdata_SelectionChanged"  />
+        <DataGrid x:Name="grid_ApprovalStatusLevel" Margin="1000,153,64,463" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*"   />
         <Label x:Name="lbl_quote_1" Content="Quotation 1" HorizontalAlignment="Left" Margin="52,261,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
         <Button x:Name="btn_upload" HorizontalAlignment="Left" Margin="130,258,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click=" btn_upload_Click_1">
             <Button.Content>
