@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:OrderManagementTool"
         mc:Ignorable="d" Icon="/Images/logo.png" Background="#E7F8F0" 
         Title="ViewIndents" WindowStartupLocation="CenterScreen" Height="625" Width="1118"
-         ResizeMode="NoResize">
+         ResizeMode="CanMinimize">
     <Window.Resources>
         <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
             <Grid>

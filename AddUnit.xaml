@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OrderManagementTool"
         mc:Ignorable="d"
-        Title="Add Unit" Height="300" Width="550" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Add Unit" Height="300" Width="550" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
         <Border BorderThickness="1" Margin="100,60,65,40" BorderBrush="#8ABC48" Background="#FFFFFF" />
         <Label x:Name="lbl_unit" Content="Unit" HorizontalAlignment="Left" Margin="176,94,0,0" VerticalAlignment="Top" Width="38" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>

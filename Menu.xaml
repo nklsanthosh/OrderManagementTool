@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OrderManagementTool"
         mc:Ignorable="d" Icon="/Images/logo.png" Background="#E7F8F0" 
-        Title="Order Management System - Menu" Height="650" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Order Management System - Menu" Height="650" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid Margin="0,2,0,-2">
 
         <Border BorderThickness="1" BorderBrush="#8ABC48" Background="#FFFFFF" Margin="40,32,40,32"/>

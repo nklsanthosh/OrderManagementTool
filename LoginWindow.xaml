@@ -10,7 +10,7 @@
         AllowsTransparency="True"
         Height="600"
         Width="600"
-        Background="#E7F8F0" ResizeMode="NoResize">
+        Background="#E7F8F0" ResizeMode="CanMinimize">
 
     <Grid>
         <Border BorderThickness="1" BorderBrush="#8ABC48" Background="#FFFFFF" Margin="104,19,94,32"/>
