@@ -389,17 +389,43 @@ namespace OrderManagementTool
                 if (openFileDialog.ShowDialog() == true)
                     filePath = openFileDialog.FileName;
 
-                using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
+                string targetPath = Convert.ToString(ConfigurationManager.AppSettings["UploadQuotationPath"]);
+                string fileName = openFileDialog.SafeFileName.Split('.')[0] + "_" + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year + DateTime.Now.Hour + DateTime.Now.Minute + DateTime.Now.Second + "_" + _login.EmployeeID + "." + openFileDialog.SafeFileName.Split('.')[1];
+                //using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
+                //{
+                //    poitems_1 = PullIndentData(stream);
+                //}
+                //grid_quote_1.ItemsSource = null;
+                //grid_quote_1.ItemsSource = poitems_1;
+                //File.SetAttributes(filePath, FileAttributes.Normal);
+                try
                 {
-                    poitems_1 = PullIndentData(stream);
-                }
-                grid_quote_1.ItemsSource = null;
-                grid_quote_1.ItemsSource = poitems_1;
-                File.SetAttributes(filePath, FileAttributes.Normal);
-                string targetPath = Convert.ToString(ConfigurationManager.AppSettings["TargetReportPath"]);
+                    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
+                    {
+                        connection.Open();
+                        SqlCommand testCMD = new SqlCommand("InsertQuotationInformation", connection);
+                        testCMD.CommandType = CommandType.StoredProcedure;
 
-                //targetPath = targetPath + "\\" + openFileDialog.SafeFileName;
-                //File.Move(filePath, targetPath, true);
+                        //testCMD.Parameters.Add(new SqlParameter("@UserId", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
+                        testCMD.Parameters.Add(new SqlParameter("@QuotationFileName", System.Data.SqlDbType.VarChar, 300) { Value = fileName });
+                        testCMD.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.VarChar, 300) { Value = txt_indent_no.Text.ToString() });
+                        testCMD.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.Int, 300) { Value = _login.EmployeeID });
+                        testCMD.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.DateTime, 300) { Value = DateTime.Now });
+
+                        // SqlDataReader dataReader = testCMD.ExecuteReader();
+                        testCMD.ExecuteNonQuery();
+                        
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error occurred while saving Quotation information.", 
+                        "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                
+                
+                targetPath = targetPath + "\\" + fileName;
+                File.Move(filePath, targetPath, true);
                 MessageBox.Show("The file has been processed and data has been uploaded.",
                         "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                 // log.Info("The file has been processed and data has been uploaded.");
@@ -1037,7 +1063,7 @@ namespace OrderManagementTool
                     .MoveTo(worksheet.Cell("B1"))
                     .Scale(.15);
 
-                                var rangeMerged = worksheet.Range("A1:F1").Merge();
+                var rangeMerged = worksheet.Range("A1:F1").Merge();
                 rangeMerged.Style.Border.BottomBorder = XLBorderStyleValues.Medium;
                 rangeMerged.Style.Border.TopBorder = XLBorderStyleValues.Medium;
                 rangeMerged.Style.Border.LeftBorder = XLBorderStyleValues.Medium;
