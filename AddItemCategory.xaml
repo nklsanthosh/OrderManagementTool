@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OrderManagementTool"
         mc:Ignorable="d"
-        Title="Add Item Category" Height="300" Width="550" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Add Item Category" Height="300" Width="550" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
         <Border BorderThickness="1" BorderBrush="#8ABC48" Background="#FFFFFF" Margin="76,60,60,40"/>
         <Label x:Name="lbl_category_name" Content="Category Name " HorizontalAlignment="Left" Margin="122,90,0,0" FontWeight="Regular" VerticalAlignment="Top" Width="100" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" />

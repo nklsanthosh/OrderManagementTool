@@ -126,6 +126,7 @@ namespace OrderManagementTool
 
                         PoItemwithQuotation p1 = new PoItemwithQuotation();
                         p1.Offer_Number = Convert.ToString(dataSet.Tables[0].Rows[counter]["Offer_Number"]);
+                        p1.Description = Convert.ToString(dataSet.Tables[0].Rows[counter]["Description"]);
                         p1.Vendor_Name = Convert.ToString(dataSet.Tables[0].Rows[counter]["Vendor_Name"]);
                         p1.Vendor_Code = Convert.ToString(dataSet.Tables[0].Rows[counter]["Vendor_Code"]);
                         p1.Offer_Date = Convert.ToString(dataSet.Tables[0].Rows[counter]["Offer_Date"]);

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OrderManagementTool"
         mc:Ignorable="d" Icon="/Images/logo.png" Background="#E7F8F0" 
-        Title="Order Management System - Masters" Height="683" Width="718" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Order Management System - Masters" Height="683" Width="718" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Window.Resources>
         <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
             <Grid>

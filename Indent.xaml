@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:OrderManagementTool"
         mc:Ignorable="d" Icon="/Images/logo.png" Background="#E7F8F0" 
         Title="Order Management System - Indent" WindowStartupLocation="CenterScreen" Height="676" Width="1262"
-         ResizeMode="NoResize">
+         ResizeMode="CanMinimize">
     <Window.Resources>
         <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
             <Grid>

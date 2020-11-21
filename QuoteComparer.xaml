@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:OrderManagementTool"
         mc:Ignorable="d" Icon="/Images/logo.png" Background="#E7F8F0" 
         Title="Order Management System - Quote Comparer" WindowStartupLocation="CenterScreen" Height="740" Width="1350"
-         ResizeMode="NoResize">
+         ResizeMode="CanMinimize">
     <Window.Resources>
         <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
             <Grid>
