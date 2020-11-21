@@ -125,7 +125,13 @@ namespace OrderManagementTool
                         pORetrival.Approver_Id = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["ApproverId"]);
 
                         PoItemwithQuotation p1 = new PoItemwithQuotation();
-                        p1.Description = Convert.ToString(dataSet.Tables[0].Rows[counter]["Description"]);
+                        p1.Offer_Number = Convert.ToString(dataSet.Tables[0].Rows[counter]["Offer_Number"]);
+                        p1.Vendor_Name = Convert.ToString(dataSet.Tables[0].Rows[counter]["Vendor_Name"]);
+                        p1.Vendor_Code = Convert.ToString(dataSet.Tables[0].Rows[counter]["Vendor_Code"]);
+                        p1.Offer_Date = Convert.ToString(dataSet.Tables[0].Rows[counter]["Offer_Date"]);
+                        p1.Contact_No = Convert.ToString(dataSet.Tables[0].Rows[counter]["Contact_Number"]);
+                        p1.Contact_Person = Convert.ToString(dataSet.Tables[0].Rows[counter]["Contact_Person"]);
+                        p1.GST_Value = Convert.ToDecimal(dataSet.Tables[0].Rows[counter]["GST_Value"]);
                         p1.Quantity = Convert.ToInt32(dataSet.Tables[0].Rows[counter]["Quantity"]);
                         p1.Q_No = Convert.ToInt32(dataSet.Tables[0].Rows[counter]["Q_No"]);
                         p1.Units = Convert.ToString(dataSet.Tables[0].Rows[counter]["Units"]);
@@ -144,44 +150,69 @@ namespace OrderManagementTool
                             {
                                 Poitem poitem = new Poitem();
                                 poitem.Sl_NO = poitems_1.Count + 1;
+                                poitem.Offer_Number = i.Offer_Number;
+                                poitem.Vendor_Name = i.Vendor_Name;
+                                poitem.Vendor_Code = i.Vendor_Code;
+                                poitem.Offer_Date = i.Offer_Date;
+                                poitem.Contact_No = i.Contact_No;
+                                poitem.Contact_Person = i.Contact_Person;
                                 poitem.Description = i.Description;
                                 poitem.Quantity = i.Quantity;
                                 poitem.Units = i.Units;
                                 poitem.Total_Price = i.Total_Price;
                                 poitem.Unit_Price = i.Unit_Price;
+                                poitem.GST_Value = i.GST_Value;
                                 poitems_1.Add(poitem);
                             }
                             else if (i.Q_No == 2)
                             {
                                 Poitem poitem = new Poitem();
-                                poitem.Sl_NO = poitems_2.Count + 1;
+                                poitem.Offer_Number = i.Offer_Number;
+                                poitem.Vendor_Name = i.Vendor_Name;
+                                poitem.Vendor_Code = i.Vendor_Code;
+                                poitem.Offer_Date = i.Offer_Date;
+                                poitem.Contact_No = i.Contact_No;
+                                poitem.Contact_Person = i.Contact_Person;
                                 poitem.Description = i.Description;
                                 poitem.Quantity = i.Quantity;
                                 poitem.Units = i.Units;
                                 poitem.Total_Price = i.Total_Price;
                                 poitem.Unit_Price = i.Unit_Price;
+                                poitem.GST_Value = i.GST_Value;
                                 poitems_2.Add(poitem);
                             }
                             else if (i.Q_No == 3)
                             {
                                 Poitem poitem = new Poitem();
-                                poitem.Sl_NO = poitems_3.Count + 1;
+                                poitem.Offer_Number = i.Offer_Number;
+                                poitem.Vendor_Name = i.Vendor_Name;
+                                poitem.Vendor_Code = i.Vendor_Code;
+                                poitem.Offer_Date = i.Offer_Date;
+                                poitem.Contact_No = i.Contact_No;
+                                poitem.Contact_Person = i.Contact_Person;
                                 poitem.Description = i.Description;
                                 poitem.Quantity = i.Quantity;
                                 poitem.Units = i.Units;
                                 poitem.Total_Price = i.Total_Price;
                                 poitem.Unit_Price = i.Unit_Price;
+                                poitem.GST_Value = i.GST_Value;
                                 poitems_3.Add(poitem);
                             }
                             else if (i.Q_No == 4)
                             {
                                 Poitem poitem = new Poitem();
-                                poitem.Sl_NO = poitems_4.Count + 1;
+                                poitem.Offer_Number = i.Offer_Number;
+                                poitem.Vendor_Name = i.Vendor_Name;
+                                poitem.Vendor_Code = i.Vendor_Code;
+                                poitem.Offer_Date = i.Offer_Date;
+                                poitem.Contact_No = i.Contact_No;
+                                poitem.Contact_Person = i.Contact_Person;
                                 poitem.Description = i.Description;
                                 poitem.Quantity = i.Quantity;
                                 poitem.Units = i.Units;
                                 poitem.Total_Price = i.Total_Price;
                                 poitem.Unit_Price = i.Unit_Price;
+                                poitem.GST_Value = i.GST_Value;
                                 poitems_4.Add(poitem);
                             }
                         }
@@ -517,12 +548,20 @@ namespace OrderManagementTool
                                 if (lst.Count > 0)
                                 {
                                     Poitem poitem = new Poitem();
+
                                     poitem.Sl_NO = Convert.ToInt32(lst[0]);
-                                    poitem.Description = lst[1];
-                                    poitem.Quantity = Convert.ToInt32(lst[2]);
-                                    poitem.Units = lst[3];
-                                    poitem.Unit_Price = Convert.ToDouble(lst[4]);
-                                    poitem.Total_Price = Convert.ToDecimal(lst[5]);
+                                    poitem.Offer_Number = lst[1];
+                                    poitem.Vendor_Name = lst[2];
+                                    poitem.Vendor_Code = lst[3];
+                                    poitem.Offer_Date = lst[4];
+                                    poitem.Contact_No = lst[5];
+                                    poitem.Contact_Person = lst[6];
+                                    poitem.Description = lst[7];
+                                    poitem.Quantity = Convert.ToInt32(lst[8]);
+                                    poitem.Units = lst[9];
+                                    poitem.Unit_Price = Convert.ToDouble(lst[10]);
+                                    poitem.GST_Value = Convert.ToDecimal(lst[11]);
+                                    poitem.Total_Price = Convert.ToDecimal(lst[12]);
 
                                     poitems.Add(poitem);
                                     // loadExcelIndent.ExcelIndents = lstGridIndent;
@@ -556,7 +595,7 @@ namespace OrderManagementTool
             cbx_ApprovalStatus_id.IsEnabled = false;
             btn_Approve.IsEnabled = false;
             btn_Create_PO.IsEnabled = false;
-            btn_Generate.IsEnabled = false;
+            // btn_Generate.IsEnabled = false;
         }
 
         private void EnableFields()
@@ -571,7 +610,7 @@ namespace OrderManagementTool
             txt_PO_Remarks.IsEnabled = true;
             cbx_ApprovalStatus_id.IsEnabled = true;
             btn_Create_PO.IsEnabled = true;
-            btn_Generate.IsEnabled = true;
+            // btn_Generate.IsEnabled = true;
         }
 
 
@@ -667,6 +706,34 @@ namespace OrderManagementTool
         }
         private void btn_generate_Click(object sender, RoutedEventArgs e)
         {
+            if (poitems_1.Count == 0 && poitems_2.Count == 0 && poitems_3.Count == 0)
+            {
+                MessageBox.Show("Please upload any one Quotation",
+                      "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Cursor = null;
+                return;
+            }
+            if (poitems_4.Count == 0)
+            {
+                MessageBox.Show("Please approve any of the 3 Quotations",
+                     "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Cursor = null;
+                return;
+            }
+            if (txt_indent_no.Text == null || txt_indent_no.Text == "")
+            {
+                MessageBox.Show("Please enter indent number",
+                     "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Cursor = null;
+                return;
+            }
+            if (txt_PO_no.Text == null || txt_PO_no.Text == "")
+            {
+                MessageBox.Show("Please Select a generated PO",
+                     "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Cursor = null;
+                return;
+            }
             GeneratePO();
         }
         private void btn_Create_PO_Click(object sender, RoutedEventArgs e)
@@ -719,11 +786,18 @@ namespace OrderManagementTool
                             SqlCommand testCMD1 = new SqlCommand("CreatePurchaseOrderDetails", connection);
                             testCMD1.CommandType = CommandType.StoredProcedure;
                             testCMD1.Parameters.Add(new SqlParameter("@POId", System.Data.SqlDbType.BigInt, 50) { Value = poID });
+                            testCMD1.Parameters.Add(new SqlParameter("@Offer_Number", System.Data.SqlDbType.VarChar, 300) { Value = i.Offer_Number });
+                            testCMD1.Parameters.Add(new SqlParameter("@Vendor_Name", System.Data.SqlDbType.VarChar, 300) { Value = i.Vendor_Name });
+                            testCMD1.Parameters.Add(new SqlParameter("@Vendor_Code", System.Data.SqlDbType.VarChar, 300) { Value = i.Vendor_Code });
+                            testCMD1.Parameters.Add(new SqlParameter("@Offer_Date", System.Data.SqlDbType.DateTime, 300) { Value = i.Offer_Date });
+                            testCMD1.Parameters.Add(new SqlParameter("@Contact_No", System.Data.SqlDbType.Int, 300) { Value = i.Contact_No });
+                            testCMD1.Parameters.Add(new SqlParameter("@Contact_Person", System.Data.SqlDbType.VarChar, 300) { Value = i.Contact_Person });
                             testCMD1.Parameters.Add(new SqlParameter("@Description", System.Data.SqlDbType.VarChar, 300) { Value = i.Description });
                             testCMD1.Parameters.Add(new SqlParameter("@Quantity", System.Data.SqlDbType.BigInt, 50) { Value = i.Quantity });
                             testCMD1.Parameters.Add(new SqlParameter("@Units", System.Data.SqlDbType.VarChar, 50) { Value = i.Units });
                             testCMD1.Parameters.Add(new SqlParameter("@UnitPrice", System.Data.SqlDbType.Decimal, 50) { Value = i.Unit_Price });
                             testCMD1.Parameters.Add(new SqlParameter("@TotalPrice", System.Data.SqlDbType.Decimal, 50) { Value = i.Total_Price });
+                            testCMD1.Parameters.Add(new SqlParameter("@GST_Value", System.Data.SqlDbType.Decimal, 50) { Value = i.GST_Value });
                             testCMD1.Parameters.Add(new SqlParameter("@QuoteNo", System.Data.SqlDbType.Int, 50) { Value = 1 });
                             testCMD1.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
                             testCMD1.ExecuteNonQuery(); // read output value from @NewId 
@@ -737,13 +811,21 @@ namespace OrderManagementTool
                             SqlCommand testCMD1 = new SqlCommand("CreatePurchaseOrderDetails", connection);
                             testCMD1.CommandType = CommandType.StoredProcedure;
                             testCMD1.Parameters.Add(new SqlParameter("@POId", System.Data.SqlDbType.BigInt, 50) { Value = poID });
+                            testCMD1.Parameters.Add(new SqlParameter("@Offer_Number", System.Data.SqlDbType.VarChar, 300) { Value = i.Offer_Number });
+                            testCMD1.Parameters.Add(new SqlParameter("@Vendor_Name", System.Data.SqlDbType.VarChar, 300) { Value = i.Vendor_Name });
+                            testCMD1.Parameters.Add(new SqlParameter("@Vendor_Code", System.Data.SqlDbType.VarChar, 300) { Value = i.Vendor_Code });
+                            testCMD1.Parameters.Add(new SqlParameter("@Offer_Date", System.Data.SqlDbType.DateTime, 300) { Value = i.Offer_Date });
+                            testCMD1.Parameters.Add(new SqlParameter("@Contact_No", System.Data.SqlDbType.Int, 300) { Value = i.Contact_No });
+                            testCMD1.Parameters.Add(new SqlParameter("@Contact_Person", System.Data.SqlDbType.VarChar, 300) { Value = i.Contact_Person });
                             testCMD1.Parameters.Add(new SqlParameter("@Description", System.Data.SqlDbType.VarChar, 300) { Value = i.Description });
                             testCMD1.Parameters.Add(new SqlParameter("@Quantity", System.Data.SqlDbType.BigInt, 50) { Value = i.Quantity });
                             testCMD1.Parameters.Add(new SqlParameter("@Units", System.Data.SqlDbType.VarChar, 50) { Value = i.Units });
                             testCMD1.Parameters.Add(new SqlParameter("@UnitPrice", System.Data.SqlDbType.Decimal, 50) { Value = i.Unit_Price });
                             testCMD1.Parameters.Add(new SqlParameter("@TotalPrice", System.Data.SqlDbType.Decimal, 50) { Value = i.Total_Price });
                             testCMD1.Parameters.Add(new SqlParameter("@QuoteNo", System.Data.SqlDbType.Int, 50) { Value = 2 });
+                            testCMD1.Parameters.Add(new SqlParameter("@GST_Value", System.Data.SqlDbType.Decimal, 50) { Value = i.GST_Value });
                             testCMD1.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
+
                             testCMD1.ExecuteNonQuery(); // read output value from @NewId 
                         }
                     }
@@ -755,12 +837,19 @@ namespace OrderManagementTool
                             SqlCommand testCMD1 = new SqlCommand("CreatePurchaseOrderDetails", connection);
                             testCMD1.CommandType = CommandType.StoredProcedure;
                             testCMD1.Parameters.Add(new SqlParameter("@POId", System.Data.SqlDbType.BigInt, 50) { Value = poID });
+                            testCMD1.Parameters.Add(new SqlParameter("@Offer_Number", System.Data.SqlDbType.VarChar, 300) { Value = i.Offer_Number });
+                            testCMD1.Parameters.Add(new SqlParameter("@Vendor_Name", System.Data.SqlDbType.VarChar, 300) { Value = i.Vendor_Name });
+                            testCMD1.Parameters.Add(new SqlParameter("@Vendor_Code", System.Data.SqlDbType.VarChar, 300) { Value = i.Vendor_Code });
+                            testCMD1.Parameters.Add(new SqlParameter("@Offer_Date", System.Data.SqlDbType.DateTime, 300) { Value = i.Offer_Date });
+                            testCMD1.Parameters.Add(new SqlParameter("@Contact_No", System.Data.SqlDbType.Int, 300) { Value = i.Contact_No });
+                            testCMD1.Parameters.Add(new SqlParameter("@Contact_Person", System.Data.SqlDbType.VarChar, 300) { Value = i.Contact_Person });
                             testCMD1.Parameters.Add(new SqlParameter("@Description", System.Data.SqlDbType.VarChar, 300) { Value = i.Description });
                             testCMD1.Parameters.Add(new SqlParameter("@Quantity", System.Data.SqlDbType.BigInt, 50) { Value = i.Quantity });
                             testCMD1.Parameters.Add(new SqlParameter("@Units", System.Data.SqlDbType.VarChar, 50) { Value = i.Units });
                             testCMD1.Parameters.Add(new SqlParameter("@UnitPrice", System.Data.SqlDbType.Decimal, 50) { Value = i.Unit_Price });
                             testCMD1.Parameters.Add(new SqlParameter("@TotalPrice", System.Data.SqlDbType.Decimal, 50) { Value = i.Total_Price });
                             testCMD1.Parameters.Add(new SqlParameter("@QuoteNo", System.Data.SqlDbType.Int, 50) { Value = 3 });
+                            testCMD1.Parameters.Add(new SqlParameter("@GST_Value", System.Data.SqlDbType.Decimal, 50) { Value = i.GST_Value });
                             testCMD1.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
                             testCMD1.ExecuteNonQuery(); // read output value from @NewId 
                         }
@@ -1031,221 +1120,246 @@ namespace OrderManagementTool
                 //    .MoveTo(worksheet.Cell("A1"))
                 //    .Scale(.1).Placement = ClosedXML.Excel.Drawings.XLPicturePlacement.Move;
 
-                var imagePath = @"..\..\..\Images\Modified-Image.png";
+                var imagePath = @"..\..\..\..\Images\Modified-Image.png";
 
-                var image = worksheet.AddPicture(imagePath)
-                    .MoveTo(worksheet.Cell("B1"))
-                    .Scale(.15);
+                // var a= imagePath.Split("..\");
 
-                                var rangeMerged = worksheet.Range("A1:F1").Merge();
-                rangeMerged.Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                rangeMerged.Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                rangeMerged.Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                rangeMerged.Style.Border.RightBorder = XLBorderStyleValues.Medium;
-                rangeMerged.Style.Font.Bold = true;
-                rangeMerged.Style.Font.FontSize = 16;
-                rangeMerged.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                rangeMerged.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
-                var row = worksheet.Row(1);
-                row.Height = 40;
-                var rangeMerged1 = worksheet.Range("A2:F2").Merge();
-                rangeMerged1.Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                rangeMerged1.Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                rangeMerged1.Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                rangeMerged1.Style.Border.RightBorder = XLBorderStyleValues.Medium;
-                rangeMerged1.Style.Font.Bold = true;
-                rangeMerged1.Style.Font.FontSize = 12;
-                rangeMerged1.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                rangeMerged1.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
-                //rangeMerged1.Style.Fill.BackgroundColor = XLColor.;
-                var rangeMerged2 = worksheet.Range("A3:F3").Merge();
-                rangeMerged2.Style.Border.BottomBorder = XLBorderStyleValues.Medium;
-                rangeMerged2.Style.Border.TopBorder = XLBorderStyleValues.Medium;
-                rangeMerged2.Style.Border.LeftBorder = XLBorderStyleValues.Medium;
-                rangeMerged2.Style.Border.RightBorder = XLBorderStyleValues.Medium;
-                rangeMerged2.Style.Font.Bold = true;
-                rangeMerged2.Style.Font.FontSize = 14;
-                rangeMerged2.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                rangeMerged2.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
-                worksheet.Cell("A1").Value = worksheet.Cell("A1").Value + headersAndFooters["CompanyHeader"];
-                rangeMerged1.Value = headersAndFooters["CompanyAddressLine"];
-                rangeMerged2.Value = headersAndFooters["Header"];
-                worksheet.Cell("A4").Value = headersAndFooters["To"];
-                worksheet.Cell("A4").Style.Font.Bold = true;
-                worksheet.Cell("D4").Value = headersAndFooters["Info"];
-                worksheet.Cell("D4").Style.Font.Bold = true;
-                worksheet.Cell("B5").Value = null;
-                worksheet.Cell("B6").Value = null;
-                worksheet.Cell("B7").Value = null;
-                worksheet.Cell("B8").Value = null;
-                worksheet.Cell("B9").Value = null;
-                worksheet.Cell("E5").Value = headersAndFooters["PONo"];
-                worksheet.Cell("E6").Value = headersAndFooters["PODate"];
-                worksheet.Cell("E7").Value = headersAndFooters["RefNo"];
-                worksheet.Cell("E8").Value = headersAndFooters["RefDate"];
-                worksheet.Cell("E9").Value = headersAndFooters["Attn"];
-                worksheet.Cell("E5").Style.Font.Bold = true;
-                worksheet.Cell("E6").Style.Font.Bold = true;
-                worksheet.Cell("E7").Style.Font.Bold = true;
-                worksheet.Cell("E8").Style.Font.Bold = true;
-                worksheet.Cell("E9").Style.Font.Bold = true;
-
-                worksheet.Cell("F5").Value = poData.POID;
-                worksheet.Cell("F6").Value = poData.PODate;
-                worksheet.Cell("F7").Value = poData.IndentID;
-                worksheet.Cell("F8").Value = null;
-                worksheet.Cell("F9").Value = null;
-
-                var rangeMerged3 = worksheet.Range("A10:C10").Merge();
-                worksheet.Cell("A10").Value = headersAndFooters["Materials"];
-                worksheet.Cell("A10").Style.Font.Bold = true;
-                worksheet.Cell("B11").Value = headersAndFooters["CompanyName"];
-                worksheet.Cell("B12").Value = headersAndFooters["CompanyAddressLine1"];
-                worksheet.Cell("B13").Value = headersAndFooters["CompanyAddressLine2"];
-                worksheet.Cell("B14").Value = headersAndFooters["CompanyContactNo"];
-                worksheet.Cell("E10").Value = headersAndFooters["Remarks"];
-                worksheet.Cell("E11").Value = "GST #";
-                worksheet.Cell("E12").Value = "IEC #";
-                worksheet.Cell("E13").Value = headersAndFooters["Page"];
-                worksheet.Cell("E10").Style.Font.Bold = true;
-                worksheet.Cell("E11").Style.Font.Bold = true;
-                worksheet.Cell("E12").Style.Font.Bold = true;
-                worksheet.Cell("E13").Style.Font.Bold = true;
-                // worksheet.Cell("F9").Value = headersAndFooters["Attn"];
-                worksheet.Cell("F10").Value = poData.Remarks;
-                worksheet.Cell("F11").Value = headersAndFooters["GSTNo"];
-                worksheet.Cell("F12").Value = headersAndFooters["IECNo"];
-                worksheet.Cell("F13").Value = "1 Of 1";
-
-                worksheet.Cell("F10").Style.Font.Bold = true;
-                worksheet.Cell("F11").Style.Font.Bold = true;
-                worksheet.Cell("F12").Style.Font.Bold = true;
-                worksheet.Cell("F13").Style.Font.Bold = true;
-                worksheet.Cell("A16").Value = "S.No";
-                worksheet.Cell("B16").Value = "Description";
-                worksheet.Cell("C16").Value = "Qty";
-                worksheet.Cell("D16").Value = "Units";
-                worksheet.Cell("E16").Value = "Unit Price (INR)";
-                worksheet.Cell("F16").Value = "Total Price (INR)";
-
-                worksheet.Cell("A16").Style.Font.Bold = true;
-                worksheet.Cell("B16").Style.Font.Bold = true;
-                worksheet.Cell("C16").Style.Font.Bold = true;
-                worksheet.Cell("D16").Style.Font.Bold = true;
-                worksheet.Cell("E16").Style.Font.Bold = true;
-                worksheet.Cell("F16").Style.Font.Bold = true;
-                int j = 17;
-                int i = 1;
-                decimal total = 0;
-                foreach (Poitem poInfo in poData.Poitems)
+                if (!File.Exists(imagePath))
                 {
-                    worksheet.Cell("A" + j).Value = i;
-                    worksheet.Cell("B" + j).Value = poInfo.Description;
-                    worksheet.Cell("C" + j).Value = poInfo.Quantity;
-                    worksheet.Cell("D" + j).Value = poInfo.Units;
-                    worksheet.Cell("E" + j).Value = poInfo.Unit_Price;
-                    worksheet.Cell("F" + j).Value = poInfo.Total_Price;
-                    total += poInfo.Total_Price;
-                    j++;
-                    i++;
+                    imagePath = @"..\..\..\Images\Modified-Image.png";
+
+                    if (!File.Exists(imagePath))
+                    {
+                        imagePath = @"..\..\Images\Modified-Image.png";
+                        if (!File.Exists(imagePath))
+                        {
+                            imagePath = @"..\Images\Modified-Image.png";
+
+                            if (!File.Exists(imagePath))
+                            {
+                                imagePath = @"..\..\..\..\..\Images\Modified-Image.png";
+                                if (!File.Exists(imagePath))
+                                {
+                                    imagePath = @"..\..\..\..\..\..\Images\Modified-Image.png";
+                                }
+                            }
+                        }
+                    }
+
+                    var image = worksheet.AddPicture(imagePath)
+                        .MoveTo(worksheet.Cell("B1"))
+                        .Scale(.15);
+
+                    var rangeMerged = worksheet.Range("A1:F1").Merge();
+                    rangeMerged.Style.Border.BottomBorder = XLBorderStyleValues.Medium;
+                    rangeMerged.Style.Border.TopBorder = XLBorderStyleValues.Medium;
+                    rangeMerged.Style.Border.LeftBorder = XLBorderStyleValues.Medium;
+                    rangeMerged.Style.Border.RightBorder = XLBorderStyleValues.Medium;
+                    rangeMerged.Style.Font.Bold = true;
+                    rangeMerged.Style.Font.FontSize = 16;
+                    rangeMerged.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                    rangeMerged.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                    var row = worksheet.Row(1);
+                    row.Height = 40;
+                    var rangeMerged1 = worksheet.Range("A2:F2").Merge();
+                    rangeMerged1.Style.Border.BottomBorder = XLBorderStyleValues.Medium;
+                    rangeMerged1.Style.Border.TopBorder = XLBorderStyleValues.Medium;
+                    rangeMerged1.Style.Border.LeftBorder = XLBorderStyleValues.Medium;
+                    rangeMerged1.Style.Border.RightBorder = XLBorderStyleValues.Medium;
+                    rangeMerged1.Style.Font.Bold = true;
+                    rangeMerged1.Style.Font.FontSize = 12;
+                    rangeMerged1.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                    rangeMerged1.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                    //rangeMerged1.Style.Fill.BackgroundColor = XLColor.;
+                    var rangeMerged2 = worksheet.Range("A3:F3").Merge();
+                    rangeMerged2.Style.Border.BottomBorder = XLBorderStyleValues.Medium;
+                    rangeMerged2.Style.Border.TopBorder = XLBorderStyleValues.Medium;
+                    rangeMerged2.Style.Border.LeftBorder = XLBorderStyleValues.Medium;
+                    rangeMerged2.Style.Border.RightBorder = XLBorderStyleValues.Medium;
+                    rangeMerged2.Style.Font.Bold = true;
+                    rangeMerged2.Style.Font.FontSize = 14;
+                    rangeMerged2.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                    rangeMerged2.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                    worksheet.Cell("A1").Value = worksheet.Cell("A1").Value + headersAndFooters["CompanyHeader"];
+                    rangeMerged1.Value = headersAndFooters["CompanyAddressLine"];
+                    rangeMerged2.Value = headersAndFooters["Header"];
+                    worksheet.Cell("A4").Value = headersAndFooters["To"];
+                    worksheet.Cell("A4").Style.Font.Bold = true;
+                    worksheet.Cell("D4").Value = headersAndFooters["Info"];
+                    worksheet.Cell("D4").Style.Font.Bold = true;
+                    worksheet.Cell("B5").Value = null;
+                    worksheet.Cell("B6").Value = null;
+                    worksheet.Cell("B7").Value = null;
+                    worksheet.Cell("B8").Value = null;
+                    worksheet.Cell("B9").Value = null;
+                    worksheet.Cell("E5").Value = headersAndFooters["PONo"];
+                    worksheet.Cell("E6").Value = headersAndFooters["PODate"];
+                    worksheet.Cell("E7").Value = headersAndFooters["RefNo"];
+                    worksheet.Cell("E8").Value = headersAndFooters["RefDate"];
+                    worksheet.Cell("E9").Value = headersAndFooters["Attn"];
+                    worksheet.Cell("E5").Style.Font.Bold = true;
+                    worksheet.Cell("E6").Style.Font.Bold = true;
+                    worksheet.Cell("E7").Style.Font.Bold = true;
+                    worksheet.Cell("E8").Style.Font.Bold = true;
+                    worksheet.Cell("E9").Style.Font.Bold = true;
+
+                    worksheet.Cell("F5").Value = poData.POID;
+                    worksheet.Cell("F6").Value = poData.PODate;
+                    worksheet.Cell("F7").Value = poData.IndentID;
+                    worksheet.Cell("F8").Value = null;
+                    worksheet.Cell("F9").Value = null;
+
+                    var rangeMerged3 = worksheet.Range("A10:C10").Merge();
+                    worksheet.Cell("A10").Value = headersAndFooters["Materials"];
+                    worksheet.Cell("A10").Style.Font.Bold = true;
+                    worksheet.Cell("B11").Value = headersAndFooters["CompanyName"];
+                    worksheet.Cell("B12").Value = headersAndFooters["CompanyAddressLine1"];
+                    worksheet.Cell("B13").Value = headersAndFooters["CompanyAddressLine2"];
+                    worksheet.Cell("B14").Value = headersAndFooters["CompanyContactNo"];
+                    worksheet.Cell("E10").Value = headersAndFooters["Remarks"];
+                    worksheet.Cell("E11").Value = "GST #";
+                    worksheet.Cell("E12").Value = "IEC #";
+                    worksheet.Cell("E13").Value = headersAndFooters["Page"];
+                    worksheet.Cell("E10").Style.Font.Bold = true;
+                    worksheet.Cell("E11").Style.Font.Bold = true;
+                    worksheet.Cell("E12").Style.Font.Bold = true;
+                    worksheet.Cell("E13").Style.Font.Bold = true;
+                    // worksheet.Cell("F9").Value = headersAndFooters["Attn"];
+                    worksheet.Cell("F10").Value = poData.Remarks;
+                    worksheet.Cell("F11").Value = headersAndFooters["GSTNo"];
+                    worksheet.Cell("F12").Value = headersAndFooters["IECNo"];
+                    worksheet.Cell("F13").Value = "1 Of 1";
+
+                    worksheet.Cell("F10").Style.Font.Bold = true;
+                    worksheet.Cell("F11").Style.Font.Bold = true;
+                    worksheet.Cell("F12").Style.Font.Bold = true;
+                    worksheet.Cell("F13").Style.Font.Bold = true;
+                    worksheet.Cell("A16").Value = "S.No";
+                    worksheet.Cell("B16").Value = "Description";
+                    worksheet.Cell("C16").Value = "Qty";
+                    worksheet.Cell("D16").Value = "Units";
+                    worksheet.Cell("E16").Value = "Unit Price (INR)";
+                    worksheet.Cell("F16").Value = "Total Price (INR)";
+
+                    worksheet.Cell("A16").Style.Font.Bold = true;
+                    worksheet.Cell("B16").Style.Font.Bold = true;
+                    worksheet.Cell("C16").Style.Font.Bold = true;
+                    worksheet.Cell("D16").Style.Font.Bold = true;
+                    worksheet.Cell("E16").Style.Font.Bold = true;
+                    worksheet.Cell("F16").Style.Font.Bold = true;
+                    int j = 17;
+                    int i = 1;
+                    decimal total = 0;
+                    foreach (Poitem poInfo in poData.Poitems)
+                    {
+                        worksheet.Cell("A" + j).Value = i;
+                        worksheet.Cell("B" + j).Value = poInfo.Description;
+                        worksheet.Cell("C" + j).Value = poInfo.Quantity;
+                        worksheet.Cell("D" + j).Value = poInfo.Units;
+                        worksheet.Cell("E" + j).Value = poInfo.Unit_Price;
+                        worksheet.Cell("F" + j).Value = poInfo.Total_Price;
+                        total += poInfo.Total_Price;
+                        j++;
+                        i++;
+                    }
+
+                    worksheet.Cell("B" + j).Value = headersAndFooters["SubTotal"];
+                    worksheet.Cell("B" + j).Style.Font.Bold = true;
+                    worksheet.Cell("F" + j).Value = total;
+                    worksheet.Cell("F" + j).Style.Font.Bold = true;
+
+                    j += 1;
+                    decimal gst = Math.Round(total * Convert.ToDecimal(.18));
+                    decimal finalTotal = total + gst;
+                    worksheet.Cell("B" + j).Value = headersAndFooters["GST"];
+                    worksheet.Cell("B" + j).Style.Font.Bold = true;
+                    worksheet.Cell("F" + j).Value = Convert.ToString(gst);
+                    worksheet.Cell("F" + j).Style.Font.Bold = true;
+                    j += 1;
+                    worksheet.Cell("B" + j).Value = headersAndFooters["FinalTotal"];
+                    worksheet.Cell("B" + j).Style.Font.Bold = true;
+                    worksheet.Cell("F" + j).Value = Convert.ToString(finalTotal);
+                    worksheet.Cell("F" + j).Style.Font.Bold = true;
+                    j += 1;
+                    var rangeMerged101 = worksheet.Range("A" + j + ":F" + j).Merge();
+                    worksheet.Cell("A" + j).Value = headersAndFooters["Terms"];
+                    worksheet.Cell("A" + j).Style.Font.Bold = true;
+                    j += 1;
+                    var rangeMerged102 = worksheet.Range("A" + j + ":F" + j).Merge();
+                    worksheet.Cell("A" + j).Value = headersAndFooters["Terms1"];
+
+                    j += 1;
+                    var rangeMerged103 = worksheet.Range("A" + j + ":F" + j).Merge();
+                    worksheet.Cell("A" + j).Value = headersAndFooters["Terms2"];
+                    j += 1;
+                    var rangeMerged104 = worksheet.Range("A" + j + ":F" + j).Merge();
+                    worksheet.Cell("A" + j).Value = headersAndFooters["Terms3"];
+                    j += 1;
+                    var rangeMerged105 = worksheet.Range("A" + j + ":F" + j).Merge();
+                    worksheet.Cell("A" + j).Value = headersAndFooters["Terms4"];
+                    j += 1;
+                    var rangeMerged106 = worksheet.Range("A" + j + ":F" + j).Merge();
+                    worksheet.Cell("A" + j).Value = headersAndFooters["Terms5"];
+                    j += 3;
+                    var rangeMerged5 = worksheet.Range("A" + j + ":C" + j).Merge();
+                    worksheet.Cell("A" + j).Value = headersAndFooters["SpecialInstructions"];
+                    worksheet.Cell("A" + j).Style.Font.Bold = true;
+                    var rangeMerged6 = worksheet.Range("E" + j + ":F" + j).Merge();
+                    worksheet.Cell("E" + j).Value = headersAndFooters["Rejections"];
+                    worksheet.Cell("E" + j).Style.Font.Bold = true;
+                    j += 1;
+                    var rangeMerged7 = worksheet.Range("A" + j + ":C" + j).Merge();
+                    worksheet.Cell("A" + j).Value = headersAndFooters["SplLine1"];
+                    worksheet.Cell("A" + j).Value = worksheet.Cell("A" + j).Value + "\n" +
+                        headersAndFooters["SplLine2"];
+                    worksheet.Cell("A" + j).WorksheetRow().Height = 60;
+
+                    worksheet.Cell("A" + j).Style.Alignment.WrapText = true;
+                    var rangeMerged8 = worksheet.Range("D" + j + ":F" + j).Merge();
+                    worksheet.Cell("D" + j).Value = headersAndFooters["RejLine1"];
+                    worksheet.Cell("D" + j).Style.Alignment.WrapText = true;
+
+                    row = worksheet.Row(1);
+                    row.AdjustToContents();
+                    row.Height = 40;
+                    j += 4;
+                    int k = j;
+                    j += 3;
+                    var rangeMerged9 = worksheet.Range("A" + k + ":B" + j).Merge();
+                    var rangeMerged10 = worksheet.Range("C" + k + ":D" + j).Merge();
+                    var rangeMerged11 = worksheet.Range("E" + k + ":F" + j).Merge();
+                    //worksheet.Cell("A" + j).Value = headersAndFooters["SplLine2"];
+                    //worksheet.Cell("A" + j).Style.Alignment.WrapText = true;
+                    j += 1;
+                    var rangeMerged12 = worksheet.Range("A" + j + ":B" + j).Merge();
+                    var rangeMerged13 = worksheet.Range("C" + j + ":D" + j).Merge();
+                    var rangeMerged14 = worksheet.Range("E" + j + ":F" + j).Merge();
+                    worksheet.Cell("A" + j).Value = headersAndFooters["PreparedBy"];
+                    worksheet.Cell("A" + j).Style.Font.Bold = true;
+                    worksheet.Cell("A" + j).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                    worksheet.Cell("C" + j).Value = headersAndFooters["VerifiedBy"];
+                    worksheet.Cell("C" + j).Style.Font.Bold = true;
+                    worksheet.Cell("C" + j).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                    worksheet.Cell("E" + j).Value = headersAndFooters["ApprovedBy"];
+                    worksheet.Cell("E" + j).Style.Font.Bold = true;
+                    worksheet.Cell("E" + j).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                    var rangeRows = worksheet.Range("A3" + ":F" + j);
+
+                    rangeRows.Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+                    rangeRows.Style.Border.TopBorder = XLBorderStyleValues.Thin;
+                    rangeRows.Style.Border.LeftBorder = XLBorderStyleValues.Thin;
+                    rangeRows.Style.Border.RightBorder = XLBorderStyleValues.Thin;
+                    worksheet.Columns(1, 10).AdjustToContents();
+                    //worksheet.Column(1).Width = 20;
+                    string filePath = Convert.ToString(headersAndFooters["ReportGeneratedPath"]) +
+                        "Purchase_Order_" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() +
+                        DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() +
+                            DateTime.Now.Second.ToString() + ".xlsx";
+
+                    workBook.SaveAs(filePath);
+
+                    MessageBox.Show("Purchase Order is generated in " + filePath, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-
-                worksheet.Cell("B" + j).Value = headersAndFooters["SubTotal"];
-                worksheet.Cell("B" + j).Style.Font.Bold = true;
-                worksheet.Cell("F" + j).Value = total;
-                worksheet.Cell("F" + j).Style.Font.Bold = true;
-
-                j += 1;
-                decimal gst = Math.Round(total * Convert.ToDecimal(.18));
-                decimal finalTotal = total + gst;
-                worksheet.Cell("B" + j).Value = headersAndFooters["GST"];
-                worksheet.Cell("B" + j).Style.Font.Bold = true;
-                worksheet.Cell("F" + j).Value = Convert.ToString(gst);
-                worksheet.Cell("F" + j).Style.Font.Bold = true;
-                j += 1;
-                worksheet.Cell("B" + j).Value = headersAndFooters["FinalTotal"];
-                worksheet.Cell("B" + j).Style.Font.Bold = true;
-                worksheet.Cell("F" + j).Value = Convert.ToString(finalTotal);
-                worksheet.Cell("F" + j).Style.Font.Bold = true;
-                j += 1;
-                var rangeMerged101 = worksheet.Range("A" + j + ":F" + j).Merge();
-                worksheet.Cell("A" + j).Value = headersAndFooters["Terms"];
-                worksheet.Cell("A" + j).Style.Font.Bold = true;
-                j += 1;
-                var rangeMerged102 = worksheet.Range("A" + j + ":F" + j).Merge();
-                worksheet.Cell("A" + j).Value = headersAndFooters["Terms1"];
-
-                j += 1;
-                var rangeMerged103 = worksheet.Range("A" + j + ":F" + j).Merge();
-                worksheet.Cell("A" + j).Value = headersAndFooters["Terms2"];
-                j += 1;
-                var rangeMerged104 = worksheet.Range("A" + j + ":F" + j).Merge();
-                worksheet.Cell("A" + j).Value = headersAndFooters["Terms3"];
-                j += 1;
-                var rangeMerged105 = worksheet.Range("A" + j + ":F" + j).Merge();
-                worksheet.Cell("A" + j).Value = headersAndFooters["Terms4"];
-                j += 1;
-                var rangeMerged106 = worksheet.Range("A" + j + ":F" + j).Merge();
-                worksheet.Cell("A" + j).Value = headersAndFooters["Terms5"];
-                j += 3;
-                var rangeMerged5 = worksheet.Range("A" + j + ":C" + j).Merge();
-                worksheet.Cell("A" + j).Value = headersAndFooters["SpecialInstructions"];
-                worksheet.Cell("A" + j).Style.Font.Bold = true;
-                var rangeMerged6 = worksheet.Range("E" + j + ":F" + j).Merge();
-                worksheet.Cell("E" + j).Value = headersAndFooters["Rejections"];
-                worksheet.Cell("E" + j).Style.Font.Bold = true;
-                j += 1;
-                var rangeMerged7 = worksheet.Range("A" + j + ":C" + j).Merge();
-                worksheet.Cell("A" + j).Value = headersAndFooters["SplLine1"];
-                worksheet.Cell("A" + j).Value = worksheet.Cell("A" + j).Value + "\n" +
-                    headersAndFooters["SplLine2"];
-                worksheet.Cell("A" + j).WorksheetRow().Height = 60;
-
-                worksheet.Cell("A" + j).Style.Alignment.WrapText = true;
-                var rangeMerged8 = worksheet.Range("D" + j + ":F" + j).Merge();
-                worksheet.Cell("D" + j).Value = headersAndFooters["RejLine1"];
-                worksheet.Cell("D" + j).Style.Alignment.WrapText = true;
-
-                row = worksheet.Row(1);
-                row.AdjustToContents();
-                row.Height = 40;
-                j += 4;
-                int k = j;
-                j += 3;
-                var rangeMerged9 = worksheet.Range("A" + k + ":B" + j).Merge();
-                var rangeMerged10 = worksheet.Range("C" + k + ":D" + j).Merge();
-                var rangeMerged11 = worksheet.Range("E" + k + ":F" + j).Merge();
-                //worksheet.Cell("A" + j).Value = headersAndFooters["SplLine2"];
-                //worksheet.Cell("A" + j).Style.Alignment.WrapText = true;
-                j += 1;
-                var rangeMerged12 = worksheet.Range("A" + j + ":B" + j).Merge();
-                var rangeMerged13 = worksheet.Range("C" + j + ":D" + j).Merge();
-                var rangeMerged14 = worksheet.Range("E" + j + ":F" + j).Merge();
-                worksheet.Cell("A" + j).Value = headersAndFooters["PreparedBy"];
-                worksheet.Cell("A" + j).Style.Font.Bold = true;
-                worksheet.Cell("A" + j).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                worksheet.Cell("C" + j).Value = headersAndFooters["VerifiedBy"];
-                worksheet.Cell("C" + j).Style.Font.Bold = true;
-                worksheet.Cell("C" + j).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                worksheet.Cell("E" + j).Value = headersAndFooters["ApprovedBy"];
-                worksheet.Cell("E" + j).Style.Font.Bold = true;
-                worksheet.Cell("E" + j).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                var rangeRows = worksheet.Range("A3" + ":F" + j);
-
-                rangeRows.Style.Border.BottomBorder = XLBorderStyleValues.Thin;
-                rangeRows.Style.Border.TopBorder = XLBorderStyleValues.Thin;
-                rangeRows.Style.Border.LeftBorder = XLBorderStyleValues.Thin;
-                rangeRows.Style.Border.RightBorder = XLBorderStyleValues.Thin;
-                worksheet.Columns(1, 10).AdjustToContents();
-                //worksheet.Column(1).Width = 20;
-                string filePath = Convert.ToString(headersAndFooters["ReportGeneratedPath"]) +
-                    "Purchase_Order_" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() +
-                    DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() +
-                        DateTime.Now.Second.ToString() + ".xlsx";
-
-                workBook.SaveAs(filePath);
-
-                MessageBox.Show("Purchase Order is generated in " + filePath, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
