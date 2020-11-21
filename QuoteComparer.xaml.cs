@@ -412,6 +412,152 @@ namespace OrderManagementTool
                    "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        private void btn_download_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.Cursor = Cursors.Wait;
+            try
+            {
+                string targetPath = Convert.ToString(ConfigurationManager.AppSettings["UploadQuotationPath"]);
+                string fileName = string.Empty;
+                string fileContent = string.Empty;
+
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
+                    {
+                        connection.Open();
+                        SqlCommand testCMD = new SqlCommand("GetQuotationInformation", connection);
+                        testCMD.CommandType = CommandType.StoredProcedure;
+
+                        //testCMD.Parameters.Add(new SqlParameter("@UserId", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
+                        testCMD.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.Int) { Value = Convert.ToInt32(txt_indent_no.Text) });
+                        testCMD.Parameters.Add(new SqlParameter("@QuoteNo", System.Data.SqlDbType.Int) { Value = 1 });
+
+                        SqlDataReader dataReader = testCMD.ExecuteReader();
+                        while(dataReader.Read())
+                        {
+                            fileName = dataReader.GetString(0);
+                            fileContent = dataReader.GetString(1); 
+                        }
+                        
+                        Byte[] bytes = Convert.FromBase64String(fileContent);
+                        File.WriteAllBytes(targetPath + "\\" +fileName, bytes);
+                        MessageBox.Show("The file has been downloaded to the following path" + targetPath + "\\" + fileName,
+                       "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error occurred while downloading Quotation information.",
+                        "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occurred while downloading Quotation information.",
+                          "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            this.Cursor = null;
+        }
+
+        private void btn_download_Click_2(object sender, RoutedEventArgs e)
+        {
+            this.Cursor = Cursors.Wait;
+            try
+            {
+                string targetPath = Convert.ToString(ConfigurationManager.AppSettings["UploadQuotationPath"]);
+                string fileName = string.Empty;
+                string fileContent = string.Empty;
+
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
+                    {
+                        connection.Open();
+                        SqlCommand testCMD = new SqlCommand("GetQuotationInformation", connection);
+                        testCMD.CommandType = CommandType.StoredProcedure;
+
+                        //testCMD.Parameters.Add(new SqlParameter("@UserId", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
+                        testCMD.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.Int) { Value = Convert.ToInt32(txt_indent_no.Text) });
+                        testCMD.Parameters.Add(new SqlParameter("@QuoteNo", System.Data.SqlDbType.Int) { Value = 2 });
+
+                        SqlDataReader dataReader = testCMD.ExecuteReader();
+                        while (dataReader.Read())
+                        {
+                            fileName = dataReader.GetString(0);
+                            fileContent = dataReader.GetString(1);
+                        }
+
+                        Byte[] bytes = Convert.FromBase64String(fileContent);
+                        File.WriteAllBytes(targetPath + "\\" + fileName, bytes);
+                        MessageBox.Show("The file has been downloaded to the following path" + targetPath + "\\" + fileName,
+                       "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error occurred while downloading Quotation information.",
+                        "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occurred while downloading Quotation information.",
+                      "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            this.Cursor = null;
+        }
+
+        private void btn_download_Click_3(object sender, RoutedEventArgs e)
+        {
+            this.Cursor = Cursors.Wait;
+            try
+            {
+                string targetPath = Convert.ToString(ConfigurationManager.AppSettings["UploadQuotationPath"]);
+                string fileName = string.Empty;
+                string fileContent = string.Empty;
+
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
+                    {
+                        connection.Open();
+                        SqlCommand testCMD = new SqlCommand("GetQuotationInformation", connection);
+                        testCMD.CommandType = CommandType.StoredProcedure;
+
+                        //testCMD.Parameters.Add(new SqlParameter("@UserId", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
+                        testCMD.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.Int) { Value = Convert.ToInt32(txt_indent_no.Text) });
+                        testCMD.Parameters.Add(new SqlParameter("@QuoteNo", System.Data.SqlDbType.Int) { Value = 3 });
+
+                        SqlDataReader dataReader = testCMD.ExecuteReader();
+                        while (dataReader.Read())
+                        {
+                            fileName = dataReader.GetString(0);
+                            fileContent = dataReader.GetString(1);
+                        }
+
+                        Byte[] bytes = Convert.FromBase64String(fileContent);
+                        File.WriteAllBytes(targetPath + "\\" + fileName, bytes);
+                        MessageBox.Show("The file has been downloaded to the following path"+ targetPath + "\\" + fileName,
+                       "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error occurred while downloading Quotation information.",
+                       "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occurred while downloading Quotation information.",
+                       "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            this.Cursor = null;
+        }
         private void btn_upload_Click_1(object sender, RoutedEventArgs e)
         {
             try
@@ -421,8 +567,17 @@ namespace OrderManagementTool
                 if (openFileDialog.ShowDialog() == true)
                     filePath = openFileDialog.FileName;
 
-                string targetPath = Convert.ToString(ConfigurationManager.AppSettings["UploadQuotationPath"]);
+                
                 string fileName = openFileDialog.SafeFileName.Split('.')[0] + "_" + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year + DateTime.Now.Hour + DateTime.Now.Minute + DateTime.Now.Second + "_" + _login.EmployeeID + "." + openFileDialog.SafeFileName.Split('.')[1];
+                byte[] fileContent = null;
+
+                //System.IO.FileStream fs = new System.IO.FileStream(filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read);
+                //System.IO.BinaryReader binaryReader = new System.IO.BinaryReader(fs);
+
+                //long byteLength = new System.IO.FileInfo(filePath).Length;
+                fileContent = File.ReadAllBytes(filePath);
+                String file = Convert.ToBase64String(fileContent);
+
                 //using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
                 //{
                 //    poitems_1 = PullIndentData(stream);
@@ -439,25 +594,27 @@ namespace OrderManagementTool
                         testCMD.CommandType = CommandType.StoredProcedure;
 
                         //testCMD.Parameters.Add(new SqlParameter("@UserId", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
+                        testCMD.Parameters.Add(new SqlParameter("@QuoteNo", System.Data.SqlDbType.Int, 300) { Value = 1 });
                         testCMD.Parameters.Add(new SqlParameter("@QuotationFileName", System.Data.SqlDbType.VarChar, 300) { Value = fileName });
                         testCMD.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.VarChar, 300) { Value = txt_indent_no.Text.ToString() });
+                        testCMD.Parameters.Add(new SqlParameter("@FileContent", System.Data.SqlDbType.VarChar) { Value = file });
                         testCMD.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.Int, 300) { Value = _login.EmployeeID });
                         testCMD.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.DateTime, 300) { Value = DateTime.Now });
 
                         // SqlDataReader dataReader = testCMD.ExecuteReader();
                         testCMD.ExecuteNonQuery();
-                        
+
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error occurred while saving Quotation information.", 
+                    MessageBox.Show("Error occurred while saving Quotation information.",
                         "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-                
-                
-                targetPath = targetPath + "\\" + fileName;
-                File.Move(filePath, targetPath, true);
+
+
+                //targetPath = targetPath + "\\" + fileName;
+                //File.Copy(filePath, targetPath, true);
                 MessageBox.Show("The file has been processed and data has been uploaded.",
                         "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                 // log.Info("The file has been processed and data has been uploaded.");
@@ -480,17 +637,54 @@ namespace OrderManagementTool
                 if (openFileDialog.ShowDialog() == true)
                     filePath = openFileDialog.FileName;
 
-                using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
-                {
-                    poitems_2 = PullIndentData(stream);
-                }
-                grid_quote_2.ItemsSource = null;
-                grid_quote_2.ItemsSource = poitems_2;
-                File.SetAttributes(filePath, FileAttributes.Normal);
-                string targetPath = Convert.ToString(ConfigurationManager.AppSettings["TargetReportPath"]);
 
-                //targetPath = targetPath + "\\" + openFileDialog.SafeFileName;
-                //File.Move(filePath, targetPath, true);
+                string fileName = openFileDialog.SafeFileName.Split('.')[0] + "_" + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year + DateTime.Now.Hour + DateTime.Now.Minute + DateTime.Now.Second + "_" + _login.EmployeeID + "." + openFileDialog.SafeFileName.Split('.')[1];
+                byte[] fileContent = null;
+
+                //System.IO.FileStream fs = new System.IO.FileStream(filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read);
+                //System.IO.BinaryReader binaryReader = new System.IO.BinaryReader(fs);
+
+                //long byteLength = new System.IO.FileInfo(filePath).Length;
+                fileContent = File.ReadAllBytes(filePath);
+                String file = Convert.ToBase64String(fileContent);
+
+                //using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
+                //{
+                //    poitems_1 = PullIndentData(stream);
+                //}
+                //grid_quote_1.ItemsSource = null;
+                //grid_quote_1.ItemsSource = poitems_1;
+                //File.SetAttributes(filePath, FileAttributes.Normal);
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
+                    {
+                        connection.Open();
+                        SqlCommand testCMD = new SqlCommand("InsertQuotationInformation", connection);
+                        testCMD.CommandType = CommandType.StoredProcedure;
+
+                        //testCMD.Parameters.Add(new SqlParameter("@UserId", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
+                        testCMD.Parameters.Add(new SqlParameter("@QuoteNo", System.Data.SqlDbType.Int, 300) { Value = 2 });
+                        testCMD.Parameters.Add(new SqlParameter("@QuotationFileName", System.Data.SqlDbType.VarChar, 300) { Value = fileName });
+                        testCMD.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.VarChar, 300) { Value = txt_indent_no.Text.ToString() });
+                        testCMD.Parameters.Add(new SqlParameter("@FileContent", System.Data.SqlDbType.VarChar) { Value = file });
+                        testCMD.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.Int, 300) { Value = _login.EmployeeID });
+                        testCMD.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.DateTime, 300) { Value = DateTime.Now });
+
+                        // SqlDataReader dataReader = testCMD.ExecuteReader();
+                        testCMD.ExecuteNonQuery();
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error occurred while saving Quotation information.",
+                        "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+
+
+                //targetPath = targetPath + "\\" + fileName;
+                //File.Copy(filePath, targetPath, true);
                 MessageBox.Show("The file has been processed and data has been uploaded.",
                         "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                 // log.Info("The file has been processed and data has been uploaded.");
@@ -512,17 +706,54 @@ namespace OrderManagementTool
                 if (openFileDialog.ShowDialog() == true)
                     filePath = openFileDialog.FileName;
 
-                using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
-                {
-                    poitems_3 = PullIndentData(stream);
-                }
-                grid_quote_3.ItemsSource = null;
-                grid_quote_3.ItemsSource = poitems_3;
-                File.SetAttributes(filePath, FileAttributes.Normal);
-                string targetPath = Convert.ToString(ConfigurationManager.AppSettings["TargetReportPath"]);
 
-                //targetPath = targetPath + "\\" + openFileDialog.SafeFileName;
-                //File.Move(filePath, targetPath, true);
+                string fileName = openFileDialog.SafeFileName.Split('.')[0] + "_" + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year + DateTime.Now.Hour + DateTime.Now.Minute + DateTime.Now.Second + "_" + _login.EmployeeID + "." + openFileDialog.SafeFileName.Split('.')[1];
+                byte[] fileContent = null;
+
+                //System.IO.FileStream fs = new System.IO.FileStream(filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read);
+                //System.IO.BinaryReader binaryReader = new System.IO.BinaryReader(fs);
+
+                //long byteLength = new System.IO.FileInfo(filePath).Length;
+                fileContent = File.ReadAllBytes(filePath);
+                String file = Convert.ToBase64String(fileContent);
+
+                //using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
+                //{
+                //    poitems_1 = PullIndentData(stream);
+                //}
+                //grid_quote_1.ItemsSource = null;
+                //grid_quote_1.ItemsSource = poitems_1;
+                //File.SetAttributes(filePath, FileAttributes.Normal);
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
+                    {
+                        connection.Open();
+                        SqlCommand testCMD = new SqlCommand("InsertQuotationInformation", connection);
+                        testCMD.CommandType = CommandType.StoredProcedure;
+
+                        //testCMD.Parameters.Add(new SqlParameter("@UserId", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
+                        testCMD.Parameters.Add(new SqlParameter("@QuoteNo", System.Data.SqlDbType.Int, 300) { Value = 3 });
+                        testCMD.Parameters.Add(new SqlParameter("@QuotationFileName", System.Data.SqlDbType.VarChar, 300) { Value = fileName });
+                        testCMD.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.VarChar, 300) { Value = txt_indent_no.Text.ToString() });
+                        testCMD.Parameters.Add(new SqlParameter("@FileContent", System.Data.SqlDbType.VarChar) { Value = file });
+                        testCMD.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.Int, 300) { Value = _login.EmployeeID });
+                        testCMD.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.DateTime, 300) { Value = DateTime.Now });
+
+                        // SqlDataReader dataReader = testCMD.ExecuteReader();
+                        testCMD.ExecuteNonQuery();
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error occurred while saving Quotation information.",
+                        "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+
+
+                //targetPath = targetPath + "\\" + fileName;
+                //File.Copy(filePath, targetPath, true);
                 MessageBox.Show("The file has been processed and data has been uploaded.",
                         "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                 // log.Info("The file has been processed and data has been uploaded.");
