@@ -757,6 +757,8 @@
         </Button>
         <Label x:Name="lbl_raised_by" Content="Raised By " HorizontalAlignment="Left" Margin="216,149,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
         <Label x:Name="lbl_indent_number" Content="Indent No" HorizontalAlignment="Left" Margin="52,151,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+        <Label x:Name="lbl_revision_number" Content="Revision No" HorizontalAlignment="Left" Margin="52,117,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
+        <ComboBox x:Name="cbx_revision_number" HorizontalAlignment="Left" Margin="132,113,0,0" VerticalAlignment="Top" Width="79" Height="30" DropDownOpened="cbx_revision_number_DropDownOpened" />
         <TextBox x:Name="txt_raised_by" HorizontalAlignment="Left" Margin="288,149,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" IsReadOnly="True">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
@@ -858,7 +860,7 @@
         <Label x:Name="lbl_date" Content="Date" HorizontalAlignment="Left" Margin="496,149,0,0" VerticalAlignment="Top" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
         <DatePicker x:Name="datepicker_date1" HorizontalAlignment="Left" Margin="541,149,0,0" VerticalAlignment="Top"/>
         <Label Content="Location" HorizontalAlignment="Left" Margin="666,152,0,0" VerticalAlignment="Top" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <ComboBox x:Name="cbx_location_id" HorizontalAlignment="Left" Margin="728,149,0,0" VerticalAlignment="Top" Width="175" Height="30" DropDownOpened="cbx_location_id_DropDownOpened"/>
+        <ComboBox x:Name="cbx_location_id" HorizontalAlignment="Left" Margin="728,149,0,0" VerticalAlignment="Top" Width="175" Height="30" DropDownOpened="cbx_location_id_DropDownOpened" />
         <ComboBox x:Name="cbx_approval_id" HorizontalAlignment="Left" Margin="1008,149,0,0" VerticalAlignment="Top" Width="175" Height="30" DropDownOpened="cbx_approval_id_DropDownOpened" />
         <Button x:Name="btn_create_indent" HorizontalAlignment="Left" Margin="940,488,0,0" VerticalAlignment="Top" Click="btn_create_indent_Click" Width="120" Height="29">
             <Button.Content>

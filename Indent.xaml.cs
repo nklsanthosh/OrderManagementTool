@@ -59,6 +59,7 @@ namespace OrderManagementTool
                 InitializeComponent();
                 LoadItemCategoryName();
                 LoadApprovalStatus();
+                LoadRevisionNumber();
                 txt_raised_by.Text = _login.UserEmail;
                 this.datepicker_date1.SelectedDate = DateTime.Now.Date;
                 lbl_approval_status.Content = "Awaiting Approval";
@@ -83,12 +84,13 @@ namespace OrderManagementTool
                 InitializeComponent();
                 LoadItemCategoryName();
                 LoadApprovalStatus();
+                LoadRevisionNumber();
                 txt_raised_by.Text = _login.UserEmail;
                 txt_indent_no.Text = indentNo.ToString();
                 GetIndent(indentNo);
-                
+
                 var isApproved = (from i in orderManagementContext.IndentApproval where i.IndentId == indentNo && i.ApprovalStatusId == 2 select i).FirstOrDefault();
-                
+
                 if (isApproved != null)
                     btn_create_PO.IsEnabled = true;
                 else
@@ -164,7 +166,7 @@ namespace OrderManagementTool
                 using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
                 {
                     connection.Open();
-                  
+
                     SqlCommand testCMD = new SqlCommand("GetIndent", connection);
                     testCMD.CommandType = CommandType.StoredProcedure;
 
@@ -223,7 +225,6 @@ namespace OrderManagementTool
                         DisableAllFields();
                         isGridReadOnly = true;
                     }
-
                 }
             }
             catch (Exception ex)
@@ -568,6 +569,32 @@ namespace OrderManagementTool
             }
         }
 
+        private void LoadRevisionNumber()
+        {
+            try
+            {
+                cbx_revision_number.SelectedValuePath = "Key";
+                cbx_revision_number.DisplayMemberPath = "Value";
+                ////log.Error("Loading Approval infomration");
+                cbx_revision_number.Items.Clear();
+
+                var data = (from loc in orderManagementContext.LocationCode
+                            select loc).ToList();
+
+
+                foreach (var i in data)
+                {
+                    cbx_revision_number.Items.Add(new KeyValuePair<long, string>(i.LocationCodeId, i.LocationId + " - " + i.LocationName.Trim()));
+                }
+                ////log.Error("Approval Information loaded.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured during Revision Number fetch " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                ////log.Error("Error while loading location code : " + ex.StackTrace);
+            }
+        }
+
         private void LoadItemCategoryName()
         {
             cbx_itemcategoryname.Items.Clear();
@@ -862,17 +889,17 @@ namespace OrderManagementTool
                         {
                             connection.Open();
                             indentNo = Convert.ToInt64(txt_indent_no.Text);
-                            SqlCommand testCMD = new SqlCommand("delete_indent_details", connection);
-                            testCMD.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.BigInt, 50) { Value = indentNo });
-                            testCMD.CommandType = CommandType.StoredProcedure;
+                            //SqlCommand testCMD = new SqlCommand("delete_indent_details", connection);
+                            //testCMD.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.BigInt, 50) { Value = indentNo });
+                            //testCMD.CommandType = CommandType.StoredProcedure;
 
-                            testCMD.ExecuteNonQuery(); // read output value from @NewId 
-                            saveIndent.IndentId = Convert.ToInt32(testCMD.Parameters["@IndentId"].Value);
+                            //testCMD.ExecuteNonQuery(); // read output value from @NewId 
+                            //saveIndent.IndentId = Convert.ToInt32(testCMD.Parameters["@IndentId"].Value);
 
                             foreach (var i in saveIndent.GridIndents)
                             {
                                 string createDate = saveIndent.CreateDate.Month + "/" + saveIndent.CreateDate.Day + "/" + saveIndent.CreateDate.Year;
-                                SqlCommand testCMD1 = new SqlCommand("create_indentDetails", connection);
+                                SqlCommand testCMD1 = new SqlCommand("update_indentDetails", connection);
                                 testCMD1.CommandType = CommandType.StoredProcedure;
                                 testCMD1.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.BigInt, 50) { Value = saveIndent.IndentId });
                                 testCMD1.Parameters.Add(new SqlParameter("@ItemName", System.Data.SqlDbType.VarChar, 50) { Value = i.ItemCategoryName });
@@ -1391,7 +1418,7 @@ namespace OrderManagementTool
                 ////log.Error("Error while gererating indent report: " + ex.StackTrace);
             }
         }
-       
+
         protected override void OnClosing(CancelEventArgs e)
         {
             Menu menu = new Menu(_login);
@@ -1806,5 +1833,7 @@ namespace OrderManagementTool
                 ////log.Error("Error while loading approval : " + ex.StackTrace);
             }
         }
+
+
     }
 }
