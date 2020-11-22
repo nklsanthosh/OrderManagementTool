@@ -84,7 +84,6 @@ namespace OrderManagementTool
                 InitializeComponent();
                 LoadItemCategoryName();
                 LoadApprovalStatus();
-                LoadRevisionNumber();
                 txt_raised_by.Text = _login.UserEmail;
                 txt_indent_no.Text = indentNo.ToString();
                 GetIndent(indentNo);
@@ -97,6 +96,7 @@ namespace OrderManagementTool
                     btn_create_PO.IsEnabled = false;
 
                 this.datepicker_date1.SelectedDate = DateTime.Now.Date;
+                LoadRevisionNumber();
             }
             catch (Exception ex)
             {
@@ -191,6 +191,7 @@ namespace OrderManagementTool
                         saveIndent.ApproverName = Convert.ToString(dataSet.Tables[0].Rows[counter]["Approver"]);
                         saveIndent.ApprovalID = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["Approver ID"]);
                         saveIndent.ApprovalStatus = Convert.ToString(dataSet.Tables[0].Rows[counter]["ApprovalStatus"]);
+                        saveIndent.RevisionNumber = Convert.ToInt32(dataSet.Tables[0].Rows[counter]["RevisionNumber"]);
 
                         GridIndent gridIndent = new GridIndent();
                         gridIndent.SlNo = counter + 1;
@@ -215,6 +216,7 @@ namespace OrderManagementTool
                     LoadLocationId();
                     cbx_location_id.SelectedValue = saveIndent.LocationCode;
                     cbx_approval_id.SelectedValue = saveIndent.ApprovalID;
+                    cbx_revision_number.SelectedValue = saveIndent.RevisionNumber;
 
                     lbl_approval_status.Content = saveIndent.ApprovalStatus;
                     txt_Revision_Remarks.Text = saveIndent.IndentRemarks;
@@ -225,6 +227,87 @@ namespace OrderManagementTool
                         DisableAllFields();
                         isGridReadOnly = true;
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured during Data Retrival. " + ex.Message, "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                ////log.Error("Error while fetching Indent information: " + ex.StackTrace);
+            }
+        }
+
+
+        private void GetIndentByRevisionNumber()
+        {
+            try
+            {
+                ////log.Info("Getting Indent infomration for Indent No: " + indentNo);
+                ///
+                long indentNo = Convert.ToInt64(txt_indent_no.Text);
+                int revisionNumber = Convert.ToInt32(cbx_revision_number.SelectedValue);
+                List<GridIndent> gridIndents = new List<GridIndent>();
+                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
+                {
+                    connection.Open();
+
+                    SqlCommand testCMD = new SqlCommand("GetIndentByRevisionNumber", connection);
+                    testCMD.CommandType = CommandType.StoredProcedure;
+
+                    testCMD.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.BigInt, 50) { Value = indentNo });
+                    testCMD.Parameters.Add(new SqlParameter("@RevisionNumber", System.Data.SqlDbType.Int, 50) { Value = revisionNumber });
+
+                    // SqlDataReader dataReader = testCMD.ExecuteReader();
+                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(testCMD);
+
+                    DataSet dataSet = new DataSet();
+                    sqlDataAdapter.Fill(dataSet);
+
+                    SaveIndent saveIndent = new SaveIndent();
+
+                    int counter = 0;
+
+                    while (counter < dataSet.Tables[0].Rows.Count)
+                    {
+                        saveIndent.Date = Convert.ToDateTime(dataSet.Tables[0].Rows[counter]["Date"]);
+                        saveIndent.LocationCode = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["LocationCode"]);
+                        saveIndent.IndentRemarks = Convert.ToString(dataSet.Tables[0].Rows[counter]["Remarks"]);
+                        saveIndent.ApproverName = Convert.ToString(dataSet.Tables[0].Rows[counter]["Approver"]);
+                        saveIndent.ApprovalID = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["Approver ID"]);
+                        saveIndent.ApprovalStatus = Convert.ToString(dataSet.Tables[0].Rows[counter]["ApprovalStatus"]);
+
+                        GridIndent gridIndent = new GridIndent();
+                        gridIndent.SlNo = counter + 1;
+                        gridIndent.ItemCategoryName = Convert.ToString(dataSet.Tables[0].Rows[counter]["ItemCategoryName"]);
+                        gridIndent.ItemName = Convert.ToString(dataSet.Tables[0].Rows[counter]["ItemName"]);
+                        gridIndent.ItemCode = Convert.ToString(dataSet.Tables[0].Rows[counter]["ItemCode"]);
+                        gridIndent.Units = Convert.ToString(dataSet.Tables[0].Rows[counter]["Unit"]);
+                        gridIndent.Description = Convert.ToString(dataSet.Tables[0].Rows[counter]["Description"]);
+                        gridIndent.Technical_Specifications = Convert.ToString(dataSet.Tables[0].Rows[counter]["TechnicalSpecification"]);
+                        gridIndent.Quantity = Convert.ToInt32(dataSet.Tables[0].Rows[counter]["Quantity"]);
+                        gridIndent.Remarks = Convert.ToString(dataSet.Tables[0].Rows[counter]["Item Remarks"]);
+                        gridIndents.Add(gridIndent);
+
+                        saveIndent.Email = Convert.ToString(dataSet.Tables[0].Rows[counter]["Email"]);
+                        counter++;
+                    }
+
+                    dataSet.Dispose();
+                    //txt_raised_by.Text = saveIndent.Email;
+                    //datepicker_date1.SelectedDate = saveIndent.Date;
+                    //LoadApprovalStatusRetrival();
+                    //LoadLocationId();
+                    //cbx_location_id.SelectedValue = saveIndent.LocationCode;
+                    //cbx_approval_id.SelectedValue = saveIndent.ApprovalID;
+
+                    //lbl_approval_status.Content = saveIndent.ApprovalStatus;
+                    txt_Revision_Remarks.Text = saveIndent.IndentRemarks;
+                    grid_indentdata.ItemsSource = null;
+                    grid_indentdata.ItemsSource = gridIndents;
+                    //if (saveIndent.ApprovalStatus != "Enquiry Required")
+                    //{
+                    //    DisableAllFields();
+                    //    isGridReadOnly = true;
+                    //}
                 }
             }
             catch (Exception ex)
@@ -573,18 +656,22 @@ namespace OrderManagementTool
         {
             try
             {
-                cbx_revision_number.SelectedValuePath = "Key";
-                cbx_revision_number.DisplayMemberPath = "Value";
-                ////log.Error("Loading Approval infomration");
-                cbx_revision_number.Items.Clear();
-
-                var data = (from loc in orderManagementContext.LocationCode
-                            select loc).ToList();
-
-
-                foreach (var i in data)
+                if (txt_indent_no.Text != "")
                 {
-                    cbx_revision_number.Items.Add(new KeyValuePair<long, string>(i.LocationCodeId, i.LocationId + " - " + i.LocationName.Trim()));
+                    long indentNo = Convert.ToInt64(txt_indent_no.Text);
+                    cbx_revision_number.SelectedValuePath = "Key";
+                    cbx_revision_number.DisplayMemberPath = "Value";
+                    ////log.Error("Loading Approval infomration");
+                    cbx_revision_number.Items.Clear();
+
+                    var data = (from loc in orderManagementContext.IndentApproval
+                                where loc.IndentId == indentNo
+                                select loc.RevisionNumber).Distinct().ToList();
+
+                    foreach (var i in data)
+                    {
+                        cbx_revision_number.Items.Add(new KeyValuePair<int, int>(i, i));
+                    }
                 }
                 ////log.Error("Approval Information loaded.");
             }
@@ -740,7 +827,7 @@ namespace OrderManagementTool
 
         private void cbx_revision_number_DropDownOpened(object sender, EventArgs e)
         {
-           
+            GetIndentByRevisionNumber();
         }
 
         private void cbx_approval_id_DropDownOpened(object sender, EventArgs e)
