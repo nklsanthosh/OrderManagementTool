@@ -31,8 +31,8 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Label x:Name="lbl_Po_item" Content="PO Creation" HorizontalAlignment="Left" Margin="379,191,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" />
-        <Button x:Name="btn_create_PO"  HorizontalAlignment="Left" Margin="557,192,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_create_PO_Click" >
+        <Label x:Name="lbl_Po_item" Content="PO Creation" HorizontalAlignment="Left" Margin="143,191,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" />
+        <Button x:Name="btn_create_PO"  HorizontalAlignment="Left" Margin="238,192,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_create_PO_Click" >
             <Button.Content>
                 <Image Source="Images\Icons\btn_createPO.png" Margin="-2,-2,0,0" Width="130" Height="32"/>
 
@@ -129,7 +129,7 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-
+        <Label x:Name="lbl_Po_No" Content="PO No" HorizontalAlignment="Left" Margin="406,191,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" />
         <TextBox x:Name="txt_po_indent_no" HorizontalAlignment="Left" Margin="460,190,0,0" Text="" TextWrapping="Wrap"
                  VerticalAlignment="Top"  Width="92" Height="30"
                  BorderBrush="#FF8CBD4B" UseLayoutRounding="False" Tag="PO #" TextBlock.TextAlignment="Center" 
@@ -197,6 +197,26 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
+        <Button x:Name="btn_search_PO"  HorizontalAlignment="Left" Margin="557,192,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_search_PO_Click" >
+            <Button.Content>
+                <Image Source="Images\Icons\btn_createPO.png" Margin="-2,-2,0,0" Width="130" Height="32"/>
+
+            </Button.Content>
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="1" Padding="2">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
+        
         <Label Content="Indent No" HorizontalAlignment="Left" Margin="388,152,0,0" VerticalAlignment="Top" Width="79" Height="30" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" />
         <Button x:Name="btn_search_indent"  HorizontalAlignment="Left" Margin="557,152,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_search_indent_Click">
             <Button.Content>
@@ -216,10 +236,10 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Label x:Name="lbl_item" Content="Masters" HorizontalAlignment="Left" Margin="164,191,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" />
-        <Button x:Name="btn_add_item" HorizontalAlignment="Left" Margin="238,191,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_add_item_Click">
+        <Label x:Name="lbl_item" Content="Masters" HorizontalAlignment="Left" Margin="164,235,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" />
+        <Button x:Name="btn_add_item" HorizontalAlignment="Left" Margin="238,235,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_add_item_Click">
             <Button.Content>
-                <Image Source="Images\Icons\btn_add_masters.jpg" Margin="-2,-2,0,0" Width="130" Height="32"/>
+                <Image Source="Images\Icons\btn_add_masters.jpg" Width="130" Height="32"/>
 
             </Button.Content>
             <Button.Style>

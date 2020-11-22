@@ -93,6 +93,24 @@ namespace OrderManagementTool
         {
             try
             {
+                QuoteComparer qC = new QuoteComparer(_login);
+                qC.Show();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured PO Access Check " + ex.Message,
+                                   "Order Management System",
+                                       MessageBoxButton.OK,
+                                           MessageBoxImage.Error);
+            }
+
+        }
+
+        private void btn_search_PO_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
                 if (txt_po_indent_no.Text != "")
                 {
                     long POID = Convert.ToInt64(txt_po_indent_no.Text);
@@ -140,19 +158,18 @@ namespace OrderManagementTool
                 }
                 else
                 {
-                    QuoteComparer qC = new QuoteComparer(_login);
-                    qC.Show();
+                    ViewPurchaseOrders vPO = new ViewPurchaseOrders(_login);
+                    vPO.Show();
                     this.Close();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occured PO Access Check " + ex.Message,
+                MessageBox.Show("An error occured during PO search " + ex.Message,
                                    "Order Management System",
                                        MessageBoxButton.OK,
                                            MessageBoxImage.Error);
             }
-
         }
 
         private void btn_search_indent_Click(object sender, RoutedEventArgs e)
