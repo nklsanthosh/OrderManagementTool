@@ -65,6 +65,7 @@ namespace OrderManagementTool
                 // lbl_approval_status.BorderBrush = System.Windows.Media.Brushes.Blue;
                 lbl_approval_status.Background = System.Windows.Media.Brushes.Aqua;
                 //lbl_approval_status.Foreground ();
+                btn_create_PO.IsEnabled = false;
             }
             catch (Exception ex)
             {
@@ -85,6 +86,13 @@ namespace OrderManagementTool
                 txt_raised_by.Text = _login.UserEmail;
                 txt_indent_no.Text = indentNo.ToString();
                 GetIndent(indentNo);
+                
+                var isApproved = (from i in orderManagementContext.IndentApproval where i.IndentId == indentNo && i.ApprovalStatusId == 2 select i).FirstOrDefault();
+                
+                if (isApproved != null)
+                    btn_create_PO.IsEnabled = true;
+                else
+                    btn_create_PO.IsEnabled = false;
 
                 this.datepicker_date1.SelectedDate = DateTime.Now.Date;
             }
@@ -224,6 +232,24 @@ namespace OrderManagementTool
                 ////log.Error("Error while fetching Indent information: " + ex.StackTrace);
             }
         }
+
+        private void btn_create_PO_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                QuoteComparer quoteComparer = new QuoteComparer(_login);
+                quoteComparer.Show();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to open Quote Comparision screen. An error occurred :" + ex.Message,
+                                   "Order Management System",
+                                       MessageBoxButton.OK,
+                                           MessageBoxImage.Error);
+            }
+        }
+
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
