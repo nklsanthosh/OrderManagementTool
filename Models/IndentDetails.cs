@@ -12,6 +12,7 @@ namespace OrderManagementTool.Models
         public long UnitId { get; set; }
         public int Quantity { get; set; }
         public string Remarks { get; set; }
+        public int RevisionNumber { get; set; }
         public DateTime CreatedDate { get; set; }
         public long CreatedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }

@@ -24,13 +24,16 @@ namespace OrderManagementTool.Models
         public virtual DbSet<IndentApproval> IndentApproval { get; set; }
         public virtual DbSet<IndentDetails> IndentDetails { get; set; }
         public virtual DbSet<IndentMaster> IndentMaster { get; set; }
+        public virtual DbSet<IndentQuoteMapping> IndentQuoteMapping { get; set; }
         public virtual DbSet<ItemCategory> ItemCategory { get; set; }
         public virtual DbSet<ItemMaster> ItemMaster { get; set; }
+        public virtual DbSet<LocationAddress> LocationAddress { get; set; }
         public virtual DbSet<LocationCode> LocationCode { get; set; }
         public virtual DbSet<Numbers> Numbers { get; set; }
         public virtual DbSet<Poapproval> Poapproval { get; set; }
         public virtual DbSet<Podetails> Podetails { get; set; }
         public virtual DbSet<Pomaster> Pomaster { get; set; }
+        public virtual DbSet<QuotationInformation> QuotationInformation { get; set; }
         public virtual DbSet<RoleMapping> RoleMapping { get; set; }
         public virtual DbSet<RolesMaster> RolesMaster { get; set; }
         public virtual DbSet<UnitMaster> UnitMaster { get; set; }
@@ -191,6 +194,23 @@ namespace OrderManagementTool.Models
                 entity.Property(e => e.Remarks).HasMaxLength(50);
             });
 
+            modelBuilder.Entity<IndentQuoteMapping>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.IndentId).HasColumnName("IndentID");
+
+                entity.Property(e => e.IndentQuoteId)
+                    .HasColumnName("IndentQuoteID")
+                    .ValueGeneratedOnAdd();
+
+                entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.QuotationId).HasColumnName("QuotationID");
+            });
+
             modelBuilder.Entity<ItemCategory>(entity =>
             {
                 entity.Property(e => e.ItemCategoryId).HasColumnName("ItemCategoryID");
@@ -227,6 +247,29 @@ namespace OrderManagementTool.Models
                     .HasForeignKey(d => d.ItemCategoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ItemMaster_ItemCategory");
+            });
+
+            modelBuilder.Entity<LocationAddress>(entity =>
+            {
+                entity.Property(e => e.Address1)
+                    .IsRequired()
+                    .HasMaxLength(300);
+
+                entity.Property(e => e.Address2)
+                    .IsRequired()
+                    .HasMaxLength(300);
+
+                entity.Property(e => e.Address3).HasMaxLength(300);
+
+                entity.Property(e => e.Address4).HasMaxLength(300);
+
+                entity.Property(e => e.LocationCodeId).HasColumnName("LocationCode_Id");
+
+                entity.HasOne(d => d.LocationCode)
+                    .WithMany(p => p.LocationAddress)
+                    .HasForeignKey(d => d.LocationCodeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_LocationAddress_LocationCode");
             });
 
             modelBuilder.Entity<LocationCode>(entity =>
@@ -287,6 +330,15 @@ namespace OrderManagementTool.Models
 
                 entity.Property(e => e.PodetailsId).HasColumnName("PODetailsID");
 
+                entity.Property(e => e.ContactNumber)
+                    .HasColumnName("Contact_Number")
+                    .HasMaxLength(20)
+                    .IsFixedLength();
+
+                entity.Property(e => e.ContactPerson)
+                    .HasColumnName("Contact_Person")
+                    .HasMaxLength(100);
+
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Description)
@@ -294,7 +346,21 @@ namespace OrderManagementTool.Models
                     .HasMaxLength(300)
                     .IsFixedLength();
 
+                entity.Property(e => e.GstValue)
+                    .HasColumnName("GST_Value")
+                    .HasColumnType("decimal(18, 2)");
+
                 entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.OfferDate)
+                    .HasColumnName("Offer_Date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.OfferNumber)
+                    .IsRequired()
+                    .HasColumnName("Offer_Number")
+                    .HasMaxLength(100)
+                    .IsFixedLength();
 
                 entity.Property(e => e.PoId).HasColumnName("PO_ID");
 
@@ -307,6 +373,18 @@ namespace OrderManagementTool.Models
                 entity.Property(e => e.UnitPrice)
                     .HasColumnName("Unit_Price")
                     .HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.VendorCode)
+                    .IsRequired()
+                    .HasColumnName("Vendor_Code")
+                    .HasMaxLength(100)
+                    .IsFixedLength();
+
+                entity.Property(e => e.VendorName)
+                    .IsRequired()
+                    .HasColumnName("Vendor_Name")
+                    .HasMaxLength(200)
+                    .IsFixedLength();
 
                 entity.HasOne(d => d.UnitsNavigation)
                     .WithMany(p => p.Podetails)
@@ -332,6 +410,19 @@ namespace OrderManagementTool.Models
                 entity.Property(e => e.Remarks)
                     .HasMaxLength(300)
                     .IsFixedLength();
+            });
+
+            modelBuilder.Entity<QuotationInformation>(entity =>
+            {
+                entity.HasKey(e => e.QuotationId);
+
+                entity.Property(e => e.QuotationId).HasColumnName("QuotationID");
+
+                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ModifedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.QuotationFileName).IsRequired();
             });
 
             modelBuilder.Entity<RoleMapping>(entity =>

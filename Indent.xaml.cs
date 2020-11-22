@@ -738,6 +738,11 @@ namespace OrderManagementTool
 
         }
 
+        private void cbx_revision_number_DropDownOpened(object sender, EventArgs e)
+        {
+           
+        }
+
         private void cbx_approval_id_DropDownOpened(object sender, EventArgs e)
         {
             try
