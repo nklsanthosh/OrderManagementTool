@@ -364,7 +364,7 @@
         </TextBox>
         <Button x:Name="btn_add_item" HorizontalAlignment="Left" Margin="325,265,0,0" VerticalAlignment="Top" Click="btn_add_item_Click"  Width="120" Height="29">
             <Button.Content>
-                <Image Source="Images\Icons\btn_add_item.jpg" Width="120" Height="32"  Margin="-2,-2,0,2" />
+                <Image Source="Images\Icons\ctaBtn-addItem.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
 
             </Button.Content>
             <Button.Style>
@@ -372,7 +372,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="Button">
-                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="1" Padding="2">
+                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="0" Padding="2">
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
                             </ControlTemplate>

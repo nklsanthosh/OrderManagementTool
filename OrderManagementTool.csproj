@@ -32,6 +32,30 @@
     <None Remove="Images\icons\btn_update_field.jpg" />
     <None Remove="Images\icons\btn_username.jpg" />
     <None Remove="Images\icons\btn_view_indent.jpg" />
+    <None Remove="Images\icons\ctaBtn-addCategory.png" />
+    <None Remove="Images\icons\ctaBtn-addIndent.png" />
+    <None Remove="Images\icons\ctaBtn-addItem.png" />
+    <None Remove="Images\icons\ctaBtn-addMasters.png" />
+    <None Remove="Images\icons\ctaBtn-addUnit.png" />
+    <None Remove="Images\icons\ctaBtn-approvePO.png" />
+    <None Remove="Images\icons\ctaBtn-clearFields.png" />
+    <None Remove="Images\icons\ctaBtn-compare.png" />
+    <None Remove="Images\icons\ctaBtn-createIndent.png" />
+    <None Remove="Images\icons\ctaBtn-createPO.png" />
+    <None Remove="Images\icons\ctaBtn-download.png" />
+    <None Remove="Images\icons\ctaBtn-dropdown.png" />
+    <None Remove="Images\icons\ctaBtn-generatePO.png" />
+    <None Remove="Images\icons\ctaBtn-generateReport.png" />
+    <None Remove="Images\icons\ctaBtn-password.png" />
+    <None Remove="Images\icons\ctaBtn-removeField.png" />
+    <None Remove="Images\icons\ctaBtn-searchIndent.png" />
+    <None Remove="Images\icons\ctaBtn-selectDate.png" />
+    <None Remove="Images\icons\ctaBtn-submit.png" />
+    <None Remove="Images\icons\ctaBtn-textbox.png" />
+    <None Remove="Images\icons\ctaBtn-updateField.png" />
+    <None Remove="Images\icons\ctaBtn-upload.png" />
+    <None Remove="Images\icons\ctaBtn-username.png" />
+    <None Remove="Images\icons\ctaBtn-viewIndent.png" />
     <None Remove="Images\icons\grey_icon.png" />
     <None Remove="Images\icons\horizontal_line_icon.png" />
     <None Remove="Images\icons\icon_add_category.png" />
@@ -154,6 +178,78 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\icons\btn_view_indent.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\ctaBtn-addCategory.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\ctaBtn-addIndent.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\ctaBtn-addItem.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\ctaBtn-addMasters.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\ctaBtn-addUnit.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\ctaBtn-approvePO.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\ctaBtn-clearFields.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\ctaBtn-compare.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\ctaBtn-createIndent.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\ctaBtn-createPO.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\ctaBtn-download.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\ctaBtn-dropdown.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\ctaBtn-generatePO.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\ctaBtn-generateReport.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\ctaBtn-password.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\ctaBtn-removeField.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\ctaBtn-searchIndent.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\ctaBtn-selectDate.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\ctaBtn-submit.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\ctaBtn-textbox.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\ctaBtn-updateField.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\ctaBtn-upload.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\ctaBtn-username.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\ctaBtn-viewIndent.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\icons\grey_icon.png">

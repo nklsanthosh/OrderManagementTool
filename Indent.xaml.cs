@@ -115,7 +115,7 @@ namespace OrderManagementTool
             //Button btn = new Button();
             //btn.Content = stackPnl;
             //datepicker_date.Children.Add(btn);
-        }
+        }   
         private void DisableAllFields()
         {
             datepicker_date1.Focusable = false;
@@ -1073,7 +1073,7 @@ namespace OrderManagementTool
                     mm.To.Add(mailTo);
 
                     mm.Subject = "Indent Number - " + indentNo.ToString();
-                    body = body + ". Please click on the link to approve or deny the indent. " + ConfigurationManager.AppSettings["url"] + "/" + indentNo;
+                    body = body + ". Please click on the link to approve or deny the indent. " + ConfigurationManager.AppSettings["url"] + "/" + indentNo +"?type='I'";
                     mm.Body = body;
                     mm.IsBodyHtml = true;
 

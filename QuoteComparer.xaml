@@ -403,9 +403,9 @@
         <Label x:Name="lblApprovedQuote" Content="Approved Quote" HorizontalAlignment="Left"  Margin="376,4,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Width="100" Grid.Row="1"/>
         <CheckBox x:Name="checkbox_Approve1" Content="Approve Quotation 1" Margin="58,154,1139,276" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Background="#E7F8F0" IsChecked="False" Checked="checkbox_Approve1_Checked" Grid.Row="1">
         </CheckBox>
-        <Button x:Name="btn_upload_1" HorizontalAlignment="Left" Margin="220,145,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click=" btn_upload_Click_1" Grid.Row="1">
+        <Button x:Name="btn_upload_1" HorizontalAlignment="Left" Margin="200,140,0,0" VerticalAlignment="Top"  Width="40" Height="40" Click=" btn_upload_Click_1" Grid.Row="1">
             <Button.Content>
-                <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32" />
+                <Image Source="Images\Icons\icon-upload.png" Width="40" Height="32" />
             </Button.Content>
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
@@ -534,7 +534,7 @@
         <Label x:Name="lbl_quote_1" Content="Quotation 1" HorizontalAlignment="Left" Margin="52,7,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Grid.Row="1"/>
         <Button x:Name="btn_quotation_upload_1" HorizontalAlignment="Left" Margin="130,4,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click=" btn_quotation_upload_Click_1" Grid.Row="1">
             <Button.Content>
-                <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
+                <Image Source="Images\Icons\ctaBtn-upload.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
             </Button.Content>
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
@@ -552,14 +552,14 @@
         </Button>
         <Button x:Name="btn_download" HorizontalAlignment="Left" Margin="252,4,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click=" btn_download_Click_1" Grid.Row="1">
             <Button.Content>
-                <Image Source="Images\Icons\btn_download.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
+                <Image Source="Images\Icons\ctaBtn-download.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
             </Button.Content>
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="Button">
-                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="1" Padding="2">
+                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="0" Padding="2">
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
                             </ControlTemplate>
@@ -570,14 +570,14 @@
         </Button>
         <Button x:Name="btn_download_1" HorizontalAlignment="Left" Margin="252,38,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click="btn_download_Click_2" Grid.Row="1">
             <Button.Content>
-                <Image Source="Images\Icons\btn_download.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
+                <Image Source="Images\Icons\ctaBtn-download.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
             </Button.Content>
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="Button">
-                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="1" Padding="2">
+                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="0" Padding="2">
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
                             </ControlTemplate>
@@ -588,14 +588,14 @@
         </Button>
         <Button x:Name="btn_download_2" HorizontalAlignment="Left" Margin="252,70,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click="btn_download_Click_3" Grid.Row="1">
             <Button.Content>
-                <Image Source="Images\Icons\btn_download.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
+                <Image Source="Images\Icons\ctaBtn-download.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
             </Button.Content>
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="Button">
-                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="1" Padding="2">
+                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="0" Padding="2">
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
                             </ControlTemplate>
@@ -607,14 +607,14 @@
         <Label x:Name="lbl_quote_2" Content="Quotation 2" HorizontalAlignment="Left" Margin="52,40,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Grid.Row="1"/>
         <Button x:Name="btn_quotation_upload_2" HorizontalAlignment="Left" Margin="130,36,0,0" VerticalAlignment="Top" Width="120" Height="29" Click=" btn_quotation_upload_Click_2" Grid.Row="1">
             <Button.Content>
-                <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
+                <Image Source="Images\Icons\ctaBtn-upload.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
             </Button.Content>
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="Button">
-                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="1" Padding="2">
+                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="0" Padding="2">
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
                             </ControlTemplate>
@@ -626,14 +626,14 @@
         <Label x:Name="lbl_quote_3" Content="Quotation 3" HorizontalAlignment="Left" Margin="52,71,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Grid.Row="1"/>
         <Button x:Name="btn_quotation_upload_3" HorizontalAlignment="Left" Margin="130,69,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click=" btn_quotation_upload_Click_3" Grid.Row="1">
             <Button.Content>
-                <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
+                <Image Source="Images\Icons\ctaBtn-upload.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
             </Button.Content>
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="Button">
-                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="1" Padding="2">
+                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="0" Padding="2">
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
                             </ControlTemplate>
@@ -644,7 +644,7 @@
         </Button>
         <Button x:Name="btn_Create_PO" HorizontalAlignment="Left" Margin="912,96,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click="btn_Create_PO_Click" Grid.Row="1" >
             <Button.Content>
-                <Image Source="Images\Icons\btn_createPO.png" Width="120" Height="32"  Margin="-2,-2,0,2" >
+                <Image Source="Images\Icons\ctaBtn-createPO.png" Width="120" Height="32"  Margin="-2,-2,0,2" >
                     <Image.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -660,7 +660,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="Button">
-                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="1" Padding="2">
+                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="0" Padding="2">
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
                             </ControlTemplate>
@@ -671,15 +671,7 @@
         </Button>
         <Button x:Name="btn_Generate" HorizontalAlignment="Left" Margin="1039,96,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click="btn_generate_Click" Grid.Row="1">
             <Button.Content>
-                <Image Source="Images\Icons\btn_generatePO.png" Width="120" Height="32"  Margin="-2,-2,0,2" >
-                    <Image.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform AngleX="-2.526"/>
-                            <RotateTransform/>
-                            <TranslateTransform X="0.706"/>
-                        </TransformGroup>
-                    </Image.RenderTransform>
+                <Image Source="Images\Icons\ctaBtn-generatePO.png" Width="120" Height="32"  Margin="-2,-2,0,2" >
                 </Image>
             </Button.Content>
             <Button.Style>
@@ -687,7 +679,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="Button">
-                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="1" Padding="2">
+                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="0" Padding="2">
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
                             </ControlTemplate>
@@ -698,15 +690,7 @@
         </Button>
         <Button x:Name="btn_Approve" HorizontalAlignment="Left" Margin="1165,96,0,0" VerticalAlignment="Top" Visibility="Visible"  Width="120" Height="29" Click="btn_Approve_Click" Grid.Row="1">
             <Button.Content>
-                <Image Source="Images\Icons\btn_approvePO.png" Width="120" Height="32"  Margin="-2,-2,0,2" >
-                    <Image.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform AngleX="-2.526"/>
-                            <RotateTransform/>
-                            <TranslateTransform X="0.706"/>
-                        </TransformGroup>
-                    </Image.RenderTransform>
+                <Image Source="Images\Icons\ctaBtn-approvePO.png" Width="120" Height="32"  Margin="-2,-2,0,2" >
                 </Image>
             </Button.Content>
             <Button.Style>
@@ -714,7 +698,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="Button">
-                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="1" Padding="2">
+                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="0" Padding="2">
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
                             </ControlTemplate>
@@ -727,9 +711,9 @@
 
         <CheckBox x:Name="checkbox_Approve2" Content="Approve Quotation 2" Margin="447,154,733,268" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Background="#E7F8F0" IsChecked="False" Checked="checkbox_Approve2_Checked" Grid.Row="1">
         </CheckBox>
-        <Button x:Name="btn_upload_2" HorizontalAlignment="Left" Margin="600,145,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click=" btn_upload_Click_2" Grid.Row="1">
+        <Button x:Name="btn_upload_2" HorizontalAlignment="Left" Margin="585,140,0,0" VerticalAlignment="Top"  Width="40" Height="40" Click=" btn_upload_Click_1" Grid.Row="1">
             <Button.Content>
-                <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32" />
+                <Image Source="Images\Icons\icon-upload.png" Width="40" Height="32" />
             </Button.Content>
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
@@ -747,9 +731,9 @@
         </Button>
         <CheckBox x:Name="checkbox_Approve3" Content="Approve Quotation 3" Margin="872,153,292,276" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Background="#E7F8F0" IsChecked="False" Checked="checkbox_Approve3_Checked" Grid.Row="1">
         </CheckBox>
-        <Button x:Name="btn_upload_3" HorizontalAlignment="Left" Margin="1025,145,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click=" btn_upload_Click_3" Grid.Row="1">
+        <Button x:Name="btn_upload_3" HorizontalAlignment="Left" Margin="1010,140,0,0" VerticalAlignment="Top"  Width="40" Height="40" Click=" btn_upload_Click_1" Grid.Row="1">
             <Button.Content>
-                <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32" />
+                <Image Source="Images\Icons\icon-upload.png" Width="40" Height="32" />
             </Button.Content>
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
