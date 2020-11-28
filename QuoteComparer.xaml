@@ -401,8 +401,26 @@
         <Border BorderThickness="1" BorderBrush="#8ABC48" Background="#FFFFFF" Margin="45,33,39,29" Grid.RowSpan="2"/>
 
         <Label x:Name="lblApprovedQuote" Content="Approved Quote" HorizontalAlignment="Left"  Margin="376,4,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Width="100" Grid.Row="1"/>
-        <CheckBox x:Name="checkbox_Approve1" Content="Approve Quotation 1" Margin="58,134,1139,293" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Background="#E7F8F0" IsChecked="False" Checked="checkbox_Approve1_Checked" Grid.Row="1">
+        <CheckBox x:Name="checkbox_Approve1" Content="Approve Quotation 1" Margin="58,154,1139,276" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Background="#E7F8F0" IsChecked="False" Checked="checkbox_Approve1_Checked" Grid.Row="1">
         </CheckBox>
+        <Button x:Name="btn_upload_1" HorizontalAlignment="Left" Margin="220,145,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click=" btn_upload_Click_1" Grid.Row="1">
+            <Button.Content>
+                <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32" />
+            </Button.Content>
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="1" Padding="2">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
         <Image Source="Images/logo.png" Margin="51,36,1212,144"/>
         <Image Source="images/icons/horizontal_line_icon.png" Margin="46,99,39,125"  />
         <Image Source="images/icons/grey_icon.png" Margin="123,33,1201,147"  />
@@ -514,7 +532,7 @@
         <DataGrid x:Name="grid_indentdata" Margin="52,156,365,2" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_indentdata_SelectionChanged"  />
         <DataGrid x:Name="grid_ApprovalStatusLevel" Margin="1010,153,54,0" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*"   />
         <Label x:Name="lbl_quote_1" Content="Quotation 1" HorizontalAlignment="Left" Margin="52,7,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Grid.Row="1"/>
-        <Button x:Name="btn_upload" HorizontalAlignment="Left" Margin="130,4,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click=" btn_upload_Click_1" Grid.Row="1">
+        <Button x:Name="btn_quotation_upload_1" HorizontalAlignment="Left" Margin="130,4,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click=" btn_quotation_upload_Click_1" Grid.Row="1">
             <Button.Content>
                 <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
             </Button.Content>
@@ -587,7 +605,7 @@
             </Button.Style>
         </Button>
         <Label x:Name="lbl_quote_2" Content="Quotation 2" HorizontalAlignment="Left" Margin="52,40,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Grid.Row="1"/>
-        <Button x:Name="btn_upload_2" HorizontalAlignment="Left" Margin="130,36,0,0" VerticalAlignment="Top" Width="120" Height="29" Click=" btn_upload_Click_2" Grid.Row="1">
+        <Button x:Name="btn_quotation_upload_2" HorizontalAlignment="Left" Margin="130,36,0,0" VerticalAlignment="Top" Width="120" Height="29" Click=" btn_quotation_upload_Click_2" Grid.Row="1">
             <Button.Content>
                 <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
             </Button.Content>
@@ -606,7 +624,7 @@
             </Button.Style>
         </Button>
         <Label x:Name="lbl_quote_3" Content="Quotation 3" HorizontalAlignment="Left" Margin="52,71,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Grid.Row="1"/>
-        <Button x:Name="btn_upload_3" HorizontalAlignment="Left" Margin="130,69,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click=" btn_upload_Click_3" Grid.Row="1">
+        <Button x:Name="btn_quotation_upload_3" HorizontalAlignment="Left" Margin="130,69,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click=" btn_quotation_upload_Click_3" Grid.Row="1">
             <Button.Content>
                 <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
             </Button.Content>
@@ -707,16 +725,52 @@
         </Button>
 
 
-        <CheckBox x:Name="checkbox_Approve2" Content="Approve Quotation 2" Margin="447,135,733,287" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Background="#E7F8F0" IsChecked="False" Checked="checkbox_Approve2_Checked" Grid.Row="1">
+        <CheckBox x:Name="checkbox_Approve2" Content="Approve Quotation 2" Margin="447,154,733,268" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Background="#E7F8F0" IsChecked="False" Checked="checkbox_Approve2_Checked" Grid.Row="1">
         </CheckBox>
-        <CheckBox x:Name="checkbox_Approve3" Content="Approve Quotation 3" Margin="872,136,292,293" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Background="#E7F8F0" IsChecked="False" Checked="checkbox_Approve3_Checked" Grid.Row="1">
+        <Button x:Name="btn_upload_2" HorizontalAlignment="Left" Margin="600,145,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click=" btn_upload_Click_2" Grid.Row="1">
+            <Button.Content>
+                <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32" />
+            </Button.Content>
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="1" Padding="2">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
+        <CheckBox x:Name="checkbox_Approve3" Content="Approve Quotation 3" Margin="872,153,292,276" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Background="#E7F8F0" IsChecked="False" Checked="checkbox_Approve3_Checked" Grid.Row="1">
         </CheckBox>
+        <Button x:Name="btn_upload_3" HorizontalAlignment="Left" Margin="1025,145,0,0" VerticalAlignment="Top"  Width="120" Height="29" Click=" btn_upload_Click_3" Grid.Row="1">
+            <Button.Content>
+                <Image Source="Images\Icons\icon_upload.png" Width="120" Height="32" />
+            </Button.Content>
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="1" Padding="2">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
 
         <Label x:Name="lbl_ApprovalStatus" Content="Approval Status:" HorizontalAlignment="Left" Margin="1004,119,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Width="102"/>
         <ComboBox x:Name="cbx_ApprovalStatus_id" HorizontalAlignment="Left" Margin="1114,118,0,0" VerticalAlignment="Top" Width="175" Height="30" DropDownOpened="cbx_ApprovalStatus_id_DropDownOpened" />
-        <DataGrid x:Name="grid_quote_1" Margin="57,159,910,127" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" IsReadOnly="True" Grid.Row="1"  />
-        <DataGrid x:Name="grid_quote_2" Margin="448,160,486,126" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_quote_2_SelectionChanged" IsReadOnly="True" Grid.Row="1"  />
-        <DataGrid x:Name="grid_quote_3" Margin="873,161,46,125" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_quote_3_SelectionChanged" IsReadOnly="True" Grid.Row="1"/>
+        <DataGrid x:Name="grid_quote_1" Margin="57,182,910,127" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" IsReadOnly="True" Grid.Row="1"  />
+        <DataGrid x:Name="grid_quote_2" Margin="448,182,486,126" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_quote_2_SelectionChanged" IsReadOnly="True" Grid.Row="1"  />
+        <DataGrid x:Name="grid_quote_3" Margin="873,182,46,125" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_quote_3_SelectionChanged" IsReadOnly="True" Grid.Row="1"/>
         <DataGrid x:Name="grid_po_confirmation" Margin="486,3,456,339" AlternationCount="2"  AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*" SelectionChanged="grid_po_confirmation_SelectionChanged"  IsReadOnly="True" Grid.Row="1"/>
         <Label x:Name="Remarks" Content="Approval Justification : " HorizontalAlignment="Left" Margin="934,248,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Grid.RowSpan="2"/>
         <TextBox x:Name="txt_PO_Remarks" HorizontalAlignment="Left" Margin="936,20,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="350" Height="60" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" TextChanged="txt_PO_Remarks_TextChanged" Grid.Row="1" >

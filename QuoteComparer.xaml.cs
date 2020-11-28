@@ -434,14 +434,14 @@ namespace OrderManagementTool
                         testCMD.Parameters.Add(new SqlParameter("@QuoteNo", System.Data.SqlDbType.Int) { Value = 1 });
 
                         SqlDataReader dataReader = testCMD.ExecuteReader();
-                        while(dataReader.Read())
+                        while (dataReader.Read())
                         {
                             fileName = dataReader.GetString(0);
-                            fileContent = dataReader.GetString(1); 
+                            fileContent = dataReader.GetString(1);
                         }
-                        
+
                         Byte[] bytes = Convert.FromBase64String(fileContent);
-                        File.WriteAllBytes(targetPath + "\\" +fileName, bytes);
+                        File.WriteAllBytes(targetPath + "\\" + fileName, bytes);
                         MessageBox.Show("The file has been downloaded to the following path" + targetPath + "\\" + fileName,
                        "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
@@ -451,7 +451,7 @@ namespace OrderManagementTool
                     MessageBox.Show("Error occurred while downloading Quotation information.",
                         "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -540,7 +540,7 @@ namespace OrderManagementTool
 
                         Byte[] bytes = Convert.FromBase64String(fileContent);
                         File.WriteAllBytes(targetPath + "\\" + fileName, bytes);
-                        MessageBox.Show("The file has been downloaded to the following path"+ targetPath + "\\" + fileName,
+                        MessageBox.Show("The file has been downloaded to the following path" + targetPath + "\\" + fileName,
                        "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
@@ -558,7 +558,7 @@ namespace OrderManagementTool
             }
             this.Cursor = null;
         }
-        private void btn_upload_Click_1(object sender, RoutedEventArgs e)
+        private void btn_quotation_upload_Click_1(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -567,7 +567,7 @@ namespace OrderManagementTool
                 if (openFileDialog.ShowDialog() == true)
                     filePath = openFileDialog.FileName;
 
-                
+
                 string fileName = openFileDialog.SafeFileName.Split('.')[0] + "_" + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year + DateTime.Now.Hour + DateTime.Now.Minute + DateTime.Now.Second + "_" + _login.EmployeeID + "." + openFileDialog.SafeFileName.Split('.')[1];
                 byte[] fileContent = null;
 
@@ -628,7 +628,7 @@ namespace OrderManagementTool
             }
         }
 
-        private void btn_upload_Click_2(object sender, RoutedEventArgs e)
+        private void btn_quotation_upload_Click_2(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -697,7 +697,7 @@ namespace OrderManagementTool
                 // log.Error("Unable to upload the data from the file. An error occured : " + ex.Message);
             }
         }
-        private void btn_upload_Click_3(object sender, RoutedEventArgs e)
+        private void btn_quotation_upload_Click_3(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -754,6 +754,104 @@ namespace OrderManagementTool
 
                 //targetPath = targetPath + "\\" + fileName;
                 //File.Copy(filePath, targetPath, true);
+                MessageBox.Show("The file has been processed and data has been uploaded.",
+                        "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+                // log.Info("The file has been processed and data has been uploaded.");
+                //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to upload the data from the file. An error occured : " + ex.Message,
+                    "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                // log.Error("Unable to upload the data from the file. An error occured : " + ex.Message);
+            }
+        }
+
+        private void btn_upload_Click_1(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string filePath = string.Empty;
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                if (openFileDialog.ShowDialog() == true)
+                    filePath = openFileDialog.FileName;
+
+                using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
+                {
+                    poitems_1 = PullIndentData(stream);
+                }
+                grid_quote_1.ItemsSource = null;
+                grid_quote_1.ItemsSource = poitems_1;
+                File.SetAttributes(filePath, FileAttributes.Normal);
+                string targetPath = Convert.ToString(ConfigurationManager.AppSettings["TargetReportPath"]);
+
+                //targetPath = targetPath + "\\" + openFileDialog.SafeFileName;
+                //File.Move(filePath, targetPath, true);
+                MessageBox.Show("The file has been processed and data has been uploaded.",
+                        "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+                // log.Info("The file has been processed and data has been uploaded.");
+                //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to upload the data from the file. An error occured : " + ex.Message,
+                    "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                // log.Error("Unable to upload the data from the file. An error occured : " + ex.Message);
+            }
+        }
+
+        private void btn_upload_Click_2(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string filePath = string.Empty;
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                if (openFileDialog.ShowDialog() == true)
+                    filePath = openFileDialog.FileName;
+
+                using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
+                {
+                    poitems_2 = PullIndentData(stream);
+                }
+                grid_quote_2.ItemsSource = null;
+                grid_quote_2.ItemsSource = poitems_2;
+                File.SetAttributes(filePath, FileAttributes.Normal);
+                string targetPath = Convert.ToString(ConfigurationManager.AppSettings["TargetReportPath"]);
+
+                //targetPath = targetPath + "\\" + openFileDialog.SafeFileName;
+                //File.Move(filePath, targetPath, true);
+                MessageBox.Show("The file has been processed and data has been uploaded.",
+                        "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+                // log.Info("The file has been processed and data has been uploaded.");
+                //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to upload the data from the file. An error occured : " + ex.Message,
+                    "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+                // log.Error("Unable to upload the data from the file. An error occured : " + ex.Message);
+            }
+        }
+        private void btn_upload_Click_3(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string filePath = string.Empty;
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                if (openFileDialog.ShowDialog() == true)
+                    filePath = openFileDialog.FileName;
+
+                using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
+                {
+                    poitems_3 = PullIndentData(stream);
+                }
+                grid_quote_3.ItemsSource = null;
+                grid_quote_3.ItemsSource = poitems_3;
+                File.SetAttributes(filePath, FileAttributes.Normal);
+                string targetPath = Convert.ToString(ConfigurationManager.AppSettings["TargetReportPath"]);
+
+                //targetPath = targetPath + "\\" + openFileDialog.SafeFileName;
+                //File.Move(filePath, targetPath, true);
                 MessageBox.Show("The file has been processed and data has been uploaded.",
                         "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                 // log.Info("The file has been processed and data has been uploaded.");
@@ -846,9 +944,12 @@ namespace OrderManagementTool
             checkbox_Approve1.IsEnabled = false;
             checkbox_Approve2.IsEnabled = false;
             checkbox_Approve3.IsEnabled = false;
-            btn_upload.IsEnabled = false;
+            btn_upload_1.IsEnabled = false;
             btn_upload_2.IsEnabled = false;
             btn_upload_3.IsEnabled = false;
+            btn_quotation_upload_1.IsEnabled = false;
+            btn_quotation_upload_2.IsEnabled = false;
+            btn_quotation_upload_3.IsEnabled = false;
             txt_PO_Remarks.IsEnabled = false;
             cbx_ApprovalStatus_id.IsEnabled = false;
             btn_Approve.IsEnabled = false;
@@ -862,9 +963,12 @@ namespace OrderManagementTool
             checkbox_Approve1.IsEnabled = true;
             checkbox_Approve2.IsEnabled = true;
             checkbox_Approve3.IsEnabled = true;
-            btn_upload.IsEnabled = true;
+            btn_upload_1.IsEnabled = true;
             btn_upload_2.IsEnabled = true;
             btn_upload_3.IsEnabled = true;
+            btn_quotation_upload_1.IsEnabled = false;
+            btn_quotation_upload_2.IsEnabled = false;
+            btn_quotation_upload_3.IsEnabled = false;
             txt_PO_Remarks.IsEnabled = true;
             cbx_ApprovalStatus_id.IsEnabled = true;
             btn_Create_PO.IsEnabled = true;
