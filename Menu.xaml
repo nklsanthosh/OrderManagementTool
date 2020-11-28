@@ -199,7 +199,7 @@
         </TextBox>
         <Button x:Name="btn_search_PO"  HorizontalAlignment="Left" Margin="557,192,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_search_PO_Click" >
             <Button.Content>
-                <Image Source="Images\Icons\btn_createPO.png" Margin="-2,-2,0,0" Width="130" Height="32"/>
+                <Image Source="Images\Icons\ctaBtn-searchPO.png" Margin="-2,-2,0,0" Width="130" Height="32"/>
 
             </Button.Content>
             <Button.Style>

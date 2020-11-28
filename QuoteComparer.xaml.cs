@@ -966,11 +966,15 @@ namespace OrderManagementTool
             btn_upload_1.IsEnabled = true;
             btn_upload_2.IsEnabled = true;
             btn_upload_3.IsEnabled = true;
-            btn_quotation_upload_1.IsEnabled = false;
-            btn_quotation_upload_2.IsEnabled = false;
-            btn_quotation_upload_3.IsEnabled = false;
+            btn_quotation_upload_1.IsEnabled = true;
+            btn_quotation_upload_2.IsEnabled = true;
+            btn_quotation_upload_3.IsEnabled = true;
             txt_PO_Remarks.IsEnabled = true;
             cbx_ApprovalStatus_id.IsEnabled = true;
+            checkbox_Approve1.IsEnabled = true;
+            checkbox_Approve2.IsEnabled = true;
+            checkbox_Approve2.IsEnabled = true;
+
             btn_Create_PO.IsEnabled = true;
             // btn_Generate.IsEnabled = true;
         }
@@ -994,6 +998,7 @@ namespace OrderManagementTool
             grid_po_confirmation.ItemsSource = poitems_1;
             poitems_4 = null;
             poitems_4 = poitems_1;
+            btn_Approve.IsEnabled = true;
         }
         private void checkbox_Approve2_Checked(object sender, RoutedEventArgs e)
         {
@@ -1003,6 +1008,7 @@ namespace OrderManagementTool
             grid_po_confirmation.ItemsSource = poitems_2;
             poitems_4 = null;
             poitems_4 = poitems_1;
+            btn_Approve.IsEnabled = true;
         }
 
         private void checkbox_Approve3_Checked(object sender, RoutedEventArgs e)
@@ -1013,6 +1019,7 @@ namespace OrderManagementTool
             grid_po_confirmation.ItemsSource = poitems_3;
             poitems_4 = null;
             poitems_4 = poitems_1;
+            btn_Approve.IsEnabled = true;
         }
 
         private void grid_indentdata_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1054,14 +1061,25 @@ namespace OrderManagementTool
             Dictionary<string, string> _headers = GetHeaders();
             ExportPO poData = new ExportPO();
             List<Poitem> poItems = new List<Poitem>();
-
+            LocationAddress _locationAddress = (from loc in orderManagementContext.LocationAddress
+                                                join ind in orderManagementContext.IndentMaster
+                                                on loc.LocationCodeId equals ind.LocationCodeId
+                                                where ind.IndentId == indentNo
+                                                select loc).FirstOrDefault();
+            string locationName = (from loc in orderManagementContext.LocationCode
+                                   join ind in orderManagementContext.IndentMaster
+                                   on loc.LocationId equals ind.LocationCodeId
+                                   where ind.IndentId == indentNo
+                                   select loc.LocationName).FirstOrDefault();
             poData.IndentID = Convert.ToInt32(txt_indent_no.Text);
             poData.PODate = DateTime.Now;
             poData.POID = Convert.ToInt32(txt_PO_no.Text);
             poData.Remarks = txt_PO_Remarks.Text;
             poData.Email = _login.UserEmail;
             poData.Poitems = poitems_4;
-
+            poData.Poitems = poitems_4;
+            poData.LocatioName = locationName;
+            poData.LocationAddressInfo = _locationAddress;
             GeneratePurchaseOrder(_headers, poData);
 
             this.Cursor = null;
@@ -1444,7 +1462,8 @@ namespace OrderManagementTool
                         //GetPurchaseOrder(poID.PoId);
                         FillIndent();
                         EnableFields();
-                        DisableCheckBoxes();
+                       // DisableCheckBoxes();
+                        EnableCheckBoxes();
                         //FillApprovalStatusLevel(Convert.ToString(poID.PoId));
                     }
                 }
@@ -1564,38 +1583,40 @@ namespace OrderManagementTool
                     worksheet.Cell("E7").Style.Font.Bold = true;
                     worksheet.Cell("E8").Style.Font.Bold = true;
                     worksheet.Cell("E9").Style.Font.Bold = true;
-
+                    worksheet.Cell("A10").Value = headersAndFooters["From"];
+                    worksheet.Cell("A10").Style.Font.Bold = true;
                     worksheet.Cell("F5").Value = poData.POID;
                     worksheet.Cell("F6").Value = poData.PODate;
                     worksheet.Cell("F7").Value = poData.IndentID;
-                    worksheet.Cell("F8").Value = null;
-                    worksheet.Cell("F9").Value = null;
+                    worksheet.Cell("F8").Value = poData.PODate;
+                    worksheet.Cell("F9").Value = poData.Poitems[0].Contact_Person;
 
-                    var rangeMerged3 = worksheet.Range("A10:C10").Merge();
-                    worksheet.Cell("A10").Value = headersAndFooters["Materials"];
                     worksheet.Cell("A10").Style.Font.Bold = true;
-                    worksheet.Cell("B11").Value = headersAndFooters["CompanyName"];
-                    worksheet.Cell("B12").Value = headersAndFooters["CompanyAddressLine1"];
-                    worksheet.Cell("B13").Value = headersAndFooters["CompanyAddressLine2"];
-                    worksheet.Cell("B14").Value = headersAndFooters["CompanyContactNo"];
+                    worksheet.Cell("B11").Value = poData.LocatioName;
+                    worksheet.Cell("B12").Value = poData.LocationAddressInfo.Address1;
+                    worksheet.Cell("B13").Value = poData.LocationAddressInfo.Address2;
+                    worksheet.Cell("B14").Value = poData.LocationAddressInfo.Address3;
                     worksheet.Cell("E10").Value = headersAndFooters["Remarks"];
                     worksheet.Cell("E11").Value = "GST #";
                     worksheet.Cell("E12").Value = "IEC #";
-                    worksheet.Cell("E13").Value = headersAndFooters["Page"];
+                    worksheet.Cell("E13").Value = "Project Code";
                     worksheet.Cell("E10").Style.Font.Bold = true;
                     worksheet.Cell("E11").Style.Font.Bold = true;
                     worksheet.Cell("E12").Style.Font.Bold = true;
                     worksheet.Cell("E13").Style.Font.Bold = true;
-                    // worksheet.Cell("F9").Value = headersAndFooters["Attn"];
+                    worksheet.Cell("F9").Value = poData.Poitems[0].Contact_No;
                     worksheet.Cell("F10").Value = poData.Remarks;
                     worksheet.Cell("F11").Value = headersAndFooters["GSTNo"];
                     worksheet.Cell("F12").Value = headersAndFooters["IECNo"];
-                    worksheet.Cell("F13").Value = "1 Of 1";
+                    worksheet.Cell("F13").Value = null;
 
                     worksheet.Cell("F10").Style.Font.Bold = true;
                     worksheet.Cell("F11").Style.Font.Bold = true;
                     worksheet.Cell("F12").Style.Font.Bold = true;
                     worksheet.Cell("F13").Style.Font.Bold = true;
+                    var rangeMerged3 = worksheet.Range("A15:C15").Merge();
+                    worksheet.Cell("A15").Value = headersAndFooters["Materials"];
+                    worksheet.Cell("A15").Style.Font.Bold = true;
                     worksheet.Cell("A16").Value = "S.No";
                     worksheet.Cell("B16").Value = "Description";
                     worksheet.Cell("C16").Value = "Qty";
@@ -1631,9 +1652,9 @@ namespace OrderManagementTool
                     worksheet.Cell("F" + j).Style.Font.Bold = true;
 
                     j += 1;
-                    decimal gst = Math.Round(total * Convert.ToDecimal(.18));
+                    decimal gst = Math.Round(total * Convert.ToDecimal(poData.Poitems[0].GST_Value/100));
                     decimal finalTotal = total + gst;
-                    worksheet.Cell("B" + j).Value = headersAndFooters["GST"];
+                    worksheet.Cell("B" + j).Value = headersAndFooters["GST"] + " " +poData.Poitems[0].GST_Value +"%";
                     worksheet.Cell("B" + j).Style.Font.Bold = true;
                     worksheet.Cell("F" + j).Value = Convert.ToString(gst);
                     worksheet.Cell("F" + j).Style.Font.Bold = true;
@@ -1733,5 +1754,9 @@ namespace OrderManagementTool
             }
         }
 
+        private void grid_po_confirmation_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
+        {
+
+        }
     }
 }

@@ -37,6 +37,7 @@
     <None Remove="Images\icons\ctaBtn-addItem.png" />
     <None Remove="Images\icons\ctaBtn-addMasters.png" />
     <None Remove="Images\icons\ctaBtn-addUnit.png" />
+    <None Remove="Images\icons\ctaBtn-approveDeny.png" />
     <None Remove="Images\icons\ctaBtn-approvePO.png" />
     <None Remove="Images\icons\ctaBtn-clearFields.png" />
     <None Remove="Images\icons\ctaBtn-compare.png" />
@@ -49,6 +50,7 @@
     <None Remove="Images\icons\ctaBtn-password.png" />
     <None Remove="Images\icons\ctaBtn-removeField.png" />
     <None Remove="Images\icons\ctaBtn-searchIndent.png" />
+    <None Remove="Images\icons\ctaBtn-searchPO.png" />
     <None Remove="Images\icons\ctaBtn-selectDate.png" />
     <None Remove="Images\icons\ctaBtn-submit.png" />
     <None Remove="Images\icons\ctaBtn-textbox.png" />
@@ -56,8 +58,10 @@
     <None Remove="Images\icons\ctaBtn-upload.png" />
     <None Remove="Images\icons\ctaBtn-username.png" />
     <None Remove="Images\icons\ctaBtn-viewIndent.png" />
+    <None Remove="Images\icons\ctaBtn-viewPO.png" />
     <None Remove="Images\icons\grey_icon.png" />
     <None Remove="Images\icons\horizontal_line_icon.png" />
+    <None Remove="Images\icons\icon-upload.jpg" />
     <None Remove="Images\icons\icon_add_category.png" />
     <None Remove="Images\icons\icon_add_item_unit.png" />
     <None Remove="Images\icons\icon_add_masters.png" />
@@ -195,6 +199,9 @@
     <Resource Include="Images\icons\ctaBtn-addUnit.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\icons\ctaBtn-approveDeny.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\icons\ctaBtn-approvePO.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -231,6 +238,9 @@
     <Resource Include="Images\icons\ctaBtn-searchIndent.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\icons\ctaBtn-searchPO.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\icons\ctaBtn-selectDate.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -252,10 +262,16 @@
     <Resource Include="Images\icons\ctaBtn-viewIndent.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\icons\ctaBtn-viewPO.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\icons\grey_icon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\icons\horizontal_line_icon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\icons\icon-upload.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\icons\icon_add_category.png">

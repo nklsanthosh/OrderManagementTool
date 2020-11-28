@@ -12,5 +12,7 @@ namespace OrderManagementTool.Models.Purchase_Order
         public string Remarks;
         public DateTime PODate;
         public List<Poitem> Poitems;
+        public LocationAddress LocationAddressInfo;
+        public string LocatioName;
     }
 }
