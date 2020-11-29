@@ -317,6 +317,10 @@ namespace OrderManagementTool.Models
 
                 entity.Property(e => e.PoId).HasColumnName("PO_ID");
 
+                entity.Property(e => e.Remarks)
+                    .HasMaxLength(300)
+                    .IsFixedLength();
+
                 entity.HasOne(d => d.ApprovalStatus)
                     .WithMany(p => p.Poapproval)
                     .HasForeignKey(d => d.ApprovalStatusId)

@@ -9,6 +9,7 @@ namespace OrderManagementTool.Models
         public long PoId { get; set; }
         public long ApprovalId { get; set; }
         public long ApprovalStatusId { get; set; }
+        public string Remarks { get; set; }
         public DateTime CreatedDate { get; set; }
         public long? CreatedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
