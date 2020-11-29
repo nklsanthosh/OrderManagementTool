@@ -48,6 +48,7 @@ namespace OrderManagementTool
         // public string mailFrom;
         public string mailTo;
         private bool isGridReadOnly = false;
+        private bool isWindowNormallyClosed = true;
 
         public Indent(Login login)
         {
@@ -115,7 +116,7 @@ namespace OrderManagementTool
             //Button btn = new Button();
             //btn.Content = stackPnl;
             //datepicker_date.Children.Add(btn);
-        }   
+        }
         private void DisableAllFields()
         {
             datepicker_date1.Focusable = false;
@@ -243,71 +244,74 @@ namespace OrderManagementTool
             {
                 ////log.Info("Getting Indent infomration for Indent No: " + indentNo);
                 ///
-                long indentNo = Convert.ToInt64(txt_indent_no.Text);
-                int revisionNumber = Convert.ToInt32(cbx_revision_number.SelectedValue);
-                List<GridIndent> gridIndents = new List<GridIndent>();
-                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
+                if (txt_indent_no.Text != "")
                 {
-                    connection.Open();
-
-                    SqlCommand testCMD = new SqlCommand("GetIndentByRevisionNumber", connection);
-                    testCMD.CommandType = CommandType.StoredProcedure;
-
-                    testCMD.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.BigInt, 50) { Value = indentNo });
-                    testCMD.Parameters.Add(new SqlParameter("@RevisionNumber", System.Data.SqlDbType.Int, 50) { Value = revisionNumber });
-
-                    // SqlDataReader dataReader = testCMD.ExecuteReader();
-                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(testCMD);
-
-                    DataSet dataSet = new DataSet();
-                    sqlDataAdapter.Fill(dataSet);
-
-                    SaveIndent saveIndent = new SaveIndent();
-
-                    int counter = 0;
-
-                    while (counter < dataSet.Tables[0].Rows.Count)
+                    long indentNo = Convert.ToInt64(txt_indent_no.Text);
+                    int revisionNumber = Convert.ToInt32(cbx_revision_number.SelectedValue);
+                    List<GridIndent> gridIndents = new List<GridIndent>();
+                    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
                     {
-                        saveIndent.Date = Convert.ToDateTime(dataSet.Tables[0].Rows[counter]["Date"]);
-                        saveIndent.LocationCode = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["LocationCode"]);
-                        saveIndent.IndentRemarks = Convert.ToString(dataSet.Tables[0].Rows[counter]["Remarks"]);
-                        saveIndent.ApproverName = Convert.ToString(dataSet.Tables[0].Rows[counter]["Approver"]);
-                        saveIndent.ApprovalID = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["Approver ID"]);
-                        saveIndent.ApprovalStatus = Convert.ToString(dataSet.Tables[0].Rows[counter]["ApprovalStatus"]);
+                        connection.Open();
 
-                        GridIndent gridIndent = new GridIndent();
-                        gridIndent.SlNo = counter + 1;
-                        gridIndent.ItemCategoryName = Convert.ToString(dataSet.Tables[0].Rows[counter]["ItemCategoryName"]);
-                        gridIndent.ItemName = Convert.ToString(dataSet.Tables[0].Rows[counter]["ItemName"]);
-                        gridIndent.ItemCode = Convert.ToString(dataSet.Tables[0].Rows[counter]["ItemCode"]);
-                        gridIndent.Units = Convert.ToString(dataSet.Tables[0].Rows[counter]["Unit"]);
-                        gridIndent.Description = Convert.ToString(dataSet.Tables[0].Rows[counter]["Description"]);
-                        gridIndent.Technical_Specifications = Convert.ToString(dataSet.Tables[0].Rows[counter]["TechnicalSpecification"]);
-                        gridIndent.Quantity = Convert.ToInt32(dataSet.Tables[0].Rows[counter]["Quantity"]);
-                        gridIndent.Remarks = Convert.ToString(dataSet.Tables[0].Rows[counter]["Item Remarks"]);
-                        gridIndents.Add(gridIndent);
+                        SqlCommand testCMD = new SqlCommand("GetIndentByRevisionNumber", connection);
+                        testCMD.CommandType = CommandType.StoredProcedure;
 
-                        saveIndent.Email = Convert.ToString(dataSet.Tables[0].Rows[counter]["Email"]);
-                        counter++;
+                        testCMD.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.BigInt, 50) { Value = indentNo });
+                        testCMD.Parameters.Add(new SqlParameter("@RevisionNumber", System.Data.SqlDbType.Int, 50) { Value = revisionNumber });
+
+                        // SqlDataReader dataReader = testCMD.ExecuteReader();
+                        SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(testCMD);
+
+                        DataSet dataSet = new DataSet();
+                        sqlDataAdapter.Fill(dataSet);
+
+                        SaveIndent saveIndent = new SaveIndent();
+
+                        int counter = 0;
+
+                        while (counter < dataSet.Tables[0].Rows.Count)
+                        {
+                            saveIndent.Date = Convert.ToDateTime(dataSet.Tables[0].Rows[counter]["Date"]);
+                            saveIndent.LocationCode = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["LocationCode"]);
+                            saveIndent.IndentRemarks = Convert.ToString(dataSet.Tables[0].Rows[counter]["Remarks"]);
+                            saveIndent.ApproverName = Convert.ToString(dataSet.Tables[0].Rows[counter]["Approver"]);
+                            saveIndent.ApprovalID = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["ApproverID"]);
+                            saveIndent.ApprovalStatus = Convert.ToString(dataSet.Tables[0].Rows[counter]["ApprovalStatus"]);
+
+                            GridIndent gridIndent = new GridIndent();
+                            gridIndent.SlNo = counter + 1;
+                            gridIndent.ItemCategoryName = Convert.ToString(dataSet.Tables[0].Rows[counter]["ItemCategoryName"]);
+                            gridIndent.ItemName = Convert.ToString(dataSet.Tables[0].Rows[counter]["ItemName"]);
+                            gridIndent.ItemCode = Convert.ToString(dataSet.Tables[0].Rows[counter]["ItemCode"]);
+                            gridIndent.Units = Convert.ToString(dataSet.Tables[0].Rows[counter]["Unit"]);
+                            gridIndent.Description = Convert.ToString(dataSet.Tables[0].Rows[counter]["Description"]);
+                            gridIndent.Technical_Specifications = Convert.ToString(dataSet.Tables[0].Rows[counter]["TechnicalSpecification"]);
+                            gridIndent.Quantity = Convert.ToInt32(dataSet.Tables[0].Rows[counter]["Quantity"]);
+                            gridIndent.Remarks = Convert.ToString(dataSet.Tables[0].Rows[counter]["Item Remarks"]);
+                            gridIndents.Add(gridIndent);
+
+                            saveIndent.Email = Convert.ToString(dataSet.Tables[0].Rows[counter]["Email"]);
+                            counter++;
+                        }
+
+                        dataSet.Dispose();
+                        //txt_raised_by.Text = saveIndent.Email;
+                        //datepicker_date1.SelectedDate = saveIndent.Date;
+                        //LoadApprovalStatusRetrival();
+                        //LoadLocationId();
+                        //cbx_location_id.SelectedValue = saveIndent.LocationCode;
+                        //cbx_approval_id.SelectedValue = saveIndent.ApprovalID;
+
+                        //lbl_approval_status.Content = saveIndent.ApprovalStatus;
+                        txt_Revision_Remarks.Text = saveIndent.IndentRemarks;
+                        grid_indentdata.ItemsSource = null;
+                        grid_indentdata.ItemsSource = gridIndents;
+                        //if (saveIndent.ApprovalStatus != "Enquiry Required")
+                        //{
+                        //    DisableAllFields();
+                        //    isGridReadOnly = true;
+                        //}
                     }
-
-                    dataSet.Dispose();
-                    //txt_raised_by.Text = saveIndent.Email;
-                    //datepicker_date1.SelectedDate = saveIndent.Date;
-                    //LoadApprovalStatusRetrival();
-                    //LoadLocationId();
-                    //cbx_location_id.SelectedValue = saveIndent.LocationCode;
-                    //cbx_approval_id.SelectedValue = saveIndent.ApprovalID;
-
-                    //lbl_approval_status.Content = saveIndent.ApprovalStatus;
-                    txt_Revision_Remarks.Text = saveIndent.IndentRemarks;
-                    grid_indentdata.ItemsSource = null;
-                    grid_indentdata.ItemsSource = gridIndents;
-                    //if (saveIndent.ApprovalStatus != "Enquiry Required")
-                    //{
-                    //    DisableAllFields();
-                    //    isGridReadOnly = true;
-                    //}
                 }
             }
             catch (Exception ex)
@@ -321,8 +325,10 @@ namespace OrderManagementTool
         {
             try
             {
-                QuoteComparer quoteComparer = new QuoteComparer(_login);
+                string IndentNo = txt_indent_no.Text;
+                QuoteComparer quoteComparer = new QuoteComparer(_login, IndentNo);
                 quoteComparer.Show();
+                isWindowNormallyClosed = false;
                 this.Close();
             }
             catch (Exception ex)
@@ -1073,7 +1079,7 @@ namespace OrderManagementTool
                     mm.To.Add(mailTo);
 
                     mm.Subject = "Indent Number - " + indentNo.ToString();
-                    body = body + ". Please click on the link to approve or deny the indent. " + ConfigurationManager.AppSettings["url"] + "/" + indentNo +"?type='I'";
+                    body = body + ". Please click on the link to approve or deny the indent. " + ConfigurationManager.AppSettings["url"] + "/" + indentNo + "?type=I";
                     mm.Body = body;
                     mm.IsBodyHtml = true;
 
@@ -1513,8 +1519,11 @@ namespace OrderManagementTool
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            Menu menu = new Menu(_login);
-            menu.Show();
+            if (isWindowNormallyClosed)
+            {
+                Menu menu = new Menu(_login);
+                menu.Show();
+            }
         }
 
         private void btn_upload_Click(object sender, RoutedEventArgs e)

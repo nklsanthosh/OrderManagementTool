@@ -24,6 +24,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Linq;
+using ViewIndent = OrderManagementTool.Models.Purchase_Order.ViewIndent;
 
 namespace OrderManagementTool
 {
@@ -69,6 +70,19 @@ namespace OrderManagementTool
             DisableCheckBoxes();
         }
 
+        public QuoteComparer(Login login, string IndentNo)
+        {
+            _login = login;
+            InitializeComponent();
+            txt_indent_no.IsReadOnly = false;
+            txt_indent_no.Text = IndentNo.ToString();
+            LoadApprovalStatus();
+            cbx_ApprovalStatus_id.SelectedValue = 1;
+            cbx_ApprovalStatus_id.IsEnabled = false;
+            FillIndent();
+            DisableCheckBoxes();
+        }
+
         public QuoteComparer(Login login, long PO_ID)
         {
             _login = login;
@@ -76,6 +90,7 @@ namespace OrderManagementTool
             GetPurchaseOrder(PO_ID);
             FillIndent();
             FillApprovalStatusLevel(txt_PO_no.Text.Trim().ToString());
+            btn_Create_PO.IsEnabled = false;
         }
 
         private void DisableCheckBoxes()
@@ -339,9 +354,9 @@ namespace OrderManagementTool
                     {
                         ViewIndent viewIndent = new ViewIndent();
                         viewIndent.Sl_No = counter + 1;
-                        viewIndent.IndentId = (long)Convert.ToInt64(dataSet.Tables[0].Rows[counter]["IndentID"]);
+                       // viewIndent.IndentId = (long)Convert.ToInt64(dataSet.Tables[0].Rows[counter]["IndentID"]);
                         viewIndent.ApproverName = Convert.ToString(dataSet.Tables[0].Rows[counter]["Approver"]);
-                        viewIndent.Approval_Status = Convert.ToString(dataSet.Tables[0].Rows[counter]["ApprovalStatus"]);
+                       // viewIndent.Approval_Status = Convert.ToString(dataSet.Tables[0].Rows[counter]["ApprovalStatus"]);
                         viewIndent.Date = Convert.ToDateTime(dataSet.Tables[0].Rows[counter]["Date"]);
                         viewIndent.LocationId = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["LocationId"]);
                         viewIndent.Location = Convert.ToString(dataSet.Tables[0].Rows[counter]["Location"]);
@@ -1610,9 +1625,9 @@ namespace OrderManagementTool
 
                     worksheet.Cell("A10").Style.Font.Bold = true;
                     worksheet.Cell("B11").Value = poData.LocatioName;
-                    worksheet.Cell("B12").Value = poData.LocationAddressInfo.Address1;
-                    worksheet.Cell("B13").Value = poData.LocationAddressInfo.Address2;
-                    worksheet.Cell("B14").Value = poData.LocationAddressInfo.Address3;
+                    worksheet.Cell("B12").Value = poData.LocationAddressInfo== null ? "": poData.LocationAddressInfo.Address1;
+                    worksheet.Cell("B13").Value = poData.LocationAddressInfo == null ? "" : poData.LocationAddressInfo.Address2;
+                    worksheet.Cell("B14").Value = poData.LocationAddressInfo == null ? "" : poData.LocationAddressInfo.Address3;
                     worksheet.Cell("E10").Value = headersAndFooters["Remarks"];
                     worksheet.Cell("E11").Value = "GST #";
                     worksheet.Cell("E12").Value = "IEC #";

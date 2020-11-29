@@ -399,7 +399,7 @@
         <Image Source="Images/logo.png" Margin="44,36,1139,537"/>
         <Label x:Name="lblHeader" Content="ORDER MANANGEMENT SYSTEM" FontSize="16" Visibility="Visible" FontFamily="Arial" FontWeight="Bold"  Margin="108,57,851,0" VerticalAlignment="Top" Height="30"/>
         <Label x:Name="lblBreadCrumb" Content="&gt; Indent" HorizontalAlignment="Left" Margin="374,59,0,0"  FontFamily="Verdana" Foreground="#6c6c6c" VerticalAlignment="Top" Width="72" Height="26"/>
-        <DataGrid x:Name="grid_indentdata" Margin="52,296,45,177" AlternationCount="2" SelectionChanged="DataGrid_SelectionChanged" AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*"  />
+        <DataGrid x:Name="grid_indentdata" Margin="52,296,45,198" AlternationCount="2" SelectionChanged="DataGrid_SelectionChanged" AutoGenerateColumns ="True" CanUserAddRows="True" HorizontalContentAlignment="Stretch"  ColumnWidth="*"  />
         <Label x:Name="lbl_itemcategoryname" Content="Item Category Name" HorizontalAlignment="Left" Margin="52,185,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.04" Width="120" Height="30"/>
         <Label x:Name="lbl_itemcode" Content="Item Code" HorizontalAlignment="Left" Margin="197,185,0,0" VerticalAlignment="Top" Width="77" Height="30"/>
         <Label x:Name="lbl_description" Content="Description" HorizontalAlignment="Left" Margin="520,185,0,0" VerticalAlignment="Top" Width="77" Height="30" RenderTransformOrigin="0.86,2.601"/>
@@ -606,7 +606,7 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <Button x:Name="btn_add_indent" HorizontalAlignment="Left" Margin="810,262,0,0" VerticalAlignment="Top" Click="Button_Click" Width="120" Height="29">
+        <Button x:Name="btn_add_indent" HorizontalAlignment="Left" Margin="1080,262,0,0" VerticalAlignment="Top" Click="Button_Click" Width="120" Height="29">
             <Button.Content>
                 <Image Source="Images\Icons\ctaBtn-addItem.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
 
@@ -698,7 +698,7 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button x:Name="btn_clear_fields" HorizontalAlignment="Left" Margin="935,262,0,0" VerticalAlignment="Top" Click="btn_clear_fields_Click" Width="120" Height="29">
+        <Button x:Name="btn_clear_fields" HorizontalAlignment="Left" Margin="955,262,0,0" VerticalAlignment="Top" Click="btn_clear_fields_Click" Width="120" Height="29">
             <Button.Content>
                 <Image Source="Images\Icons\ctaBtn-clearFields.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
 
@@ -717,7 +717,7 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button x:Name="btn_create_PO"  HorizontalAlignment="Left" Margin="1060,262,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_create_PO_Click" >
+        <Button x:Name="btn_create_PO"  HorizontalAlignment="Left" Margin="945,488,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_create_PO_Click" >
             <Button.Content>
                 <Image Source="Images\Icons\ctaBtn-createPO.png" Margin="-2,-2,0,0" Width="130" Height="32"/>
 
@@ -736,7 +736,7 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button x:Name="btn_update_field" HorizontalAlignment="Left" Margin="550,262,0,0" VerticalAlignment="Top" Click="Button_Click_1" Width="140" Height="29">
+        <Button x:Name="btn_update_field" HorizontalAlignment="Left" Margin="830,262,0,0" VerticalAlignment="Top" Click="Button_Click_1" Width="120" Height="29">
             <Button.Content>
                 <Image Source="Images\Icons\ctaBtn-updateField.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
 
@@ -900,7 +900,7 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button x:Name="btn_remove_indent" HorizontalAlignment="Left" Margin="685,262,0,0" VerticalAlignment="Top" Click="btn_remove_indent_Click" Width="120" Height="29">
+        <Button x:Name="btn_remove_indent" HorizontalAlignment="Left" Margin="705,262,0,0" VerticalAlignment="Top" Click="btn_remove_indent_Click" Width="120" Height="29">
             <Button.Content>
                 <Image Source="Images\Icons\ctaBtn-removeField.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
 
@@ -969,7 +969,7 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <TextBox x:Name="txt_Revision_Remarks" HorizontalAlignment="Left" Margin="197,480,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"  Width="446" Height="47" BorderBrush="#FF8CBD4B" UseLayoutRounding="False">
+        <TextBox x:Name="txt_Revision_Remarks" HorizontalAlignment="Left" Margin="189,472,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"  Width="446" Height="47" BorderBrush="#FF8CBD4B" UseLayoutRounding="False">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
@@ -1027,6 +1027,6 @@
         <Label x:Name="lblRightd" Content="All rights reserved." HorizontalAlignment="Left" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Margin="1082,564,0,0" VerticalAlignment="Top" Width="114" Height="26"/>
         <Label x:Name="lbl_approval_status" Content="" HorizontalAlignment="Left" Margin="1005,108,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Width="191"/>
         <Label x:Name="lbl_approval_stats" Content="Approval Status : " HorizontalAlignment="Left" Margin="897,108,0,0" VerticalAlignment="Top" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" Width="118"/>
-        <Label x:Name="lbl_revision_remarks" Content="Revision Remarks" HorizontalAlignment="Left" Margin="52,480,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.079,1.581" Width="130" Height="30"/>
+        <Label x:Name="lbl_revision_remarks" Content="Revision Remarks" HorizontalAlignment="Left" Margin="52,473,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.079,1.581" Width="130" Height="30"/>
     </Grid>
 </Window>

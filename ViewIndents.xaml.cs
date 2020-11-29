@@ -26,6 +26,7 @@ namespace OrderManagementTool
         private static int gridSelectedIndex = -1;
         private static long selectedIndentID;
         private readonly Login _login;
+        private bool isWindowNormallyClosed = true;
 
         public ViewIndents(Login login)
         {
@@ -152,6 +153,7 @@ namespace OrderManagementTool
                 {
                     Indent indent = new Indent(_login, idFound);
                     indent.Show();
+                    isWindowNormallyClosed = false;
                     this.Close();
                 }
                 else
@@ -173,8 +175,11 @@ namespace OrderManagementTool
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            Menu menu = new Menu(_login);
-            menu.Show();
+            if (isWindowNormallyClosed)
+            {
+                Menu menu = new Menu(_login);
+                menu.Show();
+            }
         }
 
         private void grid_all_indents_SelectionChanged(object sender, SelectionChangedEventArgs e)
