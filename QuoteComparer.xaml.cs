@@ -439,11 +439,16 @@ namespace OrderManagementTool
                             fileName = dataReader.GetString(0);
                             fileContent = dataReader.GetString(1);
                         }
-
-                        Byte[] bytes = Convert.FromBase64String(fileContent);
-                        File.WriteAllBytes(targetPath + "\\" + fileName, bytes);
-                        MessageBox.Show("The file has been downloaded to the following path" + targetPath + "\\" + fileName,
-                       "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+                        if (fileContent != "")
+                        {
+                            Byte[] bytes = Convert.FromBase64String(fileContent);
+                            File.WriteAllBytes(targetPath + "\\" + fileName, bytes);
+                            MessageBox.Show("The file has been downloaded to the following path" + targetPath + "\\" + fileName,
+                           "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        else
+                            MessageBox.Show("There are no files to download. Please upload a file.",
+                          "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
                 catch (Exception ex)
@@ -489,10 +494,16 @@ namespace OrderManagementTool
                             fileContent = dataReader.GetString(1);
                         }
 
-                        Byte[] bytes = Convert.FromBase64String(fileContent);
-                        File.WriteAllBytes(targetPath + "\\" + fileName, bytes);
-                        MessageBox.Show("The file has been downloaded to the following path" + targetPath + "\\" + fileName,
-                       "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+                        if (fileContent != "")
+                        {
+                            Byte[] bytes = Convert.FromBase64String(fileContent);
+                            File.WriteAllBytes(targetPath + "\\" + fileName, bytes);
+                            MessageBox.Show("The file has been downloaded to the following path" + targetPath + "\\" + fileName,
+                           "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        else
+                            MessageBox.Show("There are no files to download. Please upload a file.",
+                          "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
                 catch (Exception ex)
@@ -538,10 +549,16 @@ namespace OrderManagementTool
                             fileContent = dataReader.GetString(1);
                         }
 
-                        Byte[] bytes = Convert.FromBase64String(fileContent);
-                        File.WriteAllBytes(targetPath + "\\" + fileName, bytes);
-                        MessageBox.Show("The file has been downloaded to the following path" + targetPath + "\\" + fileName,
-                       "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+                        if (fileContent != "")
+                        {
+                            Byte[] bytes = Convert.FromBase64String(fileContent);
+                            File.WriteAllBytes(targetPath + "\\" + fileName, bytes);
+                            MessageBox.Show("The file has been downloaded to the following path" + targetPath + "\\" + fileName,
+                           "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        else
+                            MessageBox.Show("There are no files to download. Please upload a file.",
+                          "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
                 catch (Exception ex)

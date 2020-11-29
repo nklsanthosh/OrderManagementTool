@@ -197,7 +197,7 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <Button x:Name="btn_search_PO"  HorizontalAlignment="Left" Margin="557,192,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_search_PO_Click" >
+        <Button x:Name="btn_search_PO"  HorizontalAlignment="Left" Margin="557,190,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_search_PO_Click" >
             <Button.Content>
                 <Image Source="Images\Icons\ctaBtn-searchPO.png" Margin="-2,-2,0,0" Width="130" Height="32"/>
 
@@ -207,7 +207,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="Button">
-                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="1" Padding="2">
+                                <Border CornerRadius="5" Background="#EBF8F0" BorderBrush="#609F19"  BorderThickness="0" Padding="2">
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
                             </ControlTemplate>
@@ -218,7 +218,7 @@
         </Button>
         
         <Label Content="Indent No" HorizontalAlignment="Left" Margin="388,152,0,0" VerticalAlignment="Top" Width="79" Height="30" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c" />
-        <Button x:Name="btn_search_indent"  HorizontalAlignment="Left" Margin="557,152,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_search_indent_Click">
+        <Button x:Name="btn_search_indent"  HorizontalAlignment="Left" Margin="557,150,0,0" VerticalAlignment="Top" Width="129" Height="29" Click="btn_search_indent_Click">
             <Button.Content>
                 <Image Source="Images\Icons\ctaBtn-searchIndent.png" Margin="-2,-2,0,0" Width="130" Height="32"/>
             </Button.Content>
