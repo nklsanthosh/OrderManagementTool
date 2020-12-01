@@ -316,16 +316,16 @@
         </Style>
 
     </Window.Resources>
-    
+
     <Grid>
         <Border BorderThickness="1" BorderBrush="#8ABC48" Background="#FFFFFF" Margin="40,28,40,36"/>
         <Image Source="images/logo.png" Margin="42,25,1007,495"/>
         <Label x:Name="lbl_Approval_Status" Content="Approval Status" HorizontalAlignment="Left" Margin="60,125,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <ComboBox x:Name="cbx_approval_status" HorizontalAlignment="Left" Margin="167,125,0,0" VerticalAlignment="Top" Width="175" Height="30" />
+        <ComboBox x:Name="cbx_approval_status" HorizontalAlignment="Left" Margin="167,125,0,0" VerticalAlignment="Top" Width="175" Height="30" DropDownOpened="cbx_approval_status_DropDownOpened" DropDownClosed="cbx_approval_status_DropDownClosed"/>
         <Label x:Name="lblHeader" Content="ORDER MANANGEMENT SYSTEM" FontSize="16" Visibility="Visible" FontFamily="Arial" FontWeight="Bold"  Margin="111,59,708,0" VerticalAlignment="Top" Height="30"/>
         <Label x:Name="lblBreadCrumb" Content="&gt; View Indent" HorizontalAlignment="Left" Margin="377,61,0,0"  FontFamily="Verdana" Foreground="#6c6c6c" VerticalAlignment="Top" Width="103" Height="26"/>
-        <DataGrid x:Name="grid_all_POs" Margin="0,175,0,157" HorizontalAlignment="Center" Width="1000" />
-        <Button x:Name="btn_view_PO"  HorizontalAlignment="Left" Margin="924,448,0,0" VerticalAlignment="Top" Width="120" Height="29">
+        <DataGrid x:Name="grid_all_POs" Margin="0,175,0,190" HorizontalAlignment="Center" Width="1000"  ColumnWidth="*" SelectionChanged="grid_all_POs_SelectionChanged"/>
+        <Button x:Name="btn_view_PO"  HorizontalAlignment="Left" Margin="924,448,0,0" VerticalAlignment="Top" Width="120" Height="29" Click="btn_view_PO_Click">
             <Button.Content>
                 <Image Source="Images\Icons\ctaBtn-viewPO.png" Width="120" Height="32"  Margin="-2,-2,0,2" />
 
