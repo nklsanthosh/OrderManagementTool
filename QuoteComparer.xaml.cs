@@ -1109,7 +1109,6 @@ namespace OrderManagementTool
             poData.Remarks = txt_PO_Remarks.Text;
             poData.Email = _login.UserEmail;
             poData.Poitems = poitems_4;
-            poData.Poitems = poitems_4;
             poData.LocatioName = locationName;
             poData.LocationAddressInfo = _locationAddress;
             GeneratePurchaseOrder(_headers, poData);
@@ -1643,7 +1642,7 @@ namespace OrderManagementTool
                     worksheet.Cell("E11").Style.Font.Bold = true;
                     worksheet.Cell("E12").Style.Font.Bold = true;
                     worksheet.Cell("E13").Style.Font.Bold = true;
-                    worksheet.Cell("F9").Value = poData.Poitems[0].Contact_No;
+                   // worksheet.Cell("F9").Value = poData.Poitems[0].Contact_No;
                     worksheet.Cell("F10").Value = poData.Remarks;
                     worksheet.Cell("F11").Value = headersAndFooters["GSTNo"];
                     worksheet.Cell("F12").Value = headersAndFooters["IECNo"];
@@ -1772,6 +1771,8 @@ namespace OrderManagementTool
                     rangeRows.Style.Border.LeftBorder = XLBorderStyleValues.Thin;
                     rangeRows.Style.Border.RightBorder = XLBorderStyleValues.Thin;
                     worksheet.Columns(1, 10).AdjustToContents();
+                    worksheet.Column(2).Width = 40;
+                    
                     //worksheet.Column(1).Width = 20;
                     string filePath = Convert.ToString(headersAndFooters["ReportGeneratedPath"]) +
                         "Purchase_Order_" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() +
