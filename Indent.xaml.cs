@@ -68,6 +68,7 @@ namespace OrderManagementTool
                 lbl_approval_status.Background = System.Windows.Media.Brushes.Aqua;
                 //lbl_approval_status.Foreground ();
                 btn_create_PO.IsEnabled = false;
+                cbx_revision_number.IsEnabled = false;
             }
             catch (Exception ex)
             {
@@ -987,6 +988,7 @@ namespace OrderManagementTool
                         {
                             connection.Open();
                             indentNo = Convert.ToInt64(txt_indent_no.Text);
+                            saveIndent.IndentId = indentNo;
                             //SqlCommand testCMD = new SqlCommand("delete_indent_details", connection);
                             //testCMD.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.BigInt, 50) { Value = indentNo });
                             //testCMD.CommandType = CommandType.StoredProcedure;

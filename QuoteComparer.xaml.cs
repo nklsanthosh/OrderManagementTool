@@ -91,6 +91,7 @@ namespace OrderManagementTool
             FillIndent();
             FillApprovalStatusLevel(txt_PO_no.Text.Trim().ToString());
             btn_Create_PO.IsEnabled = false;
+            DisableUploadButtons();
         }
 
         private void DisableCheckBoxes()
@@ -105,6 +106,16 @@ namespace OrderManagementTool
             checkbox_Approve1.IsEnabled = true;
             checkbox_Approve2.IsEnabled = true;
             checkbox_Approve3.IsEnabled = true;
+        }
+
+        private void DisableUploadButtons()
+        {
+            btn_upload_1.IsEnabled = false;
+            btn_upload_2.IsEnabled = false;
+            btn_upload_3.IsEnabled = false;
+            btn_quotation_upload_1.IsEnabled = false;
+            btn_quotation_upload_2.IsEnabled = false;
+            btn_quotation_upload_3.IsEnabled = false;
         }
 
         private void GetPurchaseOrder(long PO_ID)
@@ -1295,7 +1306,7 @@ namespace OrderManagementTool
                     txt_PO_no.Text = poID.ToString();
                     //GeneratePO();
                     DisableFields();
-
+                    DisableUploadButtons();
                 }
 
             }
@@ -1771,7 +1782,7 @@ namespace OrderManagementTool
                     rangeRows.Style.Border.LeftBorder = XLBorderStyleValues.Thin;
                     rangeRows.Style.Border.RightBorder = XLBorderStyleValues.Thin;
                     worksheet.Columns(1, 10).AdjustToContents();
-                    worksheet.Column(2).Width = 40;
+                    worksheet.Column(2).Width = 45;
                     
                     //worksheet.Column(1).Width = 20;
                     string filePath = Convert.ToString(headersAndFooters["ReportGeneratedPath"]) +
