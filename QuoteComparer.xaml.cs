@@ -1591,25 +1591,37 @@ namespace OrderManagementTool
 
                 var imagePath = @"..\..\..\..\Images\Modified-Image.png";
 
-                // var a= imagePath.Split("..\");
-
                 if (!File.Exists(imagePath))
                 {
-                    imagePath = @"..\..\..\Images\Modified-Image.png";
+                    imagePath = @"C:\Images\Modified-Image.png";
 
                     if (!File.Exists(imagePath))
                     {
-                        imagePath = @"..\..\Images\Modified-Image.png";
+                        imagePath = @"C:\OMS\Images\Modified-Image.png";
                         if (!File.Exists(imagePath))
                         {
-                            imagePath = @"..\Images\Modified-Image.png";
+                            imagePath = @"..\..\..\Images\Modified-Image.png";
 
                             if (!File.Exists(imagePath))
                             {
-                                imagePath = @"..\..\..\..\..\Images\Modified-Image.png";
+                                imagePath = @"..\..\Images\Modified-Image.png";
                                 if (!File.Exists(imagePath))
                                 {
-                                    imagePath = @"..\..\..\..\..\..\Images\Modified-Image.png";
+                                    imagePath = @"..\Images\Modified-Image.png";
+
+                                    if (!File.Exists(imagePath))
+                                    {
+                                        imagePath = @"..\Modified-Image.png";
+
+                                        if (!File.Exists(imagePath))
+                                        {
+                                            imagePath = @"..\..\..\..\..\Images\Modified-Image.png";
+                                            if (!File.Exists(imagePath))
+                                            {
+                                                imagePath = @"..\..\..\..\..\..\Images\Modified-Image.png";
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -1827,7 +1839,7 @@ namespace OrderManagementTool
 
                     worksheet.PageSetup.PaperSize = XLPaperSize.A4Paper;
                     worksheet.PageSetup.PrintAreas.Add("A1:G" + j);
-                                        
+
                     //IXLSheetView view = worksheet.SheetView;
                     //view.ZoomScale = 80;
 
