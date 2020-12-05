@@ -365,9 +365,9 @@ namespace OrderManagementTool
                     {
                         ViewIndent viewIndent = new ViewIndent();
                         viewIndent.Sl_No = counter + 1;
-                       // viewIndent.IndentId = (long)Convert.ToInt64(dataSet.Tables[0].Rows[counter]["IndentID"]);
+                        // viewIndent.IndentId = (long)Convert.ToInt64(dataSet.Tables[0].Rows[counter]["IndentID"]);
                         viewIndent.ApproverName = Convert.ToString(dataSet.Tables[0].Rows[counter]["Approver"]);
-                       // viewIndent.Approval_Status = Convert.ToString(dataSet.Tables[0].Rows[counter]["ApprovalStatus"]);
+                        // viewIndent.Approval_Status = Convert.ToString(dataSet.Tables[0].Rows[counter]["ApprovalStatus"]);
                         viewIndent.Date = Convert.ToDateTime(dataSet.Tables[0].Rows[counter]["Date"]);
                         viewIndent.LocationId = Convert.ToInt64(dataSet.Tables[0].Rows[counter]["LocationId"]);
                         viewIndent.Location = Convert.ToString(dataSet.Tables[0].Rows[counter]["Location"]);
@@ -1035,34 +1035,71 @@ namespace OrderManagementTool
 
         private void checkbox_Approve1_Checked(object sender, RoutedEventArgs e)
         {
-            checkbox_Approve2.IsChecked = false;
-            checkbox_Approve3.IsChecked = false;
-            grid_po_confirmation.ItemsSource = null;
-            grid_po_confirmation.ItemsSource = poitems_1;
-            poitems_4 = null;
-            poitems_4 = poitems_1;
-            btn_Approve.IsEnabled = true;
+            if (poitems_1.Count > 0)
+            {
+                checkbox_Approve2.IsChecked = false;
+                checkbox_Approve3.IsChecked = false;
+                grid_po_confirmation.ItemsSource = null;
+                grid_po_confirmation.ItemsSource = poitems_1;
+                poitems_4 = null;
+                poitems_4 = poitems_1;
+                btn_Approve.IsEnabled = true;
+            }
+            else
+            {
+                checkbox_Approve1.IsChecked = false;
+            }
+
         }
+        private void checkbox_Approve1_Unchecked(object sender, RoutedEventArgs e)
+        {
+            grid_po_confirmation.ItemsSource = null;
+        }
+
         private void checkbox_Approve2_Checked(object sender, RoutedEventArgs e)
         {
-            checkbox_Approve1.IsChecked = false;
-            checkbox_Approve3.IsChecked = false;
+            if (poitems_2.Count > 0)
+            {
+                checkbox_Approve1.IsChecked = false;
+                checkbox_Approve3.IsChecked = false;
+                grid_po_confirmation.ItemsSource = null;
+                grid_po_confirmation.ItemsSource = poitems_2;
+                poitems_4 = null;
+                poitems_4 = poitems_1;
+                btn_Approve.IsEnabled = true;
+            }
+            else
+            {
+                checkbox_Approve2.IsChecked = false;
+            }
+        }
+
+        private void checkbox_Approve2_Unchecked(object sender, RoutedEventArgs e)
+        {
             grid_po_confirmation.ItemsSource = null;
-            grid_po_confirmation.ItemsSource = poitems_2;
-            poitems_4 = null;
-            poitems_4 = poitems_1;
-            btn_Approve.IsEnabled = true;
         }
 
         private void checkbox_Approve3_Checked(object sender, RoutedEventArgs e)
         {
-            checkbox_Approve1.IsChecked = false;
-            checkbox_Approve2.IsChecked = false;
+            if (poitems_3.Count > 0)
+            {
+                checkbox_Approve1.IsChecked = false;
+                checkbox_Approve2.IsChecked = false;
+                grid_po_confirmation.ItemsSource = null;
+                grid_po_confirmation.ItemsSource = poitems_3;
+                poitems_4 = null;
+                poitems_4 = poitems_1;
+                btn_Approve.IsEnabled = true;
+            }
+            else
+            {
+                checkbox_Approve3.IsChecked = false;
+            }
+        }
+
+        private void checkbox_Approve3_Unchecked(object sender, RoutedEventArgs e)
+        {
             grid_po_confirmation.ItemsSource = null;
-            grid_po_confirmation.ItemsSource = poitems_3;
-            poitems_4 = null;
-            poitems_4 = poitems_1;
-            btn_Approve.IsEnabled = true;
         }
 
         private void grid_indentdata_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1215,7 +1252,7 @@ namespace OrderManagementTool
                             testCMD1.Parameters.Add(new SqlParameter("@Contact_No", System.Data.SqlDbType.Int, 300) { Value = i.Contact_No.Trim() });
                             testCMD1.Parameters.Add(new SqlParameter("@Contact_Person", System.Data.SqlDbType.VarChar, 300) { Value = i.Contact_Person.Trim() });
                             testCMD1.Parameters.Add(new SqlParameter("@Description", System.Data.SqlDbType.VarChar, 300) { Value = i.Description.Trim() });
-                            testCMD1.Parameters.Add(new SqlParameter("@Quantity", System.Data.SqlDbType.BigInt, 50) { Value = i.Quantity});
+                            testCMD1.Parameters.Add(new SqlParameter("@Quantity", System.Data.SqlDbType.BigInt, 50) { Value = i.Quantity });
                             testCMD1.Parameters.Add(new SqlParameter("@Units", System.Data.SqlDbType.VarChar, 50) { Value = i.Units.Trim() });
                             testCMD1.Parameters.Add(new SqlParameter("@UnitPrice", System.Data.SqlDbType.Decimal, 50) { Value = i.Unit_Price });
                             testCMD1.Parameters.Add(new SqlParameter("@TotalPrice", System.Data.SqlDbType.Decimal, 50) { Value = i.Total_Price });
@@ -1511,7 +1548,7 @@ namespace OrderManagementTool
                         //GetPurchaseOrder(poID.PoId);
                         FillIndent();
                         EnableFields();
-                       // DisableCheckBoxes();
+                        // DisableCheckBoxes();
                         EnableCheckBoxes();
                         //FillApprovalStatusLevel(Convert.ToString(poID.PoId));
                     }
@@ -1522,12 +1559,14 @@ namespace OrderManagementTool
                     DisableFields();
                     DisableCheckBoxes();
                     txt_indent_no.IsEnabled = true;
+                    grid_indentdata.ItemsSource = null;
                     return;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error occured in fetching Indent Approval Status", "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
+                grid_indentdata.ItemsSource = null;
             }
         }
         //private static void GeneratePurchaseOrder(Dictionary<string, string> headersAndFooters, List<ExportPO> poData)
@@ -1642,7 +1681,7 @@ namespace OrderManagementTool
 
                     worksheet.Cell("A10").Style.Font.Bold = true;
                     worksheet.Cell("B11").Value = poData.LocatioName;
-                    worksheet.Cell("B12").Value = poData.LocationAddressInfo== null ? "": poData.LocationAddressInfo.Address1;
+                    worksheet.Cell("B12").Value = poData.LocationAddressInfo == null ? "" : poData.LocationAddressInfo.Address1;
                     worksheet.Cell("B13").Value = poData.LocationAddressInfo == null ? "" : poData.LocationAddressInfo.Address2;
                     worksheet.Cell("B14").Value = poData.LocationAddressInfo == null ? "" : poData.LocationAddressInfo.Address3;
                     worksheet.Cell("E10").Value = headersAndFooters["Remarks"];
@@ -1653,7 +1692,7 @@ namespace OrderManagementTool
                     worksheet.Cell("E11").Style.Font.Bold = true;
                     worksheet.Cell("E12").Style.Font.Bold = true;
                     worksheet.Cell("E13").Style.Font.Bold = true;
-                   // worksheet.Cell("F9").Value = poData.Poitems[0].Contact_No;
+                    // worksheet.Cell("F9").Value = poData.Poitems[0].Contact_No;
                     worksheet.Cell("F10").Value = poData.Remarks;
                     worksheet.Cell("F11").Value = headersAndFooters["GSTNo"];
                     worksheet.Cell("F12").Value = headersAndFooters["IECNo"];
@@ -1701,9 +1740,9 @@ namespace OrderManagementTool
                     worksheet.Cell("F" + j).Style.Font.Bold = true;
 
                     j += 1;
-                    decimal gst = Math.Round(total * Convert.ToDecimal(poData.Poitems[0].GST_Value/100));
+                    decimal gst = Math.Round(total * Convert.ToDecimal(poData.Poitems[0].GST_Value / 100));
                     decimal finalTotal = total + gst;
-                    worksheet.Cell("B" + j).Value = headersAndFooters["GST"] + " " +poData.Poitems[0].GST_Value +"%";
+                    worksheet.Cell("B" + j).Value = headersAndFooters["GST"] + " " + poData.Poitems[0].GST_Value + "%";
                     worksheet.Cell("B" + j).Style.Font.Bold = true;
                     worksheet.Cell("F" + j).Value = Convert.ToString(gst);
                     worksheet.Cell("F" + j).Style.Font.Bold = true;
@@ -1783,7 +1822,9 @@ namespace OrderManagementTool
                     rangeRows.Style.Border.RightBorder = XLBorderStyleValues.Thin;
                     worksheet.Columns(1, 10).AdjustToContents();
                     worksheet.Column(2).Width = 45;
-                    
+
+                    worksheet.PageSetup.PaperSize = XLPaperSize.A4Paper;
+                    worksheet.PageSetup.PrintAreas.Add("A1:F" + j);
                     //worksheet.Column(1).Width = 20;
                     string filePath = Convert.ToString(headersAndFooters["ReportGeneratedPath"]) +
                         "Purchase_Order_" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() +

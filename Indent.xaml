@@ -758,7 +758,7 @@
         <Label x:Name="lbl_raised_by" Content="Raised By " HorizontalAlignment="Left" Margin="216,149,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
         <Label x:Name="lbl_indent_number" Content="Indent No" HorizontalAlignment="Left" Margin="52,151,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
         <Label x:Name="lbl_revision_number" Content="Revision No" HorizontalAlignment="Left" Margin="52,117,0,0" VerticalAlignment="Top" Height="26" FontWeight="Regular" FontFamily="Verdana" FontSize="11" Foreground="#6c6c6c"/>
-        <ComboBox x:Name="cbx_revision_number" HorizontalAlignment="Left" Margin="132,113,0,0" VerticalAlignment="Top" Width="79" Height="30" DropDownOpened="cbx_revision_number_DropDownOpened" />
+        <ComboBox x:Name="cbx_revision_number" HorizontalAlignment="Left" Margin="132,113,0,0" VerticalAlignment="Top" Width="79" Height="30" DropDownClosed="cbx_revision_number_DropDownClosed" />
         <TextBox x:Name="txt_raised_by" HorizontalAlignment="Left" Margin="288,149,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" Height="30" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" IsReadOnly="True">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
@@ -969,7 +969,7 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <TextBox x:Name="txt_Revision_Remarks" HorizontalAlignment="Left" Margin="189,472,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"  Width="446" Height="47" BorderBrush="#FF8CBD4B" UseLayoutRounding="False">
+        <TextBox x:Name="txt_Revision_Remarks" HorizontalAlignment="Left" Margin="189,472,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"  Width="446" Height="47" BorderBrush="#FF8CBD4B" UseLayoutRounding="False" FontWeight="Bold">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>

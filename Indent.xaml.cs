@@ -832,7 +832,7 @@ namespace OrderManagementTool
 
         }
 
-        private void cbx_revision_number_DropDownOpened(object sender, EventArgs e)
+        private void cbx_revision_number_DropDownClosed(object sender, EventArgs e)
         {
             GetIndentByRevisionNumber();
         }
@@ -913,6 +913,13 @@ namespace OrderManagementTool
                     }
                     saveIndent.Date = datepicker_date1.SelectedDate;
                     saveIndent.LocationCode = Convert.ToInt64(cbx_location_id.SelectedValue);
+                    if (saveIndent.LocationCode == 0 || saveIndent.LocationCode == null)
+                    {
+                        MessageBox.Show("Please Select Proper Location Details");
+                        this.Cursor = null;
+                        return;
+                    }
+
                     saveIndent.RaisedBy = _login.EmployeeID;
                     saveIndent.CreateDate = DateTime.Now;
                     // var approvalID = (from a in orderManagementContext.UserMaster
