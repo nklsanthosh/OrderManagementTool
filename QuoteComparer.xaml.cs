@@ -1823,8 +1823,18 @@ namespace OrderManagementTool
                     worksheet.Columns(1, 10).AdjustToContents();
                     worksheet.Column(2).Width = 45;
 
+                    worksheet.Column("G").Width = 1;
+
                     worksheet.PageSetup.PaperSize = XLPaperSize.A4Paper;
-                    worksheet.PageSetup.PrintAreas.Add("A1:F" + j);
+                    worksheet.PageSetup.PrintAreas.Add("A1:G" + j);
+                                        
+                    //IXLSheetView view = worksheet.SheetView;
+                    //view.ZoomScale = 80;
+
+                    worksheet.PageSetup.PageOrder = XLPageOrderValues.OverThenDown;
+
+                    worksheet.PageSetup.Scale = 80;
+
                     //worksheet.Column(1).Width = 20;
                     string filePath = Convert.ToString(headersAndFooters["ReportGeneratedPath"]) +
                         "Purchase_Order_" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() +
