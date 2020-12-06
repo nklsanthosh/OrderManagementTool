@@ -1405,8 +1405,9 @@ namespace OrderManagementTool
                     mm.To.Add(mailTo);
 
                     mm.Subject = "Purchase Order - " + poID.ToString();
-
+                    body = body + ". Please click on the link to approve or deny the indent. " + ConfigurationManager.AppSettings["url"] + "/" + poID.ToString() + "?type=P";
                     mm.Body = body;
+
                     mm.IsBodyHtml = false;
 
                     // mm.Attachments.Add(new System.Net.Mail.Attachment(filePathLocation));
