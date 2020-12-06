@@ -36,7 +36,7 @@ namespace OrderManagementTool
                 {
                     files = dInfo.GetFiles("OMT.ini");
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Directory.CreateDirectory(path);
                     File.Create("OMT.ini");
@@ -51,16 +51,16 @@ namespace OrderManagementTool
                     txt_username.Text = userName;
                     txt_password.Password = password;
                 }
-                
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("An error occurred while reading log in credentials :" + ex.Message,
                                       "Order Management System",
                                           MessageBoxButton.OK,
                                               MessageBoxImage.Error);
             }
-            
+
         }
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
@@ -97,12 +97,9 @@ namespace OrderManagementTool
                     File.Create("OMT.ini");
                     files = dInfo.GetFiles("OMT.ini");
                 }
-                if (files.Length <= 0)
-                {
-                    string[] lines = { username+ "," + password };
-                    File.WriteAllLines(path + "\\OMT.ini", lines);
-                }
-                   
+                string[] lines = { username + "," + password };
+                File.WriteAllLines(path + "\\OMT.ini", lines);
+
                 try
                 {
                     OrderManagementContext orderManagementContext = new OrderManagementContext();
