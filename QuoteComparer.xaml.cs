@@ -1887,14 +1887,14 @@ namespace OrderManagementTool
                     worksheet.PageSetup.PageOrder = XLPageOrderValues.OverThenDown;
 
                     worksheet.PageSetup.Scale = 80;
-
+                    
                     //worksheet.Column(1).Width = 20;
                     if(!Directory.Exists(Convert.ToString(headersAndFooters["ReportGeneratedPath"])))
                     {
                         Directory.CreateDirectory(Convert.ToString(headersAndFooters["ReportGeneratedPath"]));
                     }
                     string filePath = Convert.ToString(headersAndFooters["ReportGeneratedPath"]) +
-                        "Purchase_Order_" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() +
+                        "Purchase_Order_" + poData.POID + "_" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() +
                         DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() +
                             DateTime.Now.Second.ToString() + ".xlsx";
 
