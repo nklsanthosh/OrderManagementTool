@@ -1192,12 +1192,12 @@ namespace OrderManagementTool
                 htmlString.Append("</head>");
                 htmlString.Append("<body>");
                 htmlString.Append("<table width='60%' border=1 border-style='solid' border-color='#8CBD48'>");
-                htmlString.Append("<tr>");
-                htmlString.Append("<td colspan=9 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana; vertical-align:middle'><h2><i><center>SLPP RENEW LLP<center></i></h2></td>");
-                htmlString.Append("</tr>");
-                htmlString.Append("<tr>");
-                htmlString.Append("<td colspan=9 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;vertical-align:middle'><h2><center><i><u>MATERIAL INDENT FORM</u></i></center></h2></td>");
-                htmlString.Append("</tr>");
+                //htmlString.Append("<tr>");
+                //htmlString.Append("<td colspan=9 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana; vertical-align:middle'><h2><i><center>SLPP RENEW LLP<center></i></h2></td>");
+                //htmlString.Append("</tr>");
+                //htmlString.Append("<tr>");
+                //htmlString.Append("<td colspan=9 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;vertical-align:middle'><h2><center><i><u>MATERIAL INDENT FORM</u></i></center></h2></td>");
+                //htmlString.Append("</tr>");
                 htmlString.Append("<tr>");
                 htmlString.Append("<td colspan=7 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;'><i>Related WBS No: </i></td>");
                 htmlString.Append("<td  style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;'><i>Indent No :</td>");
