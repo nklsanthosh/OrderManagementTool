@@ -468,6 +468,11 @@ namespace OrderManagementTool
                         if (fileContent != "")
                         {
                             Byte[] bytes = Convert.FromBase64String(fileContent);
+                            
+                            if (!Directory.Exists(targetPath))
+                            {
+                                Directory.CreateDirectory(targetPath);
+                            }
                             File.WriteAllBytes(targetPath + "\\" + fileName, bytes);
                             MessageBox.Show("The file has been downloaded to the following path" + targetPath + "\\" + fileName,
                            "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -523,6 +528,10 @@ namespace OrderManagementTool
                         if (fileContent != "")
                         {
                             Byte[] bytes = Convert.FromBase64String(fileContent);
+                            if (!Directory.Exists(targetPath))
+                            {
+                                Directory.CreateDirectory(targetPath);
+                            }
                             File.WriteAllBytes(targetPath + "\\" + fileName, bytes);
                             MessageBox.Show("The file has been downloaded to the following path" + targetPath + "\\" + fileName,
                            "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -578,6 +587,10 @@ namespace OrderManagementTool
                         if (fileContent != "")
                         {
                             Byte[] bytes = Convert.FromBase64String(fileContent);
+                            if (!Directory.Exists(targetPath))
+                            {
+                                Directory.CreateDirectory(targetPath);
+                            }
                             File.WriteAllBytes(targetPath + "\\" + fileName, bytes);
                             MessageBox.Show("The file has been downloaded to the following path" + targetPath + "\\" + fileName,
                            "Order Management System", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -1626,8 +1639,36 @@ namespace OrderManagementTool
                             }
                         }
                     }
+                    string fileContent = string.Empty;
+                    try
+                    {
+                        using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnection"].ToString()))
+                        {
+                            connection.Open();
+                            SqlCommand testCMD = new SqlCommand("FetchLookupImage", connection);
+                            testCMD.CommandType = CommandType.StoredProcedure;
 
-                    var image = worksheet.AddPicture(imagePath)
+
+
+                            SqlDataReader dataReader = testCMD.ExecuteReader();
+                            while (dataReader.Read())
+                            {
+                                fileContent = dataReader.GetString(0);
+                            }
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                    byte[] binaryData = Convert.FromBase64String(fileContent);
+
+                    MemoryStream _stream = new MemoryStream(binaryData);
+
+
+
+                    var image = worksheet.AddPicture(_stream)
                         .MoveTo(worksheet.Cell("B1"))
                         .Scale(.15);
 
@@ -1848,6 +1889,10 @@ namespace OrderManagementTool
                     worksheet.PageSetup.Scale = 80;
 
                     //worksheet.Column(1).Width = 20;
+                    if(!Directory.Exists(Convert.ToString(headersAndFooters["ReportGeneratedPath"])))
+                    {
+                        Directory.CreateDirectory(Convert.ToString(headersAndFooters["ReportGeneratedPath"]));
+                    }
                     string filePath = Convert.ToString(headersAndFooters["ReportGeneratedPath"]) +
                         "Purchase_Order_" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() +
                         DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() +
