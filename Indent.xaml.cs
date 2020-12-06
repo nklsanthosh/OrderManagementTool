@@ -1217,13 +1217,13 @@ namespace OrderManagementTool
                 htmlString.Append("<td>Quantity</td>");
                 htmlString.Append("<td>Remarks</td>");
                 htmlString.Append("</tr>");
-                int counter = 0;
+                int counter = 1;
                 for (int k = 0; k < gridIndents.Count + 10; k++)
                 {
                     if (k <= gridIndents.Count - 1)
                     {
-                        htmlString.Append("<tr style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;font-size:11;'>");
-                        htmlString.Append("<td>" + counter + 1 + "</td>");
+                        htmlString.Append("<tr style='background-color:#FFFFFF;color:#6C6C6C;font-family:Verdana;font-size:11;'>");
+                        htmlString.Append("<td>" + counter + "</td>");
                         htmlString.Append("<td>" + gridIndents[k].ItemCode + "</td>");
                         htmlString.Append("<td>" + gridIndents[k].ItemCategoryName + "</td>");
                         htmlString.Append("<td>" + gridIndents[k].ItemName + "</td>");
@@ -1232,14 +1232,22 @@ namespace OrderManagementTool
                         htmlString.Append("<td>" + gridIndents[k].Quantity + "</td>");
                         htmlString.Append("<td>" + gridIndents[k].Remarks + "</td>");
                         htmlString.Append("</tr>");
+                        counter++;
                     }
                 }
-                htmlString.Append("<tr>");
-                htmlString.Append("<td colspan=9 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;font-size:11;vertical-align:middle'><i>Revision Remarks: </i></td></tr>");
-                htmlString.Append("<tr><td colspan=9 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;font-size:11;vertical-align:middle'><i>1.          </i></td></tr>");
-                htmlString.Append("<tr><td colspan=9 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;font-size:11;vertical-align:middle'><i>2.          </i></td></tr>");
+                htmlString.Append("</tbody>");
                 htmlString.Append("</table>");
+                htmlString.Append("<br/>");
+                htmlString.Append("<br/>");
+                htmlString.Append("</body>");
+                htmlString.Append("</html>");
                 return htmlString.ToString();
+                //htmlString.Append("<tr>");
+                //htmlString.Append("<td colspan=9 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;font-size:11;vertical-align:middle'><i>Revision Remarks: </i></td></tr>");
+                //htmlString.Append("<tr><td colspan=9 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;font-size:11;vertical-align:middle'><i>1.          </i></td></tr>");
+                //htmlString.Append("<tr><td colspan=9 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;font-size:11;vertical-align:middle'><i>2.          </i></td></tr>");
+                //htmlString.Append("</table>");
+                //return htmlString.ToString();
             }
             catch (Exception ex)
             {
