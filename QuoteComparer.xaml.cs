@@ -1728,8 +1728,8 @@ namespace OrderManagementTool
                     worksheet.Cell("A10").Style.Font.Bold = true;
                     worksheet.Cell("F5").Value = poData.POID;
                     worksheet.Cell("F6").Value = poData.PODate;
-                    worksheet.Cell("F7").Value = poData.IndentID;
-                    worksheet.Cell("F8").Value = poData.PODate;
+                    worksheet.Cell("F7").Value = poData.Poitems[0].Offer_Number;
+                    worksheet.Cell("F8").Value = poData.Poitems[0].Offer_Date;
                     worksheet.Cell("F9").Value = poData.Poitems[0].Contact_Person;
 
                     worksheet.Cell("A10").Style.Font.Bold = true;
