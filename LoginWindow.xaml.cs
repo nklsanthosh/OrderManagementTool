@@ -31,7 +31,17 @@ namespace OrderManagementTool
                 string path = ConfigurationManager.AppSettings["InitializationPath"];
 
                 DirectoryInfo dInfo = new DirectoryInfo(path);
-                FileInfo[] files = dInfo.GetFiles("OMT.ini");
+                FileInfo[] files = null;
+                try
+                {
+                    files = dInfo.GetFiles("OMT.ini");
+                }
+                catch(Exception e)
+                {
+                    Directory.CreateDirectory(path);
+                    File.Create("OMT.ini");
+                    files = dInfo.GetFiles("OMT.ini");
+                }
                 if (files.Length > 0)
                 {
                     StreamReader file = File.OpenText(files[0].FullName);
@@ -41,6 +51,7 @@ namespace OrderManagementTool
                     txt_username.Text = userName;
                     txt_password.Password = password;
                 }
+                
             }
             catch(Exception ex)
             {
@@ -70,8 +81,28 @@ namespace OrderManagementTool
 
             else if (txt_username.Text.Length != 0 && txt_password.Password.Length != 0)
             {
+                string path = ConfigurationManager.AppSettings["InitializationPath"];
                 string username = txt_username.Text;
                 string password = txt_password.Password.ToString();
+                DirectoryInfo dInfo = new DirectoryInfo(path);
+                FileInfo[] files = null;
+                try
+                {
+                    files = dInfo.GetFiles("OMT.ini");
+                }
+                catch (Exception exc)
+                {
+                    string error = exc.Message;
+                    Directory.CreateDirectory(path);
+                    File.Create("OMT.ini");
+                    files = dInfo.GetFiles("OMT.ini");
+                }
+                if (files.Length <= 0)
+                {
+                    string[] lines = { username+ "," + password };
+                    File.WriteAllLines(path + "\\OMT.ini", lines);
+                }
+                   
                 try
                 {
                     OrderManagementContext orderManagementContext = new OrderManagementContext();
