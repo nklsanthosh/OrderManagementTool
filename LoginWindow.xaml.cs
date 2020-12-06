@@ -83,7 +83,7 @@ namespace OrderManagementTool
             {
                 string path = ConfigurationManager.AppSettings["InitializationPath"];
                 string username = txt_username.Text;
-                string password = txt_password.Password.ToString();
+                string password = txt_password.Password.ToString().Split(new string[] { "\r\n" }, StringSplitOptions.None)[0];
                 DirectoryInfo dInfo = new DirectoryInfo(path);
                 FileInfo[] files = null;
                 try

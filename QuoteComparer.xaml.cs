@@ -468,7 +468,7 @@ namespace OrderManagementTool
                         if (fileContent != "")
                         {
                             Byte[] bytes = Convert.FromBase64String(fileContent);
-                            
+
                             if (!Directory.Exists(targetPath))
                             {
                                 Directory.CreateDirectory(targetPath);
@@ -1341,8 +1341,8 @@ namespace OrderManagementTool
                               where a.EmployeeId == (from emp in orderManagementContext.Employee where emp.EmployeeId == _login.EmployeeID select emp.ReportsTo).FirstOrDefault()
                               select a.Email).FirstOrDefault();
 
-                    //string body = GenerateIndent(indentNo.ToString());
-                    isMailSent = SendMail("Purchase Order " + poID + " is created by " + _login.UserName + ". Kindly Approve or Deny the Purchase Order ");
+                    string body = GeneratePOMail(poID.ToString());
+                    isMailSent = SendMail(body, "Purchase Order " + poID + " is created by " + _login.UserName + ". Kindly Approve or Deny the Purchase Order ");
                     if (isMailSent)
                     {
                         MessageBox.Show("Purchase Order " + poID + " is created.", "Order Management System",
@@ -1368,6 +1368,248 @@ namespace OrderManagementTool
             this.Cursor = null;
         }
 
+        private string GeneratePOMail(string PO_Id)
+        {
+            try
+            {
+                int counter = 1;
+                StringBuilder htmlString = new StringBuilder();
+                htmlString.Append("<html>");
+                htmlString.Append("<head>");
+                htmlString.Append("<style>");
+                htmlString.Append(".tableborder");
+                htmlString.Append("{");
+                htmlString.Append("border:1px;");
+                htmlString.Append("border-style:solid;");
+                htmlString.Append("border.color:red;");
+                htmlString.Append("}");
+                htmlString.Append(".tdDist {");
+                htmlString.Append("width: 100%;");
+                htmlString.Append("}");
+                htmlString.Append("</style>");
+                htmlString.Append("</head>");
+
+                htmlString.Append("<body>");
+                htmlString.Append("<table width='100%' border=1 border-style='solid' border-color='#8CBD48'>");
+                htmlString.Append("<tr>");
+                htmlString.Append("<td colspan=7 style='background-color:#ffffff;color:#6C6C6C;font-family:Verdana;'><b>Purchase Order : " + poID + "</b></td>");
+                htmlString.Append("</table>");
+                htmlString.Append("<table width='100%' border=1 border-style='solid' border-color='#8CBD48'>");
+                htmlString.Append("<tr>");
+                htmlString.Append("<td colspan=7 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;'>Quotation : 1</td>");
+                htmlString.Append("</table>");
+                //htmlString.Append("<br/>");
+                if (poitems_1.Count > 0)
+                {
+                    htmlString.Append("<table width='100%'  border=1 border-style='solid' border-color='#8CBD48'>");
+                    htmlString.Append("<tr style='background-color:#609F19;color:#FFFFFF;font-family:Verdana;font-size:11;vertical-align:middle'><td>S.No</td>");
+                    htmlString.Append("<td>Offer No</td>");
+                    htmlString.Append("<td>Vendor Name</td>");
+                    htmlString.Append("<td>Vendor Code</td>");
+                    htmlString.Append("<td>Offer Date</td>");
+                    htmlString.Append("<td>Contact No</td>");
+                    htmlString.Append("<td>Contact Person</td>");
+                    htmlString.Append("<td>Description</td>");
+                    htmlString.Append("<td>Qty</td>");
+                    htmlString.Append("<td>Units</td>");
+                    htmlString.Append("<td>Unit Price</td>");
+                    htmlString.Append("<td>GST %</td>");
+                    htmlString.Append("<td>Total Price</td>");
+                    htmlString.Append("</tr>");
+                    counter = 1;
+                    for (int k = 0; k < poitems_1.Count; k++)
+                    {
+                        if (k <= poitems_1.Count - 1)
+                        {
+                            htmlString.Append("<tr style='background-color:#FFFFFF;color:#6C6C6C;font-family:Verdana;font-size:11;'>");
+                            htmlString.Append("<td>" + counter + "</td>");
+                            htmlString.Append("<td>" + poitems_1[k].Offer_Number + "</td>");
+                            htmlString.Append("<td>" + poitems_1[k].Vendor_Name + "</td>");
+                            htmlString.Append("<td>" + poitems_1[k].Vendor_Code + "</td>");
+                            htmlString.Append("<td>" + poitems_1[k].Offer_Date + "</td>");
+                            htmlString.Append("<td>" + poitems_1[k].Contact_No + "</td>");
+                            htmlString.Append("<td>" + poitems_1[k].Contact_Person + "</td>");
+                            htmlString.Append("<td>" + poitems_1[k].Description + "</td>");
+                            htmlString.Append("<td>" + poitems_1[k].Quantity + "</td>");
+                            htmlString.Append("<td>" + poitems_1[k].Units + "</td>");
+                            htmlString.Append("<td>" + poitems_1[k].Unit_Price + "</td>");
+                            htmlString.Append("<td>" + poitems_1[k].GST_Value + "</td>");
+                            htmlString.Append("<td>" + poitems_1[k].Total_Price + "</td>");
+
+                            htmlString.Append("</tr>");
+                            counter++;
+                        }
+                    }
+                    htmlString.Append("</table>");
+                }
+                htmlString.Append("<br/>");
+
+                if (poitems_2.Count > 0)
+                {
+                    htmlString.Append("<table width='100%'  border=1 border-style='solid' border-color='#8CBD48'>");
+                    htmlString.Append("<tr>");
+                    htmlString.Append("<td colspan=7 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;'>Quotation : 2</td>");
+                    //htmlString.Append("<td  style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;'><i>Indent No :</td>");
+                    //htmlString.Append("<td  style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;'><i>" + indentNo + "</i></td></tr>");
+                    htmlString.Append("</table>");
+                    htmlString.Append("<table width='100%'  border=1 border-style='solid' border-color='#8CBD48'>");
+                    htmlString.Append("<tr style='background-color:#609F19;color:#FFFFFF;font-family:Verdana;font-size:11;vertical-align:middle'><td>S.No</td>");
+                    htmlString.Append("<td>Offer No</td>");
+                    htmlString.Append("<td>Vendor Name</td>");
+                    htmlString.Append("<td>Vendor Code</td>");
+                    htmlString.Append("<td>Offer Date</td>");
+                    htmlString.Append("<td>Contact No</td>");
+                    htmlString.Append("<td>Contact Person</td>");
+                    htmlString.Append("<td>Description</td>");
+                    htmlString.Append("<td>Qty</td>");
+                    htmlString.Append("<td>Units</td>");
+                    htmlString.Append("<td>Unit Price</td>");
+                    htmlString.Append("<td>GST %</td>");
+                    htmlString.Append("<td>Total Price</td>");
+                    htmlString.Append("</tr>");
+                    counter = 1;
+                    for (int k = 0; k < poitems_2.Count; k++)
+                    {
+                        if (k <= poitems_2.Count - 1)
+                        {
+                            htmlString.Append("<tr style='background-color:#FFFFFF;color:#6C6C6C;font-family:Verdana;font-size:11;'>");
+                            htmlString.Append("<td>" + counter + "</td>");
+                            htmlString.Append("<td>" + poitems_2[k].Offer_Number + "</td>");
+                            htmlString.Append("<td>" + poitems_2[k].Vendor_Name + "</td>");
+                            htmlString.Append("<td>" + poitems_2[k].Vendor_Code + "</td>");
+                            htmlString.Append("<td>" + poitems_2[k].Offer_Date + "</td>");
+                            htmlString.Append("<td>" + poitems_2[k].Contact_No + "</td>");
+                            htmlString.Append("<td>" + poitems_2[k].Contact_Person + "</td>");
+                            htmlString.Append("<td>" + poitems_2[k].Description + "</td>");
+                            htmlString.Append("<td>" + poitems_2[k].Quantity + "</td>");
+                            htmlString.Append("<td>" + poitems_2[k].Units + "</td>");
+                            htmlString.Append("<td>" + poitems_2[k].Unit_Price + "</td>");
+                            htmlString.Append("<td>" + poitems_2[k].GST_Value + "</td>");
+                            htmlString.Append("<td>" + poitems_2[k].Total_Price + "</td>");
+
+                            htmlString.Append("</tr>");
+                            counter++;
+                        }
+                    }
+                    htmlString.Append("<tr>");
+                    htmlString.Append("</table>");
+                }
+
+                htmlString.Append("<br/>");
+
+                if (poitems_3.Count > 0)
+                {
+                    htmlString.Append("<table width='100%'  border=1 border-style='solid' border-color='#8CBD48'>");
+                    htmlString.Append("<tr>");
+                    htmlString.Append("<td colspan=7 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;'>Quotation : 3</td>");
+                    //htmlString.Append("<td  style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;'><i>Indent No :</td>");
+                    //htmlString.Append("<td  style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;'><i>" + indentNo + "</i></td></tr>");
+                    htmlString.Append("</table>");
+                    htmlString.Append("<table width='100%'  border=1 border-style='solid' border-color='#8CBD48'>");
+                    htmlString.Append("<tr style='background-color:#609F19;color:#FFFFFF;font-family:Verdana;font-size:11;vertical-align:middle'><td>S.No</td>");
+                    htmlString.Append("<td>Offer No</td>");
+                    htmlString.Append("<td>Vendor Name</td>");
+                    htmlString.Append("<td>Vendor Code</td>");
+                    htmlString.Append("<td>Offer Date</td>");
+                    htmlString.Append("<td>Contact No</td>");
+                    htmlString.Append("<td>Contact Person</td>");
+                    htmlString.Append("<td>Description</td>");
+                    htmlString.Append("<td>Qty</td>");
+                    htmlString.Append("<td>Units</td>");
+                    htmlString.Append("<td>Unit Price</td>");
+                    htmlString.Append("<td>GST %</td>");
+                    htmlString.Append("<td>Total Price</td>");
+                    htmlString.Append("</tr>");
+                    counter = 1;
+                    for (int k = 0; k < poitems_3.Count; k++)
+                    {
+                        if (k <= poitems_3.Count - 1)
+                        {
+                            htmlString.Append("<tr style='background-color:#FFFFFF;color:#6C6C6C;font-family:Verdana;font-size:11;'>");
+                            htmlString.Append("<td>" + counter + "</td>");
+                            htmlString.Append("<td>" + poitems_3[k].Offer_Number + "</td>");
+                            htmlString.Append("<td>" + poitems_3[k].Vendor_Name + "</td>");
+                            htmlString.Append("<td>" + poitems_3[k].Vendor_Code + "</td>");
+                            htmlString.Append("<td>" + poitems_3[k].Offer_Date + "</td>");
+                            htmlString.Append("<td>" + poitems_3[k].Contact_No + "</td>");
+                            htmlString.Append("<td>" + poitems_3[k].Contact_Person + "</td>");
+                            htmlString.Append("<td>" + poitems_3[k].Description + "</td>");
+                            htmlString.Append("<td>" + poitems_3[k].Quantity + "</td>");
+                            htmlString.Append("<td>" + poitems_3[k].Units + "</td>");
+                            htmlString.Append("<td>" + poitems_3[k].Unit_Price + "</td>");
+                            htmlString.Append("<td>" + poitems_3[k].GST_Value + "</td>");
+                            htmlString.Append("<td>" + poitems_3[k].Total_Price + "</td>");
+
+                            htmlString.Append("</tr>");
+                            counter++;
+                        }
+                    }
+                    htmlString.Append("<tr>");
+
+                    htmlString.Append("</table>");
+                }
+                htmlString.Append("<br/>");
+
+                if (poitems_4.Count > 0)
+                {
+                    htmlString.Append("<table width='100%'  border=1 border-style='solid' border-color='#8CBD48'>");
+                    htmlString.Append("<tr>");
+                    htmlString.Append("<td colspan=7 style='background-color:#EBF8F0;color:#ff0000;font-family:Verdana;'>Approved Quotation</td>");
+                    //htmlString.Append("<td  style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;'><i>Indent No :</td>");
+                    //htmlString.Append("<td  style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;'><i>" + indentNo + "</i></td></tr>");
+                    htmlString.Append("</table>");
+                    htmlString.Append("<table width='100%'  border=1 border-style='solid' border-color='#8CBD48'>");
+                    htmlString.Append("<tr style='background-color:#609F19;color:#FFFFFF;font-family:Verdana;font-size:11;vertical-align:middle'><td>S.No</td>");
+                    htmlString.Append("<td>Offer No</td>");
+                    htmlString.Append("<td>Vendor Name</td>");
+                    htmlString.Append("<td>Vendor Code</td>");
+                    htmlString.Append("<td>Offer Date</td>");
+                    htmlString.Append("<td>Contact No</td>");
+                    htmlString.Append("<td>Contact Person</td>");
+                    htmlString.Append("<td>Description</td>");
+                    htmlString.Append("<td>Qty</td>");
+                    htmlString.Append("<td>Units</td>");
+                    htmlString.Append("<td>Unit Price</td>");
+                    htmlString.Append("<td>GST %</td>");
+                    htmlString.Append("<td>Total Price</td>");
+                    htmlString.Append("</tr>");
+                    counter = 1;
+                    for (int k = 0; k < poitems_4.Count; k++)
+                    {
+                        if (k <= poitems_4.Count - 1)
+                        {
+                            htmlString.Append("<tr style='background-color:#FFFFFF;color:#6C6C6C;font-family:Verdana;font-size:11;'>");
+                            htmlString.Append("<td>" + counter + "</td>");
+                            htmlString.Append("<td>" + poitems_4[k].Offer_Number + "</td>");
+                            htmlString.Append("<td>" + poitems_4[k].Vendor_Name + "</td>");
+                            htmlString.Append("<td>" + poitems_4[k].Vendor_Code + "</td>");
+                            htmlString.Append("<td>" + poitems_4[k].Offer_Date + "</td>");
+                            htmlString.Append("<td>" + poitems_4[k].Contact_No + "</td>");
+                            htmlString.Append("<td>" + poitems_4[k].Contact_Person + "</td>");
+                            htmlString.Append("<td>" + poitems_4[k].Description + "</td>");
+                            htmlString.Append("<td>" + poitems_4[k].Quantity + "</td>");
+                            htmlString.Append("<td>" + poitems_4[k].Units + "</td>");
+                            htmlString.Append("<td>" + poitems_4[k].Unit_Price + "</td>");
+                            htmlString.Append("<td>" + poitems_4[k].GST_Value + "</td>");
+                            htmlString.Append("<td>" + poitems_4[k].Total_Price + "</td>");
+
+                            htmlString.Append("</tr>");
+                            counter++;
+                        }
+                    }
+                    htmlString.Append("<tr>");
+                    htmlString.Append("</table>");
+                }
+                return htmlString.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred. Please contact the administrator", "Order Management System",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+
+        }
 
         private void cbx_ApprovalStatus_id_DropDownOpened(object sender, EventArgs e)
         {
@@ -1391,7 +1633,7 @@ namespace OrderManagementTool
                 ////log.Error("Error while loading approval : " + ex.StackTrace);
             }
         }
-        private bool SendMail(string body)
+        private bool SendMail(string body, string content)
         {
             bool mailSent = false;
             try
@@ -1405,10 +1647,10 @@ namespace OrderManagementTool
                     mm.To.Add(mailTo);
 
                     mm.Subject = "Purchase Order - " + poID.ToString();
-                    body = body + ". Please click on the link to approve or deny the indent. " + ConfigurationManager.AppSettings["url"] + "/" + poID.ToString() + "?type=P";
+                    body = body + content + ConfigurationManager.AppSettings["url"] + "/" + poID.ToString() + "?type=P";
                     mm.Body = body;
 
-                    mm.IsBodyHtml = false;
+                    mm.IsBodyHtml = true;
 
                     // mm.Attachments.Add(new System.Net.Mail.Attachment(filePathLocation));
 
@@ -1497,13 +1739,15 @@ namespace OrderManagementTool
                         mailTo = (from a in orderManagementContext.UserMaster
                                   where a.EmployeeId == (from emp in orderManagementContext.Employee where emp.EmployeeId == _login.EmployeeID select emp.ReportsTo).FirstOrDefault()
                                   select a.Email).FirstOrDefault();
-                        isMailSent = SendMail("Purchase Order " + poID + " is Approved by " + _login.UserName + ". Kindly Approve or Deny the Purchase Order ");
+                        string body = GeneratePOMail(poID.ToString());
+
+                        isMailSent = SendMail(body, "Purchase Order " + poID + " is Approved by " + _login.UserName + ". Kindly Approve or Deny the Purchase Order ");
 
                         mailTo = (from a in orderManagementContext.UserMaster
                                   where a.EmployeeId == (from ia in orderManagementContext.IndentApproval where ia.IndentId == indentNo select ia.CreatedBy).FirstOrDefault()
                                   select a.Email).FirstOrDefault();
 
-                        isMailSent = SendMail("Purchase Order " + poID + " is Approved by " + _login.UserName);
+                        isMailSent = SendMail(body, "Purchase Order " + poID + " is Approved by " + _login.UserName);
                         connection.Close();
                         if (isMailSent)
                         {
@@ -1546,11 +1790,11 @@ namespace OrderManagementTool
                                             join k in orderManagementContext.Podetails on i.PoId equals k.PoId
                                             where i.IndentId == indentNo && j.ApprovalStatusId == 2 && k.QNo == 4
                                             select i).FirstOrDefault();
-                        GetPurchaseOrder(poApprovedID.PoId);
+                        //  GetPurchaseOrder(poApprovedID.PoId);
                         FillIndent();
                         EnableFields();
-                        DisableCheckBoxes();
-                        FillApprovalStatusLevel(Convert.ToString(poApprovedID.PoId));
+                        // DisableCheckBoxes();
+                        // FillApprovalStatusLevel(Convert.ToString(poApprovedID.PoId));
                     }
                     else
                     {
@@ -1888,9 +2132,9 @@ namespace OrderManagementTool
                     worksheet.PageSetup.PageOrder = XLPageOrderValues.OverThenDown;
 
                     worksheet.PageSetup.Scale = 80;
-                    
+
                     //worksheet.Column(1).Width = 20;
-                    if(!Directory.Exists(Convert.ToString(headersAndFooters["ReportGeneratedPath"])))
+                    if (!Directory.Exists(Convert.ToString(headersAndFooters["ReportGeneratedPath"])))
                     {
                         Directory.CreateDirectory(Convert.ToString(headersAndFooters["ReportGeneratedPath"]));
                     }
