@@ -978,7 +978,7 @@ namespace OrderManagementTool
                                       select a.Email).FirstOrDefault();
                             txt_indent_no.Text = indentNo.ToString();
                             string body = GenerateIndent(indentNo.ToString());
-                            isMailSent = SendMail("Indent Number " + indentNo + " is updated by " + _login.UserName, body);
+                            isMailSent = SendMail("Indent Number " + indentNo + " is created by " + _login.UserName, body);
                             if (isMailSent)
                             {
                                 MessageBox.Show("The Indent  " + indentNo + " is created.", "Order Management System",
@@ -1088,7 +1088,7 @@ namespace OrderManagementTool
                     mm.To.Add(mailTo);
 
                     mm.Subject = "Indent Number - " + indentNo.ToString();
-                    body = body + ". Please click on the link to approve or deny the indent. " + ConfigurationManager.AppSettings["url"] + "/" + indentNo + "?type=I";
+                    body = body + subject + ". Please click on the link to approve or deny the indent. " + ConfigurationManager.AppSettings["url"] + "/" + indentNo + "?type=I";
                     mm.Body = body;
                     mm.IsBodyHtml = true;
 
@@ -1191,23 +1191,11 @@ namespace OrderManagementTool
                 htmlString.Append("</style>");
                 htmlString.Append("</head>");
                 htmlString.Append("<body>");
-                htmlString.Append("<table width='60%' border=1 border-style='solid' border-color='#8CBD48'>");
-                //htmlString.Append("<tr>");
-                //htmlString.Append("<td colspan=9 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana; vertical-align:middle'><h2><i><center>SLPP RENEW LLP<center></i></h2></td>");
-                //htmlString.Append("</tr>");
-                //htmlString.Append("<tr>");
-                //htmlString.Append("<td colspan=9 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;vertical-align:middle'><h2><center><i><u>MATERIAL INDENT FORM</u></i></center></h2></td>");
-                //htmlString.Append("</tr>");
+                htmlString.Append("<table width='100%' border=1 border-style='solid' border-color='#8CBD48'>");
                 htmlString.Append("<tr>");
-                htmlString.Append("<td colspan=7 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;'><i>Related WBS No: </i></td>");
-                htmlString.Append("<td  style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;'><i>Indent No :</td>");
-                htmlString.Append("<td  style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;'><i>" + indentNo + "</i></td></tr>");
-                htmlString.Append("<tr>");
-                htmlString.Append("<td colspan=7  style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;'><i>Approved By: </i></td>");
-                htmlString.Append("<td style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;'><i>Approved On :</td>");
-                htmlString.Append("<td style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;'><i></i></td></tr>");
+                htmlString.Append("<td  style='background-color:#ffffff;color:#6C6C6C;font-family:Verdana;'><b>Indent No : " + indentNo + "</b></td></tr>");
                 htmlString.Append("</table>");
-                htmlString.Append("<table width='60%'  border=1 border-style='solid' border-color='#8CBD48'>");
+                htmlString.Append("<table width='100%'  border=1 border-style='solid' border-color='#8CBD48'>");
                 htmlString.Append("<tr style='background-color:#609F19;color:#FFFFFF;font-family:Verdana;font-size:11;vertical-align:middle'><td>Sl.No</td>");
                 htmlString.Append("<td>Item Code</td>");
                 htmlString.Append("<td>Item Category Name</td>");
@@ -1242,12 +1230,7 @@ namespace OrderManagementTool
                 htmlString.Append("</body>");
                 htmlString.Append("</html>");
                 return htmlString.ToString();
-                //htmlString.Append("<tr>");
-                //htmlString.Append("<td colspan=9 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;font-size:11;vertical-align:middle'><i>Revision Remarks: </i></td></tr>");
-                //htmlString.Append("<tr><td colspan=9 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;font-size:11;vertical-align:middle'><i>1.          </i></td></tr>");
-                //htmlString.Append("<tr><td colspan=9 style='background-color:#EBF8F0;color:#6C6C6C;font-family:Verdana;font-size:11;vertical-align:middle'><i>2.          </i></td></tr>");
-                //htmlString.Append("</table>");
-                //return htmlString.ToString();
+
             }
             catch (Exception ex)
             {
