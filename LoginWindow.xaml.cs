@@ -97,9 +97,19 @@ namespace OrderManagementTool
                     File.Create("OMT.ini");
                     files = dInfo.GetFiles("OMT.ini");
                 }
-                string[] lines = { username + "," + password };
-                File.WriteAllLines(path + "\\OMT.ini", lines);
-
+                try
+                {
+                    string[] lines = { username + "," + password };
+                    File.WriteAllLines(path + "\\OMT.ini", lines);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error while Writing initialization file :" + ex.Message,
+                                       "Order Management System",
+                                           MessageBoxButton.OK,
+                                               MessageBoxImage.Error);
+                    //log.Error("Login error " + ex.StackTrace);
+                }
                 try
                 {
                     OrderManagementContext orderManagementContext = new OrderManagementContext();
