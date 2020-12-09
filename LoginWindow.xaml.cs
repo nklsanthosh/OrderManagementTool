@@ -86,9 +86,11 @@ namespace OrderManagementTool
                 string password = txt_password.Password.ToString().Split(new string[] { "\r\n" }, StringSplitOptions.None)[0];
                 DirectoryInfo dInfo = new DirectoryInfo(path);
                 FileInfo[] files = null;
+                bool isFileExist = false;
                 try
                 {
                     files = dInfo.GetFiles("OMT.ini");
+                    isFileExist = true;
                 }
                 catch (Exception exc)
                 {
@@ -99,8 +101,11 @@ namespace OrderManagementTool
                 }
                 try
                 {
-                    string[] lines = { username + "," + password };
-                    File.WriteAllLines(path + "\\OMT.ini", lines);
+                    if (!isFileExist)
+                    {
+                        string[] lines = { username + "," + password };
+                        File.WriteAllLines(path + "\\OMT.ini", lines);
+                    }
                 }
                 catch (Exception ex)
                 {

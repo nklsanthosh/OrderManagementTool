@@ -362,6 +362,8 @@ namespace OrderManagementTool
                         LoadDescription();
                         LoadUnits();
                         cbx_units.SelectedItem = rowview.Units;
+                        txt_description.Text = rowview.Description;
+                        txt_technical_description.Text = rowview.Technical_Specifications;
                     }
                 }
             }
@@ -468,6 +470,7 @@ namespace OrderManagementTool
                     gridIndent.ItemName = txt_item_name.Text;
                     gridIndent.ItemCode = cbx_itemcode.SelectedItem.ToString();
                     gridIndent.ItemCategoryName = cbx_itemcategoryname.SelectedItem.ToString();
+                    gridIndent.Description = txt_description.Text.ToString();
                     gridIndent.Quantity = quantityEntered;
                     gridIndent.Technical_Specifications = txt_technical_description.Text.Trim();
                     gridIndent.Units = cbx_units.SelectedItem.ToString();
@@ -1494,6 +1497,10 @@ namespace OrderManagementTool
 
                 worksheet.Columns(1, 10).AdjustToContents();
                 //worksheet.Column(1).Width = 20;
+                if (!Directory.Exists(Convert.ToString(headersAndFooters["ReportGeneratedPath"])))
+                {
+                    Directory.CreateDirectory(Convert.ToString(headersAndFooters["ReportGeneratedPath"]));
+                }
                 string filePath = Convert.ToString(headersAndFooters["ReportGeneratedPath"]) +
                     "Indent_" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() +
                     DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() +
