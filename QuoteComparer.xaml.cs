@@ -1716,7 +1716,7 @@ namespace OrderManagementTool
                             testCMD1.Parameters.Add(new SqlParameter("@Vendor_Name", System.Data.SqlDbType.VarChar, 300) { Value = i.Vendor_Name.Trim() });
                             testCMD1.Parameters.Add(new SqlParameter("@Vendor_Code", System.Data.SqlDbType.VarChar, 300) { Value = i.Vendor_Code.Trim() });
                             testCMD1.Parameters.Add(new SqlParameter("@Offer_Date", System.Data.SqlDbType.DateTime, 300) { Value = i.Offer_Date.Trim() });
-                            testCMD1.Parameters.Add(new SqlParameter("@Contact_No", System.Data.SqlDbType.Int, 300) { Value = i.Contact_No.Trim() });
+                            testCMD1.Parameters.Add(new SqlParameter("@Contact_No", System.Data.SqlDbType.NChar, 20) { Value = i.Contact_No.Trim() });
                             testCMD1.Parameters.Add(new SqlParameter("@Contact_Person", System.Data.SqlDbType.VarChar, 300) { Value = i.Contact_Person.Trim() });
                             testCMD1.Parameters.Add(new SqlParameter("@Description", System.Data.SqlDbType.VarChar, 300) { Value = i.Description.Trim() });
                             testCMD1.Parameters.Add(new SqlParameter("@Quantity", System.Data.SqlDbType.BigInt, 50) { Value = i.Quantity });
