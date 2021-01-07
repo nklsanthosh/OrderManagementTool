@@ -1957,12 +1957,12 @@ namespace OrderManagementTool
                     rangeMerged2.Value = headersAndFooters["Header"];
                     //worksheet.Cell("A4").Value = headersAndFooters["To"];
                     var rangeTo = worksheet.Range("A4:D9").Merge();
-                    rangeTo.Value = headersAndFooters["To"];
+                    rangeTo.Value = headersAndFooters["From"];
                     rangeTo.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
                     rangeTo.Style.Alignment.Vertical = XLAlignmentVerticalValues.Top;
                     worksheet.Cell("A4").Style.Font.Bold = true;
                     var rangeFrom = worksheet.Range("A10:D14").Merge();
-                    rangeFrom.Value = headersAndFooters["From"];
+                    rangeFrom.Value = headersAndFooters["To"];
                     rangeFrom.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
                     rangeFrom.Style.Alignment.Vertical = XLAlignmentVerticalValues.Top;
                     worksheet.Cell("A4").Style.Font.Bold = true;
@@ -1992,9 +1992,9 @@ namespace OrderManagementTool
                     //worksheet.Cell("A10").Value = headersAndFooters["From"];
                     //worksheet.Cell("A10").Style.Font.Bold = true;
                     worksheet.Cell("F5").Value = poData.POID;
-                    worksheet.Cell("F6").Value = poData.PODate;
+                    worksheet.Cell("F6").Value = poData.PODate.ToShortDateString();
                     worksheet.Cell("F7").Value = poData.Poitems[0].Offer_Number;
-                    worksheet.Cell("F8").Value = poData.Poitems[0].Offer_Date;
+                    worksheet.Cell("F8").Value = poData.Poitems[0].Offer_Date.Split(' ')[0];
                     worksheet.Cell("F9").Value = poData.Poitems[0].Contact_Person;
                     worksheet.Cell("F5").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
                     worksheet.Cell("F6").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
@@ -2006,24 +2006,30 @@ namespace OrderManagementTool
                     worksheet.Cell("B12").Value = poData.LocationAddressInfo == null ? "" : poData.LocationAddressInfo.Address1;
                     worksheet.Cell("B13").Value = poData.LocationAddressInfo == null ? "" : poData.LocationAddressInfo.Address2;
                     worksheet.Cell("B14").Value = poData.LocationAddressInfo == null ? "" : poData.LocationAddressInfo.Address3;
-                    worksheet.Cell("E10").Value = headersAndFooters["Remarks"];
-                    worksheet.Cell("E11").Value = "GST #";
-                    worksheet.Cell("E12").Value = "IEC #";
-                    worksheet.Cell("E13").Value = "Project Code";
+                    worksheet.Cell("E10").Value = "Mobile No";
+                    worksheet.Cell("E11").Value = headersAndFooters["Remarks"]; 
+                    worksheet.Cell("E12").Value = "GST #"; 
+                    worksheet.Cell("E13").Value = "IEC #";
+                    worksheet.Cell("E14").Value = "Project Code";
                     worksheet.Cell("E10").Style.Font.Bold = true;
                     worksheet.Cell("E11").Style.Font.Bold = true;
                     worksheet.Cell("E12").Style.Font.Bold = true;
                     worksheet.Cell("E13").Style.Font.Bold = true;
+                    worksheet.Cell("E14").Style.Font.Bold = true;
                     // worksheet.Cell("F9").Value = poData.Poitems[0].Contact_No;
-                    worksheet.Cell("F10").Value = poData.Remarks;
-                    worksheet.Cell("F11").Value = headersAndFooters["GSTNo"];
-                    worksheet.Cell("F12").Value = headersAndFooters["IECNo"];
-                    worksheet.Cell("F13").Value = null;
+                    worksheet.Cell("F10").Value = poData.Poitems[0].Contact_No;
+                    worksheet.Cell("F10").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
 
-                    worksheet.Cell("F10").Style.Font.Bold = true;
+                    worksheet.Cell("F11").Value = poData.Remarks; 
+                    worksheet.Cell("F12").Value = headersAndFooters["GSTNo"]; 
+                    worksheet.Cell("F13").Value = headersAndFooters["IECNo"];
+                    worksheet.Cell("F14").Value = poData.LocatioName;
+
+                    //worksheet.Cell("F10").Style.Font.Bold = true;
                     worksheet.Cell("F11").Style.Font.Bold = true;
                     worksheet.Cell("F12").Style.Font.Bold = true;
                     worksheet.Cell("F13").Style.Font.Bold = true;
+                    
                     // var rangeMerged3 = worksheet.Range("A15:C15").Merge();
                     // worksheet.Cell("A15").Value = headersAndFooters["Materials"];
                     // worksheet.Cell("A15").Style.Font.Bold = true;
@@ -2047,11 +2053,13 @@ namespace OrderManagementTool
                     {
                         worksheet.Cell("A" + j).Value = i;
                         worksheet.Cell("B" + j).Value = poInfo.Description;
+                        worksheet.Cell("B" + j).Style.Alignment.SetWrapText(true);
                         worksheet.Cell("C" + j).Value = poInfo.Quantity;
                         worksheet.Cell("D" + j).Value = poInfo.Units;
                         worksheet.Cell("E" + j).Value = poInfo.Unit_Price;
                         worksheet.Cell("F" + j).Value = poInfo.Total_Price;
                         total += poInfo.Total_Price;
+                        worksheet.Row(j).Height = (poInfo.Description.Length / 50) * 10;
                         j++;
                         i++;
                     }
@@ -2084,11 +2092,25 @@ namespace OrderManagementTool
                     worksheet.Cell("A" + j).Value = headersAndFooters["Terms"];
                     worksheet.Cell("A" + j).Style.Font.Bold = true;
                     j += 1;
-                    int l = j + 5;
-                    var rangeMerged102 = worksheet.Range("A" + j + ":F" + l).Merge();
-                    worksheet.Cell("A" + j).Value = headersAndFooters["Terms1"] + "\n" + headersAndFooters["Terms2"] + "\n" + headersAndFooters["Terms3"] + "\n" + headersAndFooters["Terms4"] + "\n" + headersAndFooters["Terms5"];
-                    rangeMerged102.Style.Alignment.Vertical = XLAlignmentVerticalValues.Top;
-                    j = l + 1;
+                   // int l = j + 5;
+                    //var rangeMerged102 = worksheet.Range("A" + j + ":F" + l).Merge();
+                    var rangeMerged1101 = worksheet.Range("A" + j + ":F" + j).Merge();
+                    worksheet.Cell("A" + j).Value = headersAndFooters["Terms1"];
+                    j += 1;
+                    var rangeMerged1102 = worksheet.Range("A" + j + ":F" + j).Merge();
+                    worksheet.Cell("A" + j).Value = headersAndFooters["Terms2"];
+                    j += 1;
+                    var rangeMerged1103 = worksheet.Range("A" + j + ":F" + j).Merge();
+                    worksheet.Cell("A" + j).Value = headersAndFooters["Terms3"];
+                    j += 1;
+                    var rangeMerged1104 = worksheet.Range("A" + j + ":F" + j).Merge();
+                    worksheet.Cell("A" + j).Value = headersAndFooters["Terms4"];
+                    j += 1;
+                    var rangeMerged1105 = worksheet.Range("A" + j + ":F" + j).Merge();
+                    worksheet.Cell("A" + j).Value = headersAndFooters["Terms5"];
+                    //+"\n" + headersAndFooters["Terms3"] + "\n" + headersAndFooters["Terms4"] + "\n" + headersAndFooters["Terms5"];
+                    //rangeMerged102.Style.Alignment.Vertical = XLAlignmentVerticalValues.Top;
+                    j += 1;
                     var rangeMerged103 = worksheet.Range("A" + j + ":F" + j).Merge();
                     j += 1;
                     var rangeMerged104 = worksheet.Range("A" + j + ":F" + j).Merge();
@@ -2096,7 +2118,7 @@ namespace OrderManagementTool
                     var rangeMerged5 = worksheet.Range("A" + j + ":C" + j).Merge();
                     worksheet.Cell("A" + j).Value = headersAndFooters["SpecialInstructions"];
                     worksheet.Cell("A" + j).Style.Font.Bold = true;
-                    var rangeMerged6 = worksheet.Range("E" + j + ":F" + j).Merge();
+                    var rangeMerged6 = worksheet.Range("D" + j + ":F" + j).Merge();
                     worksheet.Cell("E" + j).Value = headersAndFooters["Rejections"];
                     worksheet.Cell("E" + j).Style.Font.Bold = true;
                     j += 1;
@@ -2110,6 +2132,7 @@ namespace OrderManagementTool
                     var rangeMerged8 = worksheet.Range("D" + j + ":F" + j).Merge();
                     worksheet.Cell("D" + j).Value = headersAndFooters["RejLine1"];
                     worksheet.Cell("D" + j).Style.Alignment.WrapText = true;
+                    int l = j;
                     row = worksheet.Row(1);
                     row.AdjustToContents();
                     row.Height = 40;
@@ -2122,9 +2145,9 @@ namespace OrderManagementTool
                     j += 1;
                     int k = j;
                     j += 3;
-                    var rangeMerged9 = worksheet.Range("A" + k + ":B" + j).Merge();
-                    var rangeMerged10 = worksheet.Range("C" + k + ":D" + j).Merge();
-                    var rangeMerged11 = worksheet.Range("E" + k + ":F" + j).Merge();
+                    //var rangeMerged9 = worksheet.Range("A" + k + ":B" + j).Merge();
+                    //var rangeMerged10 = worksheet.Range("C" + k + ":D" + j).Merge();
+                    //var rangeMerged11 = worksheet.Range("E" + k + ":F" + j).Merge();
                     //worksheet.Cell("A" + j).Value = headersAndFooters["SplLine2"];
                     //worksheet.Cell("A" + j).Style.Alignment.WrapText = true;
                     j += 1;
@@ -2140,7 +2163,7 @@ namespace OrderManagementTool
                     worksheet.Cell("E" + j).Value = headersAndFooters["ApprovedBy"];
                     worksheet.Cell("E" + j).Style.Font.Bold = true;
                     worksheet.Cell("E" + j).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                    var rangeRows = worksheet.Range("A3" + ":F" + j);
+                    var rangeRows = worksheet.Range("A3" + ":F" + l);
 
                     rangeRows.Style.Border.BottomBorder = XLBorderStyleValues.Thin;
                     rangeRows.Style.Border.TopBorder = XLBorderStyleValues.Thin;
