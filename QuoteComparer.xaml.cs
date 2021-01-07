@@ -1153,32 +1153,44 @@ namespace OrderManagementTool
         }
         private void GeneratePO()
         {
-            this.Cursor = Cursors.Wait;
-            indentNo = Convert.ToInt64(txt_indent_no.Text);
-            Dictionary<string, string> _headers = GetHeaders();
-            ExportPO poData = new ExportPO();
-            List<Poitem> poItems = new List<Poitem>();
-            LocationAddress _locationAddress = (from loc in orderManagementContext.LocationAddress
-                                                join ind in orderManagementContext.IndentMaster
-                                                on loc.LocationCodeId equals ind.LocationCodeId
-                                                where ind.IndentId == indentNo
-                                                select loc).FirstOrDefault();
-            var locationDetails = (from loc in orderManagementContext.LocationCode
-                                   join ind in orderManagementContext.IndentMaster
-                                   on loc.LocationId equals ind.LocationCodeId
-                                   where ind.IndentId == indentNo
-                                   select loc).FirstOrDefault();
-            string locationName = locationDetails.LocationId.ToString().Trim() + " - " + locationDetails.LocationName.Trim();
-            poData.IndentID = Convert.ToInt64(txt_indent_no.Text);
-            poData.PODate = DateTime.Now;
-            poData.POID = Convert.ToInt32(txt_PO_no.Text);
-            poData.Remarks = txt_PO_Remarks.Text;
-            poData.Email = _login.UserEmail;
-            poData.Poitems = poitems_4;
-            poData.LocatioName = locationName;
-            poData.LocationAddressInfo = _locationAddress;
-            GeneratePurchaseOrder(_headers, poData);
+            try
+            {
+                this.Cursor = Cursors.Wait;
+                indentNo = Convert.ToInt64(txt_indent_no.Text);
+                Dictionary<string, string> _headers = GetHeaders();
+                ExportPO poData = new ExportPO();
+                List<Poitem> poItems = new List<Poitem>();
+                LocationAddress _locationAddress = (from loc in orderManagementContext.LocationAddress
+                                                    join ind in orderManagementContext.IndentMaster
+                                                    on loc.LocationCodeId equals ind.LocationCodeId
+                                                    where ind.IndentId == indentNo
+                                                    select loc).FirstOrDefault();
+                var locationDetails = (from loc in orderManagementContext.LocationCode
+                                       join ind in orderManagementContext.IndentMaster
+                                       on loc.LocationCodeId equals ind.LocationCodeId
+                                       where ind.IndentId == indentNo
+                                       select loc).FirstOrDefault();
 
+                string locationName = "";
+                if (locationDetails != null)
+                {
+                    locationName = locationDetails.LocationId.ToString().Trim() + " - " + locationDetails.LocationName.Trim();
+                }
+                poData.IndentID = indentNo;
+                poData.PODate = DateTime.Now;
+                poData.POID = Convert.ToInt32(txt_PO_no.Text);
+                poData.Remarks = txt_PO_Remarks.Text;
+                poData.Email = _login.UserEmail;
+                poData.Poitems = poitems_4;
+                poData.LocatioName = locationName;
+                poData.LocationAddressInfo = _locationAddress;
+                GeneratePurchaseOrder(_headers, poData);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error Occured during PO Generation" + ex.Message,
+                   "Order Management System", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             this.Cursor = null;
         }
         private void btn_generate_Click(object sender, RoutedEventArgs e)
@@ -1920,7 +1932,8 @@ namespace OrderManagementTool
 
                     var image = worksheet.AddPicture(_stream)
                         .MoveTo(worksheet.Cell("B1"))
-                        .Scale(.15);
+                        .Scale(.075);
+                    worksheet.Column("B").Width = 130;
 
                     var rangeMerged = worksheet.Range("A1:F1").Merge();
                     rangeMerged.Style.Border.BottomBorder = XLBorderStyleValues.Medium;
@@ -1932,7 +1945,7 @@ namespace OrderManagementTool
                     rangeMerged.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                     rangeMerged.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
                     var row = worksheet.Row(1);
-                    row.Height = 40;
+                    row.Height = 90;
                     var rangeMerged1 = worksheet.Range("A2:F2").Merge();
                     rangeMerged1.Style.Border.BottomBorder = XLBorderStyleValues.Medium;
                     rangeMerged1.Style.Border.TopBorder = XLBorderStyleValues.Medium;
@@ -1991,11 +2004,11 @@ namespace OrderManagementTool
                     worksheet.Cell("E9").Style.Font.Bold = true;
                     //worksheet.Cell("A10").Value = headersAndFooters["From"];
                     //worksheet.Cell("A10").Style.Font.Bold = true;
-                    worksheet.Cell("F5").Value = poData.POID;
-                    worksheet.Cell("F6").Value = poData.PODate.ToShortDateString();
-                    worksheet.Cell("F7").Value = poData.Poitems[0].Offer_Number;
-                    worksheet.Cell("F8").Value = poData.Poitems[0].Offer_Date.Split(' ')[0];
-                    worksheet.Cell("F9").Value = poData.Poitems[0].Contact_Person;
+                    worksheet.Cell("F5").Value = poData.POID.ToString().Trim();
+                    worksheet.Cell("F6").Value = poData.PODate.ToShortDateString().Trim();
+                    worksheet.Cell("F7").Value = poData.Poitems[0].Offer_Number.Trim();
+                    worksheet.Cell("F8").Value = poData.Poitems[0].Offer_Date.Split(' ')[0].Trim();
+                    worksheet.Cell("F9").Value = poData.Poitems[0].Contact_Person.Trim();
                     worksheet.Cell("F5").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
                     worksheet.Cell("F6").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
                     worksheet.Cell("F7").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
@@ -2007,8 +2020,8 @@ namespace OrderManagementTool
                     worksheet.Cell("B13").Value = poData.LocationAddressInfo == null ? "" : poData.LocationAddressInfo.Address2;
                     worksheet.Cell("B14").Value = poData.LocationAddressInfo == null ? "" : poData.LocationAddressInfo.Address3;
                     worksheet.Cell("E10").Value = "Mobile No";
-                    worksheet.Cell("E11").Value = headersAndFooters["Remarks"]; 
-                    worksheet.Cell("E12").Value = "GST #"; 
+                    worksheet.Cell("E11").Value = headersAndFooters["Remarks"];
+                    worksheet.Cell("E12").Value = "GST #";
                     worksheet.Cell("E13").Value = "IEC #";
                     worksheet.Cell("E14").Value = "Project Code";
                     worksheet.Cell("E10").Style.Font.Bold = true;
@@ -2020,8 +2033,8 @@ namespace OrderManagementTool
                     worksheet.Cell("F10").Value = poData.Poitems[0].Contact_No;
                     worksheet.Cell("F10").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
 
-                    worksheet.Cell("F11").Value = poData.Remarks; 
-                    worksheet.Cell("F12").Value = headersAndFooters["GSTNo"]; 
+                    worksheet.Cell("F11").Value = poData.Remarks;
+                    worksheet.Cell("F12").Value = headersAndFooters["GSTNo"];
                     worksheet.Cell("F13").Value = headersAndFooters["IECNo"];
                     worksheet.Cell("F14").Value = poData.LocatioName;
 
@@ -2029,7 +2042,7 @@ namespace OrderManagementTool
                     worksheet.Cell("F11").Style.Font.Bold = true;
                     worksheet.Cell("F12").Style.Font.Bold = true;
                     worksheet.Cell("F13").Style.Font.Bold = true;
-                    
+
                     // var rangeMerged3 = worksheet.Range("A15:C15").Merge();
                     // worksheet.Cell("A15").Value = headersAndFooters["Materials"];
                     // worksheet.Cell("A15").Style.Font.Bold = true;
@@ -2059,7 +2072,7 @@ namespace OrderManagementTool
                         worksheet.Cell("E" + j).Value = poInfo.Unit_Price;
                         worksheet.Cell("F" + j).Value = poInfo.Total_Price;
                         total += poInfo.Total_Price;
-                        worksheet.Row(j).Height = (poInfo.Description.Length / 50) * 10;
+                        worksheet.Row(j).Height = (poInfo.Description.Length / 45) * 13;
                         j++;
                         i++;
                     }
@@ -2092,7 +2105,7 @@ namespace OrderManagementTool
                     worksheet.Cell("A" + j).Value = headersAndFooters["Terms"];
                     worksheet.Cell("A" + j).Style.Font.Bold = true;
                     j += 1;
-                   // int l = j + 5;
+                    // int l = j + 5;
                     //var rangeMerged102 = worksheet.Range("A" + j + ":F" + l).Merge();
                     var rangeMerged1101 = worksheet.Range("A" + j + ":F" + j).Merge();
                     worksheet.Cell("A" + j).Value = headersAndFooters["Terms1"];
