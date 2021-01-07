@@ -786,46 +786,67 @@ namespace OrderManagementTool
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            ////log.Info("Adding data to grid");
-            if (gridSelectedIndex >= 0)
+            try
             {
-                // bool itemPresent = false;
-                GridIndent value = new GridIndent();
-                value.ItemCode = cbx_itemcode.SelectedItem.ToString();
-                value.ItemCategoryName = cbx_itemcategoryname.SelectedItem.ToString();
-                value.ItemName = txt_item_name.Text;
-                value.Quantity = quantityEntered;
-                value.Technical_Specifications = txt_technical_description.Text.Trim();
-                value.Units = cbx_units.SelectedItem.ToString();
-                value.Remarks = txt_remarks.Text.Trim();
+                ////log.Info("Adding data to grid");
+                if (gridSelectedIndex >= 0)
+                {
+                    // bool itemPresent = false;
+                    GridIndent value = new GridIndent();
+                    value.ItemCode = cbx_itemcode.SelectedItem.ToString();
+                    value.ItemCategoryName = cbx_itemcategoryname.SelectedItem.ToString();
+                    value.ItemName = txt_item_name.Text;
+                    value.Quantity = quantityEntered;
+                    value.Technical_Specifications = txt_technical_description.Text.Trim();
+                    value.Units = cbx_units.SelectedItem.ToString();
+                    value.Remarks = txt_remarks.Text.Trim();
 
-                //foreach (var i in gridIndents)
-                //{
-                //    if (i.ItemName == value.ItemName && i.ItemCode == value.ItemCode && i.Description == value.Description && i.Technical_Specifications == value.Technical_Specifications && itemPresent == false)
-                //    {
-                //        itemPresent = true;
-                //    }
-                //}
-                //if (!itemPresent)
-                //{
-                var gridIndent = gridIndents[gridSelectedIndex];
-                gridIndent.ItemCode = cbx_itemcode.SelectedItem.ToString();
-                gridIndent.ItemCategoryName = cbx_itemcategoryname.SelectedItem.ToString();
-                gridIndent.Quantity = quantityEntered;
-                gridIndent.ItemName = txt_item_name.Text;
-                gridIndent.Technical_Specifications = txt_technical_description.Text.Trim();
-                gridIndent.Units = cbx_units.SelectedItem.ToString();
-                gridIndent.Remarks = txt_remarks.Text.Trim();
-                grid_indentdata.ItemsSource = null;
-                grid_indentdata.ItemsSource = gridIndents;
-                gridSelectedIndex = -1;
-                ClearFields();
-                // }
-                ////log.Info("Data added to grid");
+                    //foreach (var i in gridIndents)
+                    //{
+                    //    if (i.ItemName == value.ItemName && i.ItemCode == value.ItemCode && i.Description == value.Description && i.Technical_Specifications == value.Technical_Specifications && itemPresent == false)
+                    //    {
+                    //        itemPresent = true;
+                    //    }
+                    //}
+                    //if (!itemPresent)
+                    //{
+                    if (gridSelectedIndex > gridIndents.Count - 1)
+                    {
+
+                        MessageBox.Show("Please select a valid item in the Grid",
+                                "Order Management System",
+                                    MessageBoxButton.OK,
+                                        MessageBoxImage.Error);
+                    }
+                    else
+                    {
+                        var gridIndent = gridIndents[gridSelectedIndex];
+                        gridIndent.ItemCode = cbx_itemcode.SelectedItem.ToString();
+                        gridIndent.ItemCategoryName = cbx_itemcategoryname.SelectedItem.ToString();
+                        gridIndent.Quantity = quantityEntered;
+                        gridIndent.ItemName = txt_item_name.Text;
+                        gridIndent.Technical_Specifications = txt_technical_description.Text.Trim();
+                        gridIndent.Units = cbx_units.SelectedItem.ToString();
+                        gridIndent.Remarks = txt_remarks.Text.Trim();
+                        grid_indentdata.ItemsSource = null;
+                        grid_indentdata.ItemsSource = gridIndents;
+                        gridSelectedIndex = -1;
+                        ClearFields();
+                        // }
+                        ////log.Info("Data added to grid");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Item Already Present");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Item Already Present");
+                MessageBox.Show("An error occurred :" + ex.Message,
+                                  "Order Management System",
+                                      MessageBoxButton.OK,
+                                          MessageBoxImage.Error);
             }
             // }
         }
@@ -1715,7 +1736,9 @@ namespace OrderManagementTool
                                 gridIndent.Quantity = excelIndent.Quantity;
                                 gridIndent.Remarks = excelIndent.Remarks;
                                 gridIndent.Units = excelIndent.Units;
+                                gridIndent.Technical_Specifications = excelIndent.Technical_Specifications;
                                 gridIndent.Description = excelIndent.Description;
+                                gridIndent.Remarks = excelIndent.Remarks;
 
                                 bool itemPresent = false;
                                 foreach (var i in gridIndents)
