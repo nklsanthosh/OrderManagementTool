@@ -6,8 +6,8 @@ namespace OrderManagementTool.Models.Purchase_Order
 {
     public class ExportPO
     {
-        public int POID;
-        public int IndentID;
+        public long POID;
+        public long IndentID;
         public string Email;
         public string Remarks;
         public DateTime PODate;

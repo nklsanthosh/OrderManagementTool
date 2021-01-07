@@ -241,6 +241,7 @@ namespace OrderManagementTool
                                 poitem.Unit_Price = i.Unit_Price;
                                 poitem.GST_Value = i.GST_Value;
                                 poitems_4.Add(poitem);
+                                txt_GST.Text = i.GST_Value.ToString();
                             }
                         }
                         if (poitems_1.Count > 0)
@@ -1057,6 +1058,7 @@ namespace OrderManagementTool
                 poitems_4 = null;
                 poitems_4 = poitems_1;
                 btn_Approve.IsEnabled = true;
+                txt_GST.Text = poitems_4[0].GST_Value.ToString();
             }
             else
             {
@@ -1080,6 +1082,7 @@ namespace OrderManagementTool
                 poitems_4 = null;
                 poitems_4 = poitems_1;
                 btn_Approve.IsEnabled = true;
+                txt_GST.Text = poitems_4[0].GST_Value.ToString();
             }
             else
             {
@@ -1103,6 +1106,7 @@ namespace OrderManagementTool
                 poitems_4 = null;
                 poitems_4 = poitems_1;
                 btn_Approve.IsEnabled = true;
+                txt_GST.Text = poitems_4[0].GST_Value.ToString();
             }
             else
             {
@@ -1150,7 +1154,7 @@ namespace OrderManagementTool
         private void GeneratePO()
         {
             this.Cursor = Cursors.Wait;
-
+            indentNo = Convert.ToInt64(txt_indent_no.Text);
             Dictionary<string, string> _headers = GetHeaders();
             ExportPO poData = new ExportPO();
             List<Poitem> poItems = new List<Poitem>();
@@ -1159,12 +1163,13 @@ namespace OrderManagementTool
                                                 on loc.LocationCodeId equals ind.LocationCodeId
                                                 where ind.IndentId == indentNo
                                                 select loc).FirstOrDefault();
-            string locationName = (from loc in orderManagementContext.LocationCode
+            var locationDetails = (from loc in orderManagementContext.LocationCode
                                    join ind in orderManagementContext.IndentMaster
                                    on loc.LocationId equals ind.LocationCodeId
                                    where ind.IndentId == indentNo
-                                   select loc.LocationName).FirstOrDefault();
-            poData.IndentID = Convert.ToInt32(txt_indent_no.Text);
+                                   select loc).FirstOrDefault();
+            string locationName = locationDetails.LocationId + " - " + locationDetails.LocationName;
+            poData.IndentID = Convert.ToInt64(txt_indent_no.Text);
             poData.PODate = DateTime.Now;
             poData.POID = Convert.ToInt32(txt_PO_no.Text);
             poData.Remarks = txt_PO_Remarks.Text;
@@ -1950,7 +1955,7 @@ namespace OrderManagementTool
                     worksheet.Cell("A1").Value = worksheet.Cell("A1").Value + headersAndFooters["CompanyHeader"];
                     rangeMerged1.Value = headersAndFooters["CompanyAddressLine"];
                     rangeMerged2.Value = headersAndFooters["Header"];
-                   //worksheet.Cell("A4").Value = headersAndFooters["To"];
+                    //worksheet.Cell("A4").Value = headersAndFooters["To"];
                     var rangeTo = worksheet.Range("A4:D9").Merge();
                     rangeTo.Value = headersAndFooters["To"];
                     rangeTo.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
@@ -1968,7 +1973,7 @@ namespace OrderManagementTool
                     rangeInfo.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                     rangeInfo.Value = headersAndFooters["Info"];
                     rangeInfo.Style.Font.Bold = true;
-               
+
                     worksheet.Cell("B5").Value = null;
                     worksheet.Cell("B6").Value = null;
                     worksheet.Cell("B7").Value = null;
@@ -2019,9 +2024,9 @@ namespace OrderManagementTool
                     worksheet.Cell("F11").Style.Font.Bold = true;
                     worksheet.Cell("F12").Style.Font.Bold = true;
                     worksheet.Cell("F13").Style.Font.Bold = true;
-                   // var rangeMerged3 = worksheet.Range("A15:C15").Merge();
-                   // worksheet.Cell("A15").Value = headersAndFooters["Materials"];
-                   // worksheet.Cell("A15").Style.Font.Bold = true;
+                    // var rangeMerged3 = worksheet.Range("A15:C15").Merge();
+                    // worksheet.Cell("A15").Value = headersAndFooters["Materials"];
+                    // worksheet.Cell("A15").Style.Font.Bold = true;
                     worksheet.Cell("A15").Value = "S.No";
                     worksheet.Cell("B15").Value = "Description";
                     worksheet.Cell("C15").Value = "Qty";
@@ -2059,7 +2064,7 @@ namespace OrderManagementTool
                     j += 1;
                     decimal gst = 0;
                     decimal finalTotal = 0;
-                    if (txt_GST.Text !="")
+                    if (txt_GST.Text != "")
                     {
                         gst = Math.Round(total * (Convert.ToDecimal(txt_GST.Text) / 100));
                         worksheet.Cell("B" + j).Value = headersAndFooters["GST"] + " " + poData.Poitems[0].GST_Value + "%";
@@ -2074,16 +2079,16 @@ namespace OrderManagementTool
                     worksheet.Cell("F" + j).Value = Convert.ToString(finalTotal);
                     worksheet.Cell("F" + j).Style.Font.Bold = true;
                     j += 1;
-                    
-                    var rangeMerged101 = worksheet.Range("A" + j + ":F" +j).Merge();
+
+                    var rangeMerged101 = worksheet.Range("A" + j + ":F" + j).Merge();
                     worksheet.Cell("A" + j).Value = headersAndFooters["Terms"];
                     worksheet.Cell("A" + j).Style.Font.Bold = true;
                     j += 1;
                     int l = j + 5;
                     var rangeMerged102 = worksheet.Range("A" + j + ":F" + l).Merge();
-                    worksheet.Cell("A" + j).Value = headersAndFooters["Terms1"] + "\n" + headersAndFooters["Terms2"] +"\n" + headersAndFooters["Terms3"] + "\n" + headersAndFooters["Terms4"] + "\n" + headersAndFooters["Terms5"];
+                    worksheet.Cell("A" + j).Value = headersAndFooters["Terms1"] + "\n" + headersAndFooters["Terms2"] + "\n" + headersAndFooters["Terms3"] + "\n" + headersAndFooters["Terms4"] + "\n" + headersAndFooters["Terms5"];
                     rangeMerged102.Style.Alignment.Vertical = XLAlignmentVerticalValues.Top;
-                    j = l+1;
+                    j = l + 1;
                     var rangeMerged103 = worksheet.Range("A" + j + ":F" + j).Merge();
                     j += 1;
                     var rangeMerged104 = worksheet.Range("A" + j + ":F" + j).Merge();
