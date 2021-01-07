@@ -1168,7 +1168,7 @@ namespace OrderManagementTool
                                    on loc.LocationId equals ind.LocationCodeId
                                    where ind.IndentId == indentNo
                                    select loc).FirstOrDefault();
-            string locationName = locationDetails.LocationId + " - " + locationDetails.LocationName;
+            string locationName = locationDetails.LocationId.ToString().Trim() + " - " + locationDetails.LocationName.Trim();
             poData.IndentID = Convert.ToInt64(txt_indent_no.Text);
             poData.PODate = DateTime.Now;
             poData.POID = Convert.ToInt32(txt_PO_no.Text);
