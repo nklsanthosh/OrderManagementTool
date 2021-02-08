@@ -19,5 +19,6 @@ namespace OrderManagementTool.Models.Purchase_Order
         public double Unit_Price { get; set; }
         public decimal GST_Value { get; set; }
         public decimal Total_Price { get; set; }
+        public string HSN { get; set; }
     }
 }
