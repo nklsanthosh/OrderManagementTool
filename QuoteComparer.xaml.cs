@@ -159,6 +159,7 @@ namespace OrderManagementTool
                         p1.Contact_No = Convert.ToString(dataSet.Tables[0].Rows[counter]["Contact_Number"]);
                         p1.Contact_Person = Convert.ToString(dataSet.Tables[0].Rows[counter]["Contact_Person"]);
                         p1.GST_Value = Convert.ToDecimal(dataSet.Tables[0].Rows[counter]["GST_Value"]);
+                        p1.HSN = Convert.ToInt32(dataSet.Tables[0].Rows[counter]["HSN"]);
                         p1.Quantity = Convert.ToInt32(dataSet.Tables[0].Rows[counter]["Quantity"]);
                         p1.Q_No = Convert.ToInt32(dataSet.Tables[0].Rows[counter]["Q_No"]);
                         p1.Units = Convert.ToString(dataSet.Tables[0].Rows[counter]["Units"]);
@@ -188,6 +189,7 @@ namespace OrderManagementTool
                                 poitem.Units = i.Units;
                                 poitem.Total_Price = i.Total_Price;
                                 poitem.Unit_Price = i.Unit_Price;
+                                poitem.HSN = i.HSN;
                                 poitem.GST_Value = i.GST_Value;
                                 poitems_1.Add(poitem);
                             }
@@ -205,6 +207,7 @@ namespace OrderManagementTool
                                 poitem.Units = i.Units;
                                 poitem.Total_Price = i.Total_Price;
                                 poitem.Unit_Price = i.Unit_Price;
+                                poitem.HSN = i.HSN;
                                 poitem.GST_Value = i.GST_Value;
                                 poitems_2.Add(poitem);
                             }
@@ -222,6 +225,7 @@ namespace OrderManagementTool
                                 poitem.Units = i.Units;
                                 poitem.Total_Price = i.Total_Price;
                                 poitem.Unit_Price = i.Unit_Price;
+                                poitem.HSN = i.HSN;
                                 poitem.GST_Value = i.GST_Value;
                                 poitems_3.Add(poitem);
                             }
@@ -239,6 +243,7 @@ namespace OrderManagementTool
                                 poitem.Units = i.Units;
                                 poitem.Total_Price = i.Total_Price;
                                 poitem.Unit_Price = i.Unit_Price;
+                                poitem.HSN = i.HSN;
                                 poitem.GST_Value = i.GST_Value;
                                 poitems_4.Add(poitem);
                                 txt_GST.Text = i.GST_Value.ToString();
@@ -973,8 +978,9 @@ namespace OrderManagementTool
                                     poitem.Quantity = Convert.ToInt32(lst[8]);
                                     poitem.Units = lst[9];
                                     poitem.Unit_Price = Convert.ToDouble(lst[10]);
-                                    poitem.GST_Value = Convert.ToDecimal(lst[11]);
-                                    poitem.Total_Price = Convert.ToDecimal(lst[12]);
+                                    poitem.HSN = Convert.ToInt32(lst[11]);
+                                    poitem.GST_Value = Convert.ToDecimal(lst[12]);
+                                    poitem.Total_Price = Convert.ToDecimal(lst[13]);
 
                                     poitems.Add(poitem);
                                     // loadExcelIndent.ExcelIndents = lstGridIndent;
@@ -1286,6 +1292,7 @@ namespace OrderManagementTool
                             testCMD1.Parameters.Add(new SqlParameter("@Units", System.Data.SqlDbType.VarChar, 50) { Value = i.Units.Trim() });
                             testCMD1.Parameters.Add(new SqlParameter("@UnitPrice", System.Data.SqlDbType.Decimal, 50) { Value = i.Unit_Price });
                             testCMD1.Parameters.Add(new SqlParameter("@TotalPrice", System.Data.SqlDbType.Decimal, 50) { Value = i.Total_Price });
+                            testCMD1.Parameters.Add(new SqlParameter("@HSN", System.Data.SqlDbType.Decimal, 50) { Value = i.HSN });
                             testCMD1.Parameters.Add(new SqlParameter("@GST_Value", System.Data.SqlDbType.Decimal, 50) { Value = i.GST_Value });
                             testCMD1.Parameters.Add(new SqlParameter("@QuoteNo", System.Data.SqlDbType.Int, 50) { Value = 1 });
                             testCMD1.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
@@ -1312,6 +1319,7 @@ namespace OrderManagementTool
                             testCMD1.Parameters.Add(new SqlParameter("@UnitPrice", System.Data.SqlDbType.Decimal, 50) { Value = i.Unit_Price });
                             testCMD1.Parameters.Add(new SqlParameter("@TotalPrice", System.Data.SqlDbType.Decimal, 50) { Value = i.Total_Price });
                             testCMD1.Parameters.Add(new SqlParameter("@QuoteNo", System.Data.SqlDbType.Int, 50) { Value = 2 });
+                            testCMD1.Parameters.Add(new SqlParameter("@HSN", System.Data.SqlDbType.Decimal, 50) { Value = i.HSN });
                             testCMD1.Parameters.Add(new SqlParameter("@GST_Value", System.Data.SqlDbType.Decimal, 50) { Value = i.GST_Value });
                             testCMD1.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
 
@@ -1338,6 +1346,7 @@ namespace OrderManagementTool
                             testCMD1.Parameters.Add(new SqlParameter("@UnitPrice", System.Data.SqlDbType.Decimal, 50) { Value = i.Unit_Price });
                             testCMD1.Parameters.Add(new SqlParameter("@TotalPrice", System.Data.SqlDbType.Decimal, 50) { Value = i.Total_Price });
                             testCMD1.Parameters.Add(new SqlParameter("@QuoteNo", System.Data.SqlDbType.Int, 50) { Value = 3 });
+                            testCMD1.Parameters.Add(new SqlParameter("@HSN", System.Data.SqlDbType.Decimal, 50) { Value = i.HSN });
                             testCMD1.Parameters.Add(new SqlParameter("@GST_Value", System.Data.SqlDbType.Decimal, 50) { Value = i.GST_Value });
                             testCMD1.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
                             testCMD1.ExecuteNonQuery(); // read output value from @NewId 
@@ -1430,6 +1439,7 @@ namespace OrderManagementTool
                     htmlString.Append("<td>Qty</td>");
                     htmlString.Append("<td>Units</td>");
                     htmlString.Append("<td>Unit Price</td>");
+                    htmlString.Append("<td>HSN</td>");
                     htmlString.Append("<td>GST %</td>");
                     htmlString.Append("<td>Total Price</td>");
                     htmlString.Append("</tr>");
@@ -1450,6 +1460,7 @@ namespace OrderManagementTool
                             htmlString.Append("<td>" + poitems_1[k].Quantity + "</td>");
                             htmlString.Append("<td>" + poitems_1[k].Units + "</td>");
                             htmlString.Append("<td>" + poitems_1[k].Unit_Price + "</td>");
+                            htmlString.Append("<td>" + poitems_1[k].HSN + "</td>");
                             htmlString.Append("<td>" + poitems_1[k].GST_Value + "</td>");
                             htmlString.Append("<td>" + poitems_1[k].Total_Price + "</td>");
 
@@ -1481,6 +1492,7 @@ namespace OrderManagementTool
                     htmlString.Append("<td>Qty</td>");
                     htmlString.Append("<td>Units</td>");
                     htmlString.Append("<td>Unit Price</td>");
+                    htmlString.Append("<td>HSN</td>");
                     htmlString.Append("<td>GST %</td>");
                     htmlString.Append("<td>Total Price</td>");
                     htmlString.Append("</tr>");
@@ -1501,6 +1513,7 @@ namespace OrderManagementTool
                             htmlString.Append("<td>" + poitems_2[k].Quantity + "</td>");
                             htmlString.Append("<td>" + poitems_2[k].Units + "</td>");
                             htmlString.Append("<td>" + poitems_2[k].Unit_Price + "</td>");
+                            htmlString.Append("<td>" + poitems_2[k].HSN + "</td>");
                             htmlString.Append("<td>" + poitems_2[k].GST_Value + "</td>");
                             htmlString.Append("<td>" + poitems_2[k].Total_Price + "</td>");
 
@@ -1534,6 +1547,7 @@ namespace OrderManagementTool
                     htmlString.Append("<td>Qty</td>");
                     htmlString.Append("<td>Units</td>");
                     htmlString.Append("<td>Unit Price</td>");
+                    htmlString.Append("<td>HSN</td>");
                     htmlString.Append("<td>GST %</td>");
                     htmlString.Append("<td>Total Price</td>");
                     htmlString.Append("</tr>");
@@ -1554,6 +1568,7 @@ namespace OrderManagementTool
                             htmlString.Append("<td>" + poitems_3[k].Quantity + "</td>");
                             htmlString.Append("<td>" + poitems_3[k].Units + "</td>");
                             htmlString.Append("<td>" + poitems_3[k].Unit_Price + "</td>");
+                            htmlString.Append("<td>" + poitems_3[k].HSN + "</td>");
                             htmlString.Append("<td>" + poitems_3[k].GST_Value + "</td>");
                             htmlString.Append("<td>" + poitems_3[k].Total_Price + "</td>");
 
@@ -1587,6 +1602,7 @@ namespace OrderManagementTool
                     htmlString.Append("<td>Qty</td>");
                     htmlString.Append("<td>Units</td>");
                     htmlString.Append("<td>Unit Price</td>");
+                    htmlString.Append("<td>HSN</td>");
                     htmlString.Append("<td>GST %</td>");
                     htmlString.Append("<td>Total Price</td>");
                     htmlString.Append("</tr>");
@@ -1607,6 +1623,7 @@ namespace OrderManagementTool
                             htmlString.Append("<td>" + poitems_4[k].Quantity + "</td>");
                             htmlString.Append("<td>" + poitems_4[k].Units + "</td>");
                             htmlString.Append("<td>" + poitems_4[k].Unit_Price + "</td>");
+                            htmlString.Append("<td>" + poitems_4[k].HSN + "</td>");
                             htmlString.Append("<td>" + poitems_4[k].GST_Value + "</td>");
                             htmlString.Append("<td>" + poitems_4[k].Total_Price + "</td>");
 
@@ -1740,6 +1757,7 @@ namespace OrderManagementTool
                             testCMD1.Parameters.Add(new SqlParameter("@Units", System.Data.SqlDbType.VarChar, 50) { Value = i.Units.Trim() });
                             testCMD1.Parameters.Add(new SqlParameter("@UnitPrice", System.Data.SqlDbType.Decimal, 50) { Value = i.Unit_Price });
                             testCMD1.Parameters.Add(new SqlParameter("@TotalPrice", System.Data.SqlDbType.Decimal, 50) { Value = i.Total_Price });
+                            testCMD1.Parameters.Add(new SqlParameter("@HSN", System.Data.SqlDbType.Decimal, 50) { Value = i.HSN });
                             testCMD1.Parameters.Add(new SqlParameter("@GST_Value", System.Data.SqlDbType.Decimal, 50) { Value = i.GST_Value });
                             testCMD1.Parameters.Add(new SqlParameter("@QuoteNo", System.Data.SqlDbType.Int, 50) { Value = 4 });
                             testCMD1.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.BigInt, 50) { Value = _login.EmployeeID });
