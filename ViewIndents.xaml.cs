@@ -119,7 +119,7 @@ namespace OrderManagementTool
                         viewIndent.Description = Convert.ToString(dataSet.Tables[0].Rows[counter]["Description"]);
                         viewIndent.Technical_Specifications = Convert.ToString(dataSet.Tables[0].Rows[counter]["TechnicalSpecification"]);
                         viewIndent.Quantity = Convert.ToInt32(dataSet.Tables[0].Rows[counter]["Quantity"]);
-                        // viewIndent.Remarks = Convert.ToString(dataSet.Tables[0].Rows[counter]["Item Remarks"]);
+                        viewIndent.Remarks = Convert.ToString(dataSet.Tables[0].Rows[counter]["Item Remarks"]);
 
                         viewIndent.Email = Convert.ToString(dataSet.Tables[0].Rows[counter]["Email"]);
 
