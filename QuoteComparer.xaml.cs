@@ -654,6 +654,7 @@ namespace OrderManagementTool
                         testCMD.Parameters.Add(new SqlParameter("@QuoteNo", System.Data.SqlDbType.Int, 300) { Value = 1 });
                         testCMD.Parameters.Add(new SqlParameter("@QuotationFileName", System.Data.SqlDbType.VarChar, 300) { Value = fileName });
                         testCMD.Parameters.Add(new SqlParameter("@IndentID", System.Data.SqlDbType.VarChar, 300) { Value = txt_indent_no.Text.ToString() });
+                        testCMD.Parameters.Add(new SqlParameter("@PONo", System.Data.SqlDbType.VarChar, 300) { Value = txt_PO_no.Text.ToString() });
                         testCMD.Parameters.Add(new SqlParameter("@FileContent", System.Data.SqlDbType.VarChar) { Value = file });
                         testCMD.Parameters.Add(new SqlParameter("@CreatedBy", System.Data.SqlDbType.Int, 300) { Value = _login.EmployeeID });
                         testCMD.Parameters.Add(new SqlParameter("@CreatedDate", System.Data.SqlDbType.DateTime, 300) { Value = DateTime.Now });
@@ -2115,28 +2116,33 @@ namespace OrderManagementTool
                     worksheet.Cell("G" + j).Style.Font.Bold = true;
                     j += 1;
 
-                    var rangeMerged101 = worksheet.Range("A" + j + ":F" + j).Merge();
+                    var rangeMerged101 = worksheet.Range("A" + j + ":G" + j).Merge();
                     worksheet.Cell("A" + j).Value = headersAndFooters["Terms"];
                     worksheet.Cell("A" + j).Style.Font.Bold = true;
+                    int k1 = j;
                     j += 1;
+                    int m = j + 5;
                     // int l = j + 5;
                     //var rangeMerged102 = worksheet.Range("A" + j + ":F" + l).Merge();
-                    var rangeMerged1101 = worksheet.Range("A" + j + ":G" + j).Merge();
-                    worksheet.Cell("A" + j).Value = headersAndFooters["Terms1"];
-                    j += 1;
-                    var rangeMerged1102 = worksheet.Range("A" + j + ":G" + j).Merge();
-                    worksheet.Cell("A" + j).Value = headersAndFooters["Terms2"];
-                    j += 1;
-                    var rangeMerged1103 = worksheet.Range("A" + j + ":G" + j).Merge();
-                    worksheet.Cell("A" + j).Value = headersAndFooters["Terms3"];
-                    j += 1;
-                    var rangeMerged1104 = worksheet.Range("A" + j + ":G" + j).Merge();
-                    worksheet.Cell("A" + j).Value = headersAndFooters["Terms4"];
-                    j += 1;
-                    var rangeMerged1105 = worksheet.Range("A" + j + ":G" + j).Merge();
-                    worksheet.Cell("A" + j).Value = headersAndFooters["Terms5"];
+                    var rangeMerged1101 = worksheet.Range("A" + j + ":G" + m).Merge();
+                    worksheet.Cell("A" + j).Value = headersAndFooters["Terms1"] +"\n" + headersAndFooters["Terms2"]
+                        + "\n" + headersAndFooters["Terms3"] + "\n" + headersAndFooters["Terms4"] + "\n" + headersAndFooters["Terms5"];
+                    worksheet.Cell("A" + j).Style.Alignment.Vertical = XLAlignmentVerticalValues.Top;
+                    j += 5;
+                    //var rangeMerged1102 = worksheet.Range("A" + j + ":G" + j).Merge();
+                    //worksheet.Cell("A" + j).Value = headersAndFooters["Terms2"];
+                    //j += 1;
+                    //var rangeMerged1103 = worksheet.Range("A" + j + ":G" + j).Merge();
+                    //worksheet.Cell("A" + j).Value = headersAndFooters["Terms3"];
+                    //j += 1;
+                    //var rangeMerged1104 = worksheet.Range("A" + j + ":G" + j).Merge();
+                    //worksheet.Cell("A" + j).Value = headersAndFooters["Terms4"];
+                    //j += 1;
+                    //var rangeMerged1105 = worksheet.Range("A" + j + ":G" + j).Merge();
+                    //worksheet.Cell("A" + j).Value = headersAndFooters["Terms5"];
                     //+"\n" + headersAndFooters["Terms3"] + "\n" + headersAndFooters["Terms4"] + "\n" + headersAndFooters["Terms5"];
                     //rangeMerged102.Style.Alignment.Vertical = XLAlignmentVerticalValues.Top;
+                    int l1 = j;
                     j += 1;
                     var rangeMerged103 = worksheet.Range("A" + j + ":G" + j).Merge();
                     j += 1;
@@ -2203,6 +2209,15 @@ namespace OrderManagementTool
                     rangeRows.Style.Border.TopBorder = XLBorderStyleValues.Thin;
                     rangeRows.Style.Border.LeftBorder = XLBorderStyleValues.Thin;
                     rangeRows.Style.Border.RightBorder = XLBorderStyleValues.Thin;
+
+                    var rangeRowsNoBorder = worksheet.Range("A"+k1 + ":G" + l1);
+
+                    rangeRowsNoBorder.Style.Border.BottomBorder = XLBorderStyleValues.None;
+                    rangeRowsNoBorder.Style.Border.TopBorder = XLBorderStyleValues.None;
+                    rangeRowsNoBorder.Style.Border.LeftBorder = XLBorderStyleValues.Thin;
+                    rangeRowsNoBorder.Style.Border.RightBorder = XLBorderStyleValues.Thin;
+
+                    
                     worksheet.Columns(1, 10).AdjustToContents();
                     worksheet.Column(2).Width = 45;
 
