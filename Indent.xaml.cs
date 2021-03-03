@@ -364,6 +364,7 @@ namespace OrderManagementTool
                         cbx_units.SelectedItem = rowview.Units;
                         txt_description.Text = rowview.Description;
                         txt_technical_description.Text = rowview.Technical_Specifications;
+                        txt_remarks.Text = rowview.Remarks;
                     }
                 }
             }
